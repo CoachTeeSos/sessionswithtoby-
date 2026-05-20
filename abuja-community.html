@@ -364,6 +364,79 @@
   .cta .btn-primary { font-size: 1.15rem; padding: 22px 48px; }
   .cta-note { margin-top: 24px; font-size: 0.8rem; color: var(--muted); }
 
+  /* ── EMAIL CAPTURE ── */
+  .email-capture {
+    padding: 80px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .email-inner { max-width: 520px; margin: 0 auto; }
+  .email-header { margin-bottom: 36px; }
+  .email-header h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .email-header p { font-size: 0.95rem; color: var(--muted); }
+  .email-form { display: flex; flex-direction: column; gap: 14px; }
+  .form-row {
+    display: flex; gap: 12px;
+  }
+  .form-row input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-row input::placeholder { color: var(--muted); }
+  .form-row input:focus { border-color: var(--accent); }
+
+  /* ── THANK YOU MODAL ── */
+  .thankyou-overlay {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(6, 6, 10, 0.9);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 32px;
+  }
+  .thankyou-overlay.active { display: flex; }
+  .thankyou-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 40px;
+    max-width: 480px;
+    animation: fadeInUp 0.4s ease;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .thankyou-box .ty-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+  .thankyou-box h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .thankyou-box h2 span {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .thankyou-box p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+  .thankyou-box .btn-primary { text-transform: none; font-weight: 700; }
+
   /* ── FOOTER ── */
   footer {
     padding: 32px;
@@ -382,6 +455,7 @@
     .btn-primary, .btn-outline { text-align: center; }
     .code-card { flex-direction: column; gap: 10px; }
     .manifesto-quote { font-size: 1.1rem; padding: 24px; }
+    .form-row { flex-direction: column; }
   }
 </style>
 </head>
@@ -548,6 +622,27 @@
   </div>
 </section>
 
+<!-- EMAIL CAPTURE -->
+<section class="email-capture">
+  <div class="email-inner">
+    <div class="email-header">
+      <h2>Stay in the Loop</h2>
+      <p>Drop your name and email. We'll reach you when something's happening.</p>
+    </div>
+    <form class="email-form" action="https://formsubmit.co/prosperolumotobi@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Abuja Music Collective Signup">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="">
+      <div class="form-row">
+        <input type="text" name="Name" placeholder="Your name" required>
+        <input type="email" name="Email" placeholder="Your email" required>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer;">Count Me In</button>
+    </form>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta">
   <div class="cta-inner">
@@ -567,6 +662,34 @@
 <footer>
   <p>Abuja Music Collective · <a href="https://chat.whatsapp.com/L0Ly05VRQm50Y9d3C4XFVj">Join the collective</a></p>
 </footer>
+
+<!-- THANK YOU MODAL -->
+<div class="thankyou-overlay" id="thankYouModal">
+  <div class="thankyou-box">
+    <span class="ty-icon">🎵</span>
+    <h2>Thank you, <span id="tyName"></span>!</h2>
+    <p>You're on the list. We'll reach you when something's happening in the collective. Keep your eyes open.</p>
+    <a href="https://chat.whatsapp.com/L0Ly05VRQm50Y9d3C4XFVj" class="btn-primary" target="_blank" rel="noopener">Join the WhatsApp Group →</a>
+  </div>
+</div>
+
+<script>
+  // Handle form submission — show thank you with their name
+  document.querySelector('.email-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = this.querySelector('input[name="Name"]').value.trim() || 'Maverick';
+    document.getElementById('tyName').textContent = name;
+    document.getElementById('thankYouModal').classList.add('active');
+    // Submit the form data in the background
+    var formData = new FormData(this);
+    fetch(this.action, { method: 'POST', body: formData, mode: 'no-cors' });
+  });
+
+  // Close modal on click outside
+  document.getElementById('thankYouModal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+</script>
 
 </body>
 </html>
