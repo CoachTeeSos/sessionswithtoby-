@@ -295,6 +295,49 @@
   }
   .manifesto-quote .gold { color: var(--gold); }
 
+  /* ── SOCIAL PROOF ── */
+  .social-proof {
+    padding: 80px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sp-inner { max-width: 900px; margin: 0 auto; }
+  .sp-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .sp-inner h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .sp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .sp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.25s;
+  }
+  .sp-card:hover {
+    border-color: var(--accent);
+    background: var(--surface2);
+    transform: translateY(-2px);
+  }
+  .sp-stars { color: #fbbf24; margin-bottom: 14px; font-size: 0.85rem; letter-spacing: 2px; }
+  .sp-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 16px; }
+  .sp-author { font-weight: 700; font-size: 0.82rem; color: var(--text); }
+
   /* ── CODE ── */
   .code {
     padding: 100px 32px;
@@ -571,6 +614,36 @@
     </p>
     <div class="manifesto-quote">
       🎵 Here, you will become. It is <span class="gold">INEVITABLE</span>. 🎵
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="sp-inner">
+    <div class="sp-label">What People Are Saying</div>
+    <h2>Don't Take Our Word For It</h2>
+    <div class="sp-grid">
+      <div class="sp-card">
+        <div class="sp-stars">★★★★★</div>
+        <p>"His wizardry and unorthodox approach to teaching has taken my vocal journey to a whole new level! 🚀 I'd give him a 10-star rating if I could."</p>
+        <div class="sp-author">Naomi Nelson</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-stars">★★★★★</div>
+        <p>"Toby Wina is a professional vocal/music coach. The best you might ever meet. His approach to teaching music is unique and effective. Every moment spent with him is gold."</p>
+        <div class="sp-author">David Ben</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-stars">★★★★★</div>
+        <p>"A great and thoughtful leader, teacher, and mentor. One of the most selfless coach I've worked with."</p>
+        <div class="sp-author">Opeyemi Badmus</div>
+      </div>
+      <div class="sp-card">
+        <div class="sp-stars">★★★★★</div>
+        <p>"Very intentional music and life coach.... I highly recommend."</p>
+        <div class="sp-author">Ukwandu Destiny</div>
+      </div>
     </div>
   </div>
 </section>
