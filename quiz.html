@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Singer Are You? | Sessions with Toby</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#08080c;--surface:#101018;--border:#1e1e2e;--text:#e8e8f0;--muted:#7878a0;--accent:#a78bfa;--accent-glow:rgba(167,139,250,0.12);--gradient:linear-gradient(135deg,#a78bfa,#818cf8)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh}
+.container{max-width:680px;margin:0 auto;padding:80px 24px 60px}
+.brand{text-align:center;margin-bottom:48px}
+.brand .logo{font-weight:800;font-size:1rem;margin-bottom:24px}
+.brand .logo span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:900;line-height:1.15;letter-spacing:-.03em;margin-bottom:12px}
+.brand p{color:var(--muted);font-size:1rem;max-width:480px;margin:0 auto}
+.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 32px;margin-bottom:24px}
+.quiz-progress{display:flex;gap:6px;margin-bottom:32px}
+.quiz-progress .dot{flex:1;height:4px;border-radius:4px;background:var(--border);transition:background .3s}
+.quiz-progress .dot.active{background:var(--accent)}
+.quiz-step{display:none}
+.quiz-step.active{display:block;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.quiz-step h2{font-size:1.15rem;font-weight:700;margin-bottom:8px;line-height:1.4}
+.quiz-step .subtitle{color:var(--muted);font-size:.88rem;margin-bottom:28px}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{display:block;padding:16px 20px;background:var(--bg);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all .2s;font-size:.9rem;line-height:1.5;color:var(--text)}
+.option:hover{border-color:var(--accent);background:rgba(167,139,250,.06)}
+.option input{display:none}
+.option.selected{border-color:var(--accent);background:rgba(167,139,250,.1)}
+.email-step{display:none;text-align:center}
+.email-step.active{display:block;animation:fadeIn .4s ease}
+.email-step .result-icon{font-size:3rem;margin-bottom:16px}
+.email-step h2{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.email-step .result-type{display:inline-block;background:var(--accent-glow);color:var(--accent);padding:6px 16px;border-radius:100px;font-size:.8rem;font-weight:700;margin-bottom:16px}
+.email-step .result-desc{color:var(--muted);font-size:.92rem;margin-bottom:28px;line-height:1.7}
+.email-step input[type="email"]{width:100%;padding:14px 18px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:1rem;font-family:inherit;margin-bottom:12px;outline:none;transition:border-color .2s}
+.email-step input[type="email"]:focus{border-color:var(--accent)}
+.email-step .btn{display:block;width:100%;background:var(--gradient);color:#fff;padding:14px;border-radius:12px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;transition:all .2s}
+.email-step .btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(167,139,250,.3)}
+.email-step .privacy{color:var(--muted);font-size:.75rem;margin-top:12px}
+.thank-you{display:none;text-align:center;padding:60px 0}
+.thank-you.active{display:block;animation:fadeIn .4s ease}
+.thank-you .icon{font-size:3rem;margin-bottom:16px}
+.thank-you h2{font-size:1.4rem;font-weight:800;margin-bottom:12px}
+.thank-you p{color:var(--muted);font-size:.92rem;margin-bottom:24px}
+.thank-you .btn-outline{display:inline-block;padding:12px 28px;border:1px solid var(--border);border-radius:12px;color:var(--text);text-decoration:none;font-weight:600;font-size:.9rem;transition:all .2s}
+.thank-you .btn-outline:hover{border-color:var(--accent)}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:.82rem;cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:inherit;padding:0;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+@media(max-width:640px){.container{padding:60px 16px 40px}.quiz-card{padding:28px 20px}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="brand">
+<div class="logo">Sessions with <span>Toby</span></div>
+<h1>Which Singer Are You?</h1>
+<p>Take this 30-second quiz. Find out what's actually holding you back.</p>
+</div>
+<div class="quiz-progress" id="progressBar"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+<div class="quiz-card">
+<div class="quiz-step active" data-step="1">
+<h2>What best describes where you are right now?</h2>
+<p class="subtitle">Be honest. This stays between us.</p>
+<div class="options">
+<label class="option"><input type="radio" name="q1" value="gigs"> Skillful musician with few to no gigs... 😭</label>
+<label class="option"><input type="radio" name="q1" value="record"> Singing for years without a single record</label>
+<label class="option"><input type="radio" name="q1" value="choir"> Choir member, but never the Lead Singer</label>
+<label class="option"><input type="radio" name="q1" value="md"> MD struggling to hold the team together (Vocally or managerially)</label>
+</div>
+</div>
+<div class="quiz-step" data-step="2">
+<button class="back-btn" onclick="goBack()">&larr; Back</button>
+<h2>What's your biggest frustration?</h2>
+<p class="subtitle">The thing that keeps you up at night.</p>
+<div class="options">
+<label class="option"><input type="radio" name="q2" value="execute"> Ever learning, never executing</label>
+<label class="option"><input type="radio" name="q2" value="imposter"> Imposter syndrome: "Maybe I'm just not ready yet."</label>
+<label class="option"><input type="radio" name="q2" value="technique"> "I just want to refine my technique; I'm not looking for the stage yet." (A huge lie, but you're still welcome!)</label>
+<label class="option"><input type="radio" name="q2" value="stuck"> I feel stuck. I know I'm better than this.</label>
+</div>
+</div>
+<div class="quiz-step" data-step="3">
+<button class="back-btn" onclick="goBack()">&larr; Back</button>
+<h2>What would change everything for you?</h2>
+<p class="subtitle">If you could fix one thing right now.</p>
+<div class="options">
+<label class="option"><input type="radio" name="q3" value="confidence"> Sing with confidence — no more fear of high notes</label>
+<label class="option"><input type="radio" name="q3" value="gigs"> Start getting booked — gigs, features, opportunities</label>
+<label class="option"><input type="radio" name="q3" value="sound"> Finally sound like *me* — not a copy of someone else</label>
+<label class="option"><input type="radio" name="q3" value="lead"> Step into leadership — lead vocals, lead worship, lead the room</label>
+</div>
+</div>
+<div class="quiz-step" data-step="4">
+<button class="back-btn" onclick="goBack()">&larr; Back</button>
+<h2>How long have you been feeling this way?</h2>
+<p class="subtitle">No judgment. Just context.</p>
+<div class="options">
+<label class="option"><input type="radio" name="q4" value="months"> A few months — I'm just starting to realize the problem</label>
+<label class="option"><input type="radio" name="q4" value="year"> About a year — I've been trying to figure it out alone</label>
+<label class="option"><input type="radio" name="q4" value="years"> Multiple years — I should've done this sooner</label>
+<label class="option"><input type="radio" name="q4" value="decade"> So long I've almost given up on it</label>
+</div>
+</div>
+<div class="email-step" data-step="email">
+<div class="result-icon">&#x1F3AF;</div>
+<span class="result-type" id="resultType">The Hidden Gem</span>
+<h2>Here's what I see.</h2>
+<p class="result-desc" id="resultDesc"></p>
+<input type="email" id="emailInput" placeholder="Enter your email to get your full result" required>
+<button class="btn" onclick="submitEmail()">Send Me My Result &rarr;</button>
+<p class="privacy">No spam. Unsubscribe anytime.</p>
+</div>
+</div>
+<div class="thank-you" id="thankYou">
+<div class="icon">&#x2705;</div>
+<h2>Check your inbox.</h2>
+<p>Your result is on its way. Keep an eye on your email.</p>
+<a href="https://coachteesos.github.io/coachtoby-site/" class="btn-outline">&larr; Back to Sessions with Toby</a>
+</div>
+</div>
+<script>
+var R={
+gigs:{t:"The Skilled But Unseen",d:"You can sing. People who hear you know it. But the gigs aren't coming. The problem isn't your voice — it's your positioning, your network, and your stage confidence."},
+record:{t:"The Bedroom Singer",d:"You've been singing for years but have nothing to show for it. You need structure, accountability, and someone who pushes you to actually release."},
+choir:{t:"The Background Voice",d:"You've been singing in choirs for years but never step to the front. You have the range. What you don't have is the confidence and technique to own a lead."},
+md:{t:"The Reluctant Leader",d:"You're holding the team together — vocally or managerially — but you're burning out. You need to develop your own voice while leading others."},
+execute:{t:"The Eternal Learner",d:"You consume every tutorial, every course, every tip. But you never execute. The problem isn't knowledge — it's the gap between knowing and doing."},
+imposter:{t:"The Imposter",d:"You keep telling yourself you're not ready. But you've been 'not ready' for years. The truth? You're ready. You just need someone to see it and prove it."},
+technique:{t:"The Stage-Shy Singer",d:"You say you just want to refine your technique. But deep down, you want the stage. Stop hiding behind 'practice' and start preparing."},
+stuck:{t:"The Frustrated Talent",d:"You know you're better than where you are. Something's holding you back — technique, confidence, direction."},
+confidence:{t:"The Fearful Singer",d:"High notes scare you. Performing scares you. Your voice has so much more to give, but fear is caging it."},
+sound:{t:"The Copycat",d:"You sound like your idols — but not like yourself. Your signature voice is in there. We just need to excavate it."},
+lead:{t:"The Future Lead",d:"You were made to lead — vocally and otherwise. But leading vocals is a different skill from singing."},
+months:{t:"The New Awakening",d:"You just realized something needs to change. That's good. Most people never get here. Now act on it."},
+year:{t:"The Tired Grinder",d:"A year of trying to figure it out alone. That's enough. Now get the guidance that shortcuts the next 3 years."},
+years:{t:"The Long Waiter",d:"Multiple years of feeling stuck. You should've done this sooner — but you're here now. Let's make up for lost time."},
+decade:{t:"The Almost-Given-Up",d:"You've been carrying this for so long you've almost accepted it. But you're still here. It's not too late."}
+};
+var A={},cs=1,ts=4;
+document.querySelectorAll('.option input').forEach(function(el){
+el.addEventListener('change',function(){
+var s=this.closest('.quiz-step');
+s.querySelectorAll('.option').forEach(function(o){o.classList.remove('selected')});
+this.closest('.option').classList.add('selected');
+A[this.name]=this.value;
+setTimeout(function(){var n=parseInt(s.dataset.step);if(n<ts)g(n+1);else se();},400);
+});
+});
+function g(n){
+document.querySelectorAll('.quiz-step').forEach(function(s){s.classList.remove('active')});
+document.querySelector('[data-step="'+n+'"]').classList.add('active');cs=n;
+document.querySelectorAll('.quiz-progress .dot').forEach(function(d,i){d.classList.toggle('active',i<n)});
+}
+function goBack(){if(cs>1)g(cs-1);}
+function se(){
+document.querySelectorAll('.quiz-step').forEach(function(s){s.classList.remove('active')});
+document.querySelector('[data-step="email"]').classList.add('active');
+var k=A.q1||A.q2||'stuck',r=R[k]||R.stuck;
+document.getElementById('resultType').textContent=r.t;
+document.getElementById('resultDesc').textContent=r.d;
+document.querySelectorAll('.quiz-progress .dot').forEach(function(d){d.classList.add('active')});
+}
+function submitEmail(){
+var e=document.getElementById('emailInput').value;
+if(!e||e.indexOf('@')===-1){alert('Please enter a valid email.');return;}
+var f=document.createElement('form');f.method='POST';f.action='https://formsubmit.co/prosperolumotobi@gmail.com';
+var h={_subject:'New Quiz Lead',_captcha:'false',Name:'Quiz Lead',Email:e,Interest:'Vocal Coaching',Source:'Quiz',Status:'New',Notes:'Result: '+document.getElementById('resultType').textContent};
+Object.keys(h).forEach(function(k){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=h[k];f.appendChild(i);});
+document.body.appendChild(f);f.submit();
+document.querySelector('.quiz-card').style.display='none';
+document.getElementById('thankYou').classList.add('active');
+document.getElementById('progressBar').style.display='none';
+}
+</script>
+</body>
+</html>
