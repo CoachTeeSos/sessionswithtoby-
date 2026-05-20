@@ -142,6 +142,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 <p style="color:var(--accent);font-size:.85rem;font-weight:600;margin-bottom:20px;">&#x1F4E7; Enter your name and email to get your free guide.</p>
 <input type="text" id="nameInput" placeholder="Your first name" required>
 <input type="email" id="emailInput" placeholder="Your email address" required>
+<input type="text" id="locationInput" placeholder="Where are you based? (city or country)" required>
 <button class="btn" onclick="submitForm()">Get My Free Guide &rarr;</button>
 <p class="privacy">No spam. Unsubscribe anytime.</p>
 </div>
@@ -216,19 +217,21 @@ document.querySelectorAll('.quiz-progress .dot').forEach(function(d){d.classList
 function submitForm(){
 var name=document.getElementById('nameInput').value.trim();
 var email=document.getElementById('emailInput').value.trim();
+var location=document.getElementById('locationInput').value.trim();
 if(!name){alert('Please enter your name.');return;}
 if(!email||email.indexOf('@')===-1){alert('Please enter a valid email.');return;}
+if(!location){alert('Please enter your location.');return;}
 
 var k=A.q1||A.q2||'stuck';
 
 // Submit lead data via AJAX
 var leadData=new URLSearchParams();
-var h={_subject:'Quiz Lead: '+name+' ('+R[k].t+')',_captcha:'false',Name:name,Email:email,Interest:'Vocal Coaching',Source:'Quiz',Status:'New',Notes:'Result: '+R[k].t};
+var h={_subject:'Quiz Lead: '+name+' ('+R[k].t+')',_captcha:'false',Name:name,Email:email,Location:location,Interest:'Vocal Coaching',Source:'Quiz',Status:'New',Notes:'Result: '+R[k].t};
 Object.keys(h).forEach(function(ky){leadData.append(ky,h[ky]);});
 fetch('https://formsubmit.co/prosperolumotobi@gmail.com',{method:'POST',body:leadData,headers:{'Content-Type':'application/x-www-form-urlencoded'}}).catch(function(){});
 
 // Build WhatsApp message
-var msg=encodeURIComponent("Hi Toby! I just completed the 'Which Singer Are You' quiz. My name is "+name+" and my result was: "+R[k].t+". I'd like to get my free guide, please!");
+var msg=encodeURIComponent("Hi Toby! I just completed the 'Which Singer Are You' quiz. My name is "+name+", I'm based in "+location+", and my result was: "+R[k].t+". I'd like to get my free guide, please!");
 var waLink="https://wa.me/2349160106084?text="+msg;
 
 // Set WhatsApp button
