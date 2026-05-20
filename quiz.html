@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Which Singer Are You? | Sessions with Toby</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -37,7 +36,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 .email-step h2{font-size:1.4rem;font-weight:800;margin-bottom:8px}
 .email-step .result-type{display:inline-block;background:var(--accent-glow);color:var(--accent);padding:6px 16px;border-radius:100px;font-size:.8rem;font-weight:700;margin-bottom:16px}
 .email-step .result-desc{color:var(--muted);font-size:.92rem;margin-bottom:28px;line-height:1.7}
-.email-step input[type="text"],.email-step input[type="email"]{width:100%;padding:14px 18px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:1rem;font-family:inherit;margin-bottom:12px;outline:none;transition:border-color .2s}
+.email-step input[type="text"],.email-step input[type="tel"]{width:100%;padding:14px 18px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:1rem;font-family:inherit;margin-bottom:12px;outline:none;transition:border-color .2s}
 .email-step input:focus{border-color:var(--accent)}
 .email-step .btn{display:block;width:100%;background:var(--gradient);color:#fff;padding:14px;border-radius:12px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;transition:all .2s}
 .email-step .btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(167,139,250,.3)}
@@ -138,19 +137,18 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 <span class="result-type" id="resultType">The Hidden Gem</span>
 <h2>Here's what I see.</h2>
 <p class="result-desc" id="resultDesc"></p>
-<p style="color:var(--accent);font-size:.85rem;font-weight:600;margin-bottom:20px;">&#x1F4E7; Enter your name and email to receive your personalized guide (PDF).</p>
+<p style="color:var(--accent);font-size:.85rem;font-weight:600;margin-bottom:20px;">&#x1F4E7; Enter your name and email. Your guide will be sent to your WhatsApp.</p>
 <input type="text" id="nameInput" placeholder="Your first name" required>
-<input type="email" id="emailInput" placeholder="Your email address" required>
+<input type="tel" id="whatsappInput" placeholder="Your WhatsApp number (e.g. +234 916 010 6084)" required>
 <button class="btn" onclick="submitEmail()">Send Me My Guide &rarr;</button>
 <p class="privacy">No spam. Unsubscribe anytime.</p>
 </div>
 </div>
 <div class="thank-you" id="thankYou">
 <div class="icon">&#x1F4DC;</div>
-<h2>Your guide is ready, <span id="thankYouName"></span>.</h2>
-<p>Download your personalized PDF below.</p>
-<a href="#" class="btn-primary" id="downloadBtn" download="my-singing-guide.pdf">Download My Guide (PDF)</a>
-<br><br>
+<h2>Check your WhatsApp, <span id="thankYouName"></span>.</h2>
+<p>Your personalized guide is on its way. Keep an eye on your messages.</p>
+<br>
 <div id="communitySection" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:20px;text-align:left;">
 <p style="color:var(--accent);font-weight:700;font-size:1rem;margin-bottom:8px;">&#x1F3A4; The Singers' Community</p>
 <p id="communityDesc" style="color:var(--muted);font-size:.88rem;margin-bottom:16px;"></p>
@@ -212,154 +210,17 @@ document.getElementById('resultDesc').textContent=r.d;
 document.querySelectorAll('.quiz-progress .dot').forEach(function(d){d.classList.add('active')});
 }
 
-function generatePDF(name,resultKey){
-var r=R[resultKey]||R.stuck;
-var doc=new jsPDF();
-var pageWidth=doc.internal.pageSize.getWidth();
-var margin=20;
-var y=25;
-
-// Background accent
-doc.setFillColor(10,10,15);
-doc.rect(0,0,210,297,'F');
-
-// Top accent bar
-doc.setFillColor(167,139,250);
-doc.rect(0,0,210,6,'F');
-
-// Brand
-doc.setTextColor(167,139,250);
-doc.setFontSize(10);
-doc.setFont('helvetica','bold');
-doc.text('SESSIONS WITH TOBY',margin,y);
-y+=4;
-doc.setTextColor(120,120,160);
-doc.setFontSize(8);
-doc.setFont('helvetica','normal');
-doc.text('To Be Come',margin,y);
-y+=12;
-
-// Divider
-doc.setDrawColor(30,30,46);
-doc.setLineWidth(0.5);
-doc.line(margin,y,pageWidth-margin,y);
-y+=12;
-
-// Title
-doc.setTextColor(232,232,240);
-doc.setFontSize(22);
-doc.setFont('helvetica','bold');
-doc.text('Your Singing Profile',margin,y);
-y+=10;
-
-// Result type badge
-doc.setFillColor(167,139,250);
-var badgeWidth=doc.getTextWidth(r.t)+10;
-doc.roundedRect(margin,y-5,badgeWidth,8,2,2,'F');
-doc.setTextColor(255,255,255);
-doc.setFontSize(11);
-doc.setFont('helvetica','bold');
-doc.text(r.t,margin+5,y);
-y+=14;
-
-// Personalized greeting
-doc.setTextColor(232,232,240);
-doc.setFontSize(12);
-doc.setFont('helvetica','normal');
-doc.text('Prepared for: '+name,margin,y);
-y+=14;
-
-// Divider
-doc.setDrawColor(30,30,46);
-doc.line(margin,y,pageWidth-margin,y);
-y+=12;
-
-// Section: What I See
-doc.setTextColor(167,139,250);
-doc.setFontSize(10);
-doc.setFont('helvetica','bold');
-doc.text('WHAT I SEE',margin,y);
-y+=8;
-doc.setTextColor(180,180,200);
-doc.setFontSize(10);
-doc.setFont('helvetica','normal');
-var lines=doc.splitTextToSize(r.d,pageWidth-2*margin);
-doc.text(lines,margin,y);
-y+=lines.length*5+10;
-
-// Section: The Solution Hint
-doc.setTextColor(167,139,250);
-doc.setFontSize(10);
-doc.setFont('helvetica','bold');
-doc.text('WHAT THE SOLUTION LOOKS LIKE',margin,y);
-y+=8;
-doc.setTextColor(180,180,200);
-doc.setFontSize(10);
-doc.setFont('helvetica','normal');
-var solLines=doc.splitTextToSize(r.s,pageWidth-2*margin);
-doc.text(solLines,margin,y);
-y+=solLines.length*5+14;
-
-// Divider
-doc.setDrawColor(30,30,46);
-doc.line(margin,y,pageWidth-margin,y);
-y+=12;
-
-// CTA Box
-doc.setFillColor(16,16,24);
-doc.roundedRect(margin,y,pageWidth-2*margin,36,3,3,'F');
-doc.setDrawColor(167,139,250);
-doc.roundedRect(margin,y,pageWidth-2*margin,36,3,3,'S');
-y+=10;
-doc.setTextColor(167,139,250);
-doc.setFontSize(11);
-doc.setFont('helvetica','bold');
-doc.text('READY TO GO DEEPER?',margin+6,y);
-y+=7;
-doc.setTextColor(180,180,200);
-doc.setFontSize(9);
-doc.setFont('helvetica','normal');
-doc.text('Book a 1-on-1 session with Toby and get a custom plan built around your voice.',margin+6,y);
-y+=10;
-doc.setTextColor(167,139,250);
-doc.setFontSize(9);
-doc.setFont('helvetica','bold');
-doc.text('coachteesos.github.io/coachtoby-site',margin+6,y);
-
-// Footer
-y=280;
-doc.setDrawColor(30,30,46);
-doc.line(margin,y,pageWidth-margin,y);
-y+=6;
-doc.setTextColor(100,100,120);
-doc.setFontSize(7);
-doc.setFont('helvetica','normal');
-doc.text('Sessions with Toby | To Be Come | prosperolumotobi@gmail.com | +234 916 010 6084',margin,y);
-
-return doc;
-}
-
 function submitEmail(){
 var name=document.getElementById('nameInput').value.trim();
-var email=document.getElementById('emailInput').value.trim();
+var whatsapp=document.getElementById('whatsappInput').value.trim();
 if(!name){alert('Please enter your name.');return;}
-if(!email||email.indexOf('@')===-1){alert('Please enter a valid email.');return;}
+if(!whatsapp){alert('Please enter your WhatsApp number.');return;}
 
 var k=A.q1||A.q2||'stuck';
 
-// Generate PDF
-var doc=generatePDF(name,k);
-var pdfBlob=doc.output('blob');
-var pdfUrl=URL.createObjectURL(pdfBlob);
-
-// Set download button
-var downloadBtn=document.getElementById('downloadBtn');
-downloadBtn.href=pdfUrl;
-downloadBtn.download=name.replace(/\s+/g,'_')+'_Singing_Guide.pdf';
-
-// Submit lead data via AJAX (so page doesn't navigate away)
+// Submit lead data via AJAX
 var leadData=new URLSearchParams();
-var h={_subject:'Quiz Lead: '+name+' ('+R[k].t+')',_captcha:'false',Name:name,Email:email,Interest:'Vocal Coaching',Source:'Quiz',Status:'New',Notes:'Result: '+R[k].t};
+var h={_subject:'Quiz Lead: '+name+' ('+R[k].t+')',_captcha:'false',Name:name,Whatsapp:whatsapp,Interest:'Vocal Coaching',Source:'Quiz',Status:'New',Notes:'Result: '+R[k].t};
 Object.keys(h).forEach(function(ky){leadData.append(ky,h[ky]);});
 fetch('https://formsubmit.co/prosperolumotobi@gmail.com',{method:'POST',body:leadData,headers:{'Content-Type':'application/x-www-form-urlencoded'}}).catch(function(){});
 
