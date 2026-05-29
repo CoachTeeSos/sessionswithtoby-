@@ -1,10 +1,10 @@
-/* ═══════════════════════════════════════
+/* ═════════════════════════════════════════
    COACH TOBY — CORE SCRIPTS
    Every "action" button routes through goToBot(serviceKey)
    so the bot knows EXACTLY what the user picked
-   ═══════════════════════════════════════ */
+   ════════════════════════════════════════ */
 
-// ── PROGRESS BAR ──
+/* ── PROGRESS BAR ──*/
 (function() {
   var bar = document.querySelector('.progress-bar');
   if (!bar) return;
@@ -16,7 +16,7 @@
   }, { passive: true });
 })();
 
-// ── SCROLL REVEAL ──
+/* ── SCROLL REVEAL ──*/
 (function() {
   var reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
@@ -26,7 +26,6 @@
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       } else {
-        // Re-animate when scrolling back up then down again
         entry.target.classList.remove('visible');
       }
     });
@@ -35,7 +34,7 @@
   reveals.forEach(function(el) { observer.observe(el); });
 })();
 
-// ── NAV SCROLL EFFECT ──
+/* ── NAV SCROLL EFFECT ──*/
 (function() {
   var nav = document.querySelector('nav');
   if (!nav) return;
@@ -44,7 +43,7 @@
   }, { passive: true });
 })();
 
-// ── COUNTER ANIMATION ──
+/* ── COUNTER ANIMATION ──*/
 (function() {
   var stats = document.querySelectorAll('.stat .num');
   if (!stats.length) return;
@@ -53,7 +52,7 @@
       if (entry.isIntersecting) {
         var el = entry.target;
         var raw = el.textContent.trim();
-        var numMatch = raw.match(/^([\d,.]+)/);
+        var numMatch = raw.match(/^([\\d,.]+)/);
         if (!numMatch) return;
         var target = parseFloat(numMatch[1].replace(/,/g, ''));
         var suffix = raw.replace(numMatch[1], '');
@@ -76,7 +75,7 @@
   stats.forEach(function(el) { observer.observe(el); });
 })();
 
-// ── STICKY CTA ──
+/* ── STICKY CTA ──*/
 (function() {
   var sticky = document.querySelector('.sticky-cta');
   var hero = document.querySelector('.hero');
@@ -87,7 +86,7 @@
   }, { passive: true });
 })();
 
-// ── SIDE RAIL ──
+/* ── SIDE RAIL ──*/
 function openRail() {
   var panel = document.querySelector('.rail-panel');
   var overlay = document.querySelector('.rail-overlay');
@@ -104,15 +103,15 @@ function closeRail() {
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeRail(); });
 
-// ── HAMBURGER TOGGLE ──
+/* ── HAMBURGER TOGGLE ──*/
 function toggleMobileMenu() {
   var links = document.querySelector('nav .nav-links');
   if (links) links.classList.toggle('mobile-open');
 }
 
-// ══════════════════════════════════════
-// BOT ROUTER — Every button calls this
-// ══════════════════════════════════════
+/* ═══════════════════════════════════════
+   BOT ROUTER — Every button calls this
+   ═══════════════════════════════════════ */
 const BOT_USERNAME = 'TobyTourGuideBot';
 
 const SERVICES = {
@@ -121,15 +120,27 @@ const SERVICES = {
   'ngn-single':{ label: 'Single Session — ₦70,000',       price: 70000,  currency: 'NGN', type: 'coaching' },
   'ngn-monthly':{ label: 'Monthly Package — ₦300,000',    price: 300000, currency: 'NGN', type: 'coaching' },
   'free-community': { label: "Free Singers' Community",    price: 0,      currency: '',    type: 'community', link: 'https://t.me/+LGYumO9JZOc1M2M0' },
-  'paid-community': { label: "Paid Singers' Community — ₦20,000/mo", price: 20000, currency: 'NGN', type: 'community', link: 'https://t.me/+SMnit5TdCuBlOWE0' },
+  'paid-community': { label: "Paid Singers' Community — ₦20,000/mo", price: 20000, currency: 'NGN', type: 'paid-community', link: 'https://t.me/+SMnit5TdCuBlOWE0' },
   'abuja-collective': { label: 'Abuja Music Collective',   price: 0,      currency: '',    type: 'community', link: 'https://t.me/+qv5hIOIBKgtmNjhk' },
   quiz:        { label: 'Which Singer Are You? Quiz',      price: 0,      currency: '',    type: 'content',   link: 'https://coachteesos.github.io/coachtoby-site/quiz.html' },
   'lead-magnet': { label: '5 Vocal Exercises Guide',       price: 0,      currency: '',    type: 'content',   link: 'https://coachteesos.github.io/coachtoby-site/lead-magnet.html' },
   'speaking': { label: 'Speaking Engagement — ₦200,000', price: 200000, currency: 'NGN', type: 'speaking' },
   'custom-plan': { label: 'Design Your Own Plan', price: 0, currency: '', type: 'custom' },
+  'group3-5': { label: 'Group of 3-5 — ₦20,000/month', price: 20000, currency: 'NGN', type: 'paid-community' }
 };
 
-// ── MAIN ROUTER FUNCTION ──
+// ── FLUTTERWAVE PAYMENT LINKS (LIVE) ──
+const FLUTTERWAVE = {
+  single:         'https://flutterwave.com/pay/ictjiqq30sz7',
+  monthly:        'https://flutterwave.com/pay/b0hjfvjhv8x4',
+  'ngn-single':   'https://flutterwave.com/pay/xnddgkfjeheq',
+  'ngn-monthly':  'https://flutterwave.com/pay/wdod0tyeqedw',
+  'group3-5':     'https://flutterwave.com/pay/lrgz2vk3xez3',
+  'paid-community': 'https://flutterwave.com/pay/lrgz2vk3xez3',
+  'speaking':     'https://flutterwave.com/pay/wdod0tyeqedw'
+};
+
+/* ── MAIN ROUTER FUNCTION ──*/
 function goToBot(serviceKey) {
   var svc = SERVICES[serviceKey];
   if (!svc) { alert('Something went wrong. Please try again.'); return; }
@@ -138,8 +149,8 @@ function goToBot(serviceKey) {
   if (!name || !name.trim()) return;
   name = name.trim();
 
-  // For paid coaching: collect email + open payment
-  if ((svc.type === 'coaching' || svc.type === 'speaking') && svc.price > 0) {
+  // For paid services: collect email + open Flutterwave payment
+  if (svc.price > 0) {
     var email = prompt('Enter your email:');
     if (!email || !email.trim()) return;
     email = email.trim();
@@ -159,14 +170,10 @@ function goToBot(serviceKey) {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).catch(function(){});
 
-    // Open payment
-    if (svc.currency === 'USD') {
-      var raenestLinks = { single: 'RNM3A232T', monthly: 'RNM56B3LH' };
-      var key = serviceKey === 'single' ? 'single' : 'monthly';
-      window.open('https://app.raenest.com/invoice/payment/' + raenestLinks[key], '_blank');
-    } else {
-      // Naira — show bank details
-      alert('Pay ₦' + svc.price.toLocaleString() + ' to:\n\nBank: First Bank PLC\nAccount: 3110071863\nName: PROSPER TOBI OLUMO\n\nAfter payment, tap OK to continue to Telegram.');
+    // Open Flutterwave payment link
+    var fwLink = FLUTTERWAVE[serviceKey];
+    if (fwLink) {
+      window.open(fwLink, '_blank');
     }
 
     // Redirect to bot with service key
@@ -185,7 +192,6 @@ function goToBot(serviceKey) {
     var needs = prompt("What do you need help with? (e.g., vocal coaching, life coaching, speaking, community access)");
     if (!needs || !needs.trim()) return;
 
-    // Log to Airtable
     var data = new URLSearchParams();
     data.append('Name', name);
     data.append('Plan', 'Custom Plan');
@@ -199,7 +205,6 @@ function goToBot(serviceKey) {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).catch(function(){});
 
-    // Redirect to bot with custom plan info
     window.open('https://t.me/' + BOT_USERNAME + '?start=' + encodeURIComponent(name + '|custom-plan|' + budget.trim() + '|' + needs.trim()), '_blank');
     return;
   }
@@ -208,10 +213,9 @@ function goToBot(serviceKey) {
   window.open('https://t.me/' + BOT_USERNAME + '?start=' + encodeURIComponent(name + '|' + serviceKey), '_blank');
 }
 
-// ── LEGACY COMPATIBILITY (for any old onclick still in HTML) ──
-function raenestPay(plan) { goToBot(plan); }
+/* ── LEGACY COMPATIBILITY ──*/
+function legacyPay(plan) { goToBot(plan); }
 function payWithFlutterwaveNGN(amount, planName) {
-  // Map old calls to service keys
   if (planName && planName.includes('300')) goToBot('ngn-monthly');
   else goToBot('ngn-single');
 }
