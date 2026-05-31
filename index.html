@@ -5,15 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sessions with Toby | Go From Stuck to Unstoppable</title>
 <meta name="description" content="1-on-1 vocal and life coaching. 50+ students. 10+ countries. Session 1 guarantee: hear a difference or don't pay. Book now.">
-<meta name="theme-color" content="#08080c">
+<meta name="theme-color" content="#06060a">
 <meta property="og:title" content="Sessions with Toby | Go From Stuck to Unstoppable">
 <meta property="og:description" content="1-on-1 vocal and life coaching. 50+ students. 10+ countries. Session 1 guarantee.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://coachteesos.github.io/coachtoby-site/">
 <meta property="og:image" content="https://coachteesos.github.io/coachtoby-site/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sessions with Toby | Go From Stuck to Unstoppable">
-<meta name="twitter:description" content="1-on-1 vocal and life coaching. 50+ students. 10+ countries. Session 1 guarantee.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 
@@ -62,12 +60,14 @@
 
 <!-- ═══ NAV ═══ -->
 <nav>
-  <div class="logo">Sessions with <span>Toby</span></div>
+  <div class="logo"><a href="/coachtoby-site/">Sessions with <span>Toby</span></a></div>
   <div class="nav-links">
-    <a href="#vocal">Vocal</a>
-    <a href="#life">Life</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
+    <a href="#services">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="community.html">Community</a>
+    <a href="content.html">Resources</a>
+    <a href="about.html">About</a>
     <a href="#start" class="nav-cta">Book a Session</a>
   </div>
   <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -81,95 +81,42 @@
     <button class="rail-close" onclick="closeRail()">×</button>
     <h3>Let's Talk.</h3>
     <p class="rail-sub">Pick a path. Pay. Show up. Become.</p>
-
     <div class="rail-pricing-item">
       <div class="rp-name">Single Session</div>
       <div class="rp-price">$50 <span>/session</span></div>
       <div class="rp-note">Card payment — no commitment</div>
       <button class="btn-primary" onclick="goToBot('single')">Pay $50 — Book Now</button>
     </div>
-
     <div class="rail-pricing-item">
       <div class="rp-name">Monthly Package</div>
       <div class="rp-price">$200 <span>/month</span></div>
       <div class="rp-note">4 sessions + priority + WhatsApp check-ins</div>
       <button class="btn-primary" onclick="goToBot('monthly')">Pay $200 — Get Started</button>
     </div>
-
     <div class="rail-divider">or pay in Naira</div>
-
     <div class="rail-pricing-item">
       <div class="rp-name">Nigeria — Single</div>
       <div class="rp-price">₦70,000 <span>/session</span></div>
-      <div class="rp-note">Flutterwave</div>
       <button class="btn-primary" onclick="goToBot('ngn-single')">Pay ₦70,000</button>
     </div>
-
     <div class="rail-pricing-item">
       <div class="rp-name">Nigeria — Monthly</div>
       <div class="rp-price">₦300,000 <span>/month</span></div>
-      <div class="rp-note">4 sessions + priority + WhatsApp check-ins</div>
       <button class="btn-primary" onclick="goToBot('ngn-monthly')">Pay ₦300,000</button>
     </div>
-
-    <div class="rail-pricing-item">
-      <div class="rp-name">Speaking Engagement</div>
-      <div class="rp-price">₦200,000 <span>/event</span></div>
-      <div class="rp-note">Corporate, weddings, conferences</div>
-      <button class="btn-primary" onclick="goToBot('speaking')">Book Speaking →</button>
-    </div>
-
-    <div class="rail-divider">or design your plan</div>
-    <div class="rail-pricing-item">
-      <div class="rp-name">✏️ Design Your Own Plan</div>
-      <div class="rp-price" style="font-size:1rem;color:var(--accent);">Custom</div>
-      <div class="rp-note">Tell us your budget + needs</div>
-      <button class="btn-primary" onclick="goToBot('custom-plan')">Design Plan →</button>
-    </div>
-
-    <div class="rail-divider">or join a community</div>
-
-    <div class="rail-pricing-item">
-      <div class="rp-name">Free Singers' Community</div>
-      <div class="rp-price" style="font-size:1rem;color:var(--success);">FREE</div>
-      <div class="rp-note">Learn with others — no cost</div>
-      <button class="btn-primary" onclick="goToBot('free-community')">Join Free →</button>
-    </div>
-
-    <div class="rail-pricing-item">
-      <div class="rp-name">Paid Singers' Community</div>
-      <div class="rp-price">₦20,000 <span>/month</span></div>
-      <div class="rp-note">Weekly tips, Q&As, feedback</div>
-      <button class="btn-primary" onclick="goToBot('paid-community')">Join Paid →</button>
-    </div>
-
-    <div class="rail-pricing-item">
-      <div class="rp-name">Abuja Music Collective</div>
-      <div class="rp-price" style="font-size:1rem;color:var(--success);">FREE</div>
-      <div class="rp-note">For singers in Abuja</div>
-      <button class="btn-primary" onclick="goToBot('abuja-collective')">Join →</button>
-    </div>
-
-    <div class="rail-divider">or free resources</div>
-
+    <div class="rail-divider">or explore</div>
     <div class="rail-pricing-item">
       <div class="rp-name">Which Singer Are You? Quiz</div>
-      <div class="rp-price" style="font-size:1rem;color:var(--success);">FREE</div>
-      <div class="rp-note">30-second quiz + personalized guide</div>
+      <div class="rp-note" style="color:var(--success);font-weight:600;">FREE — 30 seconds</div>
       <button class="btn-primary" onclick="goToBot('quiz')">Take Quiz →</button>
     </div>
-
     <div class="rail-pricing-item">
-      <div class="rp-name">5 Vocal Exercises Guide</div>
-      <div class="rp-price" style="font-size:1rem;color:var(--success);">FREE</div>
-      <div class="rp-note">Instant download</div>
-      <button class="btn-primary" onclick="goToBot('lead-magnet')">Get Guide →</button>
+      <div class="rp-name">Free Singers' Community</div>
+      <div class="rp-note" style="color:var(--success);font-weight:600;">FREE</div>
+      <button class="btn-primary" onclick="goToBot('free-community')">Join Free →</button>
     </div>
-
     <div class="rail-divider">or schedule a call</div>
-    <div class="rail-calendly">
-      <button class="btn-primary" onclick="goToBot('free-call')" style="width:100%;">Schedule a Free Call</button>
-    </div>
+    <div class="rail-calendly"><button class="btn-primary" onclick="goToBot('free-call')" style="width:100%;">Schedule a Free Call</button></div>
   </div>
 </div>
 
@@ -189,8 +136,8 @@
     </h1>
     <p>1-on-1 coaching for singers who are tired of sounding the same — and young people who are done drifting. 50+ students. 10+ countries. Session 1 guarantee.</p>
     <div class="hero-buttons">
-      <a href="#start" class="btn-primary">Book Your First Session</a>
-      <a href="quiz.html" class="btn-secondary">Take the Quiz</a>
+      <a href="quiz.html" class="btn-primary">🎯 Take the Quiz</a>
+      <a href="#start" class="btn-secondary">Book a Free Call</a>
     </div>
   </div>
 </div>
@@ -204,10 +151,10 @@
 </div>
 
 <!-- ═══ EPIPHANY BRIDGE ═══ -->
-<section class="reveal">
+<section class="reveal text-center">
   <div class="section-label">Let me be honest with you</div>
-  <div class="hook-question">You've watched 100 YouTube tutorials.<br>Your voice still sounds <span class="highlight">the same.</span></div>
-  <p class="section-sub" style="max-width:650px">Here's why: tutorials show you WHAT to do. Coaching shows you WHAT YOU'RE DOING WRONG. That's the difference. One is information. The other is transformation.</p>
+  <div class="section-title" style="max-width:700px;margin:0 auto 16px;">You've watched 100 YouTube tutorials.<br>Your voice still sounds <span class="highlight" style="background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">the same.</span></div>
+  <p class="section-sub" style="margin:0 auto;">Here's why: tutorials show you WHAT to do. Coaching shows you WHAT YOU'RE DOING WRONG. That's the difference. One is information. The other is transformation.</p>
 </section>
 
 <!-- ═══ STAR STORY ═══ -->
@@ -227,10 +174,8 @@
   <div class="section-label reveal">What I Do</div>
   <h2 class="section-title reveal">Two Problems.<br>One Solution.</h2>
   <p class="section-sub reveal-delay-1">Whether it's your voice or your life direction — the process is the same: <strong style="color:var(--text)">find what's stuck, fix what's broken, build what's possible</strong>.</p>
-
   <div class="pillars">
-    <!-- VOCAL -->
-    <div class="pillar reveal-delay-2" id="vocal">
+    <div class="pillar reveal-delay-2">
       <div class="pillar-icon">🎤</div>
       <h3>Vocal Coaching</h3>
       <p>For performing artists, gospel singers, and anyone who is TIRED of sounding the same.</p>
@@ -242,9 +187,7 @@
         <li>Online — anywhere in the world</li>
       </ul>
     </div>
-
-    <!-- LIFE -->
-    <div class="pillar reveal-delay-3" id="life">
+    <div class="pillar reveal-delay-3">
       <div class="pillar-icon">🧭</div>
       <h3>Life Coaching</h3>
       <p>For young people (18–28) who are done drifting — and parents raising kids with purpose.</p>
@@ -260,32 +203,38 @@
 </section>
 
 <!-- ═══ HOW IT WORKS ═══ -->
-<div class="alt-section reveal">
-  <div class="alt-text">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title" style="font-size:1.6rem;">Three steps.<br>No fluff. No waiting.</h2>
-    <div style="margin-top:24px;display:flex;flex-direction:column;gap:20px;">
-      <div style="display:flex;gap:16px;align-items:start;">
-        <span style="background:var(--accent);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;flex-shrink:0;">1</span>
-        <div><strong>Book a session</strong><br><span style="color:var(--muted);font-size:0.9rem;">Pick a time. Pay. Show up.</span></div>
+<section id="how-it-works">
+  <div class="section-label reveal text-center" style="text-align:center;">How It Works</div>
+  <h2 class="section-title reveal text-center" style="text-align:center;">Three Steps. No Fluff.</h2>
+  <div class="steps reveal-delay-1">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <strong>Take the Quiz or Book a Call</strong>
+        <p>Start with the 30-second quiz to find out what's holding you back — or book a free clarity call if you're ready to talk.</p>
       </div>
-      <div style="display:flex;gap:16px;align-items:start;">
-        <span style="background:var(--accent);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;flex-shrink:0;">2</span>
-        <div><strong>I listen. I diagnose.</strong><br><span style="color:var(--muted);font-size:0.9rem;">What's wrong. What's possible. No sugarcoating.</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <strong>I Listen. I Diagnose.</strong>
+        <p>What's wrong. What's possible. No sugarcoating. Every session is tailored to YOUR voice, YOUR goals.</p>
       </div>
-      <div style="display:flex;gap:16px;align-items:start;">
-        <span style="background:var(--accent);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;flex-shrink:0;">3</span>
-        <div><strong>You practice. You become.</strong><br><span style="color:var(--muted);font-size:0.9rem;">Homework. Accountability. Real progress.</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <strong>You Practice. You Become.</strong>
+        <p>Homework. Accountability. Real progress. Join the community for between-session support.</p>
       </div>
     </div>
   </div>
-  <div class="alt-visual">🎯</div>
-</div>
+</section>
 
-<!-- ═══ TESTIMONIALS (MOVED ABOVE PRICING) ═══ -->
-<section style="padding-top:40px;">
-  <div class="section-label reveal">What Students Say</div>
-  <h2 class="section-title reveal">Don't Take My Word For It.</h2>
+<!-- ═══ TESTIMONIALS ═══ -->
+<section>
+  <div class="section-label reveal text-center" style="text-align:center;">What Students Say</div>
+  <h2 class="section-title reveal text-center" style="text-align:center;">Don't Take My Word For It.</h2>
   <div class="testimonials-ticker reveal-delay-2">
     <div class="ticker-track">
       <div class="testimonial">
@@ -333,14 +282,24 @@
   </div>
 </section>
 
-<!-- ═══ PRICING ═══ -->
-<section id="pricing">
-  <div class="section-label reveal">Pricing</div>
-  <h2 class="section-title reveal">Simple. Transparent.<br>No Games.</h2>
-  <p class="section-sub reveal-delay-1">Pay with card or Naira. No hidden fees. Cancel anytime.</p>
-
-  <div class="pricing-grid">
+<!-- ═══ PRICING PREVIEW ═══ -->
+<section>
+  <div class="section-label reveal text-center" style="text-align:center;">Pricing</div>
+  <h2 class="section-title reveal text-center" style="text-align:center;">Simple. Transparent. No Games.</h2>
+  <p class="section-sub reveal-delay-1 text-center" style="text-align:center;margin-left:auto;margin-right:auto;">Start free. Upgrade when you're ready. Cancel anytime.</p>
+  <div class="pricing-preview-grid">
     <div class="pricing-card reveal-delay-2">
+      <div class="plan-name">Free Community</div>
+      <div class="price" style="font-size:1.4rem;color:var(--success);">FREE</div>
+      <div class="price-note">Learn with others — no cost</div>
+      <ul>
+        <li>Active singers' community</li>
+        <li>Share recordings & get feedback</li>
+        <li>Ask questions, grow together</li>
+      </ul>
+      <button class="btn-primary" onclick="goToBot('free-community')">Join Free →</button>
+    </div>
+    <div class="pricing-card featured reveal-delay-2">
       <div class="plan-name">Single Session</div>
       <div class="price">$50<span>/session</span></div>
       <div class="price-note">Try it out — no commitment</div>
@@ -352,8 +311,7 @@
       </ul>
       <button class="btn-primary" onclick="goToBot('single')">Pay $50 — Book Now</button>
     </div>
-    <div class="pricing-card featured reveal-delay-2">
-      <div class="plan-tag">Only 4 spots/month</div>
+    <div class="pricing-card reveal-delay-3">
       <div class="plan-name">Monthly Package</div>
       <div class="price">$200<span>/month</span></div>
       <div class="price-note">4 sessions — best value</div>
@@ -362,185 +320,36 @@
         <li>Priority scheduling</li>
         <li>Progress tracking report</li>
         <li>WhatsApp check-ins between sessions</li>
-        <li>Personalized practice plan</li>
       </ul>
       <button class="btn-primary" onclick="goToBot('monthly')">Pay $200 — Get Started</button>
     </div>
-    <div class="pricing-card reveal-delay-3">
-      <div class="plan-name">Nigeria — Single</div>
-      <div class="price">₦70,000<span>/session</span></div>
-      <div class="price-note">Flutterwave (Naira)</div>
-      <ul>
-        <li>60-minute 1-on-1 session</li>
-        <li>All standard inclusions</li>
-        <li>Pay in Naira — no conversion</li>
-        <li>Instant confirmation</li>
-      </ul>
-      <button class="btn-primary" onclick="goToBot('ngn-single')">Pay ₦70,000</button>
-    </div>
-    <div class="pricing-card reveal-delay-3">
-      <div class="plan-name">Nigeria — Monthly</div>
-      <div class="price">₦300,000<span>/month</span></div>
-      <div class="price-note">Flutterwave (Naira)</div>
-      <ul>
-        <li>4 x 60-minute sessions</li>
-        <li>Priority scheduling</li>
-        <li>Progress tracking report</li>
-        <li>WhatsApp check-ins</li>
-        <li>No conversion fees</li>
-      </ul>
-      <button class="btn-primary" onclick="goToBot('ngn-monthly')">Pay ₦300,000</button>
-    </div>
-    
-    <div class="pricing-card reveal-delay-3">
-      <div class="plan-name">Group of 3-5</div>
-      <div class="price">₦20,000<span>/month</span></div>
-      <div class="price-note">Per person — save 70%</div>
-      <ul>
-        <li>4 x 60-minute group sessions</li>
-        <li>Group practice & feedback</li>
-        <li>Progress tracking</li>
-        <li>WhatsApp group support</li>
-      </ul>
-      <button class="btn-primary" onclick="goToBot('group3-5')">Pay ₦20,000 — Join Group</button>
-    </div>
   </div>
-
-  <!-- ═══ COMMUNITY CARDS ═══ -->
-  <div style="margin-top:48px;">
-    <div class="section-label reveal" style="text-align:center;">Communities & Free Resources</div>
-    <div class="pricing-grid" style="margin-top:24px;">
-      <div class="pricing-card reveal-delay-2">
-        <div class="plan-name">Free Singers' Community</div>
-        <div class="price" style="font-size:1.4rem;color:var(--success);">FREE</div>
-        <div class="price-note">Learn with others — no cost</div>
-        <ul>
-          <li>Active singers' community</li>
-          <li>Share recordings & get feedback</li>
-          <li>Ask questions, grow together</li>
-        </ul>
-        <button class="btn-primary" onclick="goToBot('free-community')">Join Free →</button>
-      </div>
-      <div class="pricing-card featured reveal-delay-2">
-        <div class="plan-name">Paid Singers' Community</div>
-        <div class="price">₦20,000<span>/month</span></div>
-        <div class="price-note">Weekly tips, Q&As, feedback</div>
-        <ul>
-          <li>Weekly vocal tips from Toby</li>
-          <li>Live Q&A sessions</li>
-          <li>Personalized feedback on recordings</li>
-          <li>Accountability partners</li>
-        </ul>
-        <button class="btn-primary" onclick="goToBot('paid-community')">Join Paid →</button>
-      </div>
-      <div class="pricing-card reveal-delay-3">
-        <div class="plan-name">Group of 3-5 — ₦20,000/month</div>
-        <div class="price">₦20,000<span>/month</span></div>
-        <div class="price-note">Per person — mini-group sessions</div>
-        <ul>
-          <li>4 x 60-minute group sessions/month</li>
-          <li>Group practice & feedback</li>
-          <li>Progress tracking</li>
-          <li>WhatsApp group support</li>
-        </ul>
-        <button class="btn-primary" onclick="goToBot('group3-5')">Join Group →</button>
-      </div>
-      <div class="pricing-card reveal-delay-3">
-        <div class="plan-name">Speaking Engagement</div>
-        <div class="price">₦200,000<span>/event</span></div>
-        <div class="price-note">Corporate events, weddings, conferences</div>
-        <ul>
-          <li>Custom performance or talk</li>
-          <li>Professional stage presence</li>
-          <li>Nationwide availability</li>
-          <li>Ideal for brands & organizations</li>
-        </ul>
-        <button class="btn-primary" onclick="goToBot('speaking')">Book Speaking →</button>
-      </div>
-      <div class="pricing-card reveal-delay-3">
-        <div class="plan-name">✏️ Design Your Own Plan</div>
-        <div class="price" style="font-size:1.4rem;color:var(--accent);">Custom</div>
-        <div class="price-note">Tell us your budget & needs</div>
-        <ul>
-          <li>Mix coaching + community + speaking</li>
-          <li>Flexible pricing</li>
-          <li>Personalized to your goals</li>
-        </ul>
-        <button class="btn-primary" onclick="goToBot('custom-plan')">Design Plan →</button>
-      </div>
-      <div class="pricing-card reveal-delay-3">
-        <div class="plan-name">Abuja Music Collective</div>
-        <div class="price" style="font-size:1.4rem;color:var(--success);">FREE</div>
-        <div class="price-note">For singers in Abuja</div>
-        <ul>
-          <li>Local community of singers</li>
-          <li>Meetups & jam sessions</li>
-          <li>Collaboration opportunities</li>
-        </ul>
-        <button class="btn-primary" onclick="goToBot('abuja-collective')">Join →</button>
-      </div>
-      <div class="pricing-card reveal-delay-3">
-        <div class="plan-name">Free Consultation Call</div>
-        <div class="price" style="font-size:1.4rem;color:var(--success);">FREE</div>
-        <div class="price-note">No-pressure intro call</div>
-        <ul>
-          <li>15-minute clarity call</li>
-          <li>Discuss your goals</li>
-          <li>See if coaching is right for you</li>
-        </ul>
-        <button class="btn-primary" onclick="goToBot('free-call')">Schedule Call →</button>
-      </div>
-    </div>
+  <div class="pricing-cta reveal-delay-3">
+    <a href="pricing.html">See all pricing options →</a>
   </div>
 </section>
 
 <!-- ═══ GUARANTEE ═══ -->
-<section class="reveal" style="padding-top:60px;">
-  <div class="guarantee-box" style="max-width:700px;margin:0 auto;background:var(--surface);border:2px solid var(--accent);border-radius:20px;padding:40px;text-align:center;">
+<section class="reveal" style="padding-top:40px;">
+  <div class="guarantee-box">
     <div style="font-size:2.5rem;margin-bottom:16px;">🛡️</div>
-    <h2 style="font-size:1.5rem;font-weight:900;margin-bottom:12px;">The Session 1 Guarantee</h2>
-    <p style="color:var(--text);font-size:1.05rem;line-height:1.7;max-width:550px;margin:0 auto 16px;">If you don't hear a measurable difference in your voice after your first session — you don't pay. Full stop. No hoops. No "but you didn't do the homework." You either hear it, or you don't.</p>
-    <p style="color:var(--muted);font-size:0.82rem;line-height:1.6;max-width:500px;margin:0 auto;">Guarantee applies to Single Session and first session of Monthly Package. Must attend full 60-minute session. Subject to availability. Cannot be combined with other offers. We reserve the right to determine what constitutes a "measurable difference" based on professional assessment. If we don't deliver, you don't pay. That's the whole thing.</p>
+    <h2 style="font-size:1.4rem;font-weight:900;margin-bottom:12px;">The Session 1 Guarantee</h2>
+    <p style="color:var(--text);font-size:1rem;line-height:1.7;max-width:520px;margin:0 auto 12px;">If you don't hear a measurable difference in your voice after your first session — you don't pay. Full stop. No hoops.</p>
+    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;max-width:480px;margin:0 auto;">Guarantee applies to Single Session and first session of Monthly Package. Must attend full 60-minute session. If we don't deliver, you don't pay. That's the whole thing.</p>
   </div>
 </section>
 
 <!-- ═══ OBJECTION BUSTER ═══ -->
-<section class="reveal" style="padding-top:40px;">
-  <div class="hook-question">"But I'm not ready yet."</div>
-  <p class="section-sub" style="max-width:650px">That's what everyone says. Then they book. Then they can't believe they waited this long. <strong style="color:var(--text)">The readiness myth is the biggest lie in music.</strong> You don't get ready. You start.</p>
-</section>
-
-<!-- ═══ WHO THIS IS FOR ═══ -->
-<section class="reveal" style="padding-top:40px;">
-  <div class="section-label">Who This Is For</div>
-  <div class="hook-question">You know you're better<br>than <span class="highlight">where you are.</span></div>
-  <p class="section-sub" style="max-width:650px">You've been singing for years but something's stuck. Or you're a young person with fire but no direction. Or you're a parent watching your child drift. <strong style="color:var(--text)">This is where it changes.</strong></p>
-</section>
-
-<!-- ═══ FORM ═══ -->
-<section id="start">
-  <div class="form-section">
-    <div class="section-label reveal">Start Here</div>
-    <h2 class="section-title reveal" style="font-size:1.6rem;">Ready to Stop Sounding the Same?</h2>
-    <p class="section-sub reveal-delay-1" style="margin:0 auto 8px;">Tell me where you're stuck. I'll tell you exactly how to fix it.</p>
-
-    <div class="form-embed reveal-delay-2">
-      <iframe class="airtable-embed" src="https://airtable.com/embed/app3N2MFPvfDSuYxk/pag63BsRh2S8hV6Ki/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background:transparent;border:1px solid #ccc;border-radius:16px;"></iframe>
-    </div>
-
-    <p class="reveal-delay-2" style="color:var(--muted);font-size:0.8rem;margin-top:20px;">
-      Or WhatsApp directly: <a href="https://wa.me/2349160106084" style="color:var(--accent);">+234 916 010 6084</a>
-      &nbsp;·&nbsp;
-      <a href="https://calendly.com/d/cx3t-9f8-b7r" style="color:var(--accent);" target="_blank" rel="noopener">Schedule a Call</a>
-    </p>
-  </div>
+<section class="reveal text-center" style="padding-top:40px;">
+  <div class="section-title" style="font-size:1.4rem;max-width:600px;margin:0 auto 12px;">"But I'm not ready yet."</div>
+  <p class="section-sub" style="margin:0 auto;">That's what everyone says. Then they book. Then they can't believe they waited this long. <strong style="color:var(--text)">The readiness myth is the biggest lie in music.</strong> You don't get ready. You start.</p>
 </section>
 
 <!-- ═══ FAQ ═══ -->
 <section id="faq">
   <div class="section-label reveal">FAQ</div>
   <h2 class="section-title reveal">Common Questions</h2>
-  <div style="margin-top:32px;">
+  <div style="margin-top:28px;">
     <details class="faq-item reveal-delay-1"><summary>Do I need any experience?</summary><p>No. Complete beginners welcome. Every session is tailored to your current level — vocal or life coaching.</p></details>
     <details class="faq-item reveal-delay-2"><summary>What platform do we use?</summary><p>WhatsApp call, Telegram call, or Google Meet — whichever works best for you.</p></details>
     <details class="faq-item reveal-delay-2"><summary>How do I pay?</summary><p>International: card via Flutterwave. Nigeria: Flutterwave payment link in Naira.</p></details>
@@ -550,14 +359,31 @@
   </div>
 </section>
 
-<!-- ═══ FINAL CTA ═══ -->
-<section class="reveal" style="text-align:center;padding-top:40px;">
-  <div class="hook-question">Here, you will become.<br><span class="highlight">It is inevitable.</span></div>
-  <p class="section-sub" style="margin:0 auto 32px;">One session. One breakthrough. Zero risk.</p>
-  <a href="#start" class="btn-primary" style="font-size:1.1rem;padding:18px 40px;">Book Your First Session →</a>
+<!-- ═══ FINAL CTA + FORM ═══ -->
+<section id="start">
+  <div class="form-section">
+    <div class="section-label reveal text-center" style="text-align:center;">Start Here</div>
+    <h2 class="section-title reveal text-center" style="text-align:center;font-size:1.4rem;">Ready to Stop Sounding the Same?</h2>
+    <p class="section-sub reveal-delay-1 text-center" style="text-align:center;margin:0 auto 8px;">Tell me where you're stuck. I'll tell you exactly how to fix it.</p>
+    <div class="form-embed reveal-delay-2">
+      <iframe class="airtable-embed" src="https://airtable.com/embed/app3N2MFPvfDSuYxk/pag63BsRh2S8hV6Ki/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background:transparent;border:1px solid #ccc;border-radius:16px;"></iframe>
+    </div>
+    <p class="reveal-delay-2" style="color:var(--muted);font-size:0.8rem;margin-top:20px;text-align:center;">
+      Or WhatsApp directly: <a href="https://wa.me/2349160106084" style="color:var(--accent);">+234 916 010 6084</a>
+      &nbsp;·&nbsp;
+      <a href="https://calendly.com/d/cx3t-9f8-b7r" style="color:var(--accent);" target="_blank" rel="noopener">Schedule a Call</a>
+    </p>
+  </div>
 </section>
 
-<!-- ═══ MEGA FOOTER ═══ -->
+<!-- ═══ FINAL CTA ═══ -->
+<section class="reveal text-center" style="padding-top:40px;">
+  <div class="section-title" style="font-size:1.6rem;max-width:600px;margin:0 auto 12px;">Here, you will become.<br><span style="background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">It is inevitable.</span></div>
+  <p class="section-sub" style="margin:0 auto 28px;">One session. One breakthrough. Zero risk.</p>
+  <a href="#start" class="btn-primary" style="font-size:1.05rem;padding:18px 40px;">Book Your First Session →</a>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -566,71 +392,29 @@
     </div>
     <div class="footer-col">
       <h4>Pages</h4>
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#start">Book a Session</a>
-      <a href="quiz.html">Quiz</a>
-      <a href="lead-magnet.html">Free Guide</a>
+      <a href="/coachtoby-site/">Home</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="community.html">Community</a>
+      <a href="content.html">Resources</a>
     </div>
     <div class="footer-col">
-      <h4>Social</h4>
+      <h4>Free Tools</h4>
+      <a href="quiz.html">Quiz</a>
+      <a href="lead-magnet.html">Free Guide</a>
+      <a href="content.html#carousels">Content Tools</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
       <a href="https://wa.me/2349160106084">WhatsApp</a>
       <a href="mailto:prosperolumotobi@gmail.com">Email</a>
       <a href="https://calendly.com/d/cx3t-9f8-b7r">Calendly</a>
     </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <a href="#">Privacy Policy</a>
-      <a href="#terms">Terms of Service</a>
-    </div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 Sessions with Toby · "To Be Come"</p>
-    <p>Designed for people who are ready.</p>
   </div>
 </footer>
-
-<!-- ═══ TERMS & CONDITIONS (PHILOSOPHICAL DISCLAIMER) ═══ -->
-<div id="terms" style="display:none;">
-<div style="max-width:700px;margin:0 auto;padding:60px 24px;color:var(--muted);font-size:0.85rem;line-height:1.8;">
-<h2 style="color:var(--text);font-size:1.3rem;margin-bottom:20px;">Terms & Conditions</h2>
-
-<p>Last updated: May 2026</p>
-
-<h3 style="color:var(--text);margin-top:24px;">The Guarantee</h3>
-<p>The Session 1 Guarantee applies to the Single Session ($50) and the first session of the Monthly Package ($200). If, after attending a full 60-minute session, you do not hear a measurable difference in your voice as assessed by the coach, you will not be charged. This is not a loophole. This is not a marketing trick. This is a craftsman standing behind his work.</p>
-
-<h3 style="color:var(--text);margin-top:24px;">What "Measurable Difference" Means</h3>
-<p>It means what it sounds like. You will hear your voice do something it couldn't do before. A note you couldn't hit. A crack that's gone. A resonance you didn't know you had. This is assessed by the coach — a professional with 50+ students across 10+ countries — not by your feelings, your mood, or your mother's opinion. If the coach says you're different, you're different. If he says you're not, you don't pay.</p>
-
-<h3 style="color:var(--text);margin-top:24px;">Why These Terms Exist</h3>
-<p>Not to protect me from you. To protect you from yourself.</p>
-<p>Most people who read terms and conditions before booking a vocal coach are the same people who will find a reason it "didn't work" — not because it didn't, but because admitting it worked means admitting they should have started sooner. That's a hard pill. I understand.</p>
-<p>These terms exist so that the person who shows up ready — the one who actually wants to become — has a clear path. No ambiguity. No "but you said." Just: did your voice change or didn't it?</p>
-
-<h3 style="color:var(--text);margin-top:24px;">The Philosophy</h3>
-<p>I have never had to pay this guarantee out. Not once. Not with 50 students. Not across 10 countries. Not with beginners who couldn't hold a note. Not with "experienced" singers who'd been doing it wrong for years.</p>
-<p>Why? Because the work is real. The method is real. And your voice — your actual, God-given voice — is not the problem. It never was.</p>
-<p>The guarantee is not a safety net. It's a mirror. It says: I trust my craft more than I trust your doubt.</p>
-<p>If you're the kind of person who reads this far into the terms and conditions of a vocal coaching website — you're overthinking it. Book the session. Your voice is waiting.</p>
-
-<h3 style="color:var(--text);margin-top:24px;">Standard Stuff</h3>
-<ul>
-<li>All prices are in USD unless otherwise stated (Nigeria pricing in Naira).</li>
-<li>Payment is required before your first session (unless guarantee is invoked).</li>
-<li>Rescheduling requires 24 hours notice. No-shows forfeit the session.</li>
-<li>Monthly packages are for 30 days from first session. Unused sessions do not roll over.</li>
-<li>Life coaching sessions follow the same structure but focus on direction, purpose, and accountability.</li>
-<li>By booking a session, you agree to show up, do the work, and be honest about where you are.</li>
-<li>I reserve the right to decline coaching to anyone I don't believe I can help. This is rare. But it exists.</li>
-</ul>
-
-<h3 style="color:var(--text);margin-top:24px;">The Real Terms</h3>
-<p>Show up. Do the work. Be honest. That's it. That's the whole contract. Everything above is just lawyers being lawyers.</p>
-
-<p style="margin-top:32px;font-style:italic;">"If you want something good, get it from yourself." — Rostra</p>
-</div>
-</div>
 
 <script src="assets/scripts.js"></script>
 </body>

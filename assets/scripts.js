@@ -20,7 +20,6 @@
 (function() {
   var reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
-
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
@@ -30,7 +29,6 @@
       }
     });
   }, { threshold: 0.05, rootMargin: '0px' });
-
   reveals.forEach(function(el) { observer.observe(el); });
 })();
 
@@ -181,7 +179,7 @@ function goToBot(serviceKey) {
       window.open('https://t.me/' + BOT_USERNAME + '?start=' + encodeURIComponent(name + '|' + serviceKey), '_blank');
     }, 2000);
 
-    alert("Complete your payment, then tap 'Start' in Telegram. Welcome, " + name + "! 🎤");
+    alert("Complete your payment, then tap 'Start' in Telegram. Welcome, " + name + " 🎤");
     return;
   }
 
