@@ -122,8 +122,8 @@ def update_student(record_id: str, fields: dict) -> bool:
         return False
 
 def get_pending_students() -> list:
-    """Get all students with pending_payment status."""
-    formula = "{{Status}}='pending_payment'"
+    """Get all students awaiting payment."""
+    formula = "{{Status}}='Awaiting Receipt'"
     params = {"filterByFormula": formula}
     try:
         resp = requests.get(AIRTABLE_API, headers=airtable_headers(), params=params, timeout=10)
@@ -135,7 +135,7 @@ def get_pending_students() -> list:
 
 def get_active_students() -> list:
     """Get all active students."""
-    formula = "{{Status}}='active'"
+    formula = "{{Status}}='Active'"
     params = {"filterByFormula": formula}
     try:
         resp = requests.get(AIRTABLE_API, headers=airtable_headers(), params=params, timeout=10)
@@ -226,13 +226,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Save chat_id for future lookups
     update_student(record_id, {"ChatID": chat_id})
 
-    if current_status == "pending_payment":
+    if current_status == "Awaiting Receipt":
         # PENDING PAYMENT
         plan = student_fields.get("Plan", "your plan")
         await update.message.reply_text(
             f"👋 Welcome back, {stored_name}!\n\n"
             f"You've registered for: **{plan}**\n"
-            f"Status: ⏳ Pending Payment\n\n"
+            f"Status: ⏳ Awaiting Payment Verification\n\n"
             f"To complete your registration, please make your payment:\n"
             f"💳 {FLUTTERWAVE_PENDING_URL}\n\n"
             f"After payment, an admin will verify and activate your account.\n"
@@ -245,7 +245,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         )
         return
 
-    if current_status == "active":
+    if current_status == "Active":
         # ACTIVE — Show main menu
         await update.message.reply_text(
             f"👋 Welcome back, {stored_name}!\n\n"
@@ -278,7 +278,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     data = query.data
 
     if data == "menu_back":
-        if student and student["fields"].get("Status") == "active":
+        if student and student["fields"].get("Status") == "Active":
             await query.edit_message_text(
                 "👋 What would you like to do?",
                 reply_markup=main_menu_keyboard()
@@ -293,7 +293,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         return
 
     # Check if user is active for menu actions
-    is_active = student and student["fields"].get("Status") == "active"
+    is_active = student and student["fields"].get("Status") == "Active"
 
     if not is_active:
         await query.edit_message_text(
@@ -363,7 +363,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         handle = data.replace("approve_", "")
         pending_student = find_student_by_telegram(handle)
         if pending_student:
-            update_student(pending_student["id"], {"Status": "active"})
+            update_student(pending_student["id"], {"Status": "Active"})
             await query.edit_message_text(
                 f"✅ Approved: {pending_student['fields'].get('Name', handle)}\n"
                 f"Status updated to 'active' in Airtable.\n\n"
@@ -398,7 +398,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     if not student and user.username:
         student = find_student_by_telegram(f"@{user.username}")
 
-    if student and student["fields"].get("Status") == "active":
+    if student and student["fields"].get("Status") == "Active":
         # Active student — show menu + acknowledge
         name = student["fields"].get("Name", user.first_name)
         await update.message.reply_text(
@@ -436,11 +436,11 @@ async def admin_approve(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
         await update.message.reply_text(f"❌ Student not found: {handle}")
         return
 
-    if student["fields"].get("Status") == "active":
+    if student["fields"].get("Status") == "Active":
         await update.message.reply_text(f"✅ {handle} is already active.")
         return
 
-    success = update_student(student["id"], {"Status": "active"})
+    success = update_student(student["id"], {"Status": "Active"})
     if success:
         name = student["fields"].get("Name", handle)
         plan = student["fields"].get("Plan", "")

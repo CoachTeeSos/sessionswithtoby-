@@ -69,7 +69,7 @@ def register_student():
 
     # Determine status
     amount = data.get("amount", 0)
-    status = "pending_payment" if amount and amount > 0 else "active"
+    status = "Awaiting Receipt" if amount and amount > 0 else "active"
 
     fields = {
         "Name": name,
@@ -136,11 +136,11 @@ def flutterwave_webhook():
                 resp.raise_for_status()
                 records = resp.json().get("records", [])
                 for record in records:
-                    if record["fields"].get("Status") == "pending_payment":
+                    if record["fields"].get("Status") == "Awaiting Receipt":
                         update_resp = requests.patch(
                             f"{AIRTABLE_API}/{record['id']}",
                             headers=airtable_headers(),
-                            json={"fields": {"Status": "active"}},
+                            json={"fields": {"Status": "Active"}},
                             timeout=10
                         )
                         update_resp.raise_for_status()

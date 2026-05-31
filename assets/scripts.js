@@ -265,20 +265,16 @@ function submitForm(e) {
   // Normalize telegram handle
   if (telegram.indexOf('@') !== 0) telegram = '@' + telegram;
 
-  // Build Airtable record
+  // Build Airtable record (only use fields that exist in the table)
   var fields = {
     'Name': name,
-    'Email': email,
-    'Phone': phone,
-    'Telegram': telegram,
     'Plan': svc.label,
-    'Status': svc.price > 0 ? 'pending_payment' : 'active',
-    'Source': 'Website'
+    'Service Key': serviceKey,
+    'Status': svc.price > 0 ? 'Awaiting Receipt' : 'Active',
+    'Source': 'Website',
+    'Total Sessions': svc.price > 0 ? (serviceKey === 'monthly' || serviceKey === 'ngn-monthly' ? 4 : 1) : 0,
+    'Sessions Used': 0
   };
-  if (svc.price > 0) {
-    fields['Amount'] = svc.price;
-    fields['Currency'] = svc.currency;
-  }
   if (budget) fields['Budget'] = budget;
   if (needs) fields['Needs'] = needs;
 
