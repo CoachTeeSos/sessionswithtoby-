@@ -314,7 +314,49 @@ function payWithFlutterwaveNGN(amount, planName) {
   if (planName && planName.includes('300')) goToBot('ngn-monthly');
   else goToBot('ngn-single');
 }
-function payWithFlutterwaveUSD(amount, planName) {
-  if (planName && planName.includes('200')) goToBot('monthly');
-  else goToBot('single');
+
+
+/* ── CTA FORM SUBMIT (replaces Airtable iframe) ── */
+function handleCTASubmit(e) {
+  e.preventDefault();
+  var name = document.getElementById('cta-name').value.trim();
+  var email = document.getElementById('cta-email').value.trim();
+  var phone = document.getElementById('cta-phone').value.trim();
+  var tg = document.getElementById('cta-tg').value.trim();
+  var service = document.getElementById('cta-service').value;
+
+  if (!name || !email || !phone || !tg || !service) {
+    alert('Please fill in all required fields.');
+    return false;
+  }
+
+  if (tg.indexOf('@') !== 0) tg = '@' + tg;
+
+  closeModal();
+
+  var botUrl = 'https://t.me/Retpipebot?start=' + encodeURIComponent(name + '|' + service + '|' + tg);
+
+  var FLUTTERWAVE = {
+    single: 'https://flutterwave.com/pay/ictjiqq30sz7',
+    monthly: 'https://flutterwave.com/pay/b0hjfvjhv8x4',
+    'ngn-single': 'https://flutterwave.com/pay/xnddgkfjeheq',
+    'ngn-monthly': 'https://flutterwave.com/pay/wdod0tyeqedw',
+    'group3-5': 'https://flutterwave.com/pay/lrgz2vk3xez3',
+    'paid-community': 'https://flutterwave.com/pay/lrgz2vk3xez3',
+    speaking: 'https://flutterwave.com/pay/wdod0tyeqedw'
+  };
+
+  var isPaid = ['single','monthly','ngn-single','ngn-monthly','group3-5','paid-community','speaking'].indexOf(service) !== -1;
+
+  if (isPaid) {
+    var fwLink = FLUTTERWAVE[service];
+    if (fwLink) window.open(fwLink, '_blank');
+    setTimeout(function() { window.open(botUrl, '_blank'); }, 2000);
+    alert('✅ Almost done!\n\n1. Complete your payment\n2. Tap "Start" in Telegram\n\nWelcome, ' + name + ' 🎤');
+  } else {
+    window.open(botUrl, '_blank');
+  }
+
+  return false;
 }
+
