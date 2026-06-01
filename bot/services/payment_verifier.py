@@ -6,6 +6,7 @@ Matches recent Flutterwave transactions against pending Airtable records.
 import os
 import logging
 import requests
+from telegram.ext import ContextTypes
 
 logger = logging.getLogger(__name__)
 
