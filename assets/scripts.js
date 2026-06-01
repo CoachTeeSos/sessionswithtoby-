@@ -322,19 +322,17 @@ function handleCTASubmit(e) {
   var name = document.getElementById('cta-name').value.trim();
   var email = document.getElementById('cta-email').value.trim();
   var phone = document.getElementById('cta-phone').value.trim();
-  var tg = document.getElementById('cta-tg').value.trim();
   var service = document.getElementById('cta-service').value;
 
-  if (!name || !email || !phone || !tg || !service) {
+  if (!name || !email || !phone || !service) {
     alert('Please fill in all required fields.');
     return false;
   }
 
-  if (tg.indexOf('@') !== 0) tg = '@' + tg;
-
   closeModal();
 
-  var botUrl = 'https://t.me/Retpipebot?start=' + encodeURIComponent(name + '|' + service + '|' + tg);
+  // Redirect to bot — it will capture @username + ID automatically from Telegram
+  var botUrl = 'https://t.me/Retpipebot?start=' + encodeURIComponent(name + '|' + service);
 
   var FLUTTERWAVE = {
     single: 'https://flutterwave.com/pay/ictjiqq30sz7',

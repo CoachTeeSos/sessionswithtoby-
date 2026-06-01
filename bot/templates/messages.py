@@ -15,6 +15,39 @@ WELCOME_NEW = (
     "_Pick a topic below or type your question._"
 )
 
+# ── Registration Flow ──
+REG_NAME_PROMPT = (
+    "👋 **Welcome to Sessions with Toby!**\n\n"
+    "I'll help you get started. First, what's your **full name**?\n\n"
+    "_Just type your name and send it._"
+)
+
+REG_EMAIL_PROMPT = (
+    "Nice to meet you, **{name}**! 👋\n\n"
+    "What's your **email address**?\n\n"
+    "_This is where you'll receive session confirmations._"
+)
+
+REG_PHONE_PROMPT = (
+    "Great! Last one — what's your **phone number**?\n\n"
+    "Include your country code (e.g., +234 for Nigeria)\n\n"
+    "_This helps your coach reach you for scheduling._"
+)
+
+REG_CONFIRM = (
+    "✅ **Please confirm your details:**\n\n"
+    "👤 Name: {name}\n"
+    "📧 Email: {email}\n"
+    "📱 Phone: {phone}\n"
+    "📋 Plan: {plan}\n\n"
+    "Tap **✅ Confirm** to proceed to payment."
+)
+
+REG_CANCELLED = (
+    "❌ Registration cancelled.\n\n"
+    "No worries! Send /register anytime to start again."
+)
+
 NOT_REGISTERED = (
     "I don't have your record yet.\n\n"
     "📝 Register here first:\n{registration_url}\n\n"
@@ -34,6 +67,15 @@ WELCOME_BACK = (
     "👋 Welcome back, **{name}**!\n\n"
     "📋 Plan: {plan}\n"
     "🎯 Sessions left: {sessions_left}\n\n"
+    "Your Telegram: **@{username}** (ID: `{tg_id}`)\n\n"
+    "_How can I help?_"
+)
+
+WELCOME_NEW_ACTIVE = (
+    "✅ **Welcome, {name}!**\n\n"
+    "Your Telegram: **@{username}** (ID: `{tg_id}`)\n"
+    "📋 Plan: {plan}\n"
+    "🎯 Sessions: {sessions_left}\n\n"
     "_How can I help?_"
 )
 
