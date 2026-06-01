@@ -63,10 +63,13 @@ async def receive_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 
 async def receive_email(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Store email, ask for phone."""
-    email = update.message.text.strip()
-    # Basic email validation
-    if "@" not in email or "." not in email:
-        await update.message.reply_text("❌ Invalid email. Please enter a valid email address.")
+    email = update.message.text.strip().lower()
+    # Basic email validation — must have @ and at least one dot after @
+    if "@" not in email or "." not in email.split("@")[-1]:
+        await update.message.reply_text(
+            "❌ That doesn't look like a valid email.\n\n"
+            "Please enter a valid email (e.g., you@example.com)"
+        )
         return EMAIL
     
     context.user_data["reg_email"] = email
@@ -80,8 +83,13 @@ async def receive_email(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
 async def receive_phone(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Store phone, show confirmation."""
     phone = update.message.text.strip()
-    if len(phone) < 5:
-        await update.message.reply_text("❌ Phone number too short. Please enter a valid number.")
+    # Must have at least 5 digits to be a phone number
+    digit_count = sum(c.isdigit() for c in phone)
+    if digit_count < 5:
+        await update.message.reply_text(
+            "❌ That doesn't look like a valid phone number.\n\n"
+            "Please enter your phone with country code (e.g., +234 800 000 0000)"
+        )
         return PHONE
     
     context.user_data["reg_phone"] = phone
@@ -90,7 +98,7 @@ async def receive_phone(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     name = context.user_data.get("reg_name", "")
     email = context.user_data.get("reg_email", "")
     plan = context.user_data.get("reg_plan", "single")
-    svc = SERVICES.get(plan, SERVICES["plan"])
+    svc = SERVICES.get(plan, SERVICES["single"])
     
     keyboard = InlineKeyboardMarkup([
         [
