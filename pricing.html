@@ -17,13 +17,38 @@
 .page-pricing { padding-bottom: 40px; }
 
 /* ── HERO ── */
-.page-pricing .hero { min-height: unset; padding: 130px 32px 70px; }
-.page-pricing .hero-grid { max-width: 1060px; gap: 48px; }
-.page-pricing .hero-visual { opacity: 1; animation: none; }
-.page-pricing .hero p { opacity: 1; animation: none; }
-.page-pricing .hero-buttons { opacity: 1; animation: none; }
-.page-pricing .hero .eyebrow { opacity: 1; animation: none; }
-.page-pricing .hero h1 .line { opacity: 1; animation: none; }
+.page-pricing .hero {
+  min-height: unset !important;
+  padding: 120px 32px 60px !important;
+  display: block;
+}
+.page-pricing .hero::before { display: none; }
+.page-pricing .hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 48px;
+  align-items: center;
+  max-width: 1000px;
+}
+.page-pricing .hero-content {
+  position: relative;
+  z-index: 1;
+}
+.page-pricing .hero .eyebrow,
+.page-pricing .hero h1 .line,
+.page-pricing .hero p,
+.page-pricing .hero-buttons,
+.page-pricing .hero-visual {
+  opacity: 1 !important;
+  animation: none !important;
+  transform: none !important;
+}
+.page-pricing .hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* Portrait */
 .pricing-hero-portrait {
@@ -34,26 +59,15 @@
 }
 .pricing-hero-portrait img {
   width: 100%;
-  max-width: 380px;
+  max-width: 340px;
   aspect-ratio: 3/4;
   object-fit: cover;
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.10);
 }
-.pricing-hero-portrait .portrait-placeholder {
-  display: none;
-  width: 100%;
-  max-width: 380px;
-  aspect-ratio: 3/4;
-  border-radius: 24px;
-  background: linear-gradient(135deg, var(--accent-light), var(--accent-mid));
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  font-size: 0.85rem;
-  flex-direction: column;
-  gap: 8px;
-}
+
+/* ── KILL STICKY CTA from scripts.js ── */
+.sticky-cta { display: none !important; }
 
 /* ── METRICS STRIP ── */
 .metrics-strip {
@@ -513,10 +527,9 @@
         <a href="https://wa.me/2349160106084" class="btn-secondary">WhatsApp Us</a>
       </div>
     </div>
-    <div class="pricing-hero-portrait hero-visual">
+    <div class="pricing-hero-portrait">
       <img src="https://coachteesos.github.io/coachtoby-site/assets/toby-portrait.jpg"
-           alt="Tobi — Vocal & Life Coach"
-           id="portrait-img">
+           alt="Tobi — Vocal & Life Coach">
     </div>
   </div>
 </section>
@@ -751,10 +764,8 @@ function payNow(key){
   } else if(p.fwLink){ window.open(p.fwLink,'_blank'); }
 }
 
-// ── Portrait fallback ──
-document.getElementById('portrait-img').addEventListener('error', function(){
-  this.style.display = 'none';
-});
+// ── Portrait: let browser handle broken images naturally ──
+// (no JS needed — if image fails, browser shows alt text)
 </script>
 </body>
 </html>
