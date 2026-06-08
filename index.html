@@ -11,36 +11,9 @@
   {"@context":"https://schema.org","@type":"Organization","name":"Sessions with Toby","alternateName":["Coach Toby","Eden School of Sounds"],"url":"https://coachteesos.github.io/coachtoby-site/","founder":{"@type":"Person","name":"Coach Toby"},"sameAs":["https://t.me/Retpipebot","https://wa.me/2349160106084"]}
   </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
-  <script>tailwind.config={theme:{extend:{colors:{brand:{dark:'#002D21',body:'#1E293B',offwhite:'#F4F7F6',cta:'#008060'}},fontFamily:{inter:['Inter','system-ui','sans-serif']},borderRadius:{brand:'8px'}}}}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  <style>
-    /* Page-specific overrides */
-    .welcome-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#002D21 0%,#004d38 50%,#008060 100%);padding:2rem;position:relative;overflow:hidden}
-    .welcome-screen::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-    .welcome-content{position:relative;z-index:1;max-width:640px;width:100%;text-align:center}
-    .step-panel{display:none;animation:stepSlide 0.4s ease}
-    .step-panel.active{display:block}
-    @keyframes stepSlide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-    .quiz-option{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.15);border-radius:8px;cursor:pointer;transition:all 150ms ease;color:#fff;font-weight:500;text-align:left;width:100%;font-family:'Inter',sans-serif;font-size:1rem}
-    .quiz-option:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);transform:translateY(-2px)}
-    .quiz-option .icon{font-size:1.5rem;flex-shrink:0}
-    .progress-bar{height:4px;background:rgba(255,255,255,0.15);border-radius:999px;overflow:hidden}
-    .progress-fill{height:100%;background:#008060;border-radius:999px;transition:width 400ms ease}
-    .btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:#008060;color:#fff;font-weight:600;font-size:1rem;border:none;border-radius:8px;cursor:pointer;transition:all 150ms ease;text-decoration:none;font-family:'Inter',sans-serif}
-    .btn-cta:hover{background:#00694f;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,128,96,0.2)}
-    .btn-cta-outline{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 2rem;background:transparent;color:#fff;font-weight:600;font-size:1rem;border:2px solid rgba(255,255,255,0.3);border-radius:8px;cursor:pointer;transition:all 150ms ease;text-decoration:none;font-family:'Inter',sans-serif}
-    .btn-cta-outline:hover{background:rgba(255,255,255,0.1)}
-    #pageLoader{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#002D21 0%,#004d38 50%,#008060 100%);display:flex;align-items:center;justify-content:center;transition:opacity 0.5s ease}
-    #pageLoader.fade-out{opacity:0;pointer-events:none}
-    .loader-text{font-family:'Inter',sans-serif;font-size:1.75rem;font-weight:800;color:#fff;letter-spacing:0.05em}
-    .loader-text span{display:inline-block;opacity:0;animation:letterReveal 0.5s ease forwards}
-    @keyframes letterReveal{from{opacity:0;transform:translateY(16px) scale(0.8);filter:blur(6px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
-    .loader-bar{width:180px;height:3px;background:rgba(255,255,255,0.15);border-radius:999px;margin-top:1.5rem;overflow:hidden}
-    .loader-bar-fill{height:100%;background:#008060;border-radius:999px;animation:loaderBar 2s ease-in-out infinite}
-    @keyframes loaderBar{0%{width:0%}50%{width:70%}100%{width:100%}}
-  </style>
 </head>
 <body>
 
@@ -55,17 +28,17 @@
   <!-- WELCOME FUNNEL -->
   <div class="welcome-screen" id="welcomeScreen">
     <div class="welcome-content">
-      <div class="mb-8"><span class="text-5xl">🎤</span></div>
-      <div class="w-full max-w-xs mx-auto mb-8">
+      <div style="margin-bottom:2rem"><span style="font-size:3.5rem">🎤</span></div>
+      <div style="width:100%;max-width:20rem;margin:0 auto 2rem">
         <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
-        <p class="text-emerald-200/60 text-xs mt-2 text-right" id="progressText">Step 1 of 5</p>
+        <p style="color:rgba(167,243,208,0.6);font-size:0.75rem;margin-top:0.5rem;text-align:right" id="progressText">Step 1 of 5</p>
       </div>
 
       <!-- STEP 1 -->
       <div id="step1" class="step-panel active">
-        <h1 class="text-white text-3xl sm:text-4xl font-black mb-3">What brings you here today?</h1>
-        <p class="text-emerald-100/80 text-base mb-8">Pick what resonates. No wrong answers.</p>
-        <div class="space-y-3">
+        <h1 style="color:#fff;font-size:1.875rem;font-weight:900;margin-bottom:0.75rem">What brings you here today?</h1>
+        <p style="color:rgba(167,243,208,0.8);font-size:1rem;margin-bottom:2rem">Pick what resonates. No wrong answers.</p>
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
           <button class="quiz-option" data-step="1" data-value="vocals"><span class="icon">🎤</span><span>I want to sing better — riffs, runs, the whole thing</span></button>
           <button class="quiz-option" data-step="1" data-value="speaking"><span class="icon">🎙️</span><span>I want to speak with more confidence & presence</span></button>
           <button class="quiz-option" data-step="1" data-value="mindset"><span class="icon">💪</span><span>I'm stuck and need a mindset shift</span></button>
@@ -75,9 +48,9 @@
 
       <!-- STEP 2 -->
       <div id="step2" class="step-panel">
-        <h1 class="text-white text-3xl sm:text-4xl font-black mb-3">Where are you right now?</h1>
-        <p class="text-emerald-100/80 text-base mb-8">Be honest — this isn't a test.</p>
-        <div class="space-y-3">
+        <h1 style="color:#fff;font-size:1.875rem;font-weight:900;margin-bottom:0.75rem">Where are you right now?</h1>
+        <p style="color:rgba(167,243,208,0.8);font-size:1rem;margin-bottom:2rem">Be honest — this isn't a test.</p>
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
           <button class="quiz-option" data-step="2" data-value="beginner"><span class="icon">🌱</span><span>Complete beginner — I barely sing in the shower</span></button>
           <button class="quiz-option" data-step="2" data-value="intermediate"><span class="icon">🎶</span><span>I can sing but want to level up my technique</span></button>
           <button class="quiz-option" data-step="2" data-value="advanced"><span class="icon">🔥</span><span>I perform but want to master riffs, runs & stage presence</span></button>
@@ -87,9 +60,9 @@
 
       <!-- STEP 3 -->
       <div id="step3" class="step-panel">
-        <h1 class="text-white text-3xl sm:text-4xl font-black mb-3">What's the ONE thing holding you back?</h1>
-        <p class="text-emerald-100/80 text-base mb-8">The thing you'd fix first if you could.</p>
-        <div class="space-y-3">
+        <h1 style="color:#fff;font-size:1.875rem;font-weight:900;margin-bottom:0.75rem">What's the ONE thing holding you back?</h1>
+        <p style="color:rgba(167,243,208,0.8);font-size:1rem;margin-bottom:2rem">The thing you'd fix first if you could.</p>
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
           <button class="quiz-option" data-step="3" data-value="pitch"><span class="icon">🎵</span><span>I can't hit the right notes consistently</span></button>
           <button class="quiz-option" data-step="3" data-value="range"><span class="icon">📈</span><span>My range is limited — I can't reach high or low notes</span></button>
           <button class="quiz-option" data-step="3" data-value="riffs"><span class="icon">⚡</span><span>I want to master riffs, runs & vocal agility</span></button>
@@ -100,9 +73,9 @@
 
       <!-- STEP 4 -->
       <div id="step4" class="step-panel">
-        <h1 class="text-white text-3xl sm:text-4xl font-black mb-3">When do you want to see results?</h1>
-        <p class="text-emerald-100/80 text-base mb-8">No pressure — just helps us recommend the right path.</p>
-        <div class="space-y-3">
+        <h1 style="color:#fff;font-size:1.875rem;font-weight:900;margin-bottom:0.75rem">When do you want to see results?</h1>
+        <p style="color:rgba(167,243,208,0.8);font-size:1rem;margin-bottom:2rem">No pressure — just helps us recommend the right path.</p>
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
           <button class="quiz-option" data-step="4" data-value="asap"><span class="icon">🚀</span><span>ASAP — I have a performance, audition or event coming up</span></button>
           <button class="quiz-option" data-step="4" data-value="month"><span class="icon">📅</span><span>Within the next month — I'm serious about this</span></button>
           <button class="quiz-option" data-step="4" data-value="exploring"><span class="icon">🔍</span><span>Just exploring — I want to see what's possible</span></button>
@@ -111,23 +84,23 @@
 
       <!-- STEP 5 -->
       <div id="step5" class="step-panel">
-        <div class="text-5xl mb-4">🎉</div>
-        <h1 class="text-white text-3xl sm:text-4xl font-black mb-3">Here's what we recommend for you</h1>
-        <p class="text-emerald-100/80 text-base mb-6">Based on your answers. But first — try a free demo with Coach Toby. No commitment.</p>
-        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-6 text-left">
-          <p class="text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-2">Your Personalized Recommendation</p>
-          <h3 class="text-white text-xl font-bold mb-2" id="recTitle">Vocal Mastery — Starter Path</h3>
-          <p class="text-emerald-100/80 text-sm mb-4" id="recDesc">Personalized 1-on-1 coaching with Coach Toby. Free demo included.</p>
-          <div class="flex flex-wrap gap-2" id="recTags"><span class="bg-emerald-500/20 text-emerald-200 text-xs font-medium px-3 py-1 rounded-full">Free Demo</span></div>
+        <div style="font-size:3rem;margin-bottom:1rem">🎉</div>
+        <h1 style="color:#fff;font-size:1.875rem;font-weight:900;margin-bottom:0.75rem">Here's what we recommend for you</h1>
+        <p style="color:rgba(167,243,208,0.8);font-size:1rem;margin-bottom:1.5rem">Based on your answers. But first — try a free demo with Coach Toby. No commitment.</p>
+        <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;text-align:left">
+          <p style="color:#6ee7b7;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem">Your Personalized Recommendation</p>
+          <h3 style="color:#fff;font-size:1.25rem;font-weight:700;margin-bottom:0.5rem" id="recTitle">Vocal Mastery — Starter Path</h3>
+          <p style="color:rgba(167,243,208,0.8);font-size:0.875rem;margin-bottom:1rem" id="recDesc">Personalized 1-on-1 coaching with Coach Toby. Free demo included.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="recTags"><span style="background:rgba(0,128,96,0.2);color:#a7f3d0;font-size:0.75rem;font-weight:500;padding:0.25rem 0.75rem;border-radius:999px">Free Demo</span></div>
         </div>
-        <div class="space-y-3">
-          <a href="book.html" class="btn-cta bg-white text-brand-dark hover:bg-emerald-50 w-full text-base py-4" style="color:#002D21">🎤 Try a Free Demo Session</a>
-          <a href="home.html" class="btn-cta-outline w-full text-base py-4">Browse Programs & Pricing →</a>
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
+          <a href="book.html" class="btn-cta" style="background:#fff;color:#002D21;width:100%;font-size:1rem;padding:1rem">🎤 Try a Free Demo Session</a>
+          <a href="home.html" class="btn-cta-outline" style="width:100%;font-size:1rem;padding:1rem;border-color:rgba(255,255,255,0.3);color:#fff">Browse Programs & Pricing →</a>
         </div>
-        <p class="text-emerald-200/40 text-xs mt-4">No credit card required.</p>
+        <p style="color:rgba(167,243,208,0.4);font-size:0.75rem;margin-top:1rem">No credit card required.</p>
       </div>
 
-      <button id="backBtn" class="mt-6 text-emerald-200/50 hover:text-emerald-200 text-sm font-medium" onclick="goBack()" style="display:none">← Go back</button>
+      <button id="backBtn" style="margin-top:1.5rem;color:rgba(167,243,208,0.5);font-size:0.875rem;font-weight:500;background:none;border:none;cursor:pointer;display:none" onclick="goBack()">← Go back</button>
     </div>
   </div>
 
@@ -135,7 +108,7 @@
     /* Page Loader */
     (function(){
       var lt=document.getElementById('loaderText'),brand='Sessions with Toby';
-      brand.split('').forEach(function(ch,i){var s=document.createElement('span');s.textContent=ch===' '?'\u00A0':ch;s.style.animationDelay=(i*0.06)+'s';lt.appendChild(s);});
+      brand.split('').forEach(function(ch,i){var s=document.createElement('span');s.textContent=ch===' '?'\\u00A0':ch;s.style.animationDelay=(i*0.06)+'s';lt.appendChild(s);});
       window.addEventListener('load',function(){setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},2000);});
       setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},4000);
     })();
@@ -160,7 +133,7 @@
       else if(g==='mindset'){t='Transformational Coaching';d='Break through mental blocks. Life coaching for high-performers.';tags=['Free Demo','Mindset Shift','1-on-1 Coaching'];}
       else if(g==='community'){t='Creator Community Access';d='Join musicians and creators. Weekly challenges and feedback.';tags=['Free Tier','Weekly Challenges','Global Network'];}
       document.getElementById('recTitle').textContent=t;document.getElementById('recDesc').textContent=d;
-      document.getElementById('recTags').innerHTML=tags.map(function(x){return '<span class="bg-emerald-500/20 text-emerald-200 text-xs font-medium px-3 py-1 rounded-full">'+x+'</span>';}).join('');
+      document.getElementById('recTags').innerHTML=tags.map(function(x){return '<span style="background:rgba(0,128,96,0.2);color:#a7f3d0;font-size:0.75rem;font-weight:500;padding:0.25rem 0.75rem;border-radius:999px">'+x+'</span>';}).join('');
     }
   </script>
 </body>
