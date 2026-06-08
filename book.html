@@ -21,7 +21,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <a href="index.html" class="flex items-center gap-2"><span class="text-2xl">🎤</span><span class="text-lg font-extrabold" style="color:#002D21;letter-spacing:-0.02em">SESSIONS WITH TOBY</span></a>
-        <div class="hidden md:flex items-center gap-6"><a href="home.html#services" class="nav-link text-sm">Services</a><a href="home.html#pricing" class="nav-link text-sm">Pricing</a><a href="home.html#reviews" class="nav-link text-sm">Reviews</a></div>
+        <div class="hidden md:flex items-center gap-6"><a href="home.html#services" class="nav-link text-sm">Services</a><a href="home.html#pricing" class="nav-link text-sm">Pricing</a><a href="home.html#community" class="nav-link text-sm">Community</a><a href="home.html#reviews" class="nav-link text-sm">Reviews</a></div>
         <a href="home.html" class="text-sm nav-link">← Back to Home</a>
       </div>
     </div>
@@ -71,11 +71,16 @@
   </footer>
 
   <script>
-  (function(){var lt=document.getElementById('loaderText'),b='Sessions with Toby';b.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c===' '?'\\u00A0':c;s.style.animationDelay=(i*0.06)+'s';lt.appendChild(s);});window.addEventListener('load',function(){setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},1800);});setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},3500);})();
+  (function(){var lt=document.getElementById('loaderText'),b='Sessions with Toby';b.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c===' '?' ':c;s.style.animationDelay=(i*0.06)+'s';lt.appendChild(s);});window.addEventListener('load',function(){setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},1800);});setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},3500);})();
   async function submitBooking(e){
     e.preventDefault();
     var d={name:document.getElementById('bName').value.trim(),email:document.getElementById('bEmail').value.trim(),whatsapp:document.getElementById('bWhatsApp').value.trim(),service:document.getElementById('bService').value,level:document.getElementById('bLevel').value,message:document.getElementById('bMessage').value.trim()};
-    try{var t='',admin='1688731002';if(t){var msg='🆕 *Demo Booking*\n\n👤 '+d.name+'\n📧 '+d.email+'\n📱 '+d.whatsapp+'\n🎯 '+d.service+'\n📊 '+d.level+'\n\n📝 '+(d.message||'N/A');await fetch('https://api.telegram.org/bot'+t+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:admin,text:msg,parse_mode:'Markdown'})});}}catch(err){}
+    var btn=document.querySelector('#bookForm button[type="submit"]');
+    btn.textContent='Booking...';btn.disabled=true;
+    try{
+      var msg='🆕 *Demo Booking*\n\n👤 '+d.name+'\n📧 '+d.email+'\n📱 '+d.whatsapp+'\n🎯 '+d.service+'\n📊 '+d.level+'\n\n📝 '+(d.message||'N/A');
+      await fetch('https://formsubmit.co/prosperolumotobi@gmail.com',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({_subject:'Demo Booking: '+d.name,_captcha:'false',Name:d.name,Email:d.email,WhatsApp:d.whatsapp,Service:d.service,Level:d.level,Message:d.message||'N/A'}).toString()});
+    }catch(err){}
     document.getElementById('bookForm').innerHTML='<div class="text-center py-8"><div class="text-5xl mb-4">🎉</div><h3 class="text-xl font-bold mb-2" style="color:#002D21">You\'re all set, '+d.name+'!</h3><p class="text-slate-500 mb-4">Coach Toby has received your booking and will reach out within 24 hours via WhatsApp or email to schedule your free demo.</p><a href="home.html" class="btn-cta">← Back to Home</a></div>';
   }
   </script>

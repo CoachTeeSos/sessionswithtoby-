@@ -136,7 +136,7 @@ function detectCurrency() {
     })
     .catch(function() {
       // Fallback: try ip-api.com
-      fetch('http://ip-api.com/json/')
+      fetch('https://ip-api.com/json/')
         .then(function(r) { return r.json(); })
         .then(function(d) {
           var country = d.countryCode || '';
@@ -394,14 +394,14 @@ function ensureModal() {
   var s = document.createElement('style');
   s.textContent = [
     '.cta-modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:1000;}',
-    '.cta-modal-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:1px solid #e4e6f0;border-radius:20px;padding:32px 28px;width:90%;max-width:440px;z-index:1001;max-height:90vh;overflow-y:auto;}',
-    '.cta-modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:#6b7094;font-size:1.4rem;cursor:pointer;padding:4px;line-height:1;}',
-    '.cta-modal-box h3{font-size:1.2rem;font-weight:800;margin-bottom:6px;color:#0f1120;}',
-    '.cta-modal-sub{color:#6b7094;font-size:0.85rem;margin-bottom:20px;}',
+    '.cta-modal-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:32px 28px;width:90%;max-width:440px;z-index:1001;max-height:90vh;overflow-y:auto;}',
+    '.cta-modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:#64748b;font-size:1.4rem;cursor:pointer;padding:4px;line-height:1;}',
+    '.cta-modal-box h3{font-size:1.2rem;font-weight:800;margin-bottom:6px;color:#002D21;}',
+    '.cta-modal-sub{color:#64748b;font-size:0.85rem;margin-bottom:20px;}',
     '.cta-field{margin-bottom:14px;}',
-    '.cta-field label{display:block;font-size:0.78rem;font-weight:600;color:#2a2d4a;margin-bottom:4px;}',
-    '.cta-field input{width:100%;padding:12px 14px;background:#f8f9fc;border:1px solid #e4e6f0;border-radius:10px;color:#0f1120;font-size:0.92rem;font-family:inherit;outline:none;transition:border-color .2s;}',
-    '.cta-field input:focus{border-color:#6d28d9;}',
+    '.cta-field label{display:block;font-size:0.78rem;font-weight:600;color:#002D21;margin-bottom:4px;}',
+    '.cta-field input{width:100%;padding:12px 14px;background:#F4F7F6;border:1px solid #e2e8f0;border-radius:8px;color:#1E293B;font-size:0.92rem;font-family:inherit;outline:none;transition:border-color .2s;}',
+    '.cta-field input:focus{border-color:#008060;}',
     '.cta-field input::placeholder{color:#9ca3af;}'
   ].join('');
 
@@ -414,7 +414,7 @@ function ensureModal() {
     if (fwLink) {
       window.open(fwLink, '_blank');
       document.getElementById('cta-pay-status').textContent = 'Payment page opened. Come back here after paying.';
-      document.getElementById('cta-pay-status').style.color = 'var(--success)';
+      document.getElementById('cta-pay-status').style.color = '#008060';
     }
   });
 }

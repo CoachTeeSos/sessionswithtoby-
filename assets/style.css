@@ -81,5 +81,12 @@ h1,h2,h3,h4,h5,h6{color:#002D21;font-weight:700;line-height:1.2;letter-spacing:-
 .modal-box{background:#fff;border-radius:8px;padding:2rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;animation:modalIn 200ms ease}
 @keyframes modalIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
 
+/* ── Utilities ───────────────────────────────────────────── */
+.w-full{width:100%}
+.flex-wrap{flex-wrap:wrap}
+img{max-width:100%;height:auto;display:block}
+::selection{background:#008060;color:#fff}
+
 /* ── Accessibility ───────────────────────────────────────── */
 :focus-visible{outline:2px solid #008060;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}}

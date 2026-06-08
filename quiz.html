@@ -187,7 +187,7 @@
   </div>
 
   <script>
-  (function(){var lt=document.getElementById('loaderText'),b='Sessions with Toby';b.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c===' '?'\\u00A0':c;s.style.animationDelay=(i*0.06)+'s';lt.appendChild(s);});window.addEventListener('load',function(){setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},1800);});setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},3500);})();
+  (function(){var lt=document.getElementById('loaderText'),b='Sessions with Toby';b.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c===' '?' ':c;s.style.animationDelay=(i*0.06)+'s';lt.appendChild(s);});window.addEventListener('load',function(){setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},1800);});setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},3500);})();
   var R={
   gigs:{t:"The Skilled But Unseen",d:"You can sing. People who hear you know it. But the gigs aren't coming. The problem isn't your voice — it's your positioning, your network, and your stage confidence."},
   record:{t:"The Bedroom Singer",d:"You've been singing for years but have nothing to show for it. You need structure, accountability, and someone who pushes you to actually release."},
@@ -250,14 +250,12 @@
     else if(q6==='both') serviceKey='paid-community';
     window.open('https://t.me/Retpipebot?start='+encodeURIComponent(name+'|'+serviceKey),'_blank');
     document.getElementById('thankYouName').textContent=name;
-    document.querySelector('.quiz-card').style.display='none';
-    document.getElementById('thankYou').classList.add('active');
-    document.getElementById('progressBar').style.display='none';
     var tyMsg='Your guide is ready. Check your Telegram for next steps! 🎤';
     if(q6==='free_community') tyMsg="Check your Telegram — I'll add you to the Free Singers' Community! 🎤";
     else if(q6==='paid_community'||q6==='both') tyMsg="Check your Telegram — I'll send you the Paid Community details! ⭐";
     else if(q6==='lesson') tyMsg="Check your Telegram — let's get your first session booked! 🎯";
-    document.querySelector('.thank-you p').textContent=tyMsg;
+    document.querySelector('.quiz-card').innerHTML='<div class="thank-you active" style="padding:40px 0"><div class="icon">✅</div><h2>Thank you, '+name+'!</h2><p>'+tyMsg+'</p><a href="home.html" class="btn-outline">← Back to Home</a></div>';
+    document.getElementById('progressBar').style.display='none';
   }
   </script>
   <script src="assets/capture.js"></script>
