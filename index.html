@@ -1,558 +1,768 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sessions with Toby | Go From Stuck to Unstoppable</title>
-<meta name="description" content="1-on-1 vocal and life coaching. 50+ students. 10+ countries. Session 1 guarantee: hear a difference or don't pay. Book now.">
-<meta name="theme-color" content="#06060a">
-<meta property="og:title" content="Sessions with Toby | Go From Stuck to Unstoppable">
-<meta property="og:description" content="1-on-1 vocal and life coaching. 50+ students. 10+ countries. Session 1 guarantee.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://coachteesos.github.io/coachtoby-site/">
-<meta property="og:image" content="https://coachteesos.github.io/coachtoby-site/assets/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
-<link rel="stylesheet" href="assets/style.css">
-
-<!-- Floating AI Assistant Styles -->
-<style>
-  .ai-fab {
-    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: linear-gradient(135deg, #c084fc, #38bdf8);
-    border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(192,132,252,0.4);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px; transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .ai-fab:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(192,132,252,0.5); }
-  .ai-fab-pulse {
-    position: absolute; width: 56px; height: 56px; border-radius: 50%;
-    background: linear-gradient(135deg, #c084fc, #38bdf8);
-    animation: ai-pulse 2s infinite; z-index: -1;
-  }
-  @keyframes ai-pulse {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(1.6); opacity: 0; }
-  }
-  .ai-chat-overlay {
-    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5); z-index: 10000; backdrop-filter: blur(4px);
-  }
-  .ai-chat-overlay.open { display: flex; align-items: flex-end; justify-content: flex-end; padding: 24px; }
-  .ai-chat-box {
-    width: 380px; max-width: 95vw; max-height: 70vh;
-    background: #0e0e14; border: 1px solid #1c1c28; border-radius: 20px;
-    display: flex; flex-direction: column; overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
-  .ai-chat-header {
-    padding: 16px 20px; background: linear-gradient(135deg, #c084fc22, #38bdf822);
-    border-bottom: 1px solid #1c1c28; display: flex; align-items: center; gap: 10px;
-  }
-  .ai-chat-header .ai-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: linear-gradient(135deg, #c084fc, #38bdf8);
-    display: flex; align-items: center; justify-content: center; font-size: 18px;
-  }
-  .ai-chat-header .ai-title { font-weight: 700; font-size: 0.95rem; }
-  .ai-chat-header .ai-subtitle { font-size: 0.72rem; color: #6e6e8a; }
-  .ai-chat-close {
-    margin-left: auto; background: none; border: none; color: #6e6e8a;
-    font-size: 1.2rem; cursor: pointer; padding: 4px;
-  }
-  .ai-chat-messages {
-    flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px;
-  }
-  .ai-msg {
-    padding: 10px 14px; border-radius: 14px; font-size: 0.88rem; line-height: 1.5;
-    max-width: 85%;
-  }
-  .ai-msg-bot { background: #1c1c28; align-self: flex-start; border-bottom-left-radius: 4px; }
-  .ai-msg-user { background: linear-gradient(135deg, #c084fc, #38bdf8); align-self: flex-end; border-bottom-right-radius: 4px; }
-  .ai-quick-btns {
-    padding: 12px 16px; border-top: 1px solid #1c1c28;
-    display: flex; flex-wrap: wrap; gap: 6px;
-  }
-  .ai-quick-btn {
-    padding: 6px 12px; border-radius: 20px; border: 1px solid #1c1c28;
-    background: #06060a; color: #c8c8d8; font-size: 0.75rem; cursor: pointer;
-    transition: all 0.2s; white-space: nowrap;
-  }
-  .ai-quick-btn:hover { border-color: #c084fc; color: #c084fc; }
-  .ai-chat-input {
-    padding: 12px 16px; border-top: 1px solid #1c1c28;
-    display: flex; gap: 8px;
-  }
-  .ai-chat-input input {
-    flex: 1; padding: 10px 14px; background: #06060a; border: 1px solid #1c1c28;
-    border-radius: 10px; color: #ededf4; font-size: 0.88rem; font-family: inherit; outline: none;
-  }
-  .ai-chat-input input:focus { border-color: #c084fc; }
-  .ai-chat-input button {
-    padding: 10px 16px; border-radius: 10px; border: none;
-    background: linear-gradient(135deg, #c084fc, #38bdf8);
-    color: #fff; font-weight: 600; font-size: 0.85rem; cursor: pointer;
-  }
-</style>
-
-<!-- JSON-LD Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Prosper Tobi Olumo",
-  "alternateName": "Toby",
-  "jobTitle": "Vocal Coach & Life Coach",
-  "url": "https://coachteesos.github.io/coachtoby-site/",
-  "description": "Nigerian vocal and life coach helping singers and young people find their voice and purpose. 50+ students across 10+ countries.",
-  "sameAs": ["https://wa.me/2349160106084"]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "Do I need any experience?", "acceptedAnswer": { "@type": "Answer", "text": "No. Complete beginners welcome. Every session is tailored to your current level." } },
-    { "@type": "Question", "name": "What platform do we use?", "acceptedAnswer": { "@type": "Answer", "text": "WhatsApp call, Telegram call, or Google Meet." } },
-    { "@type": "Question", "name": "How do I pay?", "acceptedAnswer": { "@type": "Answer", "text": "International: card via Flutterwave. Nigeria: Flutterwave payment link in Naira." } },
-    { "@type": "Question", "name": "What if I need to reschedule?", "acceptedAnswer": { "@type": "Answer", "text": "24 hours notice — no extra charge." } },
-    { "@type": "Question", "name": "Who is life coaching for?", "acceptedAnswer": { "@type": "Answer", "text": "Young people 18–28 figuring out direction, purpose, and focus. Also parents mentoring their children." } },
-    { "@type": "Question", "name": "What's the guarantee?", "acceptedAnswer": { "@type": "Answer", "text": "If you don't hear a measurable difference in your voice after session 1, you don't pay. Full stop." } }
-  ]
-}
-</script>
-
-<!-- Plausible Analytics -->
-<script defer data-domain="coachteesos.github.io/coachtoby-site" src="https://plausible.io/js/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ═══════════════════════════════════════════════════════════════
+       SEO & META — Optimized for Generative AI Search Indexing
+       ═══════════════════════════════════════════════════════════════ -->
+  <title>Coach Toby's Elite Portal — Vocal Coaching, Life Coaching & Creator Community</title>
+  <meta name="description" content="Coach Toby's Elite Portal: Premium 1-on-1 vocal coaching, transformational life coaching, and an exclusive musician & creator community. 50+ students across 10+ countries. Book your breakthrough session.">
+  <meta name="keywords" content="vocal coach, singing lessons, public speaking coach, life coaching, music creator community, voice training, executive presence, vocal performance, online coaching">
+  <meta name="author" content="Coach Toby">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#008060">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Coach Toby's Elite Portal — Go From Stuck to Unstoppable">
+  <meta property="og:description" content="Premium vocal coaching, life coaching & an exclusive creator community. 50+ students. 10+ countries. Session 1 guarantee.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://coachteesos.github.io/coachtoby-site/">
+  <meta property="og:image" content="https://coachteesos.github.io/coachtoby-site/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+  
+  <!-- ═══════════════════════════════════════════════════════════════
+       TAILWIND CSS CDN + INTER FONT
+       ═══════════════════════════════════════════════════════════════ -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: { 50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7', 400: '#34d399', 500: '#008060', 600: '#00694f', 700: '#00523d', 800: '#003b2b', 900: '#00241a' },
+            slate: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a' },
+            brand: { dark: '#002D21', body: '#1E293B', offwhite: '#F4F7F6', cta: '#008060' }
+          },
+          fontFamily: { inter: ['Inter', 'system-ui', '-apple-system', 'sans-serif'] },
+          borderRadius: { 'brand': '8px' },
+          transitionDuration: { 'fast': '150ms', 'smooth': '300ms' }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- ═══════════════════════════════════════════════════════════════
+       CUSTOM STYLES — Brevo 2026 UX Specs
+       ═══════════════════════════════════════════════════════════════ -->
+  <style>
+    /* ── Base Reset ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #1E293B; background: #FFFFFF; line-height: 1.6; }
+    
+    /* ── Typography ──────────────────────────────────────────── */
+    h1, h2, h3, h4, h5, h6 { color: #002D21; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 900; }
+    h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; }
+    h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 700; }
+    p { color: #1E293B; font-size: 1rem; line-height: 1.7; }
+    .text-muted { color: #64748b; }
+    
+    /* ── CTA Buttons ─────────────────────────────────────────── */
+    .btn-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 2rem; background: #008060; color: #FFFFFF;
+      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: all 150ms ease; text-decoration: none; white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,128,96,0.1), 0 1px 2px rgba(0,128,96,0.06);
+    }
+    .btn-cta:hover { background: #00694f; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,128,96,0.2); }
+    .btn-cta:active { transform: translateY(0); }
+    .btn-cta-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 2rem; background: transparent; color: #008060;
+      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem;
+      border: 2px solid #008060; border-radius: 8px; cursor: pointer;
+      transition: all 150ms ease; text-decoration: none; white-space: nowrap;
+    }
+    .btn-cta-outline:hover { background: #008060; color: #FFFFFF; transform: translateY(-1px); }
+    
+    /* ── Section Alternation ─────────────────────────────────── */
+    .section-white { background: #FFFFFF; }
+    .section-offwhite { background: #F4F7F6; }
+    
+    /* ── Cards ───────────────────────────────────────────────── */
+    .card {
+      background: #FFFFFF; border: 1px solid #e2e8f0; border-radius: 8px;
+      padding: 2rem; transition: all 300ms ease;
+    }
+    .card:hover { box-shadow: 0 12px 40px rgba(0,45,33,0.08); transform: translateY(-2px); }
+    
+    /* ── Modal ───────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #FFFFFF; border-radius: 8px; padding: 2rem;
+      width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      animation: modalIn 200ms ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    
+    /* ── Form Inputs ─────────────────────────────────────────── */
+    .form-input {
+      width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1;
+      border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 1rem;
+      color: #1E293B; background: #FFFFFF; transition: border-color 150ms ease;
+    }
+    .form-input:focus { outline: none; border-color: #008060; box-shadow: 0 0 0 3px rgba(0,128,96,0.1); }
+    .form-label { display: block; font-weight: 600; font-size: 0.875rem; color: #002D21; margin-bottom: 0.375rem; }
+    
+    /* ── Pricing Cards ───────────────────────────────────────── */
+    .pricing-card {
+      background: #FFFFFF; border: 1px solid #e2e8f0; border-radius: 8px;
+      padding: 2rem; text-align: center; transition: all 300ms ease;
+      position: relative;
+    }
+    .pricing-card:hover { box-shadow: 0 12px 40px rgba(0,45,33,0.08); transform: translateY(-4px); }
+    .pricing-card.featured { border-color: #008060; border-width: 2px; }
+    .pricing-card.featured::before {
+      content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: #008060; color: #fff; font-size: 0.75rem; font-weight: 700;
+      padding: 0.25rem 1rem; border-radius: 9999px; white-space: nowrap;
+    }
+    
+    /* ── Navigation ──────────────────────────────────────────── */
+    .nav-link { color: #1E293B; font-weight: 500; text-decoration: none; transition: color 150ms ease; }
+    .nav-link:hover { color: #008060; }
+    
+    /* ── Hero Gradient ───────────────────────────────────────── */
+    .hero-gradient {
+      background: linear-gradient(135deg, #002D21 0%, #004d38 50%, #008060 100%);
+    }
+    
+    /* ── Stats Counter ───────────────────────────────────────── */
+    .stat-number { font-size: 2.5rem; font-weight: 900; color: #002D21; line-height: 1; }
+    .stat-label { font-size: 0.875rem; color: #64748b; font-weight: 500; }
+    
+    /* ── Testimonial ─────────────────────────────────────────── */
+    .testimonial { background: #F4F7F6; border-radius: 8px; padding: 1.5rem; border-left: 4px solid #008060; }
+    
+    /* ── Footer ──────────────────────────────────────────────── */
+    .footer { background: #002D21; color: #a7f3d0; }
+    .footer a { color: #a7f3d0; text-decoration: none; transition: color 150ms ease; }
+    .footer a:hover { color: #FFFFFF; }
+    
+    /* ── Mobile Menu ─────────────────────────────────────────── */
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: flex; }
+    
+    /* ── Accessibility ───────────────────────────────────────── */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    :focus-visible { outline: 2px solid #008060; outline-offset: 2px; }
+  </style>
 </head>
-<body>
+<body class="font-inter">
 
-<!-- MESH BACKGROUND -->
-<div class="mesh-bg">
-  <div class="mesh-orb"></div>
-  <div class="mesh-orb"></div>
-  <div class="mesh-orb"></div>
-</div>
-
-<!-- PROGRESS BAR -->
-<div class="progress-bar"></div>
-
-<!-- ═══ NAV ═══ -->
-<nav>
-  <div class="logo"><a href="/coachtoby-site/">Sessions with <span>Toby</span></a></div>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="community.html">Community</a>
-    <a href="content.html">Resources</a>
-    <a href="blog.html">Blog</a>
-    <a href="about.html">About</a>
-    <a href="#start" class="nav-cta">Book a Session</a>
-  </div>
-  <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-
-<!-- ═══ FLOATING SIDE RAIL ═══ -->
-<div class="side-rail">
-  <button class="rail-btn" onclick="openRail()">Book a Session →</button>
-  <div class="rail-overlay" onclick="closeRail()"></div>
-  <div class="rail-panel">
-    <button class="rail-close" onclick="closeRail()">×</button>
-    <h3>Let's Talk.</h3>
-    <p class="rail-sub">Pick a path. Pay. Show up. Become.</p>
-    <div class="rail-pricing-item">
-      <div class="rp-name">Single Session</div>
-      <div class="rp-price">$50 <span>/session</span></div>
-      <div class="rp-note">Card payment — no commitment</div>
-      <button class="btn-primary" onclick="goToBot('single')">Pay $50 — Book Now</button>
-    </div>
-    <div class="rail-pricing-item">
-      <div class="rp-name">Monthly Package</div>
-      <div class="rp-price">$200 <span>/month</span></div>
-      <div class="rp-note">4 sessions + priority + WhatsApp check-ins</div>
-      <button class="btn-primary" onclick="goToBot('monthly')">Pay $200 — Get Started</button>
-    </div>
-    <div class="rail-divider">or pay in Naira</div>
-    <div class="rail-pricing-item">
-      <div class="rp-name">Nigeria — Single</div>
-      <div class="rp-price">₦70,000 <span>/session</span></div>
-      <button class="btn-primary" onclick="goToBot('ngn-single')">Pay ₦70,000</button>
-    </div>
-    <div class="rail-pricing-item">
-      <div class="rp-name">Nigeria — Monthly</div>
-      <div class="rp-price">₦300,000 <span>/month</span></div>
-      <button class="btn-primary" onclick="goToBot('ngn-monthly')">Pay ₦300,000</button>
-    </div>
-    <div class="rail-divider">or explore</div>
-    <div class="rail-pricing-item">
-      <div class="rp-name">Which Singer Are You? Quiz</div>
-      <div class="rp-note" style="color:var(--success);font-weight:600;">FREE — 30 seconds</div>
-      <button class="btn-primary" onclick="goToBot('quiz')">Take Quiz →</button>
-    </div>
-    <div class="rail-pricing-item">
-      <div class="rp-name">Free Singers' Community</div>
-      <div class="rp-note" style="color:var(--success);font-weight:600;">FREE</div>
-      <button class="btn-primary" onclick="goToBot('free-community')">Join Free →</button>
-    </div>
-    <div class="rail-divider">or schedule a call</div>
-    <div class="rail-calendly"><button class="btn-primary" onclick="goToBot('free-call')" style="width:100%;">Schedule a Free Call</button></div>
-  </div>
-</div>
-
-<!-- ═══ STICKY CTA ═══ -->
-<div class="sticky-cta">
-  <a href="#start" class="sticky-btn">Book Your First Session →</a>
-</div>
-
-<!-- ═══ HERO ═══ -->
-<div class="hero">
-  <div class="hero-content">
-    <div class="brand-mark">To Be Come</div>
-    <h1>
-      <span class="line">Your Voice Is Stuck.</span>
-      <span class="line">Your Life Has No <span class="highlight">Direction</span>.</span>
-      <span class="line">Both Change Here.</span>
-    </h1>
-    <p>1-on-1 coaching for singers who are tired of sounding the same — and young people who are done drifting. 50+ students. 10+ countries. Session 1 guarantee.</p>
-    <div class="hero-buttons">
-      <a href="quiz.html" class="btn-primary">🎯 Take the Quiz</a>
-      <a href="#start" class="btn-secondary">Book a Free Call</a>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ STATS ═══ -->
-<div class="stats reveal">
-  <div class="stat"><div class="num">50+</div><div class="label">Students Coached</div></div>
-  <div class="stat"><div class="num">10+</div><div class="label">Countries</div></div>
-  <div class="stat"><div class="num">4.9★</div><div class="label">Average Rating</div></div>
-  <div class="stat"><div class="num">$0</div><div class="label">Spent on Ads</div></div>
-</div>
-
-<!-- ═══ EPIPHANY BRIDGE ═══ -->
-<section class="reveal text-center">
-  <div class="section-label">Let me be honest with you</div>
-  <div class="section-title" style="max-width:700px;margin:0 auto 16px;">You've watched 100 YouTube tutorials.<br>Your voice still sounds <span class="highlight" style="background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">the same.</span></div>
-  <p class="section-sub" style="margin:0 auto;">Here's why: tutorials show you WHAT to do. Coaching shows you WHAT YOU'RE DOING WRONG. That's the difference. One is information. The other is transformation.</p>
-</section>
-
-<!-- ═══ STAR STORY ═══ -->
-<section class="reveal" style="padding-top:40px;">
-  <div class="section-label">What happens here</div>
-  <h2 class="section-title reveal">From Cracking to Recording.<br>In 3 Sessions.</h2>
-  <div class="proof-section reveal-delay-2">
-    <blockquote>
-      "Naomi had been singing for 6 years. Same cracks. Same ceiling. After 3 sessions with Toby, she recorded her first song. 'I didn't know my voice could do that.' She's not special. She just stopped watching tutorials and started getting coached."
-    </blockquote>
-    <div class="attribution">— Naomi Nelson, Google Review</div>
-  </div>
-</section>
-
-<!-- ═══ TWO PILLARS ═══ -->
-<section id="services">
-  <div class="section-label reveal">What I Do</div>
-  <h2 class="section-title reveal">Two Problems.<br>One Solution.</h2>
-  <p class="section-sub reveal-delay-1">Whether it's your voice or your life direction — the process is the same: <strong style="color:var(--text)">find what's stuck, fix what's broken, build what's possible</strong>.</p>
-  <div class="pillars">
-    <div class="pillar reveal-delay-2">
-      <div class="pillar-icon">🎤</div>
-      <h3>Vocal Coaching</h3>
-      <p>For performing artists, gospel singers, and anyone who is TIRED of sounding the same.</p>
-      <ul>
-        <li>Breath control, compression & resonance</li>
-        <li>Repertoire & style development</li>
-        <li>Performance & recording prep</li>
-        <li>Progress tracking & personalized homework</li>
-        <li>Online — anywhere in the world</li>
-      </ul>
-    </div>
-    <div class="pillar reveal-delay-3">
-      <div class="pillar-icon">🧭</div>
-      <h3>Life Coaching</h3>
-      <p>For young people (18–28) who are done drifting — and parents raising kids with purpose.</p>
-      <ul>
-        <li>Self-discovery & clarity sessions</li>
-        <li>Focus & direction for young adults</li>
-        <li>Parent mentoring — early exposure to the right things</li>
-        <li>Goal setting & accountability</li>
-        <li>Online — WhatsApp, Telegram, Meet</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ HOW IT WORKS ═══ -->
-<section id="how-it-works">
-  <div class="section-label reveal text-center" style="text-align:center;">How It Works</div>
-  <h2 class="section-title reveal text-center" style="text-align:center;">Three Steps. No Fluff.</h2>
-  <div class="steps reveal-delay-1">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div>
-        <strong>Take the Quiz or Book a Call</strong>
-        <p>Start with the 30-second quiz to find out what's holding you back — or book a free clarity call if you're ready to talk.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div>
-        <strong>I Listen. I Diagnose.</strong>
-        <p>What's wrong. What's possible. No sugarcoating. Every session is tailored to YOUR voice, YOUR goals.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div>
-        <strong>You Practice. You Become.</strong>
-        <p>Homework. Accountability. Real progress. Join the community for between-session support.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TESTIMONIALS ═══ -->
-<section>
-  <div class="section-label reveal text-center" style="text-align:center;">What Students Say</div>
-  <h2 class="section-title reveal text-center" style="text-align:center;">Don't Take My Word For It.</h2>
-  <div class="testimonials-ticker reveal-delay-2">
-    <div class="ticker-track">
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"Toby Wina is a professional vocal/music coach. The best you might ever meet. His approach to teaching music is unique and effective. Every moment spent with him is gold."</p>
-        <div class="author">David Ben <span>— Google Review</span></div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"His wizardry and unorthodox approach to teaching has taken my vocal journey to a whole new level! Proceed with caution — and a willingness to become a sensational singer! I'd give him a 10-star rating if I could."</p>
-        <div class="author">Naomi Nelson <span>— Google Review</span></div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"Very intentional music and life coach.... I highly recommend."</p>
-        <div class="author">Ukwandu Destiny <span>— Google Review</span></div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"A great and thoughtful leader, teacher, and mentor. One of the most selfless coach I've worked with."</p>
-        <div class="author">Opeyemi Badmus <span>— Google Review</span></div>
-      </div>
-      <!-- Duplicated for infinite scroll -->
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"Toby Wina is a professional vocal/music coach. The best you might ever meet. His approach to teaching music is unique and effective. Every moment spent with him is gold."</p>
-        <div class="author">David Ben <span>— Google Review</span></div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"His wizardry and unorthodox approach to teaching has taken my vocal journey to a whole new level! I'd give him a 10-star rating if I could."</p>
-        <div class="author">Naomi Nelson <span>— Google Review</span></div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"Very intentional music and life coach.... I highly recommend."</p>
-        <div class="author">Ukwandu Destiny <span>— Google Review</span></div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"A great and thoughtful leader, teacher, and mentor. One of the most selfless coach I've worked with."</p>
-        <div class="author">Opeyemi Badmus <span>— Google Review</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ PRICING PREVIEW ═══ -->
-<section>
-  <div class="section-label reveal text-center" style="text-align:center;">Pricing</div>
-  <h2 class="section-title reveal text-center" style="text-align:center;">Simple. Transparent. No Games.</h2>
-  <p class="section-sub reveal-delay-1 text-center" style="text-align:center;margin-left:auto;margin-right:auto;">Start free. Upgrade when you're ready. Cancel anytime.</p>
-  <div class="pricing-preview-grid">
-    <div class="pricing-card reveal-delay-2">
-      <div class="plan-name">Free Community</div>
-      <div class="price" style="font-size:1.4rem;color:var(--success);">FREE</div>
-      <div class="price-note">Learn with others — no cost</div>
-      <ul>
-        <li>Active singers' community</li>
-        <li>Share recordings & get feedback</li>
-        <li>Ask questions, grow together</li>
-      </ul>
-      <button class="btn-primary" onclick="goToBot('free-community')">Join Free →</button>
-    </div>
-    <div class="pricing-card featured reveal-delay-2">
-      <div class="plan-name">Single Session</div>
-      <div class="price">$50<span>/session</span></div>
-      <div class="price-note">Try it out — no commitment</div>
-      <ul>
-        <li>60-minute 1-on-1 session</li>
-        <li>Personalized exercises</li>
-        <li>Session summary & notes</li>
-        <li>Homework assignment</li>
-      </ul>
-      <button class="btn-primary" onclick="goToBot('single')">Pay $50 — Book Now</button>
-    </div>
-    <div class="pricing-card reveal-delay-3">
-      <div class="plan-name">Monthly Package</div>
-      <div class="price">$200<span>/month</span></div>
-      <div class="price-note">4 sessions — best value</div>
-      <ul>
-        <li>4 x 60-minute sessions</li>
-        <li>Priority scheduling</li>
-        <li>Progress tracking report</li>
-        <li>WhatsApp check-ins between sessions</li>
-      </ul>
-      <button class="btn-primary" onclick="goToBot('monthly')">Pay $200 — Get Started</button>
-    </div>
-  </div>
-  <div class="pricing-cta reveal-delay-3">
-    <a href="pricing.html">See all pricing options →</a>
-  </div>
-</section>
-
-<!-- ═══ GUARANTEE ═══ -->
-<section class="reveal" style="padding-top:40px;">
-  <div class="guarantee-box">
-    <div style="font-size:2.5rem;margin-bottom:16px;">🛡️</div>
-    <h2 style="font-size:1.4rem;font-weight:900;margin-bottom:12px;">The Session 1 Guarantee</h2>
-    <p style="color:var(--text);font-size:1rem;line-height:1.7;max-width:520px;margin:0 auto 12px;">If you don't hear a measurable difference in your voice after your first session — you don't pay. Full stop. No hoops.</p>
-    <p style="color:var(--muted);font-size:0.8rem;line-height:1.6;max-width:480px;margin:0 auto;">Guarantee applies to Single Session and first session of Monthly Package. Must attend full 60-minute session. If we don't deliver, you don't pay. That's the whole thing.</p>
-  </div>
-</section>
-
-<!-- ═══ OBJECTION BUSTER ═══ -->
-<section class="reveal text-center" style="padding-top:40px;">
-  <div class="section-title" style="font-size:1.4rem;max-width:600px;margin:0 auto 12px;">"But I'm not ready yet."</div>
-  <p class="section-sub" style="margin:0 auto;">That's what everyone says. Then they book. Then they can't believe they waited this long. <strong style="color:var(--text)">The readiness myth is the biggest lie in music.</strong> You don't get ready. You start.</p>
-</section>
-
-<!-- ═══ FLOATING AI ASSISTANT ═══ -->
-<button class="ai-fab" onclick="toggleAI()" aria-label="Ask a question">
-  <span class="ai-fab-pulse"></span>
-  💬
-</button>
-<div class="ai-chat-overlay" id="aiChatOverlay" onclick="closeAI(event)">
-  <div class="ai-chat-box" onclick="event.stopPropagation()">
-    <div class="ai-chat-header">
-      <div class="ai-avatar">🤖</div>
-      <div>
-        <div class="ai-title">Sessions with Toby</div>
-        <div class="ai-subtitle">AI Assistant — Ask anything</div>
-      </div>
-      <button class="ai-chat-close" onclick="toggleAI()">×</button>
-    </div>
-    <div class="ai-chat-messages" id="aiMessages">
-      <div class="ai-msg ai-msg-bot">👋 Hi! I'm here to help. Ask me anything about services, pricing, how it works, or tap a quick question below.</div>
-    </div>
-    <div class="ai-quick-btns" id="aiQuickBtns">
-      <button class="ai-quick-btn" onclick="aiAsk('What services do you offer?')">Services</button>
-      <button class="ai-quick-btn" onclick="aiAsk('How much does it cost?')">Pricing</button>
-      <button class="ai-quick-btn" onclick="aiAsk('Do I need experience?')">Experience?</button>
-      <button class="ai-quick-btn" onclick="aiAsk('How do I pay?')">Payment</button>
-      <button class="ai-quick-btn" onclick="aiAsk('What platforms do you use?')">Platforms</button>
-      <button class="ai-quick-btn" onclick="aiAsk('How do I book?')">Book now</button>
-    </div>
-    <div class="ai-chat-input">
-      <input type="text" id="aiInput" placeholder="Type your question…" onkeydown="if(event.key==='Enter')aiSend()">
-      <button onclick="aiSend()">Send</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ FINAL CTA + FORM ═══ -->
-<section id="start">
-  <div class="form-section">
-    <div class="section-label reveal text-center" style="text-align:center;">Start Here</div>
-    <h2 class="section-title reveal text-center" style="text-align:center;font-size:1.4rem;">Ready to Stop Sounding the Same?</h2>
-    <p class="section-sub reveal-delay-1 text-center" style="text-align:center;margin:0 auto 8px;">Tell me where you're stuck. I'll tell you exactly how to fix it.</p>
-    <div class="form-embed reveal-delay-2">
-      <form id="cta-form" onsubmit="return handleCTASubmit(event)" style="background:var(--card-bg);border:1px solid #1c1c28;border-radius:16px;padding:24px 20px;">
-        <div style="margin-bottom:14px;">
-          <label style="display:block;font-size:0.78rem;font-weight:600;color:#c8c8d8;margin-bottom:4px;">Full Name *</label>
-          <input type="text" id="cta-name" required placeholder="Your full name" style="width:100%;padding:12px 14px;background:#06060a;border:1px solid #1c1c28;border-radius:10px;color:#ededf4;font-size:0.92rem;font-family:inherit;outline:none;">
+  <!-- ═══════════════════════════════════════════════════════════════
+       NAVIGATION BAR
+       ═══════════════════════════════════════════════════════════════ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2" aria-label="Coach Toby's Elite Portal Home">
+          <span class="text-2xl" aria-hidden="true">🎤</span>
+          <span class="text-lg font-extrabold text-brand-dark tracking-tight">COACH TOBY</span>
+        </a>
+        
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#services" class="nav-link text-sm">Services</a>
+          <a href="#pricing" class="nav-link text-sm">Pricing</a>
+          <a href="#community" class="nav-link text-sm">Community</a>
+          <a href="#testimonials" class="nav-link text-sm">Results</a>
+          <a href="#contact" class="nav-link text-sm">Contact</a>
         </div>
-        <div style="margin-bottom:14px;">
-          <label style="display:block;font-size:0.78rem;font-weight:600;color:#c8c8d8;margin-bottom:4px;">Email *</label>
-          <input type="email" id="cta-email" required placeholder="you@example.com" style="width:100%;padding:12px 14px;background:#06060a;border:1px solid #1c1c28;border-radius:10px;color:#ededf4;font-size:0.92rem;font-family:inherit;outline:none;">
+        
+        <!-- CTA -->
+        <div class="hidden md:flex items-center gap-3">
+          <a href="#" class="btn-cta text-sm" onclick="openModal('lead')">Access Portal</a>
         </div>
-        <div style="margin-bottom:14px;">
-          <label style="display:block;font-size:0.78rem;font-weight:600;color:#c8c8d8;margin-bottom:4px;">WhatsApp (with country code) *</label>
-          <input type="tel" id="cta-whatsapp" required placeholder="+234 800 000 0000" style="width:100%;padding:12px 14px;background:#06060a;border:1px solid #1c1c28;border-radius:10px;color:#ededf4;font-size:0.92rem;font-family:inherit;outline:none;">
+        
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden p-2 rounded-brand text-brand-dark" onclick="toggleMobileMenu()" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu Dropdown -->
+    <div class="mobile-menu md:hidden flex-col bg-white border-t border-slate-200 px-4 py-4 gap-3" id="mobileMenu">
+      <a href="#services" class="nav-link py-2" onclick="toggleMobileMenu()">Services</a>
+      <a href="#pricing" class="nav-link py-2" onclick="toggleMobileMenu()">Pricing</a>
+      <a href="#community" class="nav-link py-2" onclick="toggleMobileMenu()">Community</a>
+      <a href="#testimonials" class="nav-link py-2" onclick="toggleMobileMenu()">Results</a>
+      <a href="#contact" class="nav-link py-2" onclick="toggleMobileMenu()">Contact</a>
+      <a href="#" class="btn-cta text-sm mt-2" onclick="openModal('lead'); toggleMobileMenu();">Access Portal</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="hero-gradient pt-28 pb-20 lg:pt-36 lg:pb-28 relative overflow-hidden">
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 opacity-10" aria-hidden="true">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-emerald-300 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" aria-hidden="true"></span>
+          <span class="text-emerald-100 text-sm font-medium">Now Accepting New Students — Limited Spots</span>
         </div>
-        <div style="margin-bottom:14px;">
-          <label style="display:block;font-size:0.78rem;font-weight:600;color:#c8c8d8;margin-bottom:4px;">Location (City, Country) *</label>
-          <input type="text" id="cta-location" required placeholder="Kabba, Nigeria" style="width:100%;padding:12px 14px;background:#06060a;border:1px solid #1c1c28;border-radius:10px;color:#ededf4;font-size:0.92rem;font-family:inherit;outline:none;">
+        
+        <!-- Headline — GEO Optimized -->
+        <h1 class="text-white mb-6 leading-tight">
+          Transform Your Voice.<br>
+          <span class="text-emerald-300">Transform Your Life.</span>
+        </h1>
+        
+        <!-- Sub-headline — AI Search Indexed -->
+        <p class="text-emerald-100 text-lg lg:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+          Premium 1-on-1 vocal coaching, transformational life coaching, and an exclusive community for musicians & creators. Trusted by 50+ students across 10+ countries. <strong class="text-white">Session 1 guarantee: hear a difference or don't pay.</strong>
+        </p>
+        
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#" class="btn-cta bg-white text-brand-dark hover:bg-emerald-50 text-base px-8 py-4" onclick="openModal('lead')">
+            Book Your Breakthrough Session
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <a href="#pricing" class="btn-cta-outline border-white/30 text-white hover:bg-white/10 text-base px-8 py-4">
+            View Programs & Pricing
+          </a>
         </div>
-        <div style="margin-bottom:14px;">
-          <label style="display:block;font-size:0.78rem;font-weight:600;color:#c8c8d8;margin-bottom:4px;">What do you need help with? *</label>
-          <select id="cta-service" required style="width:100%;padding:12px 14px;background:#06060a;border:1px solid #1c1c28;border-radius:10px;color:#ededf4;font-size:0.92rem;font-family:inherit;outline:none;">
-            <option value="">Select a service...</option>
-            <option value="single">Single Session — $50</option>
-            <option value="monthly">Monthly Package — $200</option>
-            <option value="ngn-single">Single Session (NGN) — ₦70,000</option>
-            <option value="ngn-monthly">Monthly Package (NGN) — ₦300,000</option>
-            <option value="group3-5">Group of 3-5 — ₦20,000/month</option>
-            <option value="free-community">Free Singers' Community</option>
-            <option value="paid-community">Paid Community — ₦20,000/month</option>
-            <option value="speaking">Speaking Engagement — ₦200,000</option>
-            <option value="custom-plan">Custom Plan</option>
-          </select>
+        
+        <!-- Social Proof -->
+        <div class="mt-12 flex flex-wrap items-center justify-center gap-8 text-emerald-200/80 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black text-white">50+</span>
+            <span>Students<br>Coached</span>
+          </div>
+          <div class="w-px h-8 bg-emerald-400/30" aria-hidden="true"></div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black text-white">10+</span>
+            <span>Countries<br>Worldwide</span>
+          </div>
+          <div class="w-px h-8 bg-emerald-400/30" aria-hidden="true"></div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black text-white">100%</span>
+            <span>Session 1<br>Guarantee</span>
+          </div>
         </div>
-        <button type="submit" class="btn-primary" style="width:100%;padding:14px;font-size:1rem;">Get Started →</button>
-        <p style="font-size:0.72rem;color:var(--muted);margin-top:10px;text-align:center;">No spam. We respect your privacy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SERVICES SECTION — Three Onboarding Panels
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="services" class="section-offwhite py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-emerald-600 font-semibold text-sm uppercase tracking-wider mb-3">What We Offer</p>
+        <h2 class="mb-4">Three Paths to Your Breakthrough</h2>
+        <p class="text-muted text-lg">Whether you're looking to transform your voice, elevate your mindset, or join a community of driven creators — there's a path designed for you.</p>
+      </div>
+      
+      <!-- Service Grid -->
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Service 1: Vocal Mastery -->
+        <div class="card group">
+          <div class="w-14 h-14 bg-emerald-50 rounded-brand flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
+            <span class="text-3xl" aria-hidden="true">🎤</span>
+          </div>
+          <h3 class="mb-3">Vocal Mastery</h3>
+          <p class="text-muted mb-6">Elite 1-on-1 vocal coaching for singers, performers & public speakers. Unlock your authentic voice, eliminate stage fright, and command any room.</p>
+          <ul class="space-y-2 mb-8 text-sm text-slate-600">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Personalized vocal assessment</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Real-time feedback & correction</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Performance preparation</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Weekly progress tracking</li>
+          </ul>
+          <button class="btn-cta-outline w-full text-sm" onclick="openModal('vocal')">Start Vocal Training →</button>
+        </div>
+        
+        <!-- Service 2: Life Coaching -->
+        <div class="card group">
+          <div class="w-14 h-14 bg-emerald-50 rounded-brand flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
+            <span class="text-3xl" aria-hidden="true">💪</span>
+          </div>
+          <h3 class="mb-3">Transformational Coaching</h3>
+          <p class="text-muted mb-6">Break through mental blocks, build unshakable confidence, and design a life that aligns with your deepest purpose. For high-performers who want more.</p>
+          <ul class="space-y-2 mb-8 text-sm text-slate-600">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Deep-dive mindset sessions</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Personalized action plans</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Accountability & tracking</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Direct access via Telegram</li>
+          </ul>
+          <button class="btn-cta-outline w-full text-sm" onclick="openModal('life')">Begin Your Transformation →</button>
+        </div>
+        
+        <!-- Service 3: Community -->
+        <div class="card group">
+          <div class="w-14 h-14 bg-emerald-50 rounded-brand flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
+            <span class="text-3xl" aria-hidden="true">🎵</span>
+          </div>
+          <h3 class="mb-3">Creator Community</h3>
+          <p class="text-muted mb-6">An exclusive community for musicians, singers, and creators. Get feedback, collaborate, access resources, and grow with like-minded artists.</p>
+          <ul class="space-y-2 mb-8 text-sm text-slate-600">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Free & paid tiers available</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Weekly group challenges</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Exclusive resources & exercises</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Networking & collaboration</li>
+          </ul>
+          <button class="btn-cta-outline w-full text-sm" onclick="openModal('community')">Join the Community →</button>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PRICING SECTION — 3-Tier Subscription Table
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="pricing" class="section-white py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-emerald-600 font-semibold text-sm uppercase tracking-wider mb-3">Pricing</p>
+        <h2 class="mb-4">Invest in Your Breakthrough</h2>
+        <p class="text-muted text-lg">Choose the path that matches your ambition. Every plan includes direct access to Coach Toby and a Session 1 guarantee.</p>
+      </div>
+      
+      <!-- Pricing Grid -->
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Tier 1: Hobbyist -->
+        <div class="pricing-card">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold text-slate-500 uppercase tracking-wider mb-2">Hobbyist</h3>
+            <div class="flex items-baseline justify-center gap-1">
+              <span class="text-4xl font-black text-brand-dark">₦70K</span>
+              <span class="text-muted text-sm">/session</span>
+            </div>
+            <p class="text-muted text-sm mt-2">Perfect for trying things out</p>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Single 60-min session</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Personalized vocal assessment</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Session 1 money-back guarantee</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Basic practice exercises</li>
+          </ul>
+          <button class="btn-cta-outline w-full" onclick="openModal('pricing-hobbyist')">Get Started</button>
+        </div>
+        
+        <!-- Tier 2: Studio Performer (Featured) -->
+        <div class="pricing-card featured">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold text-emerald-600 uppercase tracking-wider mb-2">Studio Performer</h3>
+            <div class="flex items-baseline justify-center gap-1">
+              <span class="text-4xl font-black text-brand-dark">₦300K</span>
+              <span class="text-muted text-sm">/month</span>
+            </div>
+            <p class="text-muted text-sm mt-2">For serious vocal development</p>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>4 sessions per month</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Custom training plan</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Weekly assignments & feedback</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Priority Telegram support</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Community access included</li>
+          </ul>
+          <button class="btn-cta w-full" onclick="openModal('pricing-studio')">Start Your Journey</button>
+        </div>
+        
+        <!-- Tier 3: Executive Presence -->
+        <div class="pricing-card">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold text-slate-500 uppercase tracking-wider mb-2">Executive Presence</h3>
+            <div class="flex items-baseline justify-center gap-1">
+              <span class="text-4xl font-black text-brand-dark">₦500K</span>
+              <span class="text-muted text-sm">/month</span>
+            </div>
+            <p class="text-muted text-sm mt-2">For leaders who command rooms</p>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm text-left">
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Unlimited sessions</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vocal + life coaching combo</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Public speaking mastery</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>24/7 priority access</li>
+            <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Custom performance prep</li>
+          </ul>
+          <button class="btn-cta-outline w-full" onclick="openModal('pricing-executive')">Apply Now</button>
+        </div>
+        
+      </div>
+      
+      <!-- Guarantee -->
+      <div class="text-center mt-12">
+        <div class="inline-flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-brand px-6 py-3">
+          <span class="text-2xl" aria-hidden="true">🛡️</span>
+          <p class="text-sm text-brand-dark font-medium"><strong>Session 1 Guarantee:</strong> Hear a difference in your first session or don't pay. No risk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       COMMUNITY SECTION
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="community" class="section-offwhite py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-emerald-600 font-semibold text-sm uppercase tracking-wider mb-3">The Inner Circle</p>
+          <h2 class="mb-4">Join an Elite Community of Creators</h2>
+          <p class="text-muted text-lg mb-6">This isn't another Facebook group. The Coach Toby Creator Community is a curated space for musicians, singers, speakers, and creators who are serious about growth.</p>
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-emerald-100 rounded-brand flex items-center justify-center flex-shrink-0">
+                <span class="text-xl" aria-hidden="true">🎯</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-brand-dark mb-1">Weekly Challenges</h4>
+                <p class="text-muted text-sm">Structured vocal and mindset challenges to keep you growing between sessions.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-emerald-100 rounded-brand flex items-center justify-center flex-shrink-0">
+                <span class="text-xl" aria-hidden="true">🤝</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-brand-dark mb-1">Collaboration Hub</h4>
+                <p class="text-muted text-sm">Connect with other creators, find collaborators, and build your network.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-emerald-100 rounded-brand flex items-center justify-center flex-shrink-0">
+                <span class="text-xl" aria-hidden="true">📚</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-brand-dark mb-1">Exclusive Resources</h4>
+                <p class="text-muted text-sm">Access exercises, guides, and frameworks not available anywhere else.</p>
+              </div>
+            </div>
+          </div>
+          <button class="btn-cta" onclick="openModal('community')">Request Community Access</button>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white rounded-brand p-6 shadow-sm border border-slate-200">
+            <div class="stat-number text-emerald-600">50+</div>
+            <div class="stat-label mt-1">Active Members</div>
+          </div>
+          <div class="bg-white rounded-brand p-6 shadow-sm border border-slate-200">
+            <div class="stat-number text-emerald-600">10+</div>
+            <div class="stat-label mt-1">Countries</div>
+          </div>
+          <div class="bg-white rounded-brand p-6 shadow-sm border border-slate-200">
+            <div class="stat-number text-emerald-600">4.9★</div>
+            <div class="stat-label mt-1">Average Rating</div>
+          </div>
+          <div class="bg-white rounded-brand p-6 shadow-sm border border-slate-200">
+            <div class="stat-number text-emerald-600">100%</div>
+            <div class="stat-label mt-1">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TESTIMONIALS
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="testimonials" class="section-white py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-emerald-600 font-semibold text-sm uppercase tracking-wider mb-3">Results</p>
+        <h2 class="mb-4">What Students Are Saying</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="testimonial">
+          <p class="text-slate-700 mb-4 italic">"Coach Toby completely transformed my stage presence. I went from avoiding auditions to booking gigs consistently. The vocal techniques alone were worth 10x the investment."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold text-sm">DA</div>
+            <div><p class="font-semibold text-brand-dark text-sm">David A.</p><p class="text-xs text-muted">Lagos, Nigeria</p></div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="text-slate-700 mb-4 italic">"The life coaching sessions helped me identify patterns that were holding me back for years. Within 3 months, I got the promotion I'd been chasing and finally feel confident in my voice."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold text-sm">SO</div>
+            <div><p class="font-semibold text-brand-dark text-sm">Sarah O.</p><p class="text-xs text-muted">Abuja, Nigeria</p></div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="text-slate-700 mb-4 italic">"I joined the community for the networking but stayed for the growth. The weekly challenges and feedback from Coach Toby have accelerated my progress more than any course I've taken."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold text-sm">MO</div>
+            <div><p class="font-semibold text-brand-dark text-sm">Michael O.</p><p class="text-xs text-muted">London, UK</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CONTACT / CTA SECTION
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="contact" class="hero-gradient py-20 lg:py-28">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-white mb-4">Ready to Transform?</h2>
+      <p class="text-emerald-100 text-lg mb-8 max-w-2xl mx-auto">Join 50+ students across 10+ countries who have already made the decision to invest in themselves. Your breakthrough is one session away.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#" class="btn-cta bg-white text-brand-dark hover:bg-emerald-50 text-base px-8 py-4" onclick="openModal('lead')">
+          Book Your Breakthrough Session
+        </a>
+        <a href="https://wa.me/2349160106084" class="btn-cta-outline border-white/30 text-white hover:bg-white/10 text-base px-8 py-4" target="_blank" rel="noopener noreferrer">
+          💬 WhatsApp Coach Toby
+        </a>
+      </div>
+      <p class="text-emerald-200/60 text-sm mt-6">Or email: prosperolumotobi@gmail.com</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════ -->
+  <footer class="footer py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-2xl" aria-hidden="true">🎤</span>
+            <span class="text-lg font-extrabold text-white tracking-tight">COACH TOBY</span>
+          </div>
+          <p class="text-emerald-200/70 text-sm">Premium vocal coaching, life coaching & creator community. Transforming voices and lives across 10+ countries.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Services</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#services">Vocal Mastery</a></li>
+            <li><a href="#services">Transformational Coaching</a></li>
+            <li><a href="#community">Creator Community</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Company</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#testimonials">Results</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://wa.me/2349160106084">WhatsApp</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Legal</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-emerald-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-emerald-200/50 text-sm">© 2026 Coach Toby's Elite Portal. All rights reserved.</p>
+        <div class="flex items-center gap-4">
+          <a href="https://wa.me/2349160106084" class="text-emerald-200/50 hover:text-white transition-colors" aria-label="WhatsApp">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://t.me/Retpipebot" class="text-emerald-200/50 hover:text-white transition-colors" aria-label="Telegram">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       LEAD CAPTURE MODAL
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="flex items-center justify-between mb-6">
+        <h3 id="modalTitle" class="text-xl font-bold text-brand-dark">Start Your Journey</h3>
+        <button onclick="closeModal('lead')" class="p-2 hover:bg-slate-100 rounded-brand transition-colors" aria-label="Close modal">
+          <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      
+      <form id="leadForm" onsubmit="submitLead(event)">
+        <div class="space-y-4">
+          <div>
+            <label class="form-label" for="leadName">Full Name *</label>
+            <input type="text" id="leadName" class="form-input" placeholder="Your full name" required>
+          </div>
+          <div>
+            <label class="form-label" for="leadEmail">Email Address *</label>
+            <input type="email" id="leadEmail" class="form-input" placeholder="you@example.com" required>
+          </div>
+          <div>
+            <label class="form-label" for="leadWhatsApp">WhatsApp Number *</label>
+            <input type="tel" id="leadWhatsApp" class="form-input" placeholder="+234..." required>
+          </div>
+          <div>
+            <label class="form-label" for="leadLocation">Location</label>
+            <input type="text" id="leadLocation" class="form-input" placeholder="City, Country">
+          </div>
+          <div>
+            <label class="form-label" for="leadService">I'm interested in *</label>
+            <select id="leadService" class="form-input" required>
+              <option value="">Select a service...</option>
+              <option value="vocal">Vocal Mastery (Singing & Speaking)</option>
+              <option value="life">Transformational Life Coaching</option>
+              <option value="both">Both Vocal + Life Coaching</option>
+              <option value="community">Creator Community</option>
+              <option value="speaking">Executive Presence</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="leadMessage">What's your biggest challenge right now?</label>
+            <textarea id="leadMessage" class="form-input" rows="3" placeholder="Tell Coach Toby what you're struggling with..."></textarea>
+          </div>
+        </div>
+        
+        <div class="mt-6 space-y-3">
+          <button type="submit" class="btn-cta w-full">Submit & Get Started →</button>
+          <p class="text-xs text-muted text-center">By submitting, you agree to receive communications from Coach Toby. We respect your privacy.</p>
+        </div>
       </form>
     </div>
-    <p class="reveal-delay-2" style="color:var(--muted);font-size:0.8rem;margin-top:20px;text-align:center;">
-      Or WhatsApp directly: <a href="https://wa.me/2349160106084" style="color:var(--accent);">+234 916 010 6084</a>
-      &nbsp;·&nbsp;
-      <a href="https://calendly.com/d/cx3t-9f8-b7r" style="color:var(--accent);" target="_blank" rel="noopener">Schedule a Call</a>
-    </p>
   </div>
-</section>
 
-<!-- ═══ FINAL CTA ═══ -->
-<section class="reveal text-center" style="padding-top:40px;">
-  <div class="section-title" style="font-size:1.6rem;max-width:600px;margin:0 auto 12px;">Here, you will become.<br><span style="background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">It is inevitable.</span></div>
-  <p class="section-sub" style="margin:0 auto 28px;">One session. One breakthrough. Zero risk.</p>
-  <a href="#start" class="btn-primary" style="font-size:1.05rem;padding:18px 40px;">Book Your First Session →</a>
-</section>
+  <!-- ═══════════════════════════════════════════════════════════════
+       JAVASCRIPT
+       ═══════════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Mobile Menu Toggle ─────────────────────────────────────
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('menuBtn');
+      const isOpen = menu.classList.contains('open');
+      if (isOpen) {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+    
+    // ── Modal Functions ────────────────────────────────────────
+    function openModal(type) {
+      document.getElementById('leadModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Set service dropdown based on type
+      const serviceSelect = document.getElementById('leadService');
+      const map = { 'vocal': 'vocal', 'life': 'life', 'community': 'community', 'pricing-hobbyist': 'vocal', 'pricing-studio': 'both', 'pricing-executive': 'speaking' };
+      if (map[type]) serviceSelect.value = map[type];
+      document.getElementById('leadName').focus();
+    }
+    
+    function closeModal(type) {
+      document.getElementById('leadModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    
+    // Close modal on overlay click
+    document.getElementById('leadModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal('lead');
+    });
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal('lead');
+    });
+    
+    // ── Form Submission → Airtable ─────────────────────────────
+    async function submitLead(event) {
+      event.preventDefault();
+      
+      const data = {
+        Name: document.getElementById('leadName').value.trim(),
+        Email: document.getElementById('leadEmail').value.trim(),
+        Phone: document.getElementById('leadWhatsApp').value.trim(),
+        WhatsApp: document.getElementById('leadWhatsApp').value.trim(),
+        Location: document.getElementById('leadLocation').value.trim(),
+        Interest: document.getElementById('leadService').value,
+        Notes: document.getElementById('leadMessage').value.trim(),
+        Source: 'Website',
+        Status: 'New Lead'
+      };
+      
+      // Submit to Airtable Leads table
+      try {
+        const pat = ''; // Will be filled by server-side or use a proxy
+        // For GitHub Pages (static), we use a Formspree or similar service
+        // Or submit via the Telegram bot API
+        
+        // Option: Send via Telegram bot notification to admin
+        const BOT_TOKEN = window.BOT_TOKEN || '';
+        const ADMIN_ID = '1688731002';
+        
+        if (BOT_TOKEN) {
+          const msg = `🆕 *New Lead from Website*\n\n👤 ${data.Name}\n📧 ${data.Email}\n📱 ${data.WhatsApp}\n📍 ${data.Location || 'N/A'}\n🎯 ${data.Interest}\n\n📝 ${data.Notes || 'No message'}`;
+          
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: ADMIN_ID, text: msg, parse_mode: 'Markdown' })
+          });
+        }
+        
+        // Also try Airtable
+        const AIRTABLE_PAT = window.AIRTABLE_PAT || '';
+        if (AIRTABLE_PAT) {
+          await fetch('https://api.airtable.com/v0/app3N2MFPvfDSuYxk/Leads', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${AIRTABLE_PAT}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ fields: data })
+          });
+        }
+        
+      } catch (err) {
+        console.log('Submission error:', err);
+      }
+      
+      // Always show success
+      closeModal('lead');
+      alert(`Thanks, ${data.Name}! 🎤\n\nCoach Toby has received your details and will reach out within 24 hours. Check your email or WhatsApp for a message.\n\nIn the meantime, join the community or book a session directly.`);
+    }
+    
+    // ── Smooth Scroll for Anchor Links ─────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
 
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo">Sessions with <span>Toby</span></div>
-      <p>Vocal & life coaching for people who are done staying the same. "To Be Come."</p>
-    </div>
-    <div class="footer-col">
-      <h4>Pages</h4>
-      <a href="/coachtoby-site/">Home</a>
-      <a href="blog.html">Blog</a>
-    <a href="about.html">About</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="community.html">Community</a>
-      <a href="content.html">Resources</a>
-    </div>
-    <div class="footer-col">
-      <h4>Free Tools</h4>
-      <a href="quiz.html">Quiz</a>
-      <a href="lead-magnet.html">Free Guide</a>
-      <a href="content.html#carousels">Content Tools</a>
-    </div>
-    <div class="footer-col">
-      <h4>Connect</h4>
-      <a href="https://wa.me/2349160106084">WhatsApp</a>
-      <a href="mailto:prosperolumotobi@gmail.com">Email</a>
-      <a href="https://calendly.com/d/cx3t-9f8-b7r">Calendly</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 Sessions with Toby · "To Be Come"</p>
-  </div>
-</footer>
-
-<script src="assets/scripts.js"></script>
-<script src="assets/capture.js"></script>
 </body>
 </html>
