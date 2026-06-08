@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://coachteesos.github.io/coachtoby-site/sitemap.xml
