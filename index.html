@@ -155,7 +155,11 @@
     var s=parseInt(b.dataset.step),v=b.dataset.value;ans[s]=v;
     document.getElementById('step'+s).classList.remove('active');cs=s+1;
     if(cs<=5){document.getElementById('step'+cs).classList.add('active');document.getElementById('progressFill').style.width=(cs*20)+'%';document.getElementById('progressText').textContent='Step '+cs+' of 5';}
-    if(s===4)genRec();
+    if(s===4){
+      genRec();
+      // GA4: track quiz completion as lead
+      if(typeof gtag!=='undefined'){gtag('event','generate_lead',{value:0,currency:'USD'});}
+    }
     document.getElementById('backBtn').style.display=cs>1?'inline':'none';
   });
   function goBack(){if(cs<=1)return;document.getElementById('step'+cs).classList.remove('active');cs--;document.getElementById('step'+cs).classList.add('active');document.getElementById('progressFill').style.width=(cs*20)+'%';document.getElementById('progressText').textContent='Step '+cs+' of 5';document.getElementById('backBtn').style.display=cs>1?'inline':'none';}

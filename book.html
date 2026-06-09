@@ -228,6 +228,8 @@ function startPayment(plan,amount,currency,desc){
   // Store payment data for thank-you page
   localStorage.setItem('ct_payment',JSON.stringify({ref:ref,plan:plan,amount:amount,currency:currency,name:name,email:email,ts:Date.now()}));
   localStorage.setItem('ct_lead_name',name);
+  // GA4: track begin_checkout
+  if(typeof gtag!=='undefined'){gtag('event','begin_checkout',{value:amount,currency:currency});}
   if(FW_LINKS[plan]){
     // Redirect to Flutterwave with return URL for thank-you page
     var returnUrl=encodeURIComponent(window.location.origin+window.location.pathname.replace('book.html','')+'thank-you.html?ref='+ref+'&amount='+amount+'&currency='+currency+'&name='+encodeURIComponent(name)+'&email='+encodeURIComponent(email));
@@ -259,6 +261,8 @@ async function submitDemo(e){
     level:document.getElementById('dLevel').value,
     message:document.getElementById('dMessage').value.trim()
   };
+  // GA4: track lead
+  if(typeof gtag!=='undefined'){gtag('event','generate_lead',{value:0,currency:'USD'});}
   var btn=document.querySelector('#demoForm button[type="submit"]');
   btn.textContent='Scheduling...';btn.disabled=true;
   try{
