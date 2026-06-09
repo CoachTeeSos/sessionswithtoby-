@@ -121,13 +121,40 @@
         <button class="pay-btn pay-btn-secondary" onclick="startPayment('ngn-single',70000,'NGN','Single Session — 1-on-1 Vocal Coaching')">&#x1F3A4; Single Session &mdash; &#x20A6;70,000</button>
         <button class="pay-btn pay-btn-secondary" onclick="startPayment('ngn-monthly',300000,'NGN','Monthly Package — 4 Sessions + Priority')">&#x1F4C8; Monthly Package &mdash; &#x20A6;300,000</button>
 
-        <div class="getstarted-or">or pay what works for you</div>
+        <div class="getstarted-or">or set up a payment plan</div>
 
-        <div class="form-group">
-          <label class="form-label">Custom Amount (USD)</label>
-          <input type="number" id="customAmount" class="form-input" placeholder="Enter amount (min 10)" min="10">
+        <div id="payLaterSection">
+          <p class="body-text" style="margin-bottom:1rem;text-align:center;font-size:0.9rem;color:var(--muted)">Can't pay the full amount now? Set your proposed amount and payment date. Coach Toby will review and confirm.</p>
+          <div class="form-group">
+            <label class="form-label" for="customAmount">Proposed Amount (₦) *</label>
+            <input type="number" id="customAmount" class="form-input" placeholder="e.g. 40000" min="1000">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customCurrency">Currency</label>
+            <select id="customCurrency" class="form-input">
+              <option value="NGN">₦ Naira</option>
+              <option value="USD">$ USD</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="paymentDate">When can you pay? *</label>
+            <input type="date" id="paymentDate" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="paymentNotes">Notes (optional)</label>
+            <input type="text" id="paymentNotes" class="form-input" placeholder="e.g. ₦30K now, ₦10K later">
+          </div>
+          <button class="pay-btn" onclick="submitPayLater()" style="background:var(--text);color:var(--bg)">&#x1F4CB; Submit Payment Plan</button>
+          <p style="font-size:0.75rem;color:var(--muted);text-align:center;margin-top:0.5rem">Coach Toby will review and send you a payment link within 24 hours.</p>
         </div>
-        <button class="pay-btn" onclick="startCustomPayment()" style="background:var(--text);color:var(--bg)">&#x27A1; Pay Custom Amount</button>
+      </div>
+
+      <!-- PAY LATER CONFIRMATION -->
+      <div id="payLaterConfirmation" style="display:none;text-align:center;padding:2rem 0">
+        <div style="font-size:3rem;margin-bottom:1rem">&#x2705;</div>
+        <h3 style="font-family:var(--font-heading);font-weight:800;font-size:1.25rem;color:var(--text);margin-bottom:0.5rem">Payment Plan Submitted!</h3>
+        <p style="color:var(--muted);margin-bottom:1rem">Coach Toby has received your proposal and will confirm within 24 hours. Check your email for updates.</p>
+        <a href="home.html" class="btn-cta">&#x2190; Back to Home</a>
       </div>
 
       <!-- DEMO SECTION -->
@@ -249,6 +276,51 @@ function startCustomPayment(){
   var customAmt=parseFloat(document.getElementById('customAmount').value);
   if(!customAmt||customAmt<10){alert('Please enter a valid amount (minimum $10)');return;}
   startPayment('custom',customAmt,'USD','Custom Amount Payment');
+}
+
+async function submitPayLater(){
+  var name=document.getElementById('pName').value.trim();
+  var email=document.getElementById('pEmail').value.trim();
+  var amount=parseFloat(document.getElementById('customAmount').value);
+  var currency=document.getElementById('customCurrency').value;
+  var payDate=document.getElementById('paymentDate').value;
+  var notes=document.getElementById('paymentNotes').value.trim();
+  if(!name){alert('Please enter your name.');return;}
+  if(!email){alert('Please enter your email.');return;}
+  if(!amount||amount<1000){alert('Please enter a valid amount.');return;}
+  if(!payDate){alert('Please select a payment date.');return;}
+  var sym=currency==='NGN'?'₦':'$';
+  var btn=document.querySelector('#payLaterSection button');
+  btn.textContent='Submitting...';btn.disabled=true;
+  var formData=new URLSearchParams({
+    _subject:'Payment Plan Request: '+name+' ('+sym+amount.toLocaleString()+')',
+    _captcha:'false',
+    Name:name,
+    Email:email,
+    'Plan':'Custom Plan (Payment Plan)',
+    'Service Key':'custom-plan',
+    'Status':'Pending Review',
+    'Source':'Website Payment Plan',
+    'Budget':amount.toString(),
+    'Needs':'Payment date: '+payDate+'. '+notes,
+    'Amount Paid':'0',
+    'Total Sessions':'0',
+    'Sessions Used':'0'
+  });
+  try{
+    await fetch('https://formsubmit.co/prosperolumotobi@gmail.com',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:formData.toString()
+    });
+  }catch(err){}
+  // GA4: track begin_checkout
+  if(typeof gtag!=='undefined'){gtag('event','begin_checkout',{value:amount,currency:currency});}
+  document.getElementById('payLaterSection').style.display='none';
+  document.getElementById('payLaterConfirmation').style.display='block';
+  localStorage.setItem('ct_lead_name',name);
+  localStorage.setItem('ct_payment_amount',amount);
+  localStorage.setItem('ct_payment_currency',currency);
 }
 
 async function submitDemo(e){
