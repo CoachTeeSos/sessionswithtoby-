@@ -1,66 +1,97 @@
 /* ═══════════════════════════════════════════════════════════════
-   FLUTTERWAVE PAYMENT EXTENSION — Payment.js
-   Reads data-amount + data-currency from clicked element.
-   On success → deep-link to Telegram bot.
+   FLUTTERWAVE PAYMENT ENGINE
+   Reads data-amount + data-currency from button dataset
+   On success → redirects to Telegram bot deep link
    ═══════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
 
-var BOT_USERNAME = 'Retpipebot';
+  // Your Flutterwave public key
+  window.FLUTTERWAVE_PUBLIC_KEY = 'FLWPUBK-78adfe8e1b994186bb4af437f33105cc-X';
 
-function initFlutterwavePay(btn) {
-  if (!btn) return;
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    var amount = btn.getAttribute('data-amount') || '';
-    var currency = btn.getAttribute('data-currency') || 'USD';
+  // Telegram bot deep link (from data-telegram attribute on page)
+  var TELEGRAM_BOT_HANDLE = '';
+  var TELEGRAM_BOT_ID = '';
+
+  /**
+   * Initialize a Flutterwave checkout from a button click.
+   * Reads: data-amount, data-currency, data-email, data-name, data-telegram
+   */
+  function initFWCheckout(btn) {
+    var amount = btn.getAttribute('data-amount') || '0';
+    var currency = btn.getAttribute('data-currency') || window.USER_CURRENCY || 'USD';
     var email = btn.getAttribute('data-email') || '';
     var name = btn.getAttribute('data-name') || '';
+    var telegram = btn.getAttribute('data-telegram') || '';
     var ref = 'CT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
 
-    if (typeof FlutterwaveCheckout === 'undefined') {
-      // Fallback: redirect to Flutterwave payment link if inline FW not loaded
-      var fwLinks = {
-        'single': 'https://flutterwave.com/pay/ictjiqq30sz7',
-        'monthly': 'https://flutterwave.com/pay/b0hjfvjhv8x4',
-        'ngn-single': 'https://flutterwave.com/pay/xnddgkfjeheq',
-        'ngn-monthly': 'https://flutterwave.com/pay/wdod0tyeqedw',
-        'group3-5': 'https://flutterwave.com/pay/lrgz2vk3xez3',
-        'paid-community': 'https://flutterwave.com/pay/lrgz2vk3xez3'
-      };
-      var serviceKey = btn.getAttribute('data-service') || '';
-      if (fwLinks[serviceKey]) {
-        window.open(fwLinks[serviceKey], '_blank');
-      } else {
-        alert('Payment system loading. Please try again in a moment.');
-      }
+    if (telegram) {
+      TELEGRAM_BOT_HANDLE = telegram;
+    }
+
+    if (typeof FlutterwaveCheckout !== 'function') {
+      alert('Payment system loading... Please try again in a few seconds.');
       return;
     }
 
     FlutterwaveCheckout({
-      public_key: btn.getAttribute('data-pw-key') || '',
+      public_key: window.FLUTTERWAVE_PUBLIC_KEY,
       tx_ref: ref,
       amount: parseFloat(amount),
       currency: currency,
       payment_options: 'card,banktransfer,ussd',
-      customer: { email: email, name: name },
+      customer: {
+        email: email,
+        name: name
+      },
       callback: function(data) {
         if (data.status === 'successful' || data.status === 'completed') {
-          // Redirect to Telegram bot on success
-          window.location.href = 'https://t.me/' + BOT_USERNAME + '?start=payment_' + ref;
+          var botUrl = TELEGRAM_BOT_ID
+            ? 'https://t.me/' + TELEGRAM_BOT_ID
+            : 'https://t.me/Retpipebot';
+
+          // Show brief confirmation then redirect
+          document.body.innerHTML =
+            '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#FDFBF7;text-align:center;padding:2rem">' +
+              '<div>' +
+                '<div style="font-size:4rem;margin-bottom:1rem">✅</div>' +
+                '<h2 style="font-family:Syne,sans-serif;font-weight:800;color:#004B49;font-size:1.8rem;margin-bottom:0.5rem">Payment Confirmed!</h2>' +
+                '<p style="color:#5A7D7C;margin-bottom:1.5rem">Redirecting you to Telegram...</p>' +
+                '<a href="' + botUrl + '" class="btn-primary" id="tg-redirect">Go to Bot Now →</a>' +
+              '</div>' +
+            '</div>';
+
+          setTimeout(function() {
+            window.location.href = botUrl;
+          }, 2000);
         }
       },
       onclose: function() {},
       customizations: {
         title: 'Sessions with Toby',
-        description: btn.getAttribute('data-desc') || 'Vocal Coaching Payment',
+        description: 'Vocal coaching payment',
         logo: ''
       }
     });
-  });
-}
+  }
 
-// Auto-init all pay buttons on page load
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('[data-amount][data-currency]').forEach(function(btn) {
-    initFlutterwavePay(btn);
-  });
-});
+  // Auto-wire all buttons with data-fw-btn attribute
+  function wireFWButtons() {
+    document.querySelectorAll('[data-fw-btn]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        initFWCheckout(btn);
+      });
+    });
+  }
+
+  // Wire on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireFWButtons);
+  } else {
+    wireFWButtons();
+  }
+
+  // Expose globally
+  window.initFWCheckout = initFWCheckout;
+})();

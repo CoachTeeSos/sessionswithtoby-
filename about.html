@@ -299,8 +299,12 @@
   (function(){var lt=document.getElementById('loaderText'),b='Sessions with Toby';b.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c===' '?' ':c;s.style.animationDelay=(i*0.06)+'s';lt.appendChild(s);});window.addEventListener('load',function(){setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},1800);});setTimeout(function(){document.getElementById('pageLoader').classList.add('fade-out');setTimeout(function(){document.getElementById('pageLoader').style.display='none';},500);},3500);})();
   function toggleMobile(){document.getElementById('mobMenu').classList.toggle('open');}
   </script>
-  <script defer src="assets/js/pricing.js"></script>
-  <script defer src="assets/js/payment.js"></script>
+  
+  
+  
+
+  <script defer src="/assets/js/pricing.js"></script>
+  <script defer src="/assets/js/payment.js"></script>
   <script src="https://checkout.flutterwave.com/v3.js"></script>
 </body>
 </html>
