@@ -42,7 +42,7 @@ AIRTABLE_TABLE = os.environ.get("AIRTABLE_TABLE", "Students")
 BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 BREVO_API_URL = "https://api.brevo.com/v3"
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
-GITHUB_REPO = os.environ.get("GITHUB_BACKUP_REPO", "CoachToby/student-data-backup")
+GITHUB_REPO = os.environ.get("GITHUB_BACKUP_REPO", "CoachTeeSos/coachtoby-student-backup")
 ENCRYPTION_KEY = os.environ.get("BACKUP_ENCRYPTION_KEY", "coachtoby-2026-secret")
 
 
