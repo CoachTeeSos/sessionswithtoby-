@@ -484,8 +484,6 @@ function submitForm(e) {
     'Name': name,
     'Email': email,
     'Phone': phone,
-    'Telegram': telegram || '',
-    'Location': location,
     'Plan': svc.label,
     'Service Key': serviceKey,
     'Status': svc.price > 0 ? 'Awaiting Receipt' : 'Active',
@@ -493,6 +491,8 @@ function submitForm(e) {
     'Total Sessions': svc.price > 0 ? (serviceKey === 'monthly' || serviceKey === 'ngn-monthly' ? 4 : 1) : 0,
     'Sessions Used': 0
   };
+  if (telegram) fields['Telegram Chat ID'] = telegram;
+  if (location) fields['Needs'] = (fields['Needs'] || '') + ' Location: ' + location;
   if (budget) fields['Budget'] = budget;
   if (needs) fields['Needs'] = needs;
 
