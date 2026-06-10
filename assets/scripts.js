@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', initBudgetCalculator);
 /* ═══════════════════════════════════════════════════════════════
    CONFIG
    ═══════════════════════════════════════════════════════════════ */
-const PROXY_URL = '';  // Set this to your bot server URL, e.g. 'https://your-bot-server.railway.app'
+const PROXY_URL = 'https://successtoby-hermeswebui.hf.space';
 
 // Airtable config — write directly from frontend
 const AIRTABLE_PAT = '';
