@@ -275,12 +275,12 @@
     else if(q6==='paid_community') serviceKey='paid-community';
     else if(q6==='lesson') serviceKey='single';
     else if(q6==='both') serviceKey='paid-community';
-    window.open('https://t.me/Retpipebot?start='+encodeURIComponent(name+'|'+serviceKey),'_blank');
+    window.open('https://wa.me/2349160106084?text='+encodeURIComponent('Hi Coach Toby! I just completed the quiz. My name is '+name+' and I\'m interested in '+serviceKey),'_blank');
     document.getElementById('thankYouName').textContent=name;
-    var tyMsg='Your guide is ready. Check your Telegram for next steps! &#x1F3A4;';
+    var tyMsg='Your guide is ready. Check your email for next steps! &#x1F3A4;';
     if(q6==='free_community') tyMsg="Check your Telegram — I'll add you to the Free Singers' Community! &#x1F3A4;";
     else if(q6==='paid_community'||q6==='both') tyMsg="Check your Telegram — I'll send you the Paid Community details! &#x2B50;";
-    else if(q6==='lesson') tyMsg="Check your Telegram — let's get your first session booked! &#x1F3AF;";
+    else if(q6==='lesson') tyMsg="Let's get your first session booked! &#x1F3AF;";
     document.querySelector('.quiz-card').innerHTML='<div class="thank-you active thanks-pad"><div class="icon">&#x2705;</div><h2>Thank you, '+name+'!</h2><p>'+tyMsg+'</p><a href="home.html" class="btn-outline">&larr; Back to Home</a></div>';
     document.getElementById('progressBar').style.display='none';
   }
