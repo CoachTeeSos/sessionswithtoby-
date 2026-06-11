@@ -3,121 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Sessions with Toby — Your Voice Is Holding You Back</title>
+<title>Command Your Authentic Vocal Range — Sessions with Toby</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,Arial,sans-serif;color:#1a1a1a;line-height:1.7;background:#0a0a0a;color:#e0e0e0}
-.wrap{max-width:680px;margin:0 auto;padding:32px 24px}
-h1{font-size:2rem;color:#FFD700;margin-bottom:8px;font-weight:800}
-h2{font-size:1.4rem;color:#FFD700;margin:2rem 0 1rem}
-p{margin-bottom:1rem}
-.story{background:#1a1a2e;border-left:4px solid #FFD700;padding:20px;margin:20px 0;border-radius:0 12px 12px 0}
-.hook{background:#16213e;border:1px solid #FFD700;padding:20px;margin:20px 0;border-radius:12px}
-.action{background:#1a1a2e;border-left:4px solid #e94560;padding:20px;margin:20px 0;border-radius:0 12px 12px 0}
-.step{background:#0f3460;padding:16px;margin:12px 0;border-radius:8px;border-left:3px solid #e94560}
-.step strong{color:#FFD700}
-.cta{background:linear-gradient(135deg,#e94560,#FFD700);padding:32px;border-radius:16px;margin:32px 0;text-align:center}
-.cta h2{color:#0a0a0a;margin-top:0}
-.cta p{color:#1a1a1a}
-.cta input{width:100%;padding:14px;margin:8px 0;border:none;border-radius:8px;font-size:1rem;background:#fff}
-.cta button{width:100%;padding:16px;background:#0a0a0a;color:#FFD700;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;margin-top:8px}
-.cta button:hover{background:#1a1a1a}
-.date{color:#666;font-size:0.85rem;margin-bottom:24px}
-.warning{color:#e94560;font-weight:700}
-.highlight{color:#FFD700;font-weight:700}
+body{font-family:Inter,Arial,sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.7}
+.wrap{max-width:700px;margin:0 auto;padding:0}
+
+/* ── LAYER 1: HERO ── */
+.hero{background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 100%);padding:48px 32px;text-align:center;border-bottom:3px solid #FFD700}
+.hero h1{font-size:2.4rem;color:#FFD700;font-weight:900;margin-bottom:12px;line-height:1.2}
+.hero h1 span{color:#e94560}
+.hero .sub{font-size:1.1rem;color:#b0b0b0;max-width:560px;margin:0 auto 24px}
+.hero .trust{font-size:0.8rem;color:#666;margin-bottom:24px;letter-spacing:1px;text-transform:uppercase}
+.hero .trust span{color:#FFD700}
+.cta-btn{display:inline-block;background:linear-gradient(135deg,#e94560,#FFD700);color:#0a0a0a;padding:18px 40px;border-radius:12px;font-size:1.1rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;transition:transform .2s}
+.cta-btn:hover{transform:translateY(-2px)}
+
+/* ── LAYER 2: BIOLOGICAL FRICTION ── */
+.friction{background:#111;padding:40px 32px}
+.friction h2{font-size:1.5rem;color:#e94560;margin-bottom:20px}
+.bottleneck{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px;padding:16px;background:#1a1a2e;border-radius:8px;border-left:3px solid #e94560}
+.bottle-num{color:#FFD700;font-weight:800;font-size:1.2rem;min-width:28px}
+.bottle-text{color:#c0c0c0;font-size:0.95rem}
+.bottle-text strong{color:#e0e0e0}
+
+/* ── LAYER 3: PEDAGOGY GRID ── */
+.pedagogy{background:#0a0a0a;padding:40px 32px}
+.pedagogy h2{font-size:1.5rem;color:#FFD700;margin-bottom:8px}
+.pedagogy .subtitle{color:#888;margin-bottom:24px;font-size:0.9rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-card{background:#1a1a2e;padding:20px;border-radius:12px;border:1px solid #333}
+.grid-card h3{color:#FFD700;font-size:1rem;margin-bottom:8px}
+.grid-card p{color:#a0a0a0;font-size:0.85rem;line-height:1.5}
+.grid-card.software{border-color:#e94560}
+.grid-card.hardware{border-color:#0EA5E9}
+
+/* ── LAYER 4: TRANSFORMATION ── */
+.transform{background:#111;padding:40px 32px}
+.transform h2{font-size:1.5rem;color:#FFD700;margin-bottom:24px}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.ba-box{padding:20px;border-radius:12px;text-align:center}
+.before{background:#1a1a2e;border:2px solid #e94560}
+.after{background:#1a1a2e;border:2px solid #22C55E}
+.ba-box .label{font-size:0.75rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.before .label{color:#e94560}
+.after .label{color:#22C55E}
+.ba-box p{color:#c0c0c0;font-size:0.9rem}
+
+/* ── LAYER 5: STORY + EXERCISE ── */
+.story-section{background:linear-gradient(180deg,#0a0a0a,#1a1a2e);padding:40px 32px}
+.story-section h2{font-size:1.5rem;color:#FFD700;margin-bottom:20px}
+.story-text{color:#c0c0c0;margin-bottom:16px;font-size:0.95rem}
+.story-text .hl{color:#FFD700;font-weight:700}
+.story-text .warn{color:#e94560;font-weight:700}
+.exercise{background:#0f3460;border:1px solid #FFD700;padding:24px;border-radius:12px;margin:24px 0}
+.exercise h3{color:#FFD700;font-size:1.1rem;margin-bottom:16px}
+.step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.step-num{background:#FFD700;color:#0a0a0a;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;min-width:28px}
+.step-text{color:#c0c0c0;font-size:0.9rem}
+.step-text strong{color:#e0e0e0}
+.timer{text-align:center;color:#666;font-size:0.8rem;margin-top:12px}
+
+/* ── LAYER 6: FRICTION REDUCER ── */
+.friction-reducer{background:#0a0a0a;padding:40px 32px;text-align:center}
+.friction-reducer h2{font-size:1.5rem;color:#FFD700;margin-bottom:12px}
+.friction-reducer .guarantee{background:#1a1a2e;border:1px solid #22C55E;padding:16px;border-radius:8px;margin:16px 0;display:inline-block}
+.friction-reducer .guarantee span{color:#22C55E;font-weight:700}
+.friction-reducer p{color:#888;font-size:0.9rem;margin-bottom:24px}
+.form-wrap{max-width:400px;margin:0 auto}
+.form-wrap input{width:100%;padding:14px;margin:6px 0;border:none;border-radius:8px;font-size:1rem;background:#1a1a2e;color:#e0e0e0;border:1px solid #333}
+.form-wrap input::placeholder{color:#666}
+.form-wrap button{width:100%;padding:16px;background:linear-gradient(135deg,#e94560,#FFD700);color:#0a0a0a;border:none;border-radius:8px;font-size:1.1rem;font-weight:800;cursor:pointer;margin-top:8px}
+.form-wrap button:hover{opacity:0.9}
+.form-note{font-size:0.75rem;color:#555;margin-top:12px}
+
+/* ── LAYER 7: FOOTER ── */
+.footer{background:#0a0a0a;padding:32px;text-align:center;border-top:1px solid #222}
+.footer p{color:#555;font-size:0.8rem}
+.footer a{color:#FFD700;text-decoration:none}
+
+/* ── DATE ── */
+.date-bar{background:#111;padding:12px 32px;text-align:center;color:#555;font-size:0.8rem;border-bottom:1px solid #222}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+.grid,.before-after{grid-template-columns:1fr}
+.hero h1{font-size:1.8rem}
+.hero{padding:32px 20px}
+.friction,.pedagogy,.transform,.story-section,.friction-reducer{padding:32px 20px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<div class="date" id="date"></div>
+<!-- DATE BAR -->
+<div class="date-bar" id="date"></div>
 
-<h1>Your Voice Is Holding You Back</h1>
-
-<div class="story">
-<p>She'd been singing for 7 years. Church choir, open mics, even a few weddings. But every time someone asked her to sing, she'd feel her throat tighten.</p>
-<p>Her voice would crack on the high notes. Her breath would run out. And the worst part? <span class="highlight">Everyone could hear it.</span></p>
-<p>She tried YouTube tutorials. She tried breathing exercises. She even tried a different vocal coach.</p>
-<p>Nothing worked.</p>
-<p>Until she discovered the one thing nobody was teaching her.</p>
+<!-- ═══ LAYER 1: HERO ═══ -->
+<div class="hero">
+<div class="trust"><span>NYVC ALIGNED STANDARDS</span> // 10,000+ VERIFIED STUDIO HOURS</div>
+<h1>Command Your <span>Authentic Vocal Range</span><br>Without Throat Tension or Vocal Fatigue</h1>
+<p class="sub">The definitive hardware-software vocal blueprint engineered for elite vocalists, performers, and public speakers. Break through physical bottlenecks and secure predictable, structural vocal stability within 30 days.</p>
+<a href="#assessment" class="cta-btn">Book Your Vocal Diagnostics Session →</a>
 </div>
 
-<p class="warning">⚠️ If you've been singing for months or years and still can't hit the notes you want — this is for you.</p>
-
-<h2>The Lie You've Been Told</h2>
-
-<p>Here's what most singing teachers won't tell you:</p>
-
-<div class="hook">
-<p><strong>You don't have a "bad voice."</strong></p>
-<p>You have a <span class="highlight">coordination problem</span>.</p>
-<p>Your vocal folds, breath, and resonance aren't working together. That's it. That's the whole problem.</p>
-<p>And here's the kicker: <span class="warning">No amount of practice will fix it if you're practicing the wrong thing.</span></p>
+<!-- ═══ LAYER 2: BIOLOGICAL FRICTION ═══ -->
+<div class="friction">
+<h2>⚠️ Physiological Bottlenecks Restricting Your True Vocal Range</h2>
+<div class="bottleneck">
+<div class="bottle-num">01</div>
+<div class="bottle-text"><strong>Laryngeal constriction</strong> — Your throat tightens under pressure, choking off your range before your voice reaches its natural ceiling.</div>
+</div>
+<div class="bottleneck">
+<div class="bottle-num">02</div>
+<div class="bottle-text"><strong>Subglottic air pressure misalignment</strong> — Too much or too little breath support causes pitch instability, cracks, and unpredictable breaks.</div>
+</div>
+<div class="bottleneck">
+<div class="bottle-num">03</div>
+<div class="bottle-text"><strong>Inefficient registration transitions</strong> — Your chest voice and head voice don't communicate. The "break" isn't a wall — it's a coordination gap nobody taught you to bridge.</div>
+</div>
 </div>
 
-<p>This is why most singers plateau. They practice harder. They push more. They strain more.</p>
-<p>And they wonder why nothing changes.</p>
-
-<h2>The Hidden Mechanism</h2>
-
-<p>Your voice has gears. Just like a car.</p>
-
-<div class="action">
-<p><strong>Chest voice</strong> = low gear. Powerful, but can't go fast.</p>
-<p><strong>Head voice</strong> = high gear. Light, but can't pull heavy loads.</p>
-<p><strong>Mix voice</strong> = the gear nobody teaches you. Powerful AND high.</p>
+<!-- ═══ LAYER 3: PEDAGOGY GRID ═══ -->
+<div class="pedagogy">
+<h2>The NYVC Hardware-Software Blueprint</h2>
+<p class="subtitle">Every voice has two systems. Most teachers only address one.</p>
+<div class="grid">
+<div class="grid-card hardware">
+<h3>🔧 HARDWARE (Physical)</h3>
+<p>Breath support & appoggio. Vocal fold closure. Laryngeal positioning. Resonance tuning. Articulator shaping.</p>
+<p style="margin-top:8px;color:#888;font-size:0.8rem">The instrument itself — the physical mechanisms that produce sound.</p>
+</div>
+<div class="grid-card software">
+<h3>💻 SOFTWARE (Coordination)</h3>
+<p>Registration blending (chest/mix/head). Dynamic control. Vowel modification. Style-specific coordination (belt, legit, mix).</p>
+<p style="margin-top:8px;color:#888;font-size:0.8rem">How you play the instrument — the patterns that make it sing.</p>
+</div>
+</div>
 </div>
 
-<p>Most singers are stuck in first gear. They try to rev higher and higher until the engine screams.</p>
-<p>The solution isn't more power. It's <span class="highlight">shifting gears</span>.</p>
-
-<h2>Try This Right Now (2 Minutes)</h2>
-
-<div class="step">
-<strong>Step 1:</strong> Think of something that makes you sad. A loss. A goodbye. Feel it in your chest.
+<!-- ═══ LAYER 4: TRANSFORMATION ═══ -->
+<div class="transform">
+<h2>What Changes When Both Systems Work</h2>
+<div class="before-after">
+<div class="ba-box before">
+<div class="label">BEFORE</div>
+<p>Straining for high notes</p>
+<p>Voice cracks at the break</p>
+<p>Breath runs out mid-phrase</p>
+<p>Fear of singing in public</p>
 </div>
-<div class="step">
-<strong>Step 2:</strong> Say "Wah" — like a baby crying. Don't sing it. Just speak it with that sad feeling.
+<div class="ba-box after">
+<div class="label">AFTER</div>
+<p>Effortless range extension</p>
+<p>Smooth registration transitions</p>
+<p>Controlled, efficient breath</p>
+<p>Confidence on stage</p>
 </div>
-<div class="step">
-<strong>Step 3:</strong> Now sing "Wah" on a simple scale: do-re-mi-fa-sol-fa-mi-re-do
 </div>
-<div class="step">
-<strong>Step 4:</strong> Notice how the high notes feel different. Lighter. Easier. That's your mix voice.
 </div>
 
-<p>This is called the <span class="highlight">"Cry" exercise</span>. It's from the New York Vocal Coaching method. And it works because it bypasses the "trying harder" reflex that's been holding you back.</p>
+<!-- ═══ LAYER 5: STORY + EXERCISE ═══ -->
+<div class="story-section">
+<h2>The Singer Who Tried Everything</h2>
+<p class="story-text">She'd been singing for <span class="hl">7 years</span>. Church choir. Open mics. Weddings. She could belt in the shower and hit most notes in her range.</p>
+<p class="story-text">But every time someone asked her to sing, her throat would tighten. Her voice would <span class="warn">crack on the high notes</span>. Her breath would run out. And everyone could hear it.</p>
+<p class="story-text">She tried YouTube tutorials. Breathing exercises. A different vocal coach. <span class="warn">Nothing worked.</span></p>
+<p class="story-text">The problem? She was practicing harder — not smarter. Her <span class="hl">hardware was fine</span>. Her <span class="warn">software was broken</span>.</p>
+<p class="story-text">Once she learned to shift gears — not push harder — everything changed. <span class="hl">Within 3 weeks</span>, she was singing notes she'd never hit before. Without strain. Without fear.</p>
 
-<h2>Why This Matters For You</h2>
+<div class="exercise">
+<h3>⚡ Try This Right Now (2 Minutes)</h3>
+<p style="color:#888;font-size:0.85rem;margin-bottom:16px">This is the "Cry" exercise from NYVC. It bypasses the "trying harder" reflex.</p>
+<div class="step"><div class="step-num">1</div><div class="step-text"><strong>Think of something sad.</strong> A loss. A goodbye. Feel the "sob" in your chest.</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text"><strong>Say "Wah"</strong> — like a baby crying. Don't sing it. Speak it with that sad feeling.</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text"><strong>Sing "Wah"</strong> on a scale: do-re-mi-fa-sol-fa-mi-re-do</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-text"><strong>Notice the shift.</strong> The high notes feel lighter. That's your mix voice engaging.</div></div>
+<div class="timer">⏱️ 2 minutes · Do this 3x daily for 1 week</div>
+</div>
+</div>
 
-<p>Here's what happens when you can't shift gears:</p>
-<ul style="margin:16px 0 16px 24px">
-<li>Your voice cracks in front of others → <span class="warning">embarrassment</span></li>
-<li>You avoid singing in public → <span class="warning">missed opportunities</span></li>
-<li>You compare yourself to others → <span class="warning">self-doubt</span></li>
-<li>You think you're "not talented" → <span class="warning">give up</span></li>
-</ul>
-
-<p>None of those are true. <span class="highlight">You just haven't been taught the right coordination.</span></p>
-
-<div class="cta">
-<h2>Get Your Personal Voice Assessment</h2>
-<p>Tell me about your voice. I'll tell you exactly what's holding you back — and how to fix it.</p>
+<!-- ═══ LAYER 6: FRICTION REDUCER ═══ -->
+<div class="friction-reducer" id="assessment">
+<h2>Get Your Personal Vocal Diagnostics Session</h2>
+<div class="guarantee">✓ <span>Zero-Risk Performance Evaluation</span> — Instant verification link issued upon submission.</div>
+<p>I'll analyze your voice, identify exactly what's holding you back, and map out your fastest path to vocal freedom.</p>
+<div class="form-wrap">
 <form action="https://formsubmit.co/prosperolumotobi@gmail.com" method="POST">
 <input type="text" name="name" placeholder="Your first name" required>
 <input type="email" name="email" placeholder="Your email" required>
-<input type="hidden" name="_subject" value="Voice Assessment Request">
+<input type="hidden" name="_subject" value="Vocal Diagnostics Request">
 <input type="hidden" name="_next" value="https://coachteesos.github.io/coachtoby-site/thank-you.html">
-<button type="submit">Get My Free Assessment →</button>
+<button type="submit">Book My Free Assessment →</button>
 </form>
-<p style="font-size:0.8rem;margin-top:12px">No spam. No pressure. Just a conversation about your voice.</p>
+<p class="form-note">No spam. No pressure. Just a conversation about your voice.</p>
+</div>
 </div>
 
-<p style="text-align:center;color:#666;font-size:0.85rem;margin-top:32px">
-Sessions with Toby · Vocal Coaching<br>
-<a href="https://coachteesos.github.io/coachtoby-site/" style="color:#FFD700">coachteesos.github.io/coachtoby-site</a>
-</p>
-
+<!-- ═══ LAYER 7: FOOTER ═══ -->
+<div class="footer">
+<p>Sessions with Toby · Vocal Coaching · <a href="https://coachteesos.github.io/coachtoby-site/">coachteesos.github.io/coachtoby-site</a></p>
 </div>
 
 <script>
