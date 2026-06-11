@@ -180,17 +180,8 @@ h1,h2,h3{font-family:var(--font-display);font-weight:700;letter-spacing:-0.03em;
 <div class="guarantee">✓ <span>Free 7-Day Vocal Training</span> — One targeted exercise delivered to your inbox daily.</div>
 <p class="description">Enter your name and email. You'll get today's exercise immediately, plus a new one every day. Each one targets a specific bottleneck.</p>
 <div class="form-wrap">
-<form id="dailyForm" onsubmit="submitDaily(event)">
-<input type="text" id="dailyName" placeholder="Your first name" required>
-<input type="email" id="dailyEmail" placeholder="Your email" required>
-<button type="submit">Get Today's Exercise →</button>
-</form>
-<p class="form-note" id="dailyNote">No spam. Cancel anytime. Just daily exercises that work.</p>
-<div id="dailySuccess" style="display:none;text-align:center;padding:2rem 0">
-<div style="width:56px;height:56px;background:rgba(0,229,163,0.1);border:1px solid rgba(0,229,163,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:#00E5A3;font-size:1.5rem;font-weight:700">✓</div>
-<h3 style="font-family:var(--font-display);font-weight:700;color:var(--text-primary);margin-bottom:0.5rem">Check your email, <span id="successName"></span></h3>
-<p style="color:var(--text-secondary);font-size:0.9rem">We just sent you today's exercise. Start training now.</p>
-</div>
+<a href="vocal-pain.html" class="btn" style="display:block;text-align:center;padding:18px 32px;background:#E4B34F;color:#0D0E12;font-weight:700;text-decoration:none;border-radius:12px;font-size:1.05rem;font-family:var(--font-display);transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 4px 14px rgba(228,179,79,0.15)">Tell Me About Your Voice →</a>
+<p class="form-note">A 2-minute conversation about your voice. I'll send you exercises tailored to your exact struggle.</p>
 </div>
 </div>
 
@@ -201,41 +192,6 @@ h1,h2,h3{font-family:var(--font-display);font-weight:700;letter-spacing:-0.03em;
 
 <script>
 document.getElementById('date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
-// Webhook URL — this is the serverless function that calls Brevo
-// For now, we use Formsubmit as the primary capture + store data for the cron job to process
-async function submitDaily(e){
-  e.preventDefault();
-  var name=document.getElementById('dailyName').value.trim();
-  var email=document.getElementById('dailyEmail').value.trim();
-  if(!name||!email)return;
-  var btn=document.querySelector('#dailyForm button');
-  btn.textContent='Sending...';btn.disabled=true;
-  
-  // Store in localStorage for the thank-you page
-  localStorage.setItem('ct_lead_name',name);
-  localStorage.setItem('ct_lead_email',email);
-  localStorage.setItem('ct_lead_source','daily_exercise');
-  localStorage.setItem('ct_lead_time',Date.now().toString());
-  
-  // Submit to Formsubmit (backup + notification)
-  var fd=new FormData();
-  fd.append('name',name);
-  fd.append('email',email);
-  fd.append('_subject','Daily Exercise Subscriber: '+name);
-  fd.append('_captcha','false');
-  fd.append('_template','table');
-  try{await fetch('https://formsubmit.co/prosperolumotobi@gmail.com',{method:'POST',body:fd,mode:'no-cors'});}catch(e){}
-  
-  // Show success
-  document.getElementById('successName').textContent=name.split(' ')[0];
-  document.getElementById('dailyForm').style.display='none';
-  document.getElementById('dailyNote').style.display='none';
-  document.getElementById('dailySuccess').style.display='block';
-  
-  // Track conversion
-  if(typeof gtag!=='undefined'){gtag('event','generate_lead',{value:0,currency:'USD'});}
-}
 </script>
 </body>
 </html>
