@@ -4,17 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Thank You — Sessions with Toby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{font-family:Inter,Arial,sans-serif;background:#0a0a0a;color:#e0e0e0;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
-.box{max-width:500px;text-align:center;padding:40px;background:#1a1a2e;border-radius:16px;border:1px solid #FFD700}
-h1{color:#FFD700;font-size:1.8rem;margin-bottom:16px}
-p{color:#e0e0e0;line-height:1.7;margin-bottom:16px}
-a{color:#FFD700;text-decoration:none;font-weight:700}
+:root {
+    --bg-canvas: #0D0E12;
+    --bg-surface: #161820;
+    --border-subtle: #242838;
+    --text-primary: #F4F5F7;
+    --text-secondary: #9FA6B5;
+    --brand-accent: #E4B34F;
+    --brand-kinetic: #00E5A3;
+    --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg-canvas);color:var(--text-primary);font-family:var(--font-body);letter-spacing:-0.01em;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.box{max-width:500px;text-align:center;padding:48px 40px;background:var(--bg-surface);border-radius:16px;border:1px solid var(--border-subtle)}
+h1{color:var(--brand-accent);font-size:1.8rem;margin-bottom:16px;font-family:var(--font-display);letter-spacing:-0.03em}
+p{color:var(--text-secondary);line-height:1.7;margin-bottom:16px}
+a{color:var(--brand-accent);text-decoration:none;font-weight:600}
+.check{font-size:3rem;margin-bottom:16px}
 </style>
 </head>
 <body>
 <div class="box">
-<h1>✓ You're In</h1>
+<div class="check">✓</div>
+<h1>You're In</h1>
 <p>I'll review your voice assessment and get back to you within 24 hours.</p>
 <p>While you're waiting, here's a free exercise that will change how you think about your voice:</p>
 <p><a href="https://coachteesos.github.io/coachtoby-site/sessions-with-toby-2026.html">← Go back to the exercise</a></p>
