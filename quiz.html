@@ -285,12 +285,12 @@ function submitForm(){
   else if(q6==='paid_community') serviceKey='paid-community';
   else if(q6==='lesson') serviceKey='single';
   else if(q6==='both') serviceKey='paid-community';
-  window.open('https://t.me/Retpipebot?start='+encodeURIComponent(name+'|'+serviceKey),'_blank');
+  window.open(''+encodeURIComponent(name+'|'+serviceKey),'_blank');
   document.getElementById('thankYouName').textContent=name;
-  var tyMsg='Your guide is ready. Check your Telegram for next steps! 🎤';
-  if(q6==='free_community') tyMsg="Check your Telegram — I'll add you to the Free Singers' Community! 🎤";
-  else if(q6==='paid_community'||q6==='both') tyMsg="Check your Telegram — I'll send you the Paid Community details! ⭐";
-  else if(q6==='lesson') tyMsg="Check your Telegram — let's get your first session booked! 🎯";
+  var tyMsg='Your guide is ready. Check your email! 🎤';
+  if(q6==='free_community') tyMsg="Check your email! 🎤";
+  else if(q6==='paid_community'||q6==='both') tyMsg="Check your email! ⭐";
+  else if(q6==='lesson') tyMsg="Check your email! 🎯";
   document.querySelector('.quiz-card').innerHTML='<div class="thank-you active"><div class="icon">✓</div><h2>Thank you, '+name+'!</h2><p>'+tyMsg+'</p><a href="home.html" class="btn-outline">← Back to Home</a></div>';
   document.getElementById('progressBar').style.display='none';
 }
