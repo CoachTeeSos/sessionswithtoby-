@@ -152,9 +152,9 @@
 })();
 var cs=1,ans={};
 document.getElementById('welcomeScreen').addEventListener('click',function(e){
-  var b=e.target.closest('.quiz-option');if(!b)return;
+  var b=e.target.closest('.quiz-opt');if(!b)return;
   var s=parseInt(b.dataset.step),v=b.dataset.value;ans[s]=v;
-  document.querySelectorAll('#step'+s+' .quiz-option').forEach(function(opt){opt.classList.remove('selected');});
+  document.querySelectorAll('#step'+s+' .quiz-opt').forEach(function(opt){opt.classList.remove('selected');});
   b.classList.add('selected');
   setTimeout(function(){
     document.getElementById('step'+s).classList.remove('active');cs=s+1;
