@@ -26,8 +26,6 @@
 <style>
 /* ═══════════════════════════════════════════════════════════
    QUIZ FUNNEL — Sessions with Toby
-   Design System: Carbon #0D0E12 · Obsidian #161820
-   Gold #E4B34F · Mint #00E5A3 · Text #F4F5F7 · Muted #9FA6B5
    ═══════════════════════════════════════════════════════════ */
 .funnel-bg{background:#0D0E12;min-height:100vh;display:flex;align-items:center;justify-content:center}
 .funnel-wrap{text-align:center;max-width:560px;padding:40px 24px;width:100%}
@@ -43,15 +41,13 @@
 .quiz-opt .opt-icon{width:36px;height:36px;border-radius:8px;background:rgba(228,179,79,0.08);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .progress-bar{width:100%;max-width:240px;margin:0 auto 28px;height:3px;background:#242838;border-radius:3px;overflow:hidden}
 .progress-fill{height:100%;background:#E4B34F;transition:width .4s ease;border-radius:3px}
-.progress-label{color:#6b7280;font-size:0.75rem;margin-top:10px;text-align:right;font-family:'Inter',sans-serif}
-/* Rec box */
+.progress-label{color:#6b7280;font-size:0.75rem;margin-top:10px;text-align:right}
 .rec-box{background:#161820;border:1px solid #242838;border-radius:16px;padding:28px;margin:24px 0;text-align:left}
 .rec-label{color:#00E5A3;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
 .rec-box h3{color:#F4F5F7;font-size:1.2rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:6px}
 .rec-desc{color:#9FA6B5;font-size:0.88rem;margin-bottom:14px}
 .rec-tags{display:flex;flex-wrap:wrap;gap:8px}
 .rec-tag{background:rgba(0,229,163,0.08);color:#00E5A3;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:600;border:1px solid rgba(0,229,163,0.15)}
-/* CTA buttons */
 .funnel-actions{display:flex;flex-direction:column;gap:12px;margin-top:28px}
 .funnel-cta{display:block;width:100%;padding:16px;background:#E4B34F;color:#0D0E12;border-radius:10px;font-weight:700;font-size:1rem;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;text-align:center;transition:all .2s cubic-bezier(0.16,1,0.3,1);box-shadow:0 4px 20px rgba(228,179,79,0.2),inset 0 1px 0 rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.08);cursor:pointer}
 .funnel-cta:hover{background:#F0C76A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(228,179,79,0.3)}
@@ -60,7 +56,6 @@
 .funnel-note{color:#6b7280;font-size:0.75rem;margin-top:14px}
 .funnel-back{margin-top:24px;color:#6b7280;font-size:0.85rem;font-weight:500;background:none;border:none;cursor:pointer;display:none;font-family:'Inter',sans-serif;transition:color .2s}
 .funnel-back:hover{color:#E4B34F}
-/* Welcome emoji */
 .welcome-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(228,179,79,0.1),rgba(0,229,163,0.05));border:1px solid #242838;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:1.8rem}
 @media(max-width:600px){
   .funnel-wrap{padding:32px 20px}
@@ -168,7 +163,8 @@ document.getElementById('welcomeScreen').addEventListener('click',function(e){
     document.getElementById('backBtn').style.display=cs>1?'inline':'none';
   },200);
 });
-function goBack(){if(cs<=1)return;document.getElementById('step'+s).classList.remove('active');cs--;document.getElementById('step'+cs).classList.add('active');document.getElementById('progressFill').style.width=(cs*20)+'%';document.getElementById('progressText').textContent='Step '+cs+' of 5';document.getElementById('backBtn').style.display=cs>1?'inline':'none';}
+function goBack(){if(cs<=1)return;var prev=cs-1;document.getElementById('step'+cs).classList.remove('active');cs=prev;document.getElementById('step'+cs).classList.add('active');document.getElementById('progressFill').style.width=(cs*20)+'%';document.getElementById('progressText').textContent='Step '+cs+' of 5';document.getElementById('backBtn').style.display=cs>1?'inline':'none';}
+function toggleMobile(){document.getElementById('mobMenu').classList.toggle('open');}
 function genRec(){
   var g=ans[1]||'vocals',l=ans[2]||'beginner';
   var t='Vocal Mastery — Starter Path',d='Personalized 1-on-1 coaching with Coach Toby. Free demo included.',tags=['Free Demo','Personalized Plan','Email Support'];
