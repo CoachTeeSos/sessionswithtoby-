@@ -6,106 +6,122 @@
 <title>Command Your Authentic Vocal Range — Sessions with Toby</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0D0E12;--surface:#161820;--border:#242838;--text:#F4F5F7;--muted:#9FA6B5;--gold:#E4B34F;--mint:#00E5A3;--display:'Plus Jakarta Sans',sans-serif;--body:'Inter',sans-serif}
+:root {
+    --bg-canvas: #0D0E12;
+    --bg-surface: #161820;
+    --border-subtle: #242838;
+    --text-primary: #F4F5F7;
+    --text-secondary: #9FA6B5;
+    --brand-accent: #E4B34F;
+    --brand-kinetic: #00E5A3;
+    --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--body);letter-spacing:-0.01em;line-height:1.7;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-0.03em;color:var(--text)}
-p{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:1rem}
-a{color:var(--gold);text-decoration:none;transition:color .2s}
-a:hover{color:var(--mint)}
-strong{color:var(--text)}
-.bg{background:var(--surface)}
+body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+    line-height: 1.6;
+}
+h1,h2,h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+}
+.wrap{max-width:700px;margin:0 auto}
 
 /* ── DATE BAR ── */
-.date-bar{background:var(--surface);padding:14px;text-align:center;color:var(--muted);font-size:0.8rem;border-bottom:1px solid var(--border)}
+.date-bar{background:var(--bg-surface);padding:12px 32px;text-align:center;color:var(--text-secondary);font-size:0.8rem;border-bottom:1px solid var(--border-subtle)}
 
-/* ── HERO ── */
-.hero{background:linear-gradient(160deg,var(--bg) 0%,#0f1019 40%,#1a1220 100%);padding:72px 24px 64px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 20%,rgba(228,179,79,0.04) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(0,229,163,0.03) 0%,transparent 50%);pointer-events:none}
-.trust{display:inline-flex;align-items:center;gap:8px;font-size:0.7rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:28px;padding:6px 16px;border:1px solid var(--border);border-radius:50px;background:var(--surface)}
-.trust span{color:var(--gold);font-weight:700}
-.hero h1{font-size:clamp(2rem,5vw,2.8rem);margin-bottom:16px;line-height:1.15;position:relative}
-.hero h1 em{color:var(--gold);font-style:normal}
-.hero .sub{font-size:1.08rem;color:var(--muted);max-width:540px;margin:0 auto 32px;line-height:1.8;position:relative}
-.cta-btn{display:inline-block;background:var(--gold);color:var(--bg);padding:18px 44px;border-radius:10px;font-size:1.05rem;font-weight:700;text-decoration:none;font-family:var(--display);transition:all .2s cubic-bezier(0.16,1,0.3,1);box-shadow:0 4px 24px rgba(228,179,79,0.15);position:relative}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(228,179,79,0.25)}
+/* ── LAYER 1: HERO ── */
+.hero{background:linear-gradient(135deg,var(--bg-canvas) 0%,#1a1a2e 100%);padding:56px 32px;text-align:center;border-bottom:2px solid var(--brand-accent)}
+.hero .trust{font-size:0.75rem;color:var(--text-secondary);margin-bottom:24px;letter-spacing:2px;text-transform:uppercase;font-family:var(--font-body)}
+.hero .trust span{color:var(--brand-accent);font-weight:600}
+.hero h1{font-size:2.6rem;margin-bottom:16px;line-height:1.15}
+.hero h1 span{color:var(--brand-accent)}
+.hero .sub{font-size:1.05rem;color:var(--text-secondary);max-width:560px;margin:0 auto 28px;line-height:1.7}
+.cta-btn{display:inline-block;background:var(--brand-accent);color:var(--bg-canvas);padding:18px 44px;border-radius:8px;font-size:1.05rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:transform 0.2s cubic-bezier(0.16,1,0.3,1),box-shadow 0.2s ease;font-family:var(--font-display);box-shadow:0 4px 14px rgba(228,179,79,0.15)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(228,179,79,0.25)}
 
-/* ── SECTION WRAPPER ── */
-.s{padding:56px 24px}
-.s-inner{max-width:680px;margin:0-auto}
-.section-label{display:inline-block;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px}
-.section-title{font-size:clamp(1.3rem,3vw,1.6rem);margin-bottom:24px;line-height:1.3}
-.divider{height:1px;background:var(--border);margin:48px 0}
+/* ── LAYER 2: BIOLOGICAL FRICTION ── */
+.friction{background:var(--bg-canvas);padding:48px 32px}
+.friction h2{font-size:1.4rem;color:var(--brand-accent);margin-bottom:24px}
+.bottleneck{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px;padding:20px;background:var(--bg-surface);border-radius:12px;border:1px solid var(--border-subtle);border-left:3px solid var(--brand-accent);transition:border-color 0.2s ease}
+.bottleneck:hover{border-color:var(--brand-accent)}
+.bottle-num{color:var(--brand-accent);font-weight:800;font-size:1.1rem;min-width:28px;font-family:var(--font-display)}
+.bottle-text{color:var(--text-secondary);font-size:0.95rem}
+.bottle-text strong{color:var(--text-primary)}
 
-/* ── BOTTLENECKS ── */
-.bottleneck{display:flex;gap:16px;padding:20px;background:var(--surface);border-radius:12px;border:1px solid var(--border);border-left:3px solid var(--gold);transition:all .2s;margin-bottom:12px}
-.bottleneck:hover{border-color:var(--gold);transform:translateX(2px)}
-.bottle-num{color:var(--gold);font-family:var(--display);font-weight:800;font-size:1.1rem;min-width:28px;padding-top:2px}
-.bottle-text{color:var(--muted);font-size:0.92rem}
-.bottle-text strong{color:var(--text)}
-
-/* ── PEDAGOGY GRID ── */
+/* ── LAYER 3: PEDAGOGY GRID ── */
+.pedagogy{background:var(--bg-surface);padding:48px 32px}
+.pedagogy h2{font-size:1.4rem;color:var(--text-primary);margin-bottom:8px}
+.pedagogy .subtitle{color:var(--text-secondary);margin-bottom:28px;font-size:0.9rem}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .2s}
-.card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.card h3{font-size:0.95rem;margin-bottom:10px;color:var(--gold)}
-.card p{color:var(--muted);font-size:0.85rem;line-height:1.6}
-.card-sub{margin-top:10px;font-size:0.78rem!important;color:var(--muted);opacity:0.7}
-.card.software h3{color:var(--mint)}
-.card.software:hover{border-color:var(--mint)}
+.premium-card{background:var(--bg-canvas);border:1px solid var(--border-subtle);border-radius:12px;padding:24px;transition:transform 0.2s cubic-bezier(0.16,1,0.3,1),border-color 0.2s ease}
+.premium-card:hover{border-color:var(--brand-accent);transform:translateY(-2px)}
+.premium-card h3{color:var(--brand-accent);font-size:0.95rem;margin-bottom:10px}
+.premium-card p{color:var(--text-secondary);font-size:0.85rem;line-height:1.6}
+.premium-card.software h3{color:var(--brand-kinetic)}
+.premium-card.software:hover{border-color:var(--brand-kinetic)}
 
-/* ── TRANSFORMATION ── */
-.before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ba{padding:28px;border-radius:16px;text-align:center}
-.ba ul{list-style:none;padding:0;margin:0}
-.ba li{font-size:0.9rem;padding:6px 0;color:var(--muted)}
-.ba .label{font-size:0.65rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;font-weight:700}
-.before{background:var(--surface);border:1px solid var(--border)}
-.before .label{color:var(--muted)}
-.after{background:var(--surface);border:1px solid var(--mint)}
-.after .label{color:var(--mint)}
-.after li{color:var(--text)}
+/* ── LAYER 4: TRANSFORMATION ── */
+.transform{background:var(--bg-canvas);padding:48px 32px}
+.transform h2{font-size:1.4rem;color:var(--text-primary);margin-bottom:28px;text-align:center}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.ba-box{padding:24px;border-radius:12px;text-align:center}
+.before{background:var(--bg-surface);border:1px solid var(--border-subtle)}
+.after{background:var(--bg-surface);border:1px solid var(--brand-kinetic)}
+.ba-box .label{font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;font-weight:600}
+.before .label{color:var(--text-secondary)}
+.after .label{color:var(--brand-kinetic)}
+.ba-box p{color:var(--text-secondary);font-size:0.9rem;margin-bottom:8px}
+.ba-box.after p{color:var(--text-primary)}
 
-/* ── STORY ── */
-.story-section{background:linear-gradient(180deg,var(--bg),var(--surface));padding:56px 24px}
-.gold{color:var(--gold);font-weight:700}
-.warn{color:var(--text);font-weight:600}
-
-/* ── EXERCISE ── */
-.exercise{background:var(--bg);border:1px solid var(--gold);padding:32px;border-radius:16px;margin:32px 0;position:relative}
-.exercise::before{content:'⚡';position:absolute;top:-16px;left:28px;background:var(--bg);padding:0 8px;font-size:1.2rem}
-.exercise h3{color:var(--gold);font-size:1.05rem;margin-bottom:20px;padding-top:8px}
+/* ── LAYER 5: STORY + EXERCISE ── */
+.story-section{background:linear-gradient(180deg,var(--bg-canvas),var(--bg-surface));padding:48px 32px}
+.story-section h2{font-size:1.4rem;color:var(--brand-accent);margin-bottom:24px}
+.story-text{color:var(--text-secondary);margin-bottom:16px;font-size:0.95rem}
+.story-text .hl{color:var(--brand-accent);font-weight:700}
+.story-text .warn{color:var(--text-primary);font-weight:700}
+.exercise{background:var(--bg-canvas);border:1px solid var(--brand-accent);padding:28px;border-radius:12px;margin:28px 0}
+.exercise h3{color:var(--brand-accent);font-size:1.05rem;margin-bottom:18px}
 .step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
-.step-num{background:var(--gold);color:var(--bg);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;min-width:28px;font-family:var(--display)}
-.step-text{color:var(--muted);font-size:0.9rem;padding-top:4px}
-.timer{text-align:center;color:var(--muted);font-size:0.78rem;margin-top:16px}
+.step-num{background:var(--brand-accent);color:var(--bg-canvas);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;min-width:28px;font-family:var(--font-display)}
+.step-text{color:var(--text-secondary);font-size:0.9rem;padding-top:4px}
+.step-text strong{color:var(--text-primary)}
+.timer{text-align:center;color:var(--text-secondary);font-size:0.8rem;margin-top:16px}
 
-/* ── CTA ── */
-.cta-section{background:var(--surface);padding:56px 24px;text-align:center;max-width:680px;margin:0 auto}
-.cta-section h2{font-size:clamp(1.3rem,3vw,1.6rem);margin-bottom:12px;color:var(--text)}
-.cta-box{background:var(--bg);border:1px solid var(--mint);padding:14px 24px;border-radius:8px;margin:20px auto;display:inline-block;color:var(--mint);font-weight:700;font-size:0.9rem}
-.cta-section p.description{color:var(--muted);font-size:0.9rem;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
-.cta-section .btn{display:block;max-width:400px;margin:0 auto;background:var(--gold);color:var(--bg);padding:18px;border-radius:12px;font-size:1.05rem;font-weight:700;text-decoration:none;font-family:var(--display);transition:all .2s;box-shadow:0 4px 14px rgba(228,179,79,0.15)}
-.cta-section .btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(228,179,79,0.25)}
-.form-note{font-size:0.75rem;color:var(--muted);margin-top:14px}
+/* ── LAYER 6: FRICTION REDUCER ── */
+.friction-reducer{background:var(--bg-surface);padding:48px 32px;text-align:center}
+.friction-reducer h2{font-size:1.4rem;color:var(--text-primary);margin-bottom:12px}
+.guarantee{background:var(--bg-canvas);border:1px solid var(--brand-kinetic);padding:16px 24px;border-radius:8px;margin:20px auto;display:inline-block}
+.guarantee span{color:var(--brand-kinetic);font-weight:700}
+.friction-reducer p.description{color:var(--text-secondary);font-size:0.9rem;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.form-wrap{max-width:400px;margin:0 auto}
+.form-wrap input{width:100%;padding:14px 16px;margin:6px 0;border:1px solid var(--border-subtle);border-radius:8px;font-size:0.95rem;background:var(--bg-canvas);color:var(--text-primary);font-family:var(--font-body);transition:border-color 0.2s ease}
+.form-wrap input::placeholder{color:var(--text-secondary)}
+.form-wrap input:focus{outline:none;border-color:var(--brand-accent)}
+.form-wrap button{width:100%;padding:16px;background:var(--brand-accent);color:var(--bg-canvas);border:none;border-radius:8px;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:10px;font-family:var(--font-display);transition:transform 0.2s cubic-bezier(0.16,1,0.3,1),box-shadow 0.2s ease;box-shadow:0 4px 14px rgba(228,179,79,0.15)}
+.form-wrap button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(228,179,79,0.25)}
+.form-note{font-size:0.75rem;color:var(--text-secondary);margin-top:14px}
 
-/* ── FOOTER ── */
-footer{background:var(--bg);padding:32px 24px;text-align:center;border-top:1px solid var(--border)}
-footer p{color:var(--muted);font-size:0.8rem}
-
-/* ── SCROLL REVEAL ── */
-.reveal{opacity:0;transform:translateY(16px);transition:opacity 0.6s ease,transform 0.6s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* ── LAYER 7: FOOTER ── */
+.footer{background:var(--bg-canvas);padding:32px;text-align:center;border-top:1px solid var(--border-subtle)}
+.footer p{color:var(--text-secondary);font-size:0.8rem}
+.footer a{color:var(--brand-accent);text-decoration:none}
 
 /* ── RESPONSIVE ── */
 @media(max-width:600px){
-  .hero{padding:48px 20px 40px}
-  .s,.story-section,.cta-section{padding:40px 20px}
-  .grid,.before-after{grid-template-columns:1fr}
-  .exercise{padding:24px}
+.grid,.before-after{grid-template-columns:1fr}
+.hero h1{font-size:2rem}
+.hero{padding:40px 20px}
+.friction,.pedagogy,.transform,.story-section,.friction-reducer{padding:36px 20px}
 }
 </style>
 </head>
@@ -113,130 +129,108 @@ footer p{color:var(--muted);font-size:0.8rem}
 
 <div class="date-bar" id="date"></div>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ LAYER 1: HERO ═══ -->
 <div class="hero">
-  <div class="trust"><span>PROVEN VOCAL SCIENCE</span> // 50+ STUDENTS COACHED</div>
-  <h1>Command Your <em>Authentic Vocal Range</em><br>Without Throat Tension or Fatigue</h1>
-  <p class="sub">The definitive hardware-software vocal blueprint for elite vocalists, performers, and public speakers. Break through physical bottlenecks and secure predictable, structural vocal stability within 30 days.</p>
-  <a href="#training" class="cta-btn">Start Your Daily Training →</a>
+<div class="trust"><span>PROVEN VOCAL SCIENCE</span> // 50+ STUDENTS COACHED</div>
+<h1>Command Your <span>Authentic Vocal Range</span><br>Without Throat Tension or Vocal Fatigue</h1>
+<p class="sub">The definitive hardware-software vocal blueprint for elite vocalists, performers, and public speakers. Break through physical bottlenecks and secure predictable, structural vocal stability within 30 days.</p>
+<a href="#training" class="cta-btn">Start Your Daily Training →</a>
 </div>
 
-<!-- ═══ BOTTLENECKS ═══ -->
-<div class="s" style="background:var(--bg)">
-  <div class="s-inner">
-    <p class="section-label">The Problem</p>
-    <h2 class="section-title">3 Physiological Bottlenecks Restricting Your True Range</h2>
-    <div class="bottleneck reveal">
-      <div class="bottle-num">01</div>
-      <div class="bottle-text"><strong>Laryngeal constriction</strong> — Your throat tightens under pressure, choking off your range before your voice reaches its natural ceiling.</div>
-    </div>
-    <div class="bottleneck reveal">
-      <div class="bottle-num">02</div>
-      <div class="bottle-text"><strong>Air pressure misalignment</strong> — Too much or too little breath support causes pitch instability, cracks, and unpredictable breaks.</div>
-    </div>
-    <div class="bottleneck reveal">
-      <div class="bottle-num">03</div>
-      <div class="bottle-text"><strong>Inefficient registration transitions</strong> — Your chest and head voice don't communicate. The "break" isn't a wall — it's a coordination gap nobody taught you to bridge.</div>
-    </div>
-  </div>
+<!-- ═══ LAYER 2: BIOLOGICAL FRICTION ═══ -->
+<div class="friction">
+<h2>Physiological Bottlenecks Restricting Your True Vocal Range</h2>
+<div class="bottleneck">
+<div class="bottle-num">01</div>
+<div class="bottle-text"><strong>Laryngeal constriction</strong> — Your throat tightens under pressure, choking off your range before your voice reaches its natural ceiling.</div>
+</div>
+<div class="bottleneck">
+<div class="bottle-num">02</div>
+<div class="bottle-text"><strong>Subglottic air pressure misalignment</strong> — Too much or too little breath support causes pitch instability, cracks, and unpredictable breaks.</div>
+</div>
+<div class="bottleneck">
+<div class="bottle-num">03</div>
+<div class="bottle-text"><strong>Inefficient registration transitions</strong> — Your chest voice and head voice don't communicate. The "break" isn't a wall — it's a coordination gap nobody taught you to bridge.</div>
+</div>
 </div>
 
-<div class="divider" style="max-width:680px;margin:0 auto"></div>
-
-<!-- ═══ PEDAGOGY GRID ═══ -->
-<div class="s bg">
-  <div class="s-inner">
-    <p class="section-label">The Framework</p>
-    <h2 class="section-title">Every Voice Has Two Systems. Most Teachers Only Address One.</h2>
-    <div class="grid">
-      <div class="card reveal">
-        <h3>HARDWARE (Physical)</h3>
-        <p>Breath support & appoggio. Vocal fold closure. Laryngeal positioning. Resonance tuning. Articulator shaping.</p>
-        <p class="card-sub">The instrument itself — the physical mechanisms that produce sound.</p>
-      </div>
-      <div class="card software reveal">
-        <h3>SOFTWARE (Coordination)</h3>
-        <p>Registration blending (chest/mix/head). Dynamic control. Vowel modification. Style-specific coordination (belt, legit, mix).</p>
-        <p class="card-sub">How you play the instrument — the patterns that make it sing.</p>
-      </div>
-    </div>
-  </div>
+<!-- ═══ LAYER 3: PEDAGOGY GRID ═══ -->
+<div class="pedagogy">
+<h2>The Hardware-Software Blueprint</h2>
+<p class="subtitle">Every voice has two systems. Most teachers only address one.</p>
+<div class="grid">
+<div class="premium-card hardware">
+<h3>HARDWARE (Physical)</h3>
+<p>Breath support & appoggio. Vocal fold closure. Laryngeal positioning. Resonance tuning. Articulator shaping.</p>
+<p style="margin-top:10px;font-size:0.8rem;color:var(--text-secondary)">The instrument itself — the physical mechanisms that produce sound.</p>
+</div>
+<div class="premium-card software">
+<h3>SOFTWARE (Coordination)</h3>
+<p>Registration blending (chest/mix/head). Dynamic control. Vowel modification. Style-specific coordination (belt, legit, mix).</p>
+<p style="margin-top:10px;font-size:0.8rem;color:var(--text-secondary)">How you play the instrument — the patterns that make it sing.</p>
+</div>
+</div>
 </div>
 
-<div class="divider" style="max-width:680px;margin:0 auto"></div>
-
-<!-- ═══ TRANSFORMATION ═══ -->
-<div class="s" style="background:var(--bg)">
-  <div class="s-inner">
-    <p class="section-label">The Proof</p>
-    <h2 class="section-title">What Changes When Both Systems Work</h2>
-    <div class="before-after">
-      <div class="ba before reveal">
-        <div class="label">— Before</div>
-        <ul>
-          <li>Straining for high notes</li>
-          <li>Voice cracks at the break</li>
-          <li>Breath runs out mid-phrase</li>
-          <li>Fear of singing in public</li>
-        </ul>
-      </div>
-      <div class="ba after reveal">
-        <div class="label">+ After</div>
-        <ul>
-          <li>Effortless range extension</li>
-          <li>Smooth registration transitions</li>
-          <li>Controlled, efficient breath</li>
-          <li>Confidence on stage</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<!-- ═══ LAYER 4: TRANSFORMATION ═══ -->
+<div class="transform">
+<h2>What Changes When Both Systems Work</h2>
+<div class="before-after">
+<div class="ba-box before">
+<div class="label">BEFORE</div>
+<p>Straining for high notes</p>
+<p>Voice cracks at the break</p>
+<p>Breath runs out mid-phrase</p>
+<p>Fear of singing in public</p>
+</div>
+<div class="ba-box after">
+<div class="label">AFTER</div>
+<p>Effortless range extension</p>
+<p>Smooth registration transitions</p>
+<p>Controlled, efficient breath</p>
+<p>Confidence on stage</p>
+</div>
+</div>
 </div>
 
-<!-- ═══ STORY + EXERCISE ═══ -->
+<!-- ═══ LAYER 5: STORY + EXERCISE ═══ -->
 <div class="story-section">
-  <div class="s-inner">
-    <p class="section-label">The Story</p>
-    <h2 class="section-title">The Singer Whose Throat Kept Tightening</h2>
-    <p>She'd been singing for <span class="gold">7 years</span>. Church choir. Open mics. Weddings. She could belt in the shower and hit most notes in her range.</p>
-    <p>But every time someone asked her to sing — <span class="warn">even after singing at open mics</span> — her throat would tighten. Her voice would crack on the high notes. Her breath would run out. And the worst part? <span class="gold">Everyone could hear it.</span></p>
-    <p>She tried YouTube tutorials. Breathing exercises. A different vocal coach. <span class="warn">Nothing worked.</span></p>
-    <p>The problem? She was practicing harder — not smarter. Her <span class="gold">hardware was fine</span>. Her <span class="warn">software was broken</span>.</p>
-    <p>Once she learned to shift gears — not push harder — everything changed. <span class="gold">Within 3 weeks</span>, she was singing notes she'd never hit before. Without strain. Without fear.</p>
+<h2>The Singer Whose Throat Kept Tightening</h2>
+<p class="story-text">She'd been singing for <span class="hl">7 years</span>. Church choir. Open mics. Weddings. She could belt in the shower and hit most notes in her range.</p>
+<p class="story-text">But every time someone asked her to sing — <span class="warn">even after singing at open mics</span> — her throat would tighten. Her voice would crack on the high notes. Her breath would run out. And the worst part? <span class="hl">Everyone could hear it.</span></p>
+<p class="story-text">She tried YouTube tutorials. Breathing exercises. A different vocal coach. <span class="warn">Nothing worked.</span></p>
+<p class="story-text">The problem? She was practicing harder — not smarter. Her <span class="hl">hardware was fine</span>. Her <span class="warn">software was broken</span>.</p>
+<p class="story-text">Once she learned to shift gears — not push harder — everything changed. <span class="hl">Within 3 weeks</span>, she was singing notes she'd never hit before. Without strain. Without fear.</p>
 
-    <div class="exercise reveal">
-      <h3>Try This Right Now (2 Minutes)</h3>
-      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:20px">This is the "Cry" exercise. It bypasses the "trying harder" reflex.</p>
-      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Think of something sad.</strong> A loss. A goodbye. Feel the "sob" in your chest.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Say "Wah"</strong> — like a baby crying. Don't sing it. Speak it with that sad feeling.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Sing "Wah"</strong> on a scale: do-re-mi-fa-sol-fa-mi-re-do</div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Notice the shift.</strong> The high notes feel lighter. That's your mix voice engaging.</div></div>
-      <div class="timer">⏱ 2 minutes · Do this 3x daily for 1 week</div>
-    </div>
-  </div>
+<div class="exercise">
+<h3>Try This Right Now (2 Minutes)</h3>
+<p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:18px">This is the "Cry" exercise. It bypasses the "trying harder" reflex.</p>
+<div class="step"><div class="step-num">1</div><div class="step-text"><strong>Think of something sad.</strong> A loss. A goodbye. Feel the "sob" in your chest.</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text"><strong>Say "Wah"</strong> — like a baby crying. Don't sing it. Speak it with that sad feeling.</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text"><strong>Sing "Wah"</strong> on a scale: do-re-mi-fa-sol-fa-mi-re-do</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-text"><strong>Notice the shift.</strong> The high notes feel lighter. That's your mix voice engaging.</div></div>
+<div class="timer">2 minutes · Do this 3x daily for 1 week</div>
+</div>
 </div>
 
-<!-- ═══ CTA ═══ -->
-<div class="cta-section reveal" id="training">
-  <h2>Get a New Exercise Every Day</h2>
-  <div class="cta-box">✓ Free 7-Day Vocal Training — New exercises delivered to your inbox daily</div>
-  <p class="description">A quick 2-minute conversation about your voice. I'll send you exercises tailored to your exact bottleneck — not generic YouTube drills.</p>
-  <a href="vocal-pain.html" class="btn">Tell Me About Your Voice →</a>
-  <p class="form-note">No spam. Cancel anytime. Just daily exercises that work.</p>
+<!-- ═══ LAYER 6: FRICTION REDUCER ═══ -->
+<div class="friction-reducer" id="training">
+<h2>Get a New Exercise Every Day</h2>
+<div class="guarantee">✓ <span>Free 7-Day Vocal Training</span> — One targeted exercise delivered to your inbox daily.</div>
+<p class="description">Enter your name and email. You'll get today's exercise immediately, plus a new one every day. Each one targets a specific bottleneck.</p>
+<div class="form-wrap">
+<a href="vocal-pain.html" class="cta-btn" style="display:block;text-align:center;text-decoration:none">Tell Me About Your Voice →</a>
+<p class="form-note">A 2-minute conversation about your voice. I'll send you exercises tailored to your exact struggle.</p>
+</div>
 </div>
 
-<footer>
-  <p>Sessions with Toby · Vocal Coaching · © 2026</p>
-</footer>
+<!-- ═══ LAYER 7: FOOTER ═══ -->
+<div class="footer">
+<p>Sessions with Toby · Vocal Coaching · <a href="https://coachteesos.github.io/coachtoby-site/">coachteesos.github.io/coachtoby-site</a></p>
+</div>
 
 <script>
-document.getElementById('date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-// Scroll reveal
-var reveals=document.querySelectorAll('.reveal');
-var observer=new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){if(entry.isIntersecting)entry.target.classList.add('visible')});
-},{threshold:0.1});
-reveals.forEach(function(el){observer.observe(el)});
+document.getElementById('date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 </script>
 </body>
 </html>
