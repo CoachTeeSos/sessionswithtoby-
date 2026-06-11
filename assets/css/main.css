@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
-   SESSIONS WITH TOBY — Premium Design System v5.1
-   Complete override for all pages
+   SESSIONS WITH TOBY — Premium Design System v5.2
    Carbon & Warm Obsidian + Matte Gold + Neon Mint
+   High contrast, accessible, conversion-optimized
    ═══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
@@ -9,24 +9,9 @@
 /* ── Reset & Base ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{
-  font-family:'Inter',system-ui,sans-serif;
-  color:#F4F5F7;
-  background:#0D0E12;
-  line-height:1.6;
-  overflow-x:hidden;
-  font-size:1rem;
-  letter-spacing:-0.01em;
-}
+body{font-family:'Inter',system-ui,sans-serif;color:#F4F5F7;background:#0D0E12;line-height:1.6;overflow-x:hidden;font-size:1rem;letter-spacing:-0.01em}
 ::selection{background:#E4B34F;color:#0D0E12}
-
-h1,h2,h3,h4,h5,h6{
-  font-family:'Plus Jakarta Sans','Inter',sans-serif;
-  font-weight:700;
-  letter-spacing:-0.03em;
-  color:#F4F5F7;
-  line-height:1.15;
-}
+h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-weight:700;letter-spacing:-0.03em;color:#F4F5F7;line-height:1.15}
 h1{font-size:clamp(2rem,5vw,2.8rem)}
 h2{font-size:clamp(1.4rem,3vw,1.8rem)}
 h3{font-size:clamp(1.1rem,2vw,1.3rem)}
@@ -42,43 +27,101 @@ a:hover{color:#00E5A3}
 .mx-auto{margin-left:auto;margin-right:auto}
 
 /* ── Navigation ── */
-.nav{
-  background:#161820;
-  border-bottom:1px solid #242838;
-  padding:16px 32px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:sticky;
-  top:0;
-  z-index:100;
-  transition:box-shadow .2s ease;
-}
+.nav{background:#161820;border-bottom:1px solid #242838;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;transition:box-shadow .2s ease}
 .nav.scrolled{box-shadow:0 4px 14px rgba(0,0,0,0.3)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%}
-.nav-logo{
-  font-family:'Plus Jakarta Sans',sans-serif;
-  font-weight:800;
-  font-size:1.1rem;
-  color:#E4B34F;
-  text-decoration:none;
-}
+.nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.1rem;color:#E4B34F;text-decoration:none}
 .nav-links{display:flex;gap:24px;list-style:none;align-items:center}
 .nav-links a{color:#9FA6B5;font-size:0.9rem;font-weight:500;text-decoration:none;transition:color .2s ease}
 .nav-links a:hover{color:#E4B34F}
-.nav-cta{
-  background:#E4B34F;
-  color:#0D0E12;
-  padding:10px 20px;
-  border-radius:8px;
-  font-weight:600;
-  font-size:0.9rem;
-  text-decoration:none;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  transition:transform .2s ease,box-shadow .2s ease;
-}
+.nav-cta{background:#E4B34F;color:#0D0E12;padding:10px 20px;border-radius:8px;font-weight:600;font-size:0.9rem;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;transition:transform .2s ease,box-shadow .2s ease}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(228,179,79,0.15)}
 .btn-mobile-toggle{display:none;background:none;border:none;color:#F4F5F7;font-size:1.5rem;cursor:pointer}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS — High contrast, accessible, 2026 standards
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Base button */
+.btn,.btn-primary,.btn-secondary,.btn-cta,.btn-cta-outline,.pay-btn,.funnel-cta-btn{
+  display:inline-block;
+  padding:16px 32px;
+  border-radius:10px;
+  font-size:1rem;
+  font-weight:700;
+  text-decoration:none;
+  border:none;
+  cursor:pointer;
+  transition:all .2s cubic-bezier(0.16,1,0.3,1);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  text-align:center;
+  line-height:1.4;
+  letter-spacing:-0.01em;
+}
+
+/* Primary / CTA — Gold on dark */
+.btn-primary,.btn-cta,.funnel-cta-btn,.pay-btn{
+  background:#E4B34F;
+  color:#0D0E12;
+  box-shadow:0 4px 20px rgba(228,179,79,0.25),inset 0 1px 0 rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.btn-primary:hover,.btn-cta:hover,.funnel-cta-btn:hover,.pay-btn:hover{
+  background:#F0C76A;
+  color:#0D0E12;
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(228,179,79,0.35),inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-primary:active,.btn-cta:active,.funnel-cta-btn:active,.pay-btn:active{
+  transform:translateY(0);
+  box-shadow:0 2px 8px rgba(228,179,79,0.2);
+}
+.btn-primary:focus-visible,.btn-cta:focus-visible,.funnel-cta-btn:focus-visible,.pay-btn:focus-visible{
+  outline:3px solid #E4B34F;
+  outline-offset:3px;
+}
+
+/* Secondary — Outlined */
+.btn-secondary,.btn-cta-outline,.funnel-secondary,.pay-btn-secondary{
+  background:transparent;
+  color:#F4F5F7;
+  border:2px solid #3a3a4a;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+.btn-secondary:hover,.btn-cta-outline:hover,.funnel-secondary:hover,.pay-btn-secondary:hover{
+  border-color:#E4B34F;
+  color:#E4B34F;
+  background:rgba(228,179,79,0.05);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(228,179,79,0.15);
+}
+.btn-secondary:active,.btn-cta-outline:active,.funnel-secondary:active,.pay-btn-secondary:active{
+  transform:translateY(0);
+  background:rgba(228,179,79,0.1);
+}
+.btn-secondary:focus-visible,.btn-cta-outline:focus-visible,.funnel-secondary:focus-visible,.pay-btn-secondary:focus-visible{
+  outline:3px solid #E4B34F;
+  outline-offset:3px;
+}
+
+/* Kinetic — Mint */
+.btn-kinetic{
+  background:#00E5A3;
+  color:#0D0E12;
+  box-shadow:0 4px 20px rgba(0,229,163,0.25);
+}
+.btn-kinetic:hover{
+  background:#33ECB5;
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(0,229,163,0.35);
+}
+
+/* Dark */
+.btn-dark{background:#161820;color:#F4F5F7;border:1px solid #242838}
+.btn-dark:hover{background:#1e1e2e;border-color:#E4B34F}
+
+/* Full width */
+.w-full{width:100%}
 
 /* ── Hero Sections ── */
 .hero-section,.hero-gradient{
@@ -117,35 +160,6 @@ a:hover{color:#00E5A3}
 .hero-scroll-indicator{margin-top:48px}
 .scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,#E4B34F,transparent);margin:0 auto}
 
-/* ── Buttons ── */
-.btn,.btn-primary,.btn-secondary{
-  display:inline-block;
-  padding:14px 28px;
-  border-radius:8px;
-  font-size:0.95rem;
-  font-weight:600;
-  text-decoration:none;
-  border:none;
-  cursor:pointer;
-  transition:transform .2s cubic-bezier(0.16,1,0.3,1),box-shadow .2s ease;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  text-align:center;
-}
-.btn-primary,.btn-cta{
-  background:#E4B34F;
-  color:#0D0E12;
-  box-shadow:0 4px 14px rgba(228,179,79,0.15);
-}
-.btn-primary:hover,.btn-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(228,179,79,0.25)}
-.btn-secondary{
-  background:transparent;
-  color:#F4F5F7;
-  border:1px solid #242838;
-}
-.btn-secondary:hover{border-color:#E4B34F;color:#E4B34F}
-.btn-dark{background:#161820;color:#F4F5F7}
-.w-full{width:100%}
-
 /* ── Cards ── */
 .card,.premium-card{
   background:#161820;
@@ -177,7 +191,7 @@ a:hover{color:#00E5A3}
 
 /* ── Stats ── */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
-.stat-number{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:2.5rem;color:#E4F4F5;display:block}
+.stat-number{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:2.5rem;color:#F4F5F7;display:block}
 .stat-label{font-size:0.8rem;color:#9FA6B5;margin-top:4px}
 .stat-star{color:#E4B34F}
 
@@ -253,6 +267,7 @@ a:hover{color:#00E5A3}
 .flex-col{flex-direction:column}
 .justify-center{justify-content:center}
 .w-full{width:100%}
+.h-full{height:100%}
 .relative{position:relative}
 .absolute{position:absolute}
 .inset-0{inset:0}
@@ -261,14 +276,23 @@ a:hover{color:#00E5A3}
 .md\:hidden{display:none}
 .text-sm{font-size:0.875rem}
 .text-xs{font-size:0.75rem}
+.text-base{font-size:1rem}
+.text-lg{font-size:1.125rem}
+.text-xl{font-size:1.25rem}
 .font-medium{font-weight:500}
 .font-semibold{font-weight:600}
 .font-bold{font-weight:700}
+.font-extrabold{font-weight:800}
 .rounded{border-radius:8px}
 .rounded-lg{border-radius:16px}
+.rounded-xl{border-radius:20px}
+.rounded-full{border-radius:9999px}
 .border{border:1px solid #242838}
+.border-2{border:2px solid #242838}
 .p-4{padding:16px}
 .p-8{padding:32px}
+.px-8{padding-left:32px;padding-right:32px}
+.py-4{padding-top:16px;padding-bottom:16px}
 .mb-2{margin-bottom:8px}
 .mb-4{margin-bottom:16px}
 .mb-6{margin-bottom:24px}
