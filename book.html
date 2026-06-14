@@ -37,7 +37,7 @@
     <a href="index.html" class="nav-logo">Sessions with Toby</a>
     <div class="nav-links">
       <a href="home.html#services" class="nav-link">Services</a>
-      <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="book.html" class="nav-link">Pricing</a>
       <a href="home.html#community" class="nav-link">Community</a>
     </div>
     <a href="home.html" class="nav-link" style="font-size:0.875rem">← Back to Home</a>
@@ -185,6 +185,16 @@
             <label style="display:block;font-weight:600;font-size:0.85rem;color:#F4F5F7;margin-bottom:0.375rem">What's your biggest challenge right now?</label>
             <textarea id="dMessage" rows="3" placeholder="Be honest — this helps Coach Toby prepare for your session..." style="width:100%;padding:0.875rem 1rem;border:2px solid #242838;border-radius:10px;font-family:'Inter',sans-serif;font-size:1rem;color:#F4F5F7;background:#0D0E12;resize:vertical"></textarea>
           </div>
+          <div style="margin-bottom:1rem;padding:1rem;background:#161820;border:1px solid #242838;border-radius:10px">
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+              <input type="checkbox" id="dHasTelegram" style="width:18px;height:18px;accent-color:#E4B34F">
+              <span style="font-size:0.9rem;color:#F4F5F7">I have Telegram — send me a direct link to chat with Coach Toby</span>
+            </label>
+            <div id="telegramLink" style="display:none;margin-top:12px;text-align:center">
+              <a href="https://t.me/Retpipebot" target="_blank" style="display:inline-block;padding:12px 24px;background:#0088cc;color:#fff;font-weight:700;text-decoration:none;border-radius:10px;font-size:0.9rem">💬 Open Telegram → @Retpipebot</a>
+              <p style="font-size:0.75rem;color:#6b7280;margin-top:8px">Tap this after submitting to get instant access</p>
+            </div>
+          </div>
           <button type="submit" class="btn-primary w-full" style="margin-top:0.5rem">Schedule My Free Demo →</button>
                     <p style="font-size:0.75rem;color:#6b7280;text-align:center;margin-top:0.75rem">We'll reach out within 24 hours via WhatsApp or email. No spam, ever.</p>
         </form>
@@ -329,7 +339,8 @@ async function submitDemo(e){
     whatsapp:document.getElementById('dWhatsApp').value.trim(),
     service:document.getElementById('dService').value,
     level:document.getElementById('dLevel').value,
-    message:document.getElementById('dMessage').value.trim()
+    message:document.getElementById('dMessage').value.trim(),
+    has_telegram:document.getElementById('dHasTelegram')?.checked || false
   };
   if(typeof gtag!=='undefined'){gtag('event','generate_lead',{value:0,currency:'USD'});}
   var btn=document.querySelector('#demoForm button[type="submit"]');
@@ -338,12 +349,33 @@ async function submitDemo(e){
     await fetch('https://formsubmit.co/prosperolumotobi@gmail.com',{
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:new URLSearchParams({_subject:'Demo Booking: '+d.name,_captcha:'false',Name:d.name,Email:d.email,WhatsApp:d.whatsapp,Service:d.service,Level:d.level,Message:d.message||'N/A'}).toString()
+      body:new URLSearchParams({_subject:'Demo Booking: '+d.name,_captcha:'false',Name:d.name,Email:d.email,WhatsApp:d.whatsapp,Service:d.service,Level:d.level,Message:d.message||'N/A','Has Telegram':d.has_telegram?'Yes':'No'}).toString()
     });
   }catch(err){}
   localStorage.setItem('ct_lead_name',d.name);
-  document.getElementById('demoForm').innerHTML='<div style="text-align:center;padding:2rem 0"><div style="width:64px;height:64px;background:rgba(0,229,163,0.1);border:1px solid rgba(0,229,163,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#00E5A3">✓</div><h3 style="font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:800;font-size:1.25rem;color:#F4F5F7;margin-bottom:0.5rem">You\'re all set, '+d.name+'!</h3><p style="color:#9FA6B5;margin-bottom:1.5rem">Coach Toby has received your booking and will reach out within 24 hours via WhatsApp or email to schedule your free demo.</p><a href="home.html" class="btn-secondary">← Back to Home</a></div>';
+  
+  // Build confirmation message
+  var confirmHTML='<div style="text-align:center;padding:2rem 0"><div style="width:64px;height:64px;background:rgba(0,229,163,0.1);border:1px solid rgba(0,229,163,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;color:#00E5A3">✓</div><h3 style="font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:800;font-size:1.25rem;color:#F4F5F7;margin-bottom:0.5rem">You\'re all set, '+d.name+'!</h3><p style="color:#9FA6B5;margin-bottom:1.5rem">Coach Toby has received your booking and will reach out within 24 hours via WhatsApp or email.</p>';
+  
+  // If they have Telegram, show the link
+  if(d.has_telegram){
+    confirmHTML+='<div style="background:#161820;border:1px solid #0088cc;border-radius:12px;padding:20px;margin-bottom:16px"><p style="color:#F4F5F7;font-weight:600;margin:0 0 12px">💬 Want instant access? Message Coach Toby on Telegram now:</p><a href="https://t.me/Retpipebot?start='+encodeURIComponent(d.name+'|'+d.email)+'" target="_blank" style="display:inline-block;padding:14px 28px;background:#0088cc;color:#fff;font-weight:700;text-decoration:none;border-radius:10px;font-size:0.95rem">Open Telegram → @Retpipebot</a><p style="color:#6b7280;font-size:0.75rem;margin-top:8px">Your details are pre-filled. Just tap Start.</p></div>';
+  }
+  
+  confirmHTML+='<a href="home.html" class="btn-secondary">← Back to Home</a></div>';
+  document.getElementById('demoForm').innerHTML=confirmHTML;
 }
+
+// Telegram checkbox toggle
+document.addEventListener('DOMContentLoaded',function(){
+  var cb=document.getElementById('dHasTelegram');
+  var link=document.getElementById('telegramLink');
+  if(cb && link){
+    cb.addEventListener('change',function(){
+      link.style.display=this.checked?'block':'none';
+    });
+  }
+});
 </script>
 
 <script defer src="/assets/js/pricing.js"></script>
