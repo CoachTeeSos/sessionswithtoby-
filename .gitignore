@@ -29,3 +29,5 @@ Thumbs.db
 # Logs
 *.log
 bot_cache.db
+vault/
+cron/
