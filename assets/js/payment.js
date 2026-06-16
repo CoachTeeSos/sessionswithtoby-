@@ -1,17 +1,33 @@
 /* ═══════════════════════════════════════════════════════════════
    FLUTTERWAVE PAYMENT ENGINE
-   Reads data-amount + data-currency from button dataset
-   On success → redirects to Telegram bot deep link
+   Security: validates amounts against allowed values
    ═══════════════════════════════════════════════════════════════ */
 (function() {
   'use strict';
 
-  // Your Flutterwave public key
+  // Flutterwave public key (safe to expose — required by FW SDK)
   window.FLUTTERWAVE_PUBLIC_KEY = 'FLWPUBK-78adfe8e1b994186bb4af437f33105cc-X';
+
+  // Allowed payment amounts — prevents tampering
+  var ALLOWED_AMOUNTS = {
+    'single': {usd: 50, ngn: 70000},
+    'monthly': {usd: 200, ngn: 300000},
+    'ngn-single': {ngn: 70000},
+    'ngn-monthly': {ngn: 300000}
+  };
 
   // Telegram bot deep link (from data-telegram attribute on page)
   var TELEGRAM_BOT_HANDLE = '';
   var TELEGRAM_BOT_ID = '';
+
+  /** Validate payment amount against allowed values **/
+  function validateAmount(plan, amount, currency) {
+    var allowed = ALLOWED_AMOUNTS[plan];
+    if (!allowed) return false;
+    var cur = currency.toLowerCase();
+    if (allowed[cur] && allowed[cur] === parseFloat(amount)) return true;
+    return false;
+  }
 
   /**
    * Initialize a Flutterwave checkout from a button click.
@@ -23,7 +39,15 @@
     var email = btn.getAttribute('data-email') || '';
     var name = btn.getAttribute('data-name') || '';
     var telegram = btn.getAttribute('data-telegram') || '';
+    var plan = btn.getAttribute('data-plan') || '';
     var ref = 'CT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+
+    // Validate amount hasn't been tampered with
+    if (plan && !validateAmount(plan, amount, currency)) {
+      console.warn('Payment amount validation failed — possible tampering');
+      alert('Invalid payment amount. Please refresh the page and try again.');
+      return;
+    }
 
     if (telegram) {
       TELEGRAM_BOT_HANDLE = telegram;
@@ -94,4 +118,5 @@
 
   // Expose globally
   window.initFWCheckout = initFWCheckout;
+  window.validateFWAmount = validateAmount;
 })();

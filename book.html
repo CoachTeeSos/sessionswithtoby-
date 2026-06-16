@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://plausible.io https://checkout.flutterwave.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://plausible.io; frame-src https://checkout.flutterwave.com;">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Book Your Session — Sessions with Toby</title>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J9V395RPDH"></script>
@@ -63,6 +64,12 @@
 </style>
 </head>
 <body>
+
+<!-- Honeypot — invisible to users, catches bots -->
+<div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden;width:0" aria-hidden="true">
+  <label for="website_hp">Website</label>
+  <input type="text" id="website_hp" name="website" data-honeypot tabindex="-1" autocomplete="off">
+</div>
 
 <div id="pageLoader"><div class="text-center"><div class="loader-text" id="loaderText"></div><div class="loader-bar"><div class="loader-bar-fill"></div></div></div></div>
 
@@ -292,31 +299,45 @@ async function submitPayLater(){
 
 async function submitDemo(e){
   e.preventDefault();
+  var form=document.getElementById('demoForm');
+
+  // Security checks
+  if(typeof CoachTobySecurity!=='undefined'){
+    if(form.querySelector('[data-honeypot]')&&form.querySelector('[data-honeypot]').value!==''){return false;}
+    if(!CoachTobySecurity.rateLimit('demo_booking',3,60000)){alert('Too many attempts. Please wait a moment.');return false;}
+  }
+
   var d={
-    name:document.getElementById('dName').value.trim(),
-    email:document.getElementById('dEmail').value.trim(),
-    whatsapp:document.getElementById('dWhatsApp').value.trim(),
+    name:typeof CoachTobySecurity!=='undefined'?CoachTobySecurity.sanitize.name(document.getElementById('dName').value):document.getElementById('dName').value.trim(),
+    email:typeof CoachTobySecurity!=='undefined'?CoachTobySecurity.sanitize.email(document.getElementById('dEmail').value):document.getElementById('dEmail').value.trim(),
+    whatsapp:typeof CoachTobySecurity!=='undefined'?CoachTobySecurity.sanitize.phone(document.getElementById('dWhatsApp').value):document.getElementById('dWhatsApp').value.trim(),
     service:document.getElementById('dService').value,
     level:document.getElementById('dLevel').value,
-    message:document.getElementById('dMessage').value.trim()
+    message:typeof CoachTobySecurity!=='undefined'?CoachTobySecurity.sanitize.input(document.getElementById('dMessage').value):document.getElementById('dMessage').value.trim()
   };
+
+  if(!d.email){alert('Please enter a valid email.');return false;}
+  if(!d.name){alert('Please enter your name.');return false;}
+
   if(typeof gtag!=='undefined'){gtag('event','generate_lead',{value:0,currency:'USD'});}
-  var btn=document.querySelector('#demoForm button[type="submit"]');
+  var btn=form.querySelector('button[type="submit"]');
   btn.textContent='Scheduling...';btn.disabled=true;
   try{
     await fetch('https://formsubmit.co/prosperolumotobi@gmail.com',{
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:new URLSearchParams({_subject:'Demo Booking: '+d.name,_captcha:'false',Name:d.name,Email:d.email,WhatsApp:d.whatsapp,Service:d.service,Level:d.level,Message:d.message||'N/A'}).toString()
+      body:new URLSearchParams({_subject:'Demo Booking: '+d.name,_captcha:'false',Name:d.name,Email:d.email,WhatsApp:d.whatsapp,Service:d.service,Level:d.level,Message:d.message||'N/A',_csrf:typeof CoachTobySecurity!=='undefined'?CoachTobySecurity.csrfToken():''}).toString()
     });
   }catch(err){}
-  localStorage.setItem('ct_lead_name',d.name);
-  document.getElementById('demoForm').innerHTML='<div class="confirmation"><div class="confirmation-icon">✓</div><h3>You\'re all set, '+d.name+'!</h3><p>Coach Toby has received your booking and will reach out within 24 hours via WhatsApp or email to schedule your free demo.</p><a href="home.html" class="pay-btn outline" style="display:inline-block;width:auto;padding:0.75rem 1.5rem">← Back to Home</a></div>';
+  if(typeof CoachTobySecurity!=='undefined'){CoachTobyStorage.set('ct_lead_name',d.name);}
+  else{localStorage.setItem('ct_lead_name',d.name);}
+  form.innerHTML='<div class="confirmation"><div class="confirmation-icon">✓</div><h3>You\'re all set, '+d.name+'!</h3><p>Coach Toby has received your booking and will reach out within 24 hours via WhatsApp or email to schedule your free demo.</p><a href="home.html" class="pay-btn outline" style="display:inline-block;width:auto;padding:0.75rem 1.5rem">← Back to Home</a></div>';
 }
 </script>
 
+<script defer src="/assets/js/security.js"></script>
 <script defer src="/assets/js/pricing.js"></script>
 <script defer src="/assets/js/payment.js"></script>
 <script src="https://checkout.flutterwave.com/v3.js"></script>
-</body>
-</html>
+</head>
+<body>
