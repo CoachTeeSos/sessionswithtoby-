@@ -6,61 +6,72 @@
 <title>Payment Confirmed — Sessions with Toby</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css?v=5.2">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0D0E12;color:#F4F5F7;font-family:'Inter',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.card{max-width:560px;width:100%;background:#161820;border:1px solid #242838;border-radius:20px;padding:40px;text-align:center}
-.success-icon{width:64px;height:64px;background:rgba(0,229,163,0.1);border:1px solid rgba(0,229,163,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem}
-h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.5rem;color:#F4F5F7;margin-bottom:8px}
-p{color:#9FA6B5;font-size:0.95rem;line-height:1.7;margin-bottom:16px}
-.divider{height:1px;background:#242838;margin:24px 0}
-.btn{display:inline-block;padding:16px 32px;background:#E4B34F;color:#0D0E12;font-weight:700;text-decoration:none;border-radius:10px;font-size:0.95rem;font-family:'Plus Jakarta Sans',sans-serif;transition:transform .2s ease,box-shadow .2s ease;margin:8px}
-.btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(228,179,79,0.2)}
-.btn-secondary{background:transparent;color:#F4F5F7;border:2px solid #242838}
-.btn-secondary:hover{border-color:#E4B34F;color:#E4B34F}
-.info-box{background:#0D0E12;border:1px solid #242838;border-radius:12px;padding:20px;margin:20px 0;text-align:left}
-.info-box label{font-size:0.7rem;text-transform:uppercase;letter-spacing:1.5px;color:#E4B34F;font-weight:700;display:block;margin-bottom:8px}
-.info-box p{color:#F4F5F7;font-size:0.9rem;line-height:1.7;margin:0}
-.steps{text-align:left;margin:20px 0}
-.step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
-.step-num{background:#E4B34F;color:#0D0E12;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;min-width:28px;font-family:'Plus Jakarta Sans',sans-serif}
-.step-text{color:#9FA6B5;font-size:0.9rem;padding-top:4px}
-.step-text strong{color:#F4F5F7}
-.subtle{color:#6b7280;font-size:0.8rem}
+.ty-wrap{max-width:560px;margin:0 auto;padding:80px 24px 40px;text-align:center}
+.ty-icon{width:64px;height:64px;background:rgba(0,229,163,0.1);border:1px solid rgba(0,229,163,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem}
+.ty-steps{text-align:left;margin:24px 0}
+.ty-step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
+.ty-step-num{background:#E4B34F;color:#0D0E12;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;min-width:28px;font-family:'Plus Jakarta Sans',sans-serif}
+.ty-step-text{color:#9FA6B5;font-size:0.9rem;padding-top:4px}
+.ty-step-text strong{color:#F4F5F7}
+.ty-divider{height:1px;background:#242838;margin:24px 0}
+.ty-upsell{background:#161820;border:2px solid #E4B34F;border-radius:16px;padding:24px;margin:24px 0;text-align:left}
+.ty-upsell h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#F4F5F7;margin-bottom:8px}
+.ty-upsell p{color:#9FA6B5;font-size:0.9rem;margin-bottom:12px}
+.ty-upsell ul{color:#9FA6B5;font-size:0.85rem;margin:0 0 12px 18px}
+.ty-upsell li{margin-bottom:4px}
+.ty-upsell-price{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.5rem;color:#E4B34F}
+.ty-upsell-price span{font-size:0.8rem;color:#9FA6B5;font-weight:400}
 </style>
 </head>
-<body>
-<div class="card">
-  <div class="success-icon">✅</div>
-  <h1 id="greeting">Payment Confirmed!</h1>
-  <p>Your payment has been received. Here's what happens next:</p>
+<body style="background:#0D0E12">
 
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-text"><strong>Check your email.</strong> A confirmation with your payment details has been sent.</div>
+<div class="ty-wrap">
+  <div class="ty-icon">✅</div>
+  <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.5rem;color:#F4F5F7;margin-bottom:8px" id="greeting">Payment Confirmed!</h1>
+  <p style="color:#9FA6B5;font-size:0.95rem">You're in. Here's what happens next:</p>
+
+  <div class="ty-steps">
+    <div class="ty-step">
+      <div class="ty-step-num">1</div>
+      <div class="ty-step-text"><strong>Check your email.</strong> A confirmation with your payment details has been sent.</div>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-text"><strong>Open Telegram.</strong> Tap the button below to go to @Retpipebot.</div>
+    <div class="ty-step">
+      <div class="ty-step-num">2</div>
+      <div class="ty-step-text"><strong>Open Telegram.</strong> Tap the button below to message @Retpipebot.</div>
     </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-text"><strong>Get verified.</strong> Your coach will verify your payment and activate your account within 24 hours.</div>
+    <div class="ty-step">
+      <div class="ty-step-num">3</div>
+      <div class="ty-step-text"><strong>Start immediately.</strong> Your coach will verify your payment and you can schedule your first session right away.</div>
     </div>
   </div>
 
-  <div class="divider"></div>
+  <div class="ty-divider"></div>
 
-  <a id="botLink" href="https://t.me/Retpipebot" class="btn">🎤 Open Telegram & Start →</a>
-  <a href="home.html" class="btn btn-secondary">← Back to Home</a>
+  <a id="botLink" href="https://t.me/Retpipebot" class="btn-primary" style="display:block;width:100%;margin-bottom:8px">🎤 Open Telegram & Start →</a>
+  <a href="home.html" class="btn-secondary" style="display:block;width:100%">← Back to Home</a>
 
-  <p class="subtle" style="margin-top:20px;">After payment, your coach will verify and activate your account.<br>You'll get a message on Telegram when you're approved.</p>
+  <!-- UPSELL -->
+  <div class="ty-upsell">
+    <h3>💡 Thinking long-term?</h3>
+    <p>The Monthly Package gives you everything you just bought — plus:</p>
+    <ul>
+      <li>4 sessions (instead of 1)</li>
+      <li>Priority scheduling</li>
+      <li>WhatsApp check-ins between sessions</li>
+      <li>Personalized practice plan</li>
+      <li>Progress tracking report</li>
+    </ul>
+    <div class="ty-upsell-price">₦300,000 <span>/month ($200)</span></div>
+    <a href="book.html" class="btn-primary" style="display:block;width:100%;margin-top:12px;text-align:center">Upgrade to Monthly →</a>
+  </div>
+
+  <p style="color:#6b7280;font-size:0.8rem;margin-top:20px">Questions? WhatsApp: <a href="https://wa.me/2349160106084" style="color:#E4B34F">+234 916 010 6084</a></p>
 </div>
 
 <script>
-// Parse URL params from Flutterwave redirect
 var params=new URLSearchParams(window.location.search);
 var ref=params.get('ref')||'';
 var amount=params.get('amount')||'';
@@ -68,20 +79,15 @@ var currency=params.get('currency')||'';
 var name=params.get('name')||'Friend';
 var email=params.get('email')||'';
 
-// Personalize greeting
 if(name&&name!=='Friend'){
   document.getElementById('greeting').textContent='Payment Confirmed, '+name.split(' ')[0]+'!';
 }
 
-// Build bot deep link with pre-filled data
-// Format: /start name|email|phone|location|service
-// Since we only have name and email from Flutterwave, we pass what we have
 var botName=name||'Friend';
 var botEmail=email||'';
 var deepLink='https://t.me/Retpipebot?start='+encodeURIComponent(botName+'|'+botEmail);
 document.getElementById('botLink').href=deepLink;
 
-// Store payment info in localStorage for the bot to pick up
 localStorage.setItem('ct_payment_confirmed','true');
 localStorage.setItem('ct_payment_ref',ref);
 localStorage.setItem('ct_payment_amount',amount);
@@ -89,7 +95,6 @@ localStorage.setItem('ct_payment_currency',currency);
 localStorage.setItem('ct_lead_name',name);
 localStorage.setItem('ct_lead_email',email);
 
-// Send notification to admin via Formsubmit (silent)
 if(ref&&amount){
   var formData=new URLSearchParams({
     _subject:'💰 Payment Received: '+name+' ('+currency+' '+amount+')',
