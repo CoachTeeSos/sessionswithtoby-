@@ -45,7 +45,7 @@
       <a href="#transformation">Transformation</a>
       <a href="#proof">Proof</a>
       <a href="#authority">About</a>
-      <a href="book.html" class="nav-cta">Book a Session</a>
+      <a href="book.html" class="nav-cta">Try Free Demo</a>
     </div>
     <button class="btn-mobile-toggle" onclick="toggleMobile()" aria-label="Menu">☰</button>
   </div>
@@ -61,6 +61,22 @@
     <a href="#transformation" class="btn-secondary">Watch Student Transformations</a>
   </div>
   <div class="hero-scroll-indicator"><div class="scroll-line"></div></div>
+</section>
+
+<!-- ═══ PROOF / STATS ═══ -->
+<section id="proof" class="section-pad">
+  <div class="container text-center">
+    <span class="section-label">Proof Beats Promises</span>
+    <h2 class="section-headline">Numbers Don't Perform.<br>But They Don't Lie Either.</h2>
+  </div>
+  <div class="container" style="margin-top:48px">
+    <div class="stats-grid">
+      <div class="reveal"><div class="stat-number">50+</div><div class="stat-label">Singers Coached</div></div>
+      <div class="reveal"><div class="stat-number">10+</div><div class="stat-label">Countries Reached</div></div>
+      <div class="reveal"><div class="stat-number">4.9<span class="stat-star">★</span></div><div class="stat-label">Average Rating</div></div>
+      <div class="reveal"><div class="stat-number">100%</div><div class="stat-label">Session 1 Guarantee</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- ═══ FRICTION ═══ -->
@@ -351,3 +367,23 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 <script src="assets/capture.js"></script>
 </body>
 </html>
+
+<!-- Sticky mobile CTA -->
+<div id="stickyCta" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#161820;border-top:1px solid #242838;padding:12px 16px;z-index:99;box-shadow:0 -4px 20px rgba(0,0,0,0.4)">
+  <div style="display:flex;gap:8px;max-width:480px;margin:0 auto">
+    <a href="book.html" style="flex:1;padding:14px;background:#E4B34F;color:#0D0E12;border-radius:10px;font-weight:700;text-decoration:none;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem">Try Free Demo →</a>
+    <a href="https://wa.me/2349160106084" target="_blank" style="padding:14px 16px;background:transparent;color:#F4F5F7;border:2px solid #242838;border-radius:10px;text-decoration:none;font-size:1.2rem;display:flex;align-items:center" aria-label="WhatsApp">💬</a>
+  </div>
+</div>
+
+<script>
+// Show sticky CTA on mobile after scrolling past hero
+(function(){
+  var sticky=document.getElementById('stickyCta');
+  if(!sticky)return;
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>400&&window.innerWidth<=768){sticky.style.display='block';}
+    else{sticky.style.display='none';}
+  },{passive:true});
+})();
+</script>
