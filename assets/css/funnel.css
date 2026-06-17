@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    QUIZ FUNNEL — Sessions with Toby
    ═══════════════════════════════════════════════════════════ */
-.funnel-bg{background:#0D0E12;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.funnel-bg{background:#0D0E12;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding-top:80px}
 .funnel-wrap{text-align:center;max-width:560px;padding:40px 24px;width:100%}
 .step-panel{display:none}
 .step-panel.active{display:block;animation:fadeIn .4s ease}

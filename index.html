@@ -169,7 +169,7 @@ document.querySelectorAll('a[href="#quizSection"]').forEach(function(a){
     e.preventDefault();
     document.getElementById('heroSection').style.display='none';
     document.getElementById('quizSection').style.display='block';
-    document.getElementById('quizSection').scrollIntoView({behavior:'smooth'});
+    window.scrollTo({top:0,behavior:'instant'});
   });
 });
 </script>
