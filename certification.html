@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.airtable.com;">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Get Certified — Singing Certification | Sessions with Toby</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J9V395RPDH"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J9V395RPDH');</script>
+<meta name="description" content="Get certified in vocal performance. Submit your singing evaluation and receive a verifiable certificate.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0D0E12">
+<link rel="canonical" href="https://coachteesos.github.io/coachtoby-site/certification.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/funnel.css?v=2">
+<style>
+.cert-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.cert-form h1 {
+    font-size: 28px;
+    color: #c9a84c;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.cert-form .subtitle {
+    text-align: center;
+    color: #888;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+.cert-form label {
+    display: block;
+    margin: 18px 0 6px 0;
+    color: #c9a84c;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+.cert-form input,
+.cert-form select,
+.cert-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    color: #e0e0e0;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+.cert-form input:focus,
+.cert-form select:focus,
+.cert-form textarea:focus {
+    outline: none;
+    border-color: #c9a84c;
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+}
+.cert-form textarea { min-height: 80px; resize: vertical; }
+.cert-form select option { background: #1a1a2e; color: #e0e0e0; }
+
+.level-desc {
+    font-size: 12px;
+    color: #777;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+.level-desc strong { color: #999; }
+
+.info-box {
+    background: rgba(201, 168, 76, 0.06);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 25px 0;
+    font-size: 13px;
+    color: #999;
+    line-height: 1.6;
+}
+.info-box h3 {
+    color: #c9a84c;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.info-box ul { padding-left: 18px; }
+.info-box li { margin: 5px 0; }
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #c9a84c, #b8942f);
+    color: #0D0E12;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+}
+
+.verify-link {
+    text-align: center;
+    margin-top: 20px;
+}
+.verify-link a {
+    color: #888;
+    font-size: 13px;
+    text-decoration: underline;
+}
+.verify-link a:hover { color: #c9a84c; }
+</style>
+</head>
+<body style="background:#0D0E12">
+
+<div class="nav" style="position:absolute;top:0;left:0;right:0;background:transparent;border:none;z-index:10">
+    <a href="index.html" style="color:#c9a84c;text-decoration:none;font-weight:600;font-size:14px;">← Back to Home</a>
+</div>
+
+<div class="cert-form">
+    <h1>🎤 Singing Certification</h1>
+    <p class="subtitle">Submit your evaluation request — June 2026</p>
+    
+    <form id="certForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="Full Name" required placeholder="Your full name">
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Email" required placeholder="your@email.com">
+        
+        <label for="phone">Phone / WhatsApp</label>
+        <input type="tel" id="phone" name="Phone" placeholder="+234...">
+        
+        <label for="level">Certification Level</label>
+        <select id="level" name="Level" required>
+            <option value="">Select level...</option>
+            <option value="Beginner">Beginner — One song, basic technique</option>
+            <option value="Intermediate">Intermediate — Two songs, technical requirements</option>
+            <option value="Advanced">Advanced — Three songs, sight-reading, improvisation</option>
+        </select>
+        <div class="level-desc">
+            <strong>Beginner:</strong> Sing one song of your choice (60+ seconds). Live video required.<br>
+            <strong>Intermediate:</strong> One prescribed song + one choice. Must demonstrate breath control and pitch accuracy.<br>
+            <strong>Advanced:</strong> Three songs across genres + sight-reading + improvisation.
+        </div>
+        
+        <label for="song">Song Title (your choice piece)</label>
+        <input type="text" id="song" name="Song Title" placeholder="e.g., Amazing Grace">
+        
+        <label for="video">Video Submission URL</label>
+        <input type="url" id="video" name="Video URL" required placeholder="YouTube, Google Drive, or any video link">
+        <div class="level-desc">Upload your singing video to YouTube (unlisted) or Google Drive and paste the link here.</div>
+        
+        <label for="notes">Additional Notes (optional)</label>
+        <textarea id="notes" name="Notes" placeholder="Any special requirements, preferred evaluation time, etc."></textarea>
+        
+        <div class="info-box">
+            <h3>📋 What happens next?</h3>
+            <ul>
+                <li>We'll review your video within 48 hours</li>
+                <li>You'll receive a <strong>random prompt</strong> for a live verification call (5 min)</li>
+                <li>The random prompt prevents AI-generated submissions</li>
+                <li>After passing, you'll receive a <strong>verifiable certificate</strong> with a unique ID</li>
+                <li>Anyone can verify your certificate at: <strong>coachteesos.github.io/coachtoby-site/verify.html</strong></li>
+            </ul>
+        </div>
+        
+        <button type="submit" class="submit-btn">Submit for Evaluation →</button>
+    </form>
+    
+    <div class="verify-link">
+        <a href="verify.html">Already have a certificate? Verify it here →</a>
+    </div>
+</div>
+
+<script>
+document.getElementById('certForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    var btn = this.querySelector('.submit-btn');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+    
+    // Collect form data
+    var formData = new FormData(this);
+    var data = { fields: {} };
+    formData.forEach(function(value, key) {
+        data.fields[key] = value;
+    });
+    
+    // Generate session ID
+    data.fields['Session ID'] = 'SES-' + Date.now().toString(36).toUpperCase();
+    data.fields['Status'] = 'Scheduled';
+    
+    // Send to Airtable
+    fetch('https://api.airtable.com/v0/app3N2MFPvfDSuYxk/Evaluation%20Sessions', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer patmLD03CfCJta2sb.d8de1e7e9b2edd49cefa524b166504e856b0248c9ebf8d57f2a574e602e88d92',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function(resp) { return resp.json(); })
+    .then(function(result) {
+        if (result.id) {
+            alert('✅ Submission received!\n\nSession ID: ' + data.fields['Session ID'] + '\n\nWe will contact you within 48 hours for your live verification call.');
+            document.getElementById('certForm').reset();
+        } else {
+            alert('❌ Submission failed. Please try again or contact us directly.');
+        }
+    })
+    .catch(function(err) {
+        alert('❌ Network error. Please check your connection and try again.');
+        console.error(err);
+    })
+    .finally(function() {
+        btn.textContent = 'Submit for Evaluation →';
+        btn.disabled = false;
+    });
+});
+</script>
+
+</body>
+</html>
