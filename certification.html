@@ -86,6 +86,10 @@
         <label for="notes">Additional Notes (optional)</label>
         <textarea id="notes" name="Notes" placeholder="Any special requirements, preferred evaluation time, etc."></textarea>
 
+        <div class="legal-disclaimer" style="max-width:600px;margin:20px auto;padding:15px;background:rgba(255,193,7,0.1);border:1px solid rgba(255,193,7,0.3);border-radius:8px;font-size:12px;color:#aaa;line-height:1.5">
+            <strong style="color:#ffc107">Legal Notice:</strong> This is a skill-based certificate issued by Sessions with Toby based on Coach Toby's NYVC methodology training and experience. It is not an academic degree, government-issued qualification, or formally accredited credential. The certificate demonstrates completion of a vocal evaluation against transparent criteria. Verification is public at coachteesos.github.io/coachtoby-site/verify.html. By submitting, you agree to our <a href="#terms" style="color:#c9a84c">Terms of Service</a>.
+        </div>
+
         <div class="info-box">
             <h3>📋 What happens next?</h3>
             <ul>
@@ -100,13 +104,42 @@
         <button type="submit" class="submit-btn">Submit for Evaluation →</button>
     </form>
 
+    <div class="verify-link">
+        <a href="verify.html">Already have a certificate? Verify it here →</a>
+    </div>
+
     <div class="success-msg" id="successMsg">
         ✅ <strong>Submission received!</strong><br><br>
         We'll review your video and contact you within 48 hours to schedule your live verification call.
     </div>
 
-    <div class="verify-link">
-        <a href="verify.html">Already have a certificate? Verify it here →</a>
+    <!-- TERMS OF SERVICE -->
+    <div id="terms" style="max-width:600px;margin:40px auto;padding:25px 20px;border-top:1px solid rgba(255,255,255,0.05)">
+        <h2 style="color:#c9a84c;font-size:18px;margin-bottom:15px">Terms of Service</h2>
+        <div style="font-size:12px;color:#888;line-height:1.6">
+            <h3 style="color:#aaa;margin:12px 0 4px;font-size:13px">1. Certification Definition</h3>
+            <p>Sessions with Toby issues skill-based certificates based on vocal performance evaluation. These are not academic credentials or government certifications.</p>
+
+            <h3 style="color:#aaa;margin:12px 0 4px;font-size:13px">2. Evaluation Process</h3>
+            <p>Students submit a video, complete a live verification call with a random prompt, and are scored on Pitch, Tone, Breath Control, and Expression (each /10). Pass mark is 60% (24/40).</p>
+
+            <h3 style="color:#aaa;margin:12px 0 4px;font-size:13px">3. Results & Rejection</h3>
+            <p>We reserve the right to request retakes or reject submissions that don't meet minimum standards or appear AI-generated/fraudulent.</p>
+
+            <h3 style="color:#aaa;margin:12px 0 4px;font-size:13px">4. Payment & Refunds</h3>
+            <p>Certification fee is non-refundable. Payment confirms your commitment to the process.</p>
+
+            <h3 style="color:#aaa;margin:12px 0 4px;font-size:13px">5. Verification</h3>
+            <p>Certificates are public record. Anyone can verify authenticity at coachteesos.github.io/coachtoby-site/verify.html using the certificate ID.</p>
+
+            <h3 style="color:#aaa;margin:12px 0 4px;font-size:13px">6. Liability</h3>
+            <p>Certificates indicate skill achievement at a point in time. We do not guarantee future performance or career outcomes.</p>
+
+            <h3 style="color:#aaa;margin:12px 0 4px;font-size:13px">7. Governing Law</h3>
+            <p>These terms are governed by Nigerian law. Any disputes are subject to the jurisdiction of Nigerian courts.</p>
+
+            <p style="margin-top:15px;color:#666;font-style:italic">Last updated: June 2026</p>
+        </div>
     </div>
 </div>
 
@@ -115,8 +148,6 @@ document.getElementById('certForm').addEventListener('submit', function(e) {
     var btn = this.querySelector('.submit-btn');
     btn.textContent = 'Submitting...';
     btn.disabled = true;
-    // Form will submit to formsubmit.co which emails you the data
-    // Show success message after a brief delay
     setTimeout(function() {
         document.getElementById('certForm').style.display = 'none';
         document.getElementById('successMsg').style.display = 'block';
