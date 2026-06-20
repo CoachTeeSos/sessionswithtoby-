@@ -490,9 +490,14 @@ var U={
 function loadState(){
   try{
     var d=localStorage.getItem('sc_state');
-    if(d){var p=JSON.parse(d);for(var k in p)U[k]=p[k];}
+    if(d){
+      var p=JSON.parse(d);
+      // Validate: must have skills object and stage number
+      if(!p.skills||!p.stage){localStorage.removeItem('sc_state');return;}
+      for(var k in p)U[k]=p[k];
+    }
     if(!U.skills)U.skills={airflow:0,source:0,resonance:0,articulation:0};
-  }catch(e){}
+  }catch(e){localStorage.removeItem('sc_state');}
 }
 function saveState(){
   try{localStorage.setItem('sc_state',JSON.stringify(U))}catch(e){}
@@ -1191,7 +1196,7 @@ var QA={passed:0,failed:0,errors:[],
     // All 5 engines present
     this.assert('VOCAL_SYSTEMS',typeof VOCAL_SYSTEMS==='object');
     this.assert('DIAGNOSTIC',typeof DIAGNOSTIC==='object');
-    this.assert('EXERCISE_GEN',typeof EXERCISE_GEN==='function');
+    this.assert('EXERCISE_GEN',typeof EXERCISE_GEN==='object');
     this.assert('SONG_DB has songs',SONG_DB.length>=10);
     this.assert('STAGES has 10',STAGES.length===10);
     // Constraint QA
