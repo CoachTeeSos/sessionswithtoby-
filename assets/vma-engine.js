@@ -1,11 +1,13 @@
 // =============================================
-// VOCAL MASTERY ACADEMY — Shared Engine
-// Include this script in every module page BEFORE the module-specific script
+// VOCAL MASTERY ACADEMY — Shared Engine v2
+// A-Player quality. No compromises.
 // =============================================
 
 (function() {
-  const STORAGE_KEY = 'vma_student';
-  const TERMS_KEY = 'vma_terms_agreed';
+  'use strict';
+  
+  var STORAGE_KEY = 'vma_student';
+  var TERMS_KEY = 'vma_terms_agreed';
 
   // --- Student State ---
   function getStudent() {
@@ -17,7 +19,7 @@
   }
 
   function initStudent(name) {
-    const s = {
+    var s = {
       name: name || 'Student',
       xp: 5,
       level: 1,
@@ -37,7 +39,7 @@
   }
 
   // --- Levels ---
-  const LEVELS = [
+  var LEVELS = [
     {xp:0, name:'Beginner', emoji:'🌱'},
     {xp:100, name:'Explorer', emoji:'🔍'},
     {xp:250, name:'Apprentice', emoji:'📖'},
@@ -48,8 +50,8 @@
   ];
 
   function getLevel(xp) {
-    let lvl = 1;
-    for (let i = LEVELS.length - 1; i >= 0; i--) {
+    var lvl = 1;
+    for (var i = LEVELS.length - 1; i >= 0; i--) {
       if (xp >= LEVELS[i].xp) { lvl = i + 1; break; }
     }
     return lvl;
@@ -57,11 +59,11 @@
 
   // --- Streak ---
   function updateStreak() {
-    const s = getStudent();
+    var s = getStudent();
     if (!s) return;
-    const today = new Date().toDateString();
-    const last = s.lastPractice ? new Date(s.lastPractice).toDateString() : null;
-    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    var today = new Date().toDateString();
+    var last = s.lastPractice ? new Date(s.lastPractice).toDateString() : null;
+    var yesterday = new Date(Date.now() - 86400000).toDateString();
 
     if (last === today) return;
 
@@ -83,23 +85,26 @@
 
   // --- XP & Badges ---
   function awardXP(amount, reason) {
-    const s = getStudent();
+    var s = getStudent();
     if (!s) return;
+    var oldXP = s.xp;
     s.xp += amount;
-    const oldLvl = getLevel(s.xp - amount);
-    const newLvl = getLevel(s.xp);
+    var oldLvl = getLevel(oldXP);
+    var newLvl = getLevel(s.xp);
     if (newLvl > oldLvl) {
       s.level = newLvl;
-      setTimeout(function() {
-        showNotification('🎉 Level Up! You\'re now ' + LEVELS[newLvl-1].emoji + ' ' + LEVELS[newLvl-1].name + '!');
-      }, 300);
+      (function() {
+        var msg = '🎉 Level Up! You\'re now ' + LEVELS[newLvl-1].emoji + ' ' + LEVELS[newLvl-1].name + '!';
+        setTimeout(function() { showNotification(msg); }, 300);
+      })();
     }
     setStudent(s);
   }
 
   function awardBadge(id) {
-    const s = getStudent();
-    if (!s || (s.badges && s.badges.includes(id))) return;
+    var s = getStudent();
+    if (!s) return;
+    if (s.badges && s.badges.includes(id)) return;
     s.badges = s.badges || [];
     s.badges.push(id);
     setStudent(s);
@@ -107,20 +112,23 @@
 
   // --- Notifications ---
   function showNotification(msg) {
-    const el = document.createElement('div');
-    el.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#111118;border:1px solid #d4a843;border-radius:14px;padding:14px 24px;font-size:.85rem;font-weight:600;color:#d4a843;z-index:999;box-shadow:0 8px 32px rgba(0,0,0,.4);animation:fadeInUp .3s ease';
+    var el = document.createElement('div');
+    el.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#111118;border:1px solid #d4a843;border-radius:14px;padding:14px 24px;font-size:.85rem;font-weight:600;color:#d4a843;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.5);animation:VMAfadeIn .3s ease;max-width:90%;text-align:center';
     el.textContent = msg;
     document.body.appendChild(el);
     setTimeout(function() {
-      el.style.opacity = '0';
       el.style.transition = 'opacity .3s';
-      setTimeout(function() { el.remove(); }, 300);
+      el.style.opacity = '0';
+      setTimeout(function() { 
+        if (el.parentNode) el.parentNode.removeChild(el); 
+      }, 300);
     }, 3000);
   }
 
   // --- Terms Check ---
   if (localStorage.getItem(TERMS_KEY) !== 'true') {
     window.location.href = 'terms.html';
+    return;
   }
 
   // --- Expose globally ---
