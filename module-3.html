@@ -323,10 +323,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     cur=n;window.scrollTo({top:0,behavior:'smooth'});
     var st=VMA.getStudent();if(st){st.lessons=st.lessons||{};st.lessons[MOD+'-'+n]=true;VMA.setStudent(st);VMA.awardXP(10,'Lesson '+MOD+'.'+n);}
     upd();
-    } catch(e) { console.error('completeTask error:', e); }
   };
   window.completeTask=function(tid){
-    try {
     var b=document.getElementById('taskBtn-'+tid);if(!b)return;
     b.textContent='✓ Submitted';b.className='task-btn done';b.onclick=null;
     VMA.awardXP(25,'Task '+tid);VMA.updateStreak();VMA.showNotification('✓ Task complete! +25 XP');
