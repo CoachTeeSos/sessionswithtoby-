@@ -655,11 +655,11 @@ function showTobyHandoff(reason,skill){
   h+=TOBY.showMoment("plateauMessages",{name:U.name,skill:ADAPTIVE.skillName(skill)});
   h+='<div class="c" style="text-align:center;padding:20px;margin-top:12px">';
   h+='<div style="font-weight:600;margin-bottom:8px">Get Personal Coaching</div>';
-  h+='<p style="font-size:.8rem;color:var(--tx3);margin-bottom:16px">Toby will send you a targeted exercise for '+ADAPTIVE.skillName(skill)+' directly on WhatsApp.</p>';
+  h+='<p style="font-size:.8rem;color:var(--tx3);margin-bottom:16px">Toby will send you a targeted exercise for '+ADAPTIVE.skillName(skill)+' on WhatsApp.</p>';
   h+='<input type="email" id="email-input" placeholder="Your email" style="width:100%;padding:12px;border:2px solid var(--bd);border-radius:var(--r);background:var(--card);margin-bottom:10px;text-align:center">';
-  h+='<input type="tel" id="wa-input" placeholder="WhatsApp number (with country code)" style="width:100%;padding:12px;border:2px solid var(--bd);border-radius:var(--r);background:var(--card);margin-bottom:14px;text-align:center">';
-  h+='<button class="btn btn-p" onclick="submitTobyHandoff('+reason+','+skill+')">Connect with Toby</button>';
-  h+='<button class="btn btn-g" onclick="go(\x27home\x27)">Maybe Later</button>';
+  h+='<input type="tel" id="wa-input" placeholder="WhatsApp number" style="width:100%;padding:12px;border:2px solid var(--bd);border-radius:var(--r);background:var(--card);margin-bottom:14px;text-align:center">';
+  h+='<button class="btn btn-p" onclick="submitTobyHandoff(\\x27'+reason+'\\x27,\\x27'+skill+'\\x27)">Connect with Toby</button>';
+  h+='<button class="btn btn-g" onclick="go(\\x27home\\x27)">Maybe Later</button>';
   h+='</div>';
   c.innerHTML=h;
   showSession();
@@ -986,7 +986,7 @@ function finishLesson(){
     setTimeout(function(){
       var c=document.getElementById("v-c");
       c.innerHTML+=TOBY.showMoment("breakthroughMessages",{name:U.name,skill:ax.skillName});
-      c.innerHTML+='<button class="btn btn-p" style="margin-top:12px" onclick="showTobyHandoff('breakthrough',''+ax.weakest+'')">Talk to Toby about what is next →</button>';
+      c.innerHTML+='<button class="btn btn-p" style="margin-top:12px" onclick="showTobyHandoff(\x27breakthrough\x27,"+ax.weakest+")">Talk to Toby about what is next →</button>';
     },1500);
   }
   save();
