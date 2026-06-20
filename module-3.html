@@ -319,12 +319,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   if(!s){window.location.href='academy.html';return;}
   var cur=1;
   window.showLesson=function(n){
-    for(var i=1;i<=TOTAL;i++){var e=document.getElementById('lesson-'+MOD+'-'+i);if(e)e.style.display=i===n?'':'none';}
+    for(var i=1;i<=TOTAL;i++){var e=document.getElementById('lesson-'+MOD+'-'+i);if(e)e.style.display=i===n?'block':'none';}
     cur=n;window.scrollTo({top:0,behavior:'smooth'});
     var st=VMA.getStudent();if(st){st.lessons=st.lessons||{};st.lessons[MOD+'-'+n]=true;VMA.setStudent(st);VMA.awardXP(10,'Lesson '+MOD+'.'+n);}
     upd();
+    } catch(e) { console.error('completeTask error:', e); }
   };
   window.completeTask=function(tid){
+    try {
     var b=document.getElementById('taskBtn-'+tid);if(!b)return;
     b.textContent='✓ Submitted';b.className='task-btn done';b.onclick=null;
     VMA.awardXP(25,'Task '+tid);VMA.updateStreak();VMA.showNotification('✓ Task complete! +25 XP');
@@ -357,7 +359,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       document.getElementById('quizSubmit').style.display='none';
       VMA.awardXP(15,'Module '+MOD+' Quiz ('+pct+'%)');
       var st=VMA.getStudent();if(st){st.quizzes=st.quizzes||{};st.quizzes[MOD]=pct;st.modules[MOD-1]=100;VMA.setStudent(st);VMA.awardBadge('theory');VMA.showNotification('🏆 Module '+MOD+' Complete! +15 XP + Theory Badge');}
-      setTimeout(function(){document.getElementById('quiz-'+MOD).style.display='none';document.getElementById('modComplete').style.display='';document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});},2000);
+      setTimeout(function(){document.getElementById('quiz-'+MOD).style.display='none';document.getElementById('modComplete').style.display='block';document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});},2000);
     }else{
       document.getElementById('quizTitle').textContent='Not quite there';
       document.getElementById('quizMsg').textContent='You scored '+c+'/'+tq+'. You need 80% to pass. Review and try again!';
@@ -388,7 +390,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     document.getElementById('quizMsg').textContent='Review the lessons and try again.';
     document.getElementById('quiz-'+MOD).scrollIntoView({behavior:'smooth',block:'start'});
   };
-  window.showQuiz=function(){document.getElementById('quiz-'+MOD).style.display='';document.getElementById('modComplete').style.display='none';window.scrollTo({top:0,behavior:'smooth'});};
+  window.showQuiz=function(){document.getElementById('quiz-'+MOD).style.display='block';document.getElementById('modComplete').style.display='none';window.scrollTo({top:0,behavior:'smooth'});};
   function upd(){
     var st=VMA.getStudent();if(!st)return;
     var ld=0;for(var i=1;i<=TOTAL;i++){if(st.lessons&&st.lessons[MOD+'-'+i])ld++;}
@@ -399,7 +401,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   }
   var sl=1;
   for(var i=1;i<=TOTAL;i++){if(!s.lessons||!s.lessons[MOD+'-'+i]){sl=i;break;}if(i===TOTAL)sl=TOTAL;}
-  if(s.quizzes&&s.quizzes[MOD]>=80){document.getElementById('modComplete').style.display='';document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});}else{showLesson(sl);}
+  if(s.quizzes&&s.quizzes[MOD]>=80){document.getElementById('modComplete').style.display='block';document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});}else{showLesson(sl);}
   upd();
   document.getElementById('navAvatar').textContent=(s.name||'S').charAt(0).toUpperCase();
 })();
