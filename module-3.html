@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="assets/vma-engine.js"></script>
 <style>
-:root{--bg:#0a0a10;--surface:#111118;--surface2:#181822;--border:#1e1e2c;--text:#e8e8f0;--text-soft:#a0a0b4;--muted:#5a5a70;--gold:#d4a843;--gold-light:#e8c46a;--mint:#00d4a0;--blue:#4a9eff;--purple:#a06eff;--orange:#ff8a4a;--red:#e05555;--radius:14px;--radius-sm:10px}
+:root{--bg:#0a0a10;--surface:#0f0f16;--surface2:#16161f;--border:#1c1c28;--text:#e8e8f0;--text-soft:#a0a0b4;--muted:#5a5a70;--gold:#d4a843;--gold-light:#e8c46a;--mint:#00d4a0;--blue:#4a9eff;--purple:#a06eff;--orange:#ff8a4a;--red:#e05555;--radius:14px;--radius-sm:10px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.6}
 .wrap{width:100%;max-width:640px;margin:0 auto;padding:0 16px}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.anim-up{animation:fadeInUp .4s ease both}
-
+@keyframes VMAfadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.anim-up{animation:VMAfadeIn .4s ease both}
 .nav{position:sticky;top:0;z-index:100;background:rgba(10,10,16,.94);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
 .nav-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);text-decoration:none;letter-spacing:-.02em}
 .nav-brand span{color:var(--gold)}
@@ -23,21 +23,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .nav-link{font-size:.72rem;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:var(--radius-sm);transition:all .15s}
 .nav-link:hover{color:var(--text);background:var(--surface)}
 .nav-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--mint));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--bg);cursor:pointer}
-
-.mod-head{padding:32px 0 16px;animation:fadeInUp .4s ease}
+.mod-head{padding:32px 0 16px;animation:VMAfadeIn .4s ease}
 .mod-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.15);border-radius:20px;font-size:.65rem;font-weight:600;color:var(--gold);margin-bottom:12px}
 .mod-head h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(1.4rem,4vw,1.8rem);letter-spacing:-.03em;line-height:1.15;margin-bottom:6px}
 .mod-head p{color:var(--text-soft);font-size:.88rem}
+.mod-hook{background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0}
+.mod-hook-q{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px}
+.mod-hook-p{font-size:.82rem;color:var(--text-soft);line-height:1.6}
 .mod-progress-bar{width:100%;height:4px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-top:16px}
 .mod-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--mint));border-radius:4px;transition:width .5s ease}
-
 .genre-spotlight{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:16px 0;display:flex;align-items:center;gap:12px}
 .genre-icon{font-size:1.6rem}
 .genre-info h4{font-size:.82rem;font-weight:600;margin-bottom:2px}
 .genre-info p{font-size:.75rem;color:var(--muted)}
 .genre-tag{font-size:.62rem;padding:3px 8px;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.15);border-radius:6px;color:var(--gold);font-weight:600;flex-shrink:0}
-
-.content{padding:24px 0;animation:fadeInUp .3s ease}
+.content{padding:24px 0;animation:VMAfadeIn .3s ease}
 .content h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:12px}
 .content h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;margin:20px 0 8px;color:var(--gold)}
 .content p{color:var(--text);font-size:.88rem;line-height:1.75;margin-bottom:12px}
@@ -49,39 +49,19 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .content-box.key{border-left:3px solid var(--gold)}
 .content-box.info{border-left:3px solid var(--blue)}
 .content-box p:last-child{margin-bottom:0}
-
-/* Piano visual */
-.piano{display:flex;gap:2px;margin:16px 0;justify-content:center;flex-wrap:wrap}
-.piano-key{width:36px;height:80px;border-radius:0 0 6px 6px;background:var(--text);position:relative;cursor:pointer;transition:all .1s}
-.piano-key:hover{background:var(--gold-light)}
-.piano-key.black{width:24px;height:52px;background:var(--surface2);margin:0 -12px;z-index:1;border-radius:0 0 4px 4px}
-.piano-key.black:hover{background:var(--gold)}
-.piano-key-label{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-size:.55rem;font-weight:600;color:var(--muted)}
-.piano-key.black .piano-key-label{color:var(--text-soft);bottom:4px}
-
-.scale-visual{display:flex;gap:6px;align-items:center;margin:12px 0;flex-wrap:wrap}
-.scale-note{display:flex;flex-direction:column;align-items:center;gap:4px}
-.scale-note-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.75rem}
-.scale-note-num.root{background:var(--gold);color:var(--bg)}
-.scale-note-num.other{background:var(--surface2);color:var(--text)}
-.scale-note-label{font-size:.6rem;color:var(--muted)}
-.scale-arrow{color:var(--muted);font-size:.8rem}
-
 .task{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:14px 0}
 .task-label{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:6px}
 .task p{font-size:.85rem;color:var(--text);line-height:1.6}
 .task-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 16px;background:rgba(0,212,160,.06);border:1px solid rgba(0,212,160,.15);border-radius:var(--radius-sm);font-size:.72rem;font-weight:600;color:var(--mint);cursor:pointer;transition:all .15s;font-family:inherit}
 .task-btn:hover{background:rgba(0,212,160,.12)}
 .task-btn.done{background:rgba(74,158,255,.06);border-color:rgba(74,158,255,.15);color:var(--blue);cursor:default}
-
 .bandlab-box{background:linear-gradient(135deg,rgba(74,158,255,.06),rgba(160,110,255,.06));border:1px solid rgba(74,158,255,.15);border-radius:var(--radius);padding:16px;margin:14px 0}
-.bandlab-box h4{font-size:.85rem;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.bandlab-box h4{font-size:.85rem;font-weight:600;margin-bottom:6px}
 .bandlab-box p{font-size:.82rem;color:var(--text-soft);line-height:1.6}
 .bandlab-box ol{margin:8px 0 0;padding-left:18px}
 .bandlab-box li{font-size:.82rem;color:var(--text-soft);margin-bottom:4px;line-height:1.5}
-
 .quiz-section{padding:24px 0}
-.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;animation:fadeInUp .3s ease}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;animation:VMAfadeIn .3s ease}
 .q-num{font-size:.62rem;font-weight:600;color:var(--gold);margin-bottom:8px}
 .q-text{font-size:.88rem;font-weight:500;margin-bottom:14px;line-height:1.5}
 .q-options{display:flex;flex-direction:column;gap:8px}
@@ -93,25 +73,23 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .q-submit{margin-top:16px;padding:13px 28px;background:var(--gold);color:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:600;font-size:.85rem;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .2s}
 .q-submit:hover{background:var(--gold-light)}
 .q-submit:disabled{opacity:.4;cursor:not-allowed}
-.q-result{text-align:center;padding:32px 20px;animation:fadeInUp .4s ease}
+.q-result{text-align:center;padding:32px 20px;animation:VMAfadeIn .4s ease}
 .q-result h3{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;margin-bottom:8px}
 .q-result p{color:var(--text-soft);font-size:.9rem}
 .q-score{font-size:3rem;font-weight:700;color:var(--gold);margin-bottom:4px}
 .q-retry{margin-top:16px;padding:12px 24px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-weight:500;font-size:.85rem;cursor:pointer;font-family:inherit;transition:all .15s}
 .q-retry:hover{border-color:var(--gold)}
-
-.complete{text-align:center;padding:40px 20px;animation:fadeInUp .5s ease}
+.complete{text-align:center;padding:40px 20px;animation:VMAfadeIn .5s ease}
 .complete-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--mint));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px;box-shadow:0 0 48px rgba(212,168,67,.15)}
 .complete h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.5rem;margin-bottom:8px}
 .complete p{color:var(--text-soft);font-size:.9rem;margin-bottom:20px}
 .complete-xp{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(212,168,67,.08);border-radius:var(--radius-sm);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:var(--gold);margin-bottom:20px}
-.complete-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gold);color:var(--bg);border:none;border-radius:var(--radius);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;transition:all .2s}
-.complete-btn:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 6px 28px rgba(212,168,67,.22)}
-
+.complete-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:var(--gold);color:var(--bg);border:none;border-radius:var(--radius);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;text-decoration:none;transition:all .2s}
+.complete-btn:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 6px 28px rgba(212,168,67,.22)}
+.review-link{display:block;margin-top:12px;color:var(--muted);font-size:.8rem;text-decoration:underline;cursor:pointer}
 .footer{padding:32px 0;text-align:center;font-size:.68rem;color:var(--muted);border-top:1px solid var(--border);margin-top:32px}
-@media(max-width:480px){.mod-head{padding:24px 0 12px}.q-card{padding:16px}.piano-key{width:28px;height:60px}.piano-key.black{width:18px;height:40px;margin:0 -9px}}
+@media(max-width:480px){.mod-head{padding:24px 0 12px}.q-card{padding:16px}}
 </style>
-  <script src="assets/vma-engine.js"></script>
 </head>
 <body>
 
@@ -130,117 +108,55 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="mod-badge">Module 3 of 7</div>
     <h1>Music Theory — Understand the Language</h1>
     <p>You don't need to be a composer. But understanding the language of music makes you a faster, smarter, more intentional singer.</p>
-    <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
-    <div style="background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0 0">
-      <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px">Ever wonder how some singers make it look effortless?</p>
-      <p style="font-size:.82rem;color:var(--text-soft);line-height:1.6">It's not magic. It's music theory — the hidden architecture behind every song you love. Once you see it, you'll never hear music the same way again.</p>
+    <div class="mod-hook">
+      <p class="mod-hook-q">Ever wonder how some singers make it look effortless?</p>
+      <p class="mod-hook-p">It's not magic. It's music theory — the hidden architecture behind every song you love. Once you see it, you'll never hear music the same way again.</p>
     </div>
+    <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
   </div>
 
-  <!-- GENRE SPOTLIGHT -->
   <div class="genre-spotlight">
     <div class="genre-icon">🥁</div>
-    <div class="genre-info">
-      <h4>Genre Spotlight: Afrobeats</h4>
-      <p>Rhythm is king. Listen to how Burna Boy, Wizkid, and Tems use groove, syncopation, and space. Notice how the vocal rhythm interacts with the beat.</p>
-    </div>
+    <div class="genre-info"><h4>Genre Spotlight: Afrobeats</h4><p>Rhythm is king. Listen to how Burna Boy, Wizkid, and Tems use groove, syncopation, and space. Notice how the vocal rhythm interacts with the beat.</p></div>
     <div class="genre-tag">Listen</div>
   </div>
 
   <!-- LESSON 3.1 -->
   <div class="content" id="lesson-3-1">
     <h2>Lesson 3.1: Pitch, Scales, and Keys</h2>
-    
     <p>Pitch is how high or low a note is. Scales are organized patterns of pitches. Keys tell you which scale a song uses. These aren't abstract concepts — they're tools that help you learn songs faster and sing in tune.</p>
-    
     <h3>The Chromatic Scale</h3>
-    <p>All 12 notes in Western music, in order: C, C#, D, D#, E, F, F#, G, G#, A, A#, B, then back to C. On a piano, this is every key — white and black.</p>
-    
-    <div class="piano">
-      <div class="piano-key" title="C"><span class="piano-key-label">C</span></div>
-      <div class="piano-key black" title="C#"><span class="piano-key-label">C#</span></div>
-      <div class="piano-key" title="D"><span class="piano-key-label">D</span></div>
-      <div class="piano-key black" title="D#"><span class="piano-key-label">D#</span></div>
-      <div class="piano-key" title="E"><span class="piano-key-label">E</span></div>
-      <div class="piano-key" title="F"><span class="piano-key-label">F</span></div>
-      <div class="piano-key black" title="F#"><span class="piano-key-label">F#</span></div>
-      <div class="piano-key" title="G"><span class="piano-key-label">G</span></div>
-      <div class="piano-key black" title="G#"><span class="piano-key-label">G#</span></div>
-      <div class="piano-key" title="A"><span class="piano-key-label">A</span></div>
-      <div class="piano-key black" title="A#"><span class="piano-key-label">A#</span></div>
-      <div class="piano-key" title="B"><span class="piano-key-label">B</span></div>
-    </div>
-    
+    <p>All 12 notes in Western music: C, C#, D, D#, E, F, F#, G, G#, A, A#, B, then back to C. On a piano, this is every key — white and black.</p>
     <h3>Major Scale — The Foundation</h3>
-    <p>The most common scale in Western music. The pattern from any note is: <strong>Whole-Whole-Half-Whole-Whole-Whole-Half</strong> (W-W-H-W-W-W-H).</p>
-    
-    <p>Starting on C: C → D → E → F → G → A → B → C</p>
-    
-    <div class="scale-visual">
-      <div class="scale-note"><div class="scale-note-num root">C</div><div class="scale-note-label">1 (Root)</div></div>
-      <span class="scale-arrow">→</span>
-      <div class="scale-note"><div class="scale-note-num other">D</div><div class="scale-note-label">2</div></div>
-      <span class="scale-arrow">→</span>
-      <div class="scale-note"><div class="scale-note-num other">E</div><div class="scale-note-label">3</div></div>
-      <span class="scale-arrow">→</span>
-      <div class="scale-note"><div class="scale-note-num other">F</div><div class="scale-note-label">4</div></div>
-      <span class="scale-arrow">→</span>
-      <div class="scale-note"><div class="scale-note-num other">G</div><div class="scale-note-label">5</div></div>
-      <span class="scale-arrow">→</span>
-      <div class="scale-note"><div class="scale-note-num other">A</div><div class="scale-note-label">6</div></div>
-      <span class="scale-arrow">→</span>
-      <div class="scale-note"><div class="scale-note-num other">B</div><div class="scale-note-label">7</div></div>
-      <span class="scale-arrow">→</span>
-      <div class="scale-note"><div class="scale-note-num root">C</div><div class="scale-note-label">8 (Octave)</div></div>
-    </div>
-    
-    <div class="content-box key">
-      <p><strong>Why singers care:</strong> When you know the key of a song, you know which notes are "home" (the root) and which create tension (the 7th, the 4th). This helps you anticipate where the melody is going and sing with more confidence.</p>
-    </div>
-    
+    <p>The most common scale in Western music. The pattern from any note is: <strong>Whole-Whole-Half-Whole-Whole-Whole-Half</strong> (W-W-H-W-W-W-H). Starting on C: C → D → E → F → G → A → B → C.</p>
+    <div class="content-box key"><p><strong>Why singers care:</strong> When you know the key of a song, you know which notes are "home" (the root) and which create tension (the 7th, the 4th). This helps you anticipate where the melody is going and sing with more confidence.</p></div>
     <h3>Minor Scale — The Emotional Scale</h3>
-    <p>The natural minor scale pattern: W-H-W-W-H-W-W. Starting on A: A → B → C → D → E → F → G → A</p>
-    <p>Minor scales sound sad, serious, or intense. Most Afrobeats and gospel use a mix of major and minor — the minor gives emotional depth.</p>
-  
+    <p>The natural minor scale pattern: W-H-W-W-H-W-W. Starting on A: A → B → C → D → E → F → G → A. Minor scales sound sad, serious, or intense. Most Afrobeats and gospel use a mix of major and minor.</p>
     <div class="task" id="task-3-1">
-      <div class="task-label">Task 3-1</div>
+      <div class="task-label">Task 3.1</div>
       <p>Sing the C major scale (C-D-E-F-G-A-B-C) ascending and descending. Use a piano app to check your pitch accuracy. Record in BandLab.</p>
       <button class="task-btn" id="taskBtn-3-1" onclick="completeTask('3-1')">Mark as Done ✓</button>
     </div>
-</div>
+  </div>
 
   <!-- LESSON 3.2 -->
   <div class="content" id="lesson-3-2" style="display:none">
     <h2>Lesson 3.2: Rhythm and Time Signatures</h2>
-    
     <p>Rhythm is the pattern of sounds in time. As a singer, your rhythm determines whether you sound tight or sloppy. You can have perfect pitch and still sound bad with poor rhythm.</p>
-    
     <h3>Beat and Pulse</h3>
     <p>The <strong>beat</strong> is the steady pulse you tap your foot to. Every song has one. When you clap along to a song, you're clapping the beat.</p>
-    
     <h3>Time Signatures</h3>
-    <p>The time signature tells you how many beats are in each bar and what note gets one beat:</p>
     <ul>
       <li><strong>4/4 (Common Time):</strong> 4 beats per bar. Most pop, gospel, Afrobeats, rock. Count: 1-2-3-4, 1-2-3-4</li>
       <li><strong>3/4 (Waltz Time):</strong> 3 beats per bar. Some ballads, hymns. Count: 1-2-3, 1-2-3</li>
       <li><strong>6/8:</strong> 6 beats per bar, felt as 2 groups of 3. Many African rhythms, some gospel</li>
     </ul>
-    
-    <div class="content-box tip">
-      <p><strong>Exercise:</strong> Play a song you know well. Tap your foot to the beat. Now count "1-2-3-4" with your taps. Does it feel natural? If you're counting "1-2-3" and it feels right, it's probably in 3/4 or 6/8.</p>
-    </div>
-    
     <h3>Syncopation — The Secret of Groove</h3>
-    <p>Syncopation is when you accent the <strong>off-beats</strong> — the "and" between the main beats. Instead of 1-2-3-4, you emphasize 1-<strong>and</strong>-2-<strong>and</strong>-3-<strong>and</strong>-4-<strong>and</strong>.</p>
-    <p>This is what makes Afrobeats and funk feel so alive. The voice and instruments play <em>around</em> the beat, not just on it.</p>
-    
-    <div class="content-box info">
-      <p><strong>For Nigerian singers:</strong> Highlife, Fuji, and Afrobeats all use heavy syncopation. If you only sing on the main beat, you'll sound stiff. Practice singing slightly behind the beat — it creates that relaxed, groovy feel.</p>
-    </div>
-    
+    <p>Syncopation is when you accent the <strong>off-beats</strong> — the "and" between the main beats. This is what makes Afrobeats and funk feel so alive. The voice and instruments play <em>around</em> the beat, not just on it.</p>
+    <div class="content-box info"><p><strong>For Nigerian singers:</strong> Highlife, Fuji, and Afrobeats all use heavy syncopation. If you only sing on the main beat, you'll sound stiff. Practice singing slightly behind the beat — it creates that relaxed, groovy feel.</p></div>
     <div class="task" id="task-3-2">
       <div class="task-label">Task 3.2</div>
-      <p>Choose a song. Tap the beat while listening. Now try clapping on the off-beats (the "and" between each beat). Record yourself in BandLab: first sing the melody on the beat, then try it with syncopation. Compare the two.</p>
+      <p>Choose a song. Tap the beat while listening. Now try clapping on the off-beats (the "and" between each beat). Record yourself in BandLab: first sing the melody on the beat, then try it with syncopation.</p>
       <button class="task-btn" id="taskBtn-3-2" onclick="completeTask('3-2')">Mark as Done ✓</button>
     </div>
   </div>
@@ -248,78 +164,34 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   <!-- LESSON 3.3 -->
   <div class="content" id="lesson-3-3" style="display:none">
     <h2>Lesson 3.3: Intervals — The Building Blocks of Melody</h2>
-    
     <p>An <strong>interval</strong> is the distance between two notes. Every melody is just a series of intervals. When you can recognize intervals by ear, you can learn songs faster and sing more accurately.</p>
-    
     <h3>Common Intervals (from C)</h3>
-    <table class="ipa-table">
-      <thead><tr><th>Interval</th><th>Semitones</th><th>Example</th><th>Sounds Like</th></tr></thead>
-      <tbody>
-        <tr><td>Unison</td><td>0</td><td>C → C</td><td>Same note</td></tr>
-        <tr><td>Minor 2nd</td><td>1</td><td>C → C#</td><td>Tense, dissonant</td></tr>
-        <tr><td>Major 2nd</td><td>2</td><td>C → D</td><td>"Do-Re"</td></tr>
-        <tr><td>Minor 3rd</td><td>3</td><td>C → D#</td><td>Sad, melancholic</td></tr>
-        <tr><td>Major 3rd</td><td>4</td><td>C → E</td><td>Happy, bright</td></tr>
-        <tr><td>Perfect 4th</td><td>5</td><td>C → F</td><td>"Somewhere Over the Rainbow" start</td></tr>
-        <tr><td>Tritone</td><td>6</td><td>C → F#</td><td>"The Simpsons" theme</td></tr>
-        <tr><td>Perfect 5th</td><td>7</td><td>C → G</td><td>"Twinkle Twinkle" start</td></tr>
-        <tr><td>Octave</td><td>12</td><td>C → C</td><td>"Somewhere Over the Rainbow" jump</td></tr>
-      </tbody>
-    </table>
-    
-    <div class="content-box key">
-      <p><strong>Why singers care:</strong> When you hear a melody, your brain processes the intervals. If you can consciously identify them, you can reproduce them faster. This is the foundation of ear training.</p>
-    </div>
-    
-    <h3>Interval Singing Exercise</h3>
-    <p>Sing these intervals from a comfortable starting note:</p>
-    <ol>
-      <li>Start on any note, go up a Major 3rd (4 semitones) — sounds like "Happy Birthday" opening</li>
-      <li>Start on any note, go up a Perfect 5th (7 semitones) — sounds like "Twinkle Twinkle"</li>
-      <li>Start on any note, go up an Octave (12 semitones) — same note, higher</li>
-      <li>Now go DOWN a Minor 3rd (3 semitones) — sounds like "Greensleeves"</li>
-    </ol>
-  
+    <ul>
+      <li><strong>Major 3rd (4 semitones):</strong> C → E. Sounds like "Happy Birthday" opening</li>
+      <li><strong>Perfect 5th (7 semitones):</strong> C → G. Sounds like "Twinkle Twinkle" start</li>
+      <li><strong>Octave (12 semitones):</strong> C → C. Same note, higher</li>
+      <li><strong>Minor 3rd (3 semitones):</strong> C → Eb. Sounds sad, melancholic</li>
+    </ul>
+    <div class="content-box key"><p><strong>Why singers care:</strong> When you hear a melody, your brain processes the intervals. If you can consciously identify them, you can reproduce them faster. This is the foundation of ear training.</p></div>
     <div class="task" id="task-3-3">
-      <div class="task-label">Task 3-3</div>
+      <div class="task-label">Task 3.3</div>
       <p>Sing these intervals from any starting note: Major 3rd (do-mi), Perfect 5th (do-sol), Octave (do-do). Use a piano app to verify. Record in BandLab.</p>
       <button class="task-btn" id="taskBtn-3-3" onclick="completeTask('3-3')">Mark as Done ✓</button>
     </div>
-</div>
+  </div>
 
   <!-- LESSON 3.4 -->
   <div class="content" id="lesson-3-4" style="display:none">
     <h2>Lesson 3.4: Chord Progressions and Harmony Basics</h2>
-    
     <p>A <strong>chord</strong> is three or more notes played together. A <strong>chord progression</strong> is a sequence of chords. Most songs are built on a repeating chord progression.</p>
-    
     <h3>The I-IV-V-I Progression</h3>
-    <p>The most common progression in Western music. In the key of C major:</p>
-    <ul>
-      <li><strong>I = C major</strong> (C-E-G) — "home," feels resolved</li>
-      <li><strong><strong>IV = F major</strong> (F-A-C) — "moving," feels like a journey</li>
-      <li><strong><strong>V = G major</strong> (G-B-D) — "tension," wants to go home</li>
-      <li><strong>I = C major</strong> — back home, feels complete</li>
-    </ul>
-    
-    <p>This progression is in thousands of songs: "Let It Be," "Lean on Me," "No Woman No Cry," countless gospel songs.</p>
-    
+    <p>The most common progression in Western music. In C major: I = C, IV = F, V = G. This is in "Let It Be," "Lean on Me," "No Woman No Cry," countless gospel songs.</p>
     <h3>The vi-IV-I-V Progression</h3>
-    <p>The "pop progression" — used in most modern pop, Afrobeats, and worship songs. In C major:</p>
-    <ul>
-      <li><strong>vi = A minor</strong> — emotional, introspective</li>
-      <li><strong>IV = F major</strong> — building</li>
-      <li><strong>I = C major</strong> — resolution</li>
-      <li><strong>V = G major</strong> — tension, sets up the repeat</li>
-    </ul>
-    
-    <div class="content-box tip">
-      <p><strong>NYVC insight:</strong> When you know the chord progression, you can predict where the melody is going. Singers who understand harmony don't just sing notes — they sing <em>with</em> the chords. They emphasize chord tones (notes that belong to the current chord) for a grounded, in-tune sound.</p>
-    </div>
-    
+    <p>The "pop progression" — used in most modern pop, Afrobeats, and worship songs. In C major: vi = Am, IV = F, I = C, V = G.</p>
+    <div class="content-box tip"><p><strong>NYVC insight:</strong> When you know the chord progression, you can predict where the melody is going. Singers who understand harmony sing <em>with</em> the chords — emphasizing chord tones for a grounded, in-tune sound.</p></div>
     <div class="task" id="task-3-4">
       <div class="task-label">Task 3.4</div>
-      <p>Find a simple song (gospel hymns work great). Identify the key and try to figure out the chord progression using I, IV, and V. You can use a piano app or YouTube tutorials to help. Write down the progression (e.g., I-IV-I-V-I).</p>
+      <p>Find a simple gospel hymn. Identify the key and try to figure out the chord progression using I, IV, and V. Write down the progression (e.g., I-IV-I-V-I).</p>
       <button class="task-btn" id="taskBtn-3-4" onclick="completeTask('3-4')">Mark as Done ✓</button>
     </div>
   </div>
@@ -327,48 +199,37 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   <!-- LESSON 3.5 -->
   <div class="content" id="lesson-3-5" style="display:none">
     <h2>Lesson 3.5: Song Structure — Verse, Chorus, Bridge</h2>
-    
     <p>Most songs follow a predictable structure. Understanding it helps you learn songs faster, know when to sing with more or less intensity, and even write your own songs.</p>
-    
-    <h3>Common Song Structures</h3>
+    <h3>Common Structures</h3>
     <ul>
-      <li><strong>Verse-Chorus-Verse-Chorus-Bridge-Chorus</strong> — Most pop, Afrobeats, worship songs</li>
-      <li><strong>Verse-Verse-Chorus-Verse-Chorus</strong> — Simpler songs, some hymns</li>
-      <li><strong>AABA</strong> — Classic 32-bar form, jazz standards, older hymns</li>
-      <li><strong>Intro-Verse-Chorus-Verse-Chorus-Bridge-Chorus-Outro</strong> — Full pop structure</li>
+      <li><strong>Verse-Chorus-Verse-Chorus-Bridge-Chorus</strong> — Most pop, Afrobeats, worship</li>
+      <li><strong>AABA</strong> — Classic form, jazz standards, older hymns</li>
     </ul>
-    
     <h3>What Each Section Does</h3>
     <ul>
-      <li><strong>Verse:</strong> Tells the story, builds the narrative. Usually lower intensity, more conversational.</li>
-      <li><strong>Pre-Chorus:</strong> Builds tension toward the chorus. "The climb before the peak."</li>
-      <li><strong>Chorus:</strong> The main message, the hook. Highest energy, most memorable. This is what people sing along to.</li>
-      <li><strong>Bridge:</strong> The contrast. Different melody, different chords, often the emotional peak. Provides variety before the final chorus.</li>
-      <li><strong>Outro:</strong> The wind-down. Can be a repeat of the chorus, a fade, or a final statement.</li>
+      <li><strong>Verse:</strong> Tells the story. Lower intensity, conversational.</li>
+      <li><strong>Pre-Chorus:</strong> Builds tension toward the chorus.</li>
+      <li><strong>Chorus:</strong> The main message, the hook. Highest energy.</li>
+      <li><strong>Bridge:</strong> The contrast. Different melody, often the emotional peak.</li>
+      <li><strong>Outro:</strong> The wind-down.</li>
     </ul>
-    
-    <div class="content-box key">
-      <p><strong>Performance insight:</strong> Your dynamics should follow the structure. Verse = softer, more intimate. Chorus = fuller, more power. Bridge = emotional peak. Don't sing everything at the same volume — that's the difference between a flat performance and a captivating one.</p>
-    </div>
-    
-    <!-- BANDLAB PRACTICAL -->
+    <div class="content-box key"><p><strong>Performance insight:</strong> Your dynamics should follow the structure. Verse = softer. Chorus = fuller. Bridge = emotional peak. Don't sing everything at the same volume.</p></div>
     <div class="bandlab-box">
       <h4>🎹 BandLab Practical — Module 3</h4>
       <p><strong>Assignment:</strong> Record "Happy Birthday" in 3 different keys.</p>
       <ol>
         <li>Open BandLab → New Project → Voice/Mic</li>
         <li>Sing "Happy Birthday" in the key of C major (starting on G)</li>
-        <li>Now transpose up to D major (starting on A) — sing it again</li>
-        <li>Now transpose down to Bb major (starting on F) — sing it again</li>
+        <li>Transpose up to D major (starting on A) — sing it again</li>
+        <li>Transpose down to Bb major (starting on F) — sing it again</li>
         <li>Use the built-in metronome at 80 BPM</li>
         <li>Share the project link and send to Coach Toby</li>
       </ol>
       <p style="margin-top:10px;font-size:.78rem;color:var(--muted)"><strong>Submit as:</strong> [Module 3] BandLab Practical - [Your Name]</p>
     </div>
-    
     <div class="task" id="task-3-5">
       <div class="task-label">Task 3.5</div>
-      <p>Complete the BandLab practical above. Also: Choose any song you know and map out its structure (verse, chorus, bridge, etc.). Write it down with timestamps.</p>
+      <p>Complete the BandLab practical above. Also: Choose any song you know and map out its structure (verse, chorus, bridge, etc.) with timestamps.</p>
       <button class="task-btn" id="taskBtn-3-5" onclick="completeTask('3-5')">Mark as Done ✓</button>
     </div>
   </div>
@@ -376,64 +237,57 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   <!-- QUIZ -->
   <div class="quiz-section" id="quiz-3" style="display:none">
     <div class="section-title" style="margin-bottom:16px">Module 3 Quiz</div>
-    
     <div class="q-card" id="q3-1">
       <div class="q-num">Question 1 of 5</div>
       <div class="q-text">What is the pattern of a major scale?</div>
       <div class="q-options">
-        <button class="q-opt" onclick="selectOpt(this, 'q3-1')">W-H-W-W-H-W-W</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-1')">W-W-H-W-W-W-H</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-1')">H-W-W-H-W-W-W</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-1')">W-W-W-H-W-W-H</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-1')">W-H-W-W-H-W-W</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-1')">W-W-H-W-W-W-H</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-1')">H-W-W-H-W-W-W</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-1')">W-W-W-H-W-W-H</button>
       </div>
     </div>
-    
     <div class="q-card" id="q3-2">
       <div class="q-num">Question 2 of 5</div>
       <div class="q-text">What is syncopation?</div>
       <div class="q-options">
-        <button class="q-opt" onclick="selectOpt(this, 'q3-2')">Singing in perfect tune</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-2')">Accenting the off-beats between the main beats</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-2')">A type of chord progression</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-2')">The speed of a song</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-2')">Singing in perfect tune</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-2')">Accenting the off-beats between the main beats</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-2')">A type of chord progression</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-2')">The speed of a song</button>
       </div>
     </div>
-    
     <div class="q-card" id="q3-3">
       <div class="q-num">Question 3 of 5</div>
       <div class="q-text">In the key of C major, what are the I, IV, and V chords?</div>
       <div class="q-options">
-        <button class="q-opt" onclick="selectOpt(this, 'q3-3')">C, D, E</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-3')">C, F, G</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-3')">C, G, A</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-3')">C, E, G</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-3')">C, D, E</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-3')">C, F, G</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-3')">C, G, A</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-3')">C, E, G</button>
       </div>
     </div>
-    
     <div class="q-card" id="q3-4">
       <div class="q-num">Question 4 of 5</div>
       <div class="q-text">How many semitones are in a Perfect 5th?</div>
       <div class="q-options">
-        <button class="q-opt" onclick="selectOpt(this, 'q3-4')">5</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-4')">6</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-4')">7</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-4')">8</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-4')">5</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-4')">6</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-4')">7</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-4')">8</button>
       </div>
     </div>
-    
     <div class="q-card" id="q3-5">
       <div class="q-num">Question 5 of 5</div>
       <div class="q-text">What is the function of the chorus in a song?</div>
       <div class="q-options">
-        <button class="q-opt" onclick="selectOpt(this, 'q3-5')">To tell the story in detail</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-5')">To provide the main message and highest energy</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-5')">To create tension before the verse</button>
-        <button class="q-opt" onclick="selectOpt(this, 'q3-5')">To end the song</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-5')">To tell the story in detail</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-5')">To provide the main message and highest energy</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-5')">To create tension before the verse</button>
+        <button class="q-opt" onclick="selectOpt(this,'q3-5')">To end the song</button>
       </div>
     </div>
-    
     <button class="q-submit" id="quizSubmit" onclick="submitQuiz()" disabled>Submit Answers</button>
-    
     <div class="q-result" id="quizResult" style="display:none">
       <div class="q-score" id="quizScore">0%</div>
       <h3 id="quizTitle">Quiz Complete</h3>
@@ -449,194 +303,89 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <p>You now speak the language of music. Scales, chords, rhythm, structure — you have the tools to learn any song faster.</p>
     <div class="complete-xp">+50 XP Earned</div>
     <br>
-    <a href="module-4.html" class="complete-btn" style="font-size:1rem;padding:16px 36px">Continue to Module 4 →</a>
-    <a href="#" onclick="showLesson(1);document.getElementById('modComplete').style.display='none';window.scrollTo({top:0,behavior:'smooth'});return false;" style="display:block;margin-top:12px;color:var(--muted);font-size:.8rem;text-decoration:underline">← Review lessons</a>
+    <a href="module-4.html" class="complete-btn">Continue to Module 4 →</a>
+    <a class="review-link" href="#" onclick="showLesson(1);document.getElementById('modComplete').style.display='none';window.scrollTo({top:0,behavior:'smooth'});return false;">← Review lessons</a>
   </div>
 
-  <div class="footer">
-    Vocal Mastery Academy · Sessions with Toby · © 2026
-  </div>
-
+  <div class="footer">Vocal Mastery Academy · Sessions with Toby · © 2026</div>
 </div>
 
 <script>
-const MODULE = 3;
-const STORAGE_KEY = 'vma_student';
-const TERMS_KEY = 'vma_terms_agreed';
-const CORRECT_ANSWERS = {
-  'q3-1': 1, 'q3-2': 1, 'q3-3': 1, 'q3-4': 2, 'q3-5': 1
-};
-
-if (localStorage.getItem(TERMS_KEY) !== 'true') {
-  window.location.href = 'terms.html';
-}
-
-function getStudent() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) { return null; }
-}
-function setStudent(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
-const s = getStudent();
-if (!s) { window.location.href = 'academy.html'; }
-
-let currentLesson = 1;
-const totalLessons = 5;
-
-function showLesson(n) {
-  for (let i = 1; i <= totalLessons; i++) {
-    const el = document.getElementById('lesson-3-' + i);
-    if (el) el.style.display = i === n ? '' : 'none';
-  }
-  currentLesson = n;
-  window.scrollTo({top:0,behavior:'smooth'});
-  
-  if (window.VMA) {
-    const st = window.VMA.getStudent();
-    if (st) {
-      st.lessons = st.lessons || {};
-      st.lessons['3-' + n] = true;
-      window.VMA.setStudent(st);
-      window.VMA.awardXP(10, 'Completed Lesson 3.' + n);
+(function(){
+  'use strict';
+  var MOD=3, TOTAL=5;
+  var CORRECT={'q3-1':1,'q3-2':1,'q3-3':1,'q3-4':2,'q3-5':1};
+  var s=VMA.getStudent();
+  if(!s){window.location.href='academy.html';return;}
+  var cur=1;
+  window.showLesson=function(n){
+    for(var i=1;i<=TOTAL;i++){var e=document.getElementById('lesson-'+MOD+'-'+i);if(e)e.style.display=i===n?'':'none';}
+    cur=n;window.scrollTo({top:0,behavior:'smooth'});
+    var st=VMA.getStudent();if(st){st.lessons=st.lessons||{};st.lessons[MOD+'-'+n]=true;VMA.setStudent(st);VMA.awardXP(10,'Lesson '+MOD+'.'+n);}
+    upd();
+  };
+  window.completeTask=function(tid){
+    var b=document.getElementById('taskBtn-'+tid);if(!b)return;
+    b.textContent='✓ Submitted';b.className='task-btn done';b.onclick=null;
+    VMA.awardXP(25,'Task '+tid);VMA.updateStreak();VMA.showNotification('✓ Task complete! +25 XP');
+    var ln=parseInt(tid.split('-')[1]);
+    if(ln<TOTAL){setTimeout(function(){showLesson(ln+1);},800);}else{setTimeout(function(){showQuiz();},800);}
+    upd();
+  };
+  var qa={},qs=false;
+  window.selectOpt=function(b,qid){
+    if(qs)return;
+    var p=b.parentElement,os=p.querySelectorAll('.q-opt');
+    for(var i=0;i<os.length;i++)os[i].classList.remove('selected');
+    b.classList.add('selected');qa[qid]=Array.from(os).indexOf(b);
+    var all=true;for(var k in CORRECT){if(qa[k]===undefined){all=false;break;}}
+    document.getElementById('quizSubmit').disabled=!all;
+  };
+  window.submitQuiz=function(){
+    if(qs)return;qs=true;
+    var c=0,tq=Object.keys(CORRECT).length;
+    for(var qid in CORRECT){
+      var ci=CORRECT[qid],os=document.querySelectorAll('#'+qid+' .q-opt'),sel=qa[qid];
+      for(var j=0;j<os.length;j++){if(j===ci)os[j].classList.add('correct');if(j===sel&&j!==ci)os[j].classList.add('wrong');}
+      if(sel===ci)c++;
     }
-  }
-  updateProgress();
-}
-
-function completeTask(taskId) {
-  const btn = document.getElementById('taskBtn-' + taskId);
-  if (!btn) return;
-  btn.textContent = '✓ Submitted';
-  btn.className = 'task-btn done';
-  btn.onclick = null;
-  
-  if (window.VMA) {
-    window.VMA.awardXP(25, 'Completed Task ' + taskId);
-    window.VMA.updateStreak();
-    window.VMA.showNotification('✓ Task complete! +25 XP');
-  }
-  
-  const lessonNum = parseInt(taskId.split('-')[1]);
-  if (lessonNum < totalLessons) {
-    setTimeout(() => showLesson(lessonNum + 1), 800);
-  } else {
-    setTimeout(() => showQuiz(), 800);
-  }
-  updateProgress();
-}
-
-let quizAnswers = {};
-let quizSubmitted = false;
-
-function selectOpt(btn, qId) {
-  if (quizSubmitted) return;
-  const parent = btn.parentElement;
-  parent.querySelectorAll('.q-opt').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  quizAnswers[qId] = Array.from(parent.querySelectorAll('.q-opt')).indexOf(btn);
-  const allAnswered = Object.keys(CORRECT_ANSWERS).every(q => quizAnswers[q] !== undefined);
-  document.getElementById('quizSubmit').disabled = !allAnswered;
-}
-
-function submitQuiz() {
-  if (quizSubmitted) return;
-  quizSubmitted = true;
-  let correct = 0;
-  const total = Object.keys(CORRECT_ANSWERS).length;
-  
-  for (const [qId, correctIdx] of Object.entries(CORRECT_ANSWERS)) {
-    const opts = document.querySelectorAll('#' + qId + ' .q-opt');
-    const selected = quizAnswers[qId];
-    opts.forEach((opt, i) => {
-      if (i === correctIdx) opt.classList.add('correct');
-      if (i === selected && i !== correctIdx) opt.classList.add('wrong');
-    });
-    if (selected === correctIdx) correct++;
-  }
-  
-  const pct = Math.round((correct / total) * 100);
-  document.getElementById('quizScore').textContent = pct + '%';
-  
-  if (pct >= 80) {
-    document.getElementById('quizTitle').textContent = '🎉 Passed!';
-    document.getElementById('quizMsg').textContent = 'You scored ' + correct + '/' + total + '. You speak music now!';
-    document.getElementById('quizSubmit').style.display = 'none';
-    
-    if (window.VMA) {
-      window.VMA.awardXP(15, 'Passed Module 3 Quiz (' + pct + '%)');
-      const st = window.VMA.getStudent();
-      if (st) {
-        st.quizzes = st.quizzes || {};
-        st.quizzes['3'] = pct;
-        st.modules[2] = 100;
-        window.VMA.setStudent(st);
-        window.VMA.awardBadge('theory');
-        window.VMA.showNotification('🏆 Module 3 Complete! +15 XP + Theory Badge');
-      }
+    var pct=Math.round((c/tq)*100);
+    document.getElementById('quizScore').textContent=pct+'%';
+    if(pct>=80){
+      document.getElementById('quizTitle').textContent='🎉 Passed!';
+      document.getElementById('quizMsg').textContent='You scored '+c+'/'+tq+'. You speak music now!';
+      document.getElementById('quizSubmit').style.display='none';
+      VMA.awardXP(15,'Module '+MOD+' Quiz ('+pct+'%)');
+      var st=VMA.getStudent();if(st){st.quizzes=st.quizzes||{};st.quizzes[MOD]=pct;st.modules[MOD-1]=100;VMA.setStudent(st);VMA.awardBadge('theory');VMA.showNotification('🏆 Module '+MOD+' Complete! +15 XP + Theory Badge');}
+      setTimeout(function(){document.getElementById('quiz-'+MOD).style.display='none';document.getElementById('modComplete').style.display='';document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});},2000);
+    }else{
+      document.getElementById('quizTitle').textContent='Not quite there';
+      document.getElementById('quizMsg').textContent='You scored '+c+'/'+tq+'. You need 80% to pass. Review and try again!';
+      document.getElementById('quizSubmit').style.display='none';document.getElementById('quizResult').style.display='';
     }
-    setTimeout(() => {
-      document.getElementById('quiz-3').style.display = 'none';
-      document.getElementById('modComplete').style.display = '';
-      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
-    }, 2000);
-  } else {
-    document.getElementById('quizTitle').textContent = 'Not quite there';
-    document.getElementById('quizMsg').textContent = 'You scored ' + correct + '/' + total + '. You need 80% to pass. Review and try again!';
-    document.getElementById('quizSubmit').style.display = 'none';
-    document.getElementById('quizResult').style.display = '';
+  };
+  window.retryQuiz=function(){
+    qa={};qs=false;
+    var os=document.querySelectorAll('.q-opt');for(var i=0;i<os.length;i++)os[i].classList.remove('selected','correct','wrong');
+    document.getElementById('quizSubmit').disabled=true;document.getElementById('quizSubmit').style.display='';
+    document.getElementById('quizResult').style.display='none';document.getElementById('quizScore').textContent='0%';
+    document.getElementById('quizTitle').textContent='Quiz Complete';document.getElementById('quizMsg').textContent='Review the lessons and try again.';
+  };
+  window.showQuiz=function(){document.getElementById('quiz-'+MOD).style.display='';document.getElementById('modComplete').style.display='none';window.scrollTo({top:0,behavior:'smooth'});};
+  function upd(){
+    var st=VMA.getStudent();if(!st)return;
+    var ld=0;for(var i=1;i<=TOTAL;i++){if(st.lessons&&st.lessons[MOD+'-'+i])ld++;}
+    var td=document.querySelectorAll('.task-btn.done').length;
+    var qp=st.quizzes&&st.quizzes[MOD]>=80;
+    var p=Math.round(((ld+td+(qp?2:0))/(TOTAL+TOTAL+2))*100);
+    document.getElementById('modProgress').style.width=p+'%';
   }
-}
-
-function retryQuiz() {
-  quizAnswers = {};
-  quizSubmitted = false;
-  document.querySelectorAll('.q-opt').forEach(o => o.classList.remove('selected','correct','wrong'));
-  document.getElementById('quizSubmit').disabled = true;
-  document.getElementById('quizSubmit').style.display = '';
-  document.getElementById('quizResult').style.display = 'none';
-  document.getElementById('quizScore').textContent = '0%';
-  document.getElementById('quizTitle').textContent = 'Quiz Complete';
-  document.getElementById('quizMsg').textContent = 'Review the lessons and try again.';
-}
-
-function showQuiz() {
-  document.getElementById('quiz-3').style.display = '';
-  document.getElementById('modComplete').style.display = 'none';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function updateProgress() {
-  const st = getStudent();
-  if (!st) return;
-  let lessonsDone = 0;
-  for (let i = 1; i <= totalLessons; i++) {
-    if (st.lessons && st.lessons['3-' + i]) lessonsDone++;
-  }
-  const tasksDone = document.querySelectorAll('.task-btn.done').length;
-  const quizPassed = st.quizzes && st.quizzes['3'] >= 80;
-  const pct = Math.round(((lessonsDone + tasksDone + (quizPassed ? 2 : 0)) / (totalLessons + totalLessons + 2)) * 100);
-  document.getElementById('modProgress').style.width = pct + '%';
-}
-
-let startLesson = 1;
-for (let i = 1; i <= totalLessons; i++) {
-  if (!s.lessons || !s.lessons['3-' + i]) { startLesson = i; break; }
-  if (i === totalLessons) startLesson = totalLessons;
-}
-
-if (s.quizzes && s.quizzes['3'] >= 80) {
-  document.getElementById('modComplete').style.display = '';
-      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
-} else {
-  showLesson(startLesson);
-}
-updateProgress();
-document.getElementById('navAvatar').textContent = (s.name || 'S').charAt(0).toUpperCase();
-
-if (!window.VMA) window.VMA = {};
-window.VMA.getStudent = getStudent;
-window.VMA.setStudent = setStudent;
+  var sl=1;
+  for(var i=1;i<=TOTAL;i++){if(!s.lessons||!s.lessons[MOD+'-'+i]){sl=i;break;}if(i===TOTAL)sl=TOTAL;}
+  if(s.quizzes&&s.quizzes[MOD]>=80){document.getElementById('modComplete').style.display='';document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});}else{showLesson(sl);}
+  upd();
+  document.getElementById('navAvatar').textContent=(s.name||'S').charAt(0).toUpperCase();
+})();
 </script>
 
 </body>
