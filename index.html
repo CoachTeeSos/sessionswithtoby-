@@ -3,470 +3,703 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-<meta name="theme-color" content="#0a0a0a">
-<title>The Singer's Conservatory</title>
+<meta name="theme-color" content="#080808">
+<title>Singer OS — Vocal Training System</title>
 <style>
 :root{
-  --bg:#0a0a0a;--surface:#111;--card:#1a1a1a;--border:#2a2a2a;
-  --primary:#6366f1;--success:#22c55e;--warn:#f59e0b;--error:#ef4444;--gold:#eab308;
-  --text:#f5f5f5;--text2:#a3a3a3;--text3:#737373;
-  --r:12px;--r-lg:16px;--r-xl:20px;
+  --bg:#080808;--surf:#111;--card:#181818;--bd:#282828;
+  --pri:#6366f1;--sec:#8b5cf6;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--gold:#eab308;
+  --tx:#f0f0f0;--tx2:#a0a0a0;--tx3:#6a6a6a;
+  --r:12px;--rl:16px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;min-height:100vh;padding-bottom:88px;font-size:16px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;overflow-x:hidden;min-height:100vh;padding-bottom:80px;font-size:15px}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit;outline:none}
 a{color:inherit;text-decoration:none}
-input,textarea{font-family:inherit;font-size:inherit;border:none;outline:none;background:none;color:inherit}
-
-/* ── SCREENS ── */
-.screen{display:none;min-height:calc(100vh - 88px)}
-.screen.active{display:block}
-.screen-pad{padding:20px 16px 40px}
-
-/* ── TOP BAR ── */
-.topbar{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
-.topbar-title{font-size:1.1rem;font-weight:700;letter-spacing:-.02em}
-.topbar-sub{font-size:.7rem;color:var(--text3);margin-top:1px}
-.topbar-right{font-size:.85rem;color:var(--gold);font-weight:600}
-
-/* ── BOTTOM NAV ── */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(17,17,17,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);height:72px;padding-bottom:env(safe-area-inset-bottom,0)}
-.bnav-inner{display:flex;align-items:center;justify-content:space-around;height:100%;max-width:500px;margin:0 auto}
-.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 12px;color:var(--text3);border-radius:var(--r);transition:all .15s;min-width:56px}
-.bnav-item.active{color:var(--primary)}
-.bnav-item:active{background:rgba(99,102,241,.08)}
-.bnav-icon{font-size:1.3rem;line-height:1}
-.bnav-label{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-
-/* ── CARDS ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:12px;transition:border-color .15s}
-.card:active{border-color:#3a3a3a}
-.card--accent{border-color:rgba(99,102,241,.3);background:linear-gradient(135deg,rgba(99,102,241,.06),transparent)}
-.card--success{border-color:rgba(34,197,94,.3)}
-.card--gold{border-color:rgba(234,179,8,.3)}
-
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 24px;border-radius:var(--r);font-weight:600;font-size:.95rem;min-height:52px;width:100%;border:2px solid transparent;transition:all .15s}
+input,textarea,select{font-family:inherit;font-size:15px;border:none;outline:none;background:none;color:var(--tx)}
+screen{display:none;min-height:calc(100vh - 80px)}screen.active{display:block}
+.sp{padding:20px 16px 40px}
+.tb{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.tb-t{font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.tb-s{font-size:.65rem;color:var(--tx3);margin-top:1px}
+.tb-r{font-size:.8rem;font-weight:600;color:var(--gold)}
+.bn{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(17,17,17,.97);backdrop-filter:blur(20px);border-top:1px solid var(--bd);height:68px;padding-bottom:env(safe-area-inset-bottom,0)}
+.bn-in{display:flex;align-items:center;justify-content:space-around;height:100%;max-width:500px;margin:0 auto}
+.bn-i{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;color:var(--tx3);border-radius:var(--r);min-width:52px;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.bn-i.on{color:var(--pri)}
+.bn-i:active{background:rgba(99,102,241,.07)}
+.bn-ic{font-size:1.2rem;line-height:1}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:18px;margin-bottom:10px}
+.c:active{border-color:#3a3a3a}
+.c-a{border-color:rgba(99,102,241,.3);background:linear-gradient(135deg,rgba(99,102,241,.05),transparent)}
+.c-g{border-color:rgba(234,179,8,.3)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;border-radius:var(--r);font-weight:600;font-size:.9rem;min-height:48px;width:100%;border:2px solid transparent;transition:transform .1s;margin-bottom:8px}
 .btn:active{transform:scale(.97)}
-.btn--primary{background:var(--primary);color:#fff;border-color:var(--primary)}
-.btn--primary:active{background:#4f46e5}
-.btn--ghost{background:transparent;color:var(--text2);border-color:var(--border)}
-.btn--ghost:active{border-color:#3a3a3a;color:var(--text)}
-.btn--success{background:var(--success);color:#000;border-color:var(--success)}
-.btn--sm{padding:10px 16px;font-size:.8rem;min-height:40px;width:auto}
-.btn--block{width:100%}
-.btn-row{display:flex;gap:8px}
-.btn-row .btn{flex:1}
-
-/* ── TAGS ── */
-.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.tag--primary{background:rgba(99,102,241,.12);color:var(--primary)}
-.tag--success{background:rgba(34,197,94,.12);color:var(--success)}
-.tag--gold{background:rgba(234,179,8,.12);color:var(--gold)}
-.tag--warn{background:rgba(245,158,11,.12);color:var(--warn)}
-
-/* ── PROGRESS BAR ── */
-.prog{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
-.prog-fill{height:100%;background:var(--primary);border-radius:3px;transition:width .5s ease}
-.prog--success .prog-fill{background:var(--success)}
-.prog--gold .prog-fill{background:var(--gold)}
-
-/* ── LIST ITEM ── */
-.li{display:flex;align-items:center;gap:14px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:border-color .15s}
+.btn-p{background:var(--pri);color:#fff;border-color:var(--pri)}
+.btn-g{background:transparent;color:var(--tx2);border-color:var(--bd)}
+.btn-g:active{border-color:#3a3a3a;color:var(--tx)}
+.btn-s{background:var(--ok);color:#000;border-color:var(--ok)}
+.btn-sm{padding:8px 14px;font-size:.75rem;min-height:36px;width:auto}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.tag-p{background:rgba(99,102,241,.12);color:var(--pri)}
+.tag-s{background:rgba(34,197,94,.12);color:var(--ok)}
+.tag-g{background:rgba(234,179,8,.12);color:var(--gold)}
+.tag-w{background:rgba(245,158,11,.12);color:var(--warn)}
+.pr{height:5px;background:var(--bd);border-radius:3px;overflow:hidden}
+.pr-f{height:100%;background:var(--pri);border-radius:3px;transition:width .5s}
+.pr-s .pr-f{background:var(--ok)}.pr-g .pr-f{background:var(--gold)}
+.li{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:6px;cursor:pointer}
 .li:active{border-color:#3a3a3a}
-.li-icon{width:44px;height:44px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;background:rgba(99,102,241,.08)}
-.li-icon--success{background:rgba(34,197,94,.08)}
-.li-icon--gold{background:rgba(234,179,8,.08)}
-.li-body{flex:1;min-width:0}
-.li-title{font-weight:600;font-size:.95rem;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.li-sub{font-size:.75rem;color:var(--text3)}
-.li-right{flex-shrink:0;color:var(--text3);font-size:.8rem}
-
-/* ── SECTION ── */
-.sec{margin-bottom:28px}
-.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.sec-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3)}
-
-/* ── HERO ── */
-.hero{padding:24px 0 20px}
-.hero h1{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:6px}
-.hero p{color:(--text2);font-size:.9rem}
-
-/* ── LESSON CARD ── */
-.lesson-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;background:var(--primary);color:#fff;flex-shrink:0}
-.lesson-num--done{background:var(--success);color:#000}
-.lesson-num--lock{background:var(--border);color:var(--text3)}
-
-/* ── QUIZ ── */
-.q-option{display:flex;align-items:center;gap:12px;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:all .15s}
-.q-option:active{border-color:#3a3a3a}
-.q-option.selected{border-color:var(--primary);background:rgba(99,102,241,.06)}
-.q-option.correct{border-color:var(--success);background:rgba(34,197,94,.06)}
-.q-option.wrong{border-color:var(--error);background:rgba(239,68,68,.06)}
-.q-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.q-option.selected .q-radio{border-color:var(--primary);background:var(--primary)}
-.q-option.selected .q-radio::after{content:'';width:8px;height:8px;background:#fff;border-radius:50%}
-
-/* ── EXERCISE ── */
-.ex-step{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border)}
-.ex-step:last-child{border-bottom:none}
-.ex-step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;background:rgba(99,102,241,.1);color:var(--primary);flex-shrink:0;margin-top:2px}
-.ex-step-text{flex:1}
-.ex-step-text h4{font-size:.9rem;font-weight:600;margin-bottom:4px}
-.ex-step-text p{font-size:.8rem;color:var(--text3)}
-
-/* ── TOAST ── */
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-120%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;z-index:9999;font-size:.85rem;font-weight:500;max-width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.6);transition:transform .3s ease;border-left:3px solid var(--primary)}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast--success{border-left-color:var(--success)}
-.toast--gold{border-left-color:var(--gold)}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.screen.active{animation:fadeUp .25s ease both}
+.li-ic{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:rgba(99,102,241,.08)}
+.li-b{flex:1;min-width:0}
+.li-t{font-weight:600;font-size:.88rem;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li-sub{font-size:.7rem;color:var(--tx3)}
+.sec{margin-bottom:24px}.sec:last-child{margin-bottom:0}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sec-t{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3)}
+.hero{padding:20px 0 16px}
+.hero h1{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:4px}
+.hero p{color:var(--tx2);font-size:.85rem}
+.qo{display:flex;align-items:center;gap:10px;padding:14px;background:var(--card);border:2px solid var(--bd);border-radius:var(--r);margin-bottom:6px;cursor:pointer}
+.qo:active{border-color:#3a3a3a}
+.qo.sel{border-color:var(--pri);background:rgba(99,102,241,.05)}
+.qo.ok{border-color:var(--ok);background:rgba(34,197,94,.05)}
+.qo.bad{border-color:var(--err);background:rgba(239,68,68,.05)}
+.qr{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.qo.sel .qr{border-color:var(--pri);background:var(--pri)}
+.qo.sel .qr::after{content:'';width:7px;height:7px;background:#fff;border-radius:50%}
+.es{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--bd)}.es:last-child{border-bottom:0}
+.esn{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;background:rgba(99,102,241,.1);color:var(--pri);flex-shrink:0;margin-top:2px}
+.est{flex:1}.est h4{font-size:.85rem;font-weight:600;margin-bottom:3px}.est p{font-size:.78rem;color:var(--tx3)}
+.ft{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-130%);background:var(--surf);border:1px solid var(--bd);border-left:3px solid var(--pri);border-radius:var(--r);padding:12px 18px;z-index:9999;font-size:.8rem;font-weight:500;max-width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.7);transition:transform .3s}
+.ft.show{transform:translateX(-50%) translateY(0)}
+.ft-s{border-left-color:var(--ok)}.ft-g{border-left-color:var(--gold)}
+.bdg{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);border-radius:var(--r);margin-bottom:6px;font-size:.75rem}
+@keyframes fin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}screen.active{animation:fin .2s ease both}
 </style>
 </head>
 <body>
 
-<!-- ════════ HOME ════════ -->
-<div class="screen active" id="s-home">
-<div class="topbar">
-  <div><div class="topbar-title">Singer's Conservatory</div><div class="topbar-sub">Adaptive Vocal Training</div></div>
-  <div class="topbar-right" id="h-xp">0 XP</div>
-</div>
-<div class="screen-pad" id="h-content"></div>
-</div>
+<screen class="active" id="s-home">
+<div class="tb"><div><div class="tb-t">Singer OS</div><div class="tb-s">Adaptive Vocal Training</div></div><div class="tb-r" id="h-xp">0 XP</div></div>
+<div class="sp" id="h-c"></div>
+</screen>
 
-<!-- ════════ LEARN ════════ -->
-<div class="screen" id="s-learn">
-<div class="topbar">
-  <div><div class="topbar-title">Learn</div><div class="topbar-sub" id="l-stage-label">Stage 1</div></div>
-</div>
-<div class="screen-pad" id="l-content"></div>
-</div>
+<screen id="s-learn">
+<div class="tb"><div><div class="tb-t">Learn</div><div class="tb-s" id="l-lbl">Curriculum</div></div></div>
+<div class="sp" id="l-c"></div>
+</screen>
 
-<!-- ════════ PRACTICE ════════ -->
-<div class="screen" id="s-practice">
-<div class="topbar">
-  <div><div class="topbar-title">Practice</div><div class="topbar-sub">Drills & Exercises</div></div>
-</div>
-<div class="screen-pad" id="p-content"></div>
-</div>
+<screen id="s-practice">
+<div class="tb"><div><div class="tb-t">Practice</div><div class="tb-s">Drills & Exercises</div></div></div>
+<div class="sp" id="p-c"></div>
+</screen>
 
-<!-- ════════ SONGS ════════ -->
-<div class="screen" id="s-songs">
-<div class="topbar">
-  <div><div class="topbar-title">Songs</div><div class="topbar-sub">Apply Your Training</div></div>
-</div>
-<div class="screen-pad" id="g-content"></div>
-</div>
+<screen id="s-songs">
+<div class="tb"><div><div class="tb-t">Songs</div><div class="tb-s">Apply Your Training</div></div></div>
+<div class="sp" id="g-c"></div>
+</screen>
 
-<!-- ════════ PROGRESS ════════ -->
-<div class="screen" id="s-progress">
-<div class="topbar">
-  <div><div class="topbar-title">Progress</div><div class="topbar-sub">Your Growth</div></div>
-</div>
-<div class="screen-pad" id="r-content"></div>
-</div>
+<screen id="s-progress">
+<div class="tb"><div><div class="tb-t">Progress</div><div class="tb-s">Your Growth</div></div></div>
+<div class="sp" id="r-c"></div>
+</screen>
 
-<!-- ════════ SESSION (Lesson/Exercise/Quiz overlay) ════════ -->
-<div class="screen" id="s-session">
-<div class="screen-pad" id="v-content"></div>
-</div>
+<screen id="s-session">
+<div class="sp" id="v-c"></div>
+</screen>
 
-<!-- ════════ BOTTOM NAV ════════ -->
-<nav class="bnav">
-<div class="bnav-inner">
-  <a class="bnav-item active" id="n-home" href="#" onclick="go('home');return false;"><span class="bnav-icon">🏠</span><span class="bnav-label">Home</span></a>
-  <a class="bnav-item" id="n-learn" href="#" onclick="go('learn');return false;"><span class="bnav-icon">📖</span><span class="bnav-label">Learn</span></a>
-  <a class="bnav-item" id="n-practice" href="#" onclick="go('practice');return false;"><span class="bnav-icon">🎯</span><span class="bnav-label">Practice</span></a>
-  <a class="bnav-item" id="n-songs" href="#" onclick="go('songs');return false;"><span class="bnav-icon">🎵</span><span class="bnav-label">Songs</span></a>
-  <a class="bnav-item" id="n-progress" href="#" onclick="go('progress');return false;"><span class="bnav-icon">📊</span><span class="bnav-label">Progress</span></a>
-</div>
-</nav>
+<screen id="s-profile">
+<div class="tb"><div><div class="tb-t">Profile</div><div class="tb-s">Account & Settings</div></div></div>
+<div class="sp" id="f-c"></div>
+</screen>
 
-<div class="toast" id="toast"></div>
+<nav class="bn"><div class="bn-in">
+  <a class="bn-i on" id="n-home" href="#" onclick="go('home');return false;"><span class="bn-ic">🏠</span>Home</a>
+  <a class="bn-i" id="n-learn" href="#" onclick="go('learn');return false;"><span class="bn-ic">📖</span>Learn</a>
+  <a class="bn-i" id="n-practice" href="#" onclick="go('practice');return false;"><span class="bn-ic">🎯</span>Practice</a>
+  <a class="bn-i" id="n-songs" href="#" onclick="go('songs');return false;"><span class="bn-ic">🎵</span>Songs</a>
+  <a class="bn-i" id="n-progress" href="#" onclick="go('progress');return false;"><span class="bn-ic">📊</span>Progress</a>
+  <a class="bn-i" id="n-profile" href="#" onclick="go('profile');return false;"><span class="bn-ic">👤</span>Me</a>
+</div></nav>
+
+<div class="ft" id="ft"></div>
 
 <script>
 // ═══════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════
 var U={
-  name:'Singer',xp:0,level:1,stage:1,sessions:0,
-  skills:{airflow:0,source:0,resonance:0,articulation:0},
-  completedLessons:[],completedSongs:[],badges:[],
-  lastActive:null,totalPracticeMinutes:0
+  name:'Singer',email:'',xp:0,level:1,stage:1,sessions:0,
+  skills:{airflow:0,source:0,resonance:0,articulation:0,ear:0,mix:0,performance:0},
+  completed:[],completedSongs:[],badges:[],
+  vocalLoad:0,maxLoad:100,lastPractice:null,
+  weaknessHistory:[],diagnosticResults:[],
+  preferences:{practiceReminder:false,weeklyReport:false}
 };
-try{var _d=localStorage.getItem('sc2');if(_d){var _p=JSON.parse(_d);if(_p&&_p.skills)for(var _k in _p)U[_k]=_p[_k];}}catch(e){}
-function save(){try{localStorage.setItem('sc2',JSON.stringify(U))}catch(e){}}
+try{var _d=localStorage.getItem('singerOS');if(_d){var p=JSON.parse(d);if(p&&p.skills)for(var k in p)U[k]=p[k];}}catch(e){}
+function save(){try{localStorage.setItem('singerOS',JSON.stringify(U))}catch(e){}}
 
 // ═══════════════════════════════════════════════════
-// CURRICULUM — The actual learning content
+// CURRICULUM — All 11 Systems
 // ═══════════════════════════════════════════════════
 var CURRICULUM={
-  stages:[
+
+// ── 1. VOCAL MECHANICS ──
+mechanics:{
+  name:"Vocal Mechanics",icon:"⚙️",color:"pri",
+  lessons:[
     {
-      id:1,name:"Foundation",subtitle:"How your voice works",
-      lessons:[
-        {
-          id:"l1-1",title:"Your Voice Is an Instrument",type:"lesson",
-          content:"<p>Your voice has four systems working together: <strong>Airflow</strong> (breath), <strong>Source</strong> (vocal folds), <strong>Resonance</strong> (throat/mouth shaping), and <strong>Articulation</strong> (tongue/lips for words).</p><p>Most singers only think about hitting notes. Great singers train each system independently, then coordinate them.</p>",
-          quiz:[
-            {q:"What are the four vocal systems?",options:["Lungs, throat, mouth, nose","Airflow, source, resonance, articulation","Pitch, volume, tone, speed","Breathing, singing, speaking, shouting"],answer:1},
-            {q:"Why train systems independently?",options:["It's easier","Each system has different exercises","You can skip the hard ones","It sounds better"],answer:1}
-          ]
-        },
-        {
-          id:"l1-2",title:"Breath: The Engine",type:"lesson",
-          content:"<p>Everything starts with breath — but not the way most singers think. The common advice is 'sing from your diaphragm' and 'take big breaths.' <strong>Both are wrong.</strong></p><p>Your diaphragm is an involuntary muscle — you cannot directly control it. What you CAN control is the muscular 'cage' around your lungs: your abdominal wall, intercostals (rib muscles), and lower back.</p><p><strong>The NYVC principle:</strong> Good singing is not about pushing air out. It's about <strong>controlling how fast air escapes</strong>. Think of it like holding a balloon open and letting the air leak out slowly — not squeezing it.</p><p>More air ≠ better singing. <strong>Efficient</strong> singers use LESS air because their vocal folds close properly. Wasted air = breathy, weak tone.</p>",
-          exercise:{name:"Appoggio Expansion",steps:["Stand tall, hands on lower ribs (sides of your torso)","Breathe in through your nose — feel your ribs push your hands outward","Do not lift your shoulders — the expansion is sideways and slightly in your lower belly","Now say 'sss' — hold your ribs open as long as you can do not let them collapse","The goal: ribs stay expanded while air flows out slowly. That's appoggio.","Repeat 5 times. Each time, try to keep expansion longer."],skill:"airflow",xp:15}
-        },
-        {
-          id:"l1-3",title:"Vocal Folds: The Source",type:"lesson",
-          content:"<p>Your vocal folds are two small muscles inside your throat. When air passes through them, they vibrate — that's sound. The faster they vibrate, the higher the pitch.</p><p><strong>Breathy tone</strong> = folds not closing fully. <strong>Strained tone</strong> = folds squeezing too hard. <strong>Balanced tone</strong> = clean closure, no excess tension.</p>",
-          exercise:{name:"Finding Balanced Onset",steps:["Say 'ah' — notice if there is a breathy 'h' at the start","Now say 'ah' with a slight glottal stop (like 'uh-oh') — too hard","Now find the middle: clean 'ah' with no extra breath or squeeze","Hum on 'm' for 5 seconds — that balanced feeling is your target"],skill:"source",xp:15}
-        },
-        {
-          id:"l1-4",title:"Resonance: Your Natural Amplifier",type:"lesson",
-          content:"<p>Your vocal folds make a tiny sound. Your <strong>resonators</strong> — throat, mouth, nasal passages — amplify and shape it. That's why your voice sounds different from everyone else's.</p><p><strong>Forward resonance</strong> (buzz in lips/cheekbones) = clear, projecting tone. <strong>Throat resonance</strong> (buzz in throat) = darker but can sound swallowed.</p>",
-          exercise:{name:"Forward Placement",steps:["Hum on 'm' — feel the buzz in your lips","Keep the buzz, open to 'mah' — the buzz should stay forward","Slide up and down on 'mee' keeping lip buzz throughout","If buzz moves to your throat, start over — forward is the goal"],skill:"resonance",xp:15}
-        },
-        {
-          id:"l1-5",title:"Articulation: Clear Words",type:"lesson",
-          content:"<p>Singing is sustained speech. If your words are unclear, the emotion doesn't land. Your <strong>tongue, lips, and jaw</strong> shape vowels and consonants.</p><p>Most singers have <strong>jaw tension</strong> — they open too wide and lock up. The fix: let your lips and tongue do the work, jaw stays relaxed.</p>",
-          exercise:{name:"Consonant Clarity",steps:["Say 'ma-me-mi-mo-mu' slowly — feel each consonant","Now say it fast — keep every consonant crisp","Sing 'ma-me-mi-mo-mu' on one pitch — same clarity","Try 'la-le-li-lo-lo' — tongue tip touches behind teeth"],skill:"articulation",xp:15}
-        }
+      id:"vm1",title:"How Your Voice Works",type:"lesson",
+      content:"<p>Your voice has four physical systems:</p><p><strong>Airflow</strong> — the breath engine. Not your diaphragm directly (you cannot control that), but the muscles around your lungs: abs, intercostals, lower back.</p><p><strong>Source</strong> — your vocal folds. Two small muscles that vibrate. Faster vibration = higher pitch. Clean closure = clear sound. Leaky closure = breathy.</p><p><strong>Resonance</strong> — your vocal tract shapes the raw sound. Throat, mouth, nasal passages. Forward placement = clear and projecting. Throat-dwelling = dark but swallowed.</p><p><strong>Articulation</strong> — tongue, lips, jaw shape words. Most singers have jaw tension. The fix: let lips and tongue work, jaw stays relaxed.</p><p><strong>The NYVC principle:</strong> These systems work independently AND together. Great singers train each one separately, then coordinate them under pressure.</p>",
+      quiz:[
+        {q:"Which system is the vocal folds?",options:["Airflow","Source","Resonance","Articulation"],answer:1},
+        {q:"You can directly control your diaphragm.",options:["True — it is a muscle you flex","False — it is involuntary, you control the muscles around it","True — all muscles are voluntary","False — only your brain controls it"],answer:1},
+        {q:"Forward resonance feels like buzz in your:",options:["Throat","Chest","Lips and cheekbones","Back of neck"],answer:2}
       ]
     },
     {
-      id:2,name:"Control",subtitle:"Making your voice obey",
-      lessons:[
-        {
-          id:"l2-1",title:"Pitch Accuracy",type:"lesson",
-          content:"<p>Pitch accuracy is not about having a 'good ear' — it is about <strong>muscle memory</strong>. Your vocal folds need to learn exactly how much tension each note requires.</p><p>The exercise: sing intervals (two notes in a row). Start with small intervals (2 notes apart), then expand.</p>",
-          exercise:{name:"Interval Training",steps:["Play or imagine C-D-C (do-re-do)","Sing it slowly — C, then D, back to C","Repeat 5 times, matching pitch exactly","Now try C-E-C (bigger jump) — same precision","If you're off, slow down — accuracy before speed"],skill:"source",xp:20}
-        },
-        {
-          id:"l2-2",title:"Breath Management",type:"lesson",
-          content:"<p>Running out of breath mid-phrase? It's not a lung capacity problem — it's an <strong>efficiency</strong> problem. You're either wasting air (breathy tone) or choking it (strained gripping).</p><p><strong>The NYVC fix:</strong> Your vocal folds are the valve. If they close cleanly, you use minimal air. If they leak (breathy), you blast through air and run out.</p><p>So the real exercise is not 'take bigger breaths' — it is 'close the valve properly and manage the release.' The sustained buzz exercise trains this exact skill.</p>",
-          exercise:{name:"Sustained Buzz — Efficiency Training",steps:["Take a normal breath — do not overfill","Buzz 'zzz' on a comfortable pitch, medium volume","Goal: 20 seconds of perfectly even sound","Focus: the buzz should be STEADY — no wavering, no dying out","If it wavers: your vocal folds aren't closing consistently","If it dies: you're either out of air (breathy) or gripping (strained)","Repeat 3 times. Beat your time each round"],skill:"airflow",xp:20}
-        },
-        {
-          id:"l2-3",title:"Vowel Shaping",type:"lesson",
-          content:"<p>Your mouth shape changes your tone. Same note, different vowel = different resonance. As you go higher, vowels need to <strong>narrow</strong> slightly to stay resonant.</p><p>Try it: sing 'ah' up high — it feels tight. Now sing 'uh' — easier. That's vowel modification.</p>",
-          exercise:{name:"Vowel Slides",steps:['Sing "ah" sliding from low to high — notice where it gets tight',"Now sing 'uh' up the same range — smoother, right?",'Try "ee" — even narrower, works well high',"Practice: 'ah-uh-ee' on one pitch, feeling mouth shape change"],skill:"resonance",xp:20}
-        },
-        {
-          id:"l2-4",title:"Register Transitions",type:"lesson",
-          content:"<p>Your voice has <strong>registers</strong> — chest voice (low, thick folds), head voice (high, stretched folds), and the messy middle called <strong>mix</strong> or <strong>break</strong>.</p><p>The crack/flip happens when your folds suddenly change configuration. The fix: practice the transition zone slowly until it's smooth.</p>",
-          exercise:{name:"Smoothing the Break",steps:["Find your break: slide up from chest voice — where does it flip?","Go to that note and sing 'ng' (like end of 'sing') — keeps folds connected","Slide through the break on 'ng' — no flip, just a smooth shift","Now try 'mee' through the same zone — keep it connected"],skill:"source",xp:25}
-        }
-      ]
+      id:"vm2",title:"Breath: Appoggio Method",type:"lesson",
+      content:"<p>The myth: 'Sing from your diaphragm.' The reality: you cannot directly control your diaphragm. It is an involuntary muscle.</p><p><strong>What you CAN control:</strong> the muscular cage around your lungs — abdominal wall, intercostal muscles (between ribs), lower back muscles.</p><p><strong>Appoggio</strong> (Italian for 'lean') is the NYVC gold standard. It means: expand your lower ribs on the inhale, then MAINTAIN that expansion while you sing. Do not let your chest collapse. Do not squeeze.</p><p>Think of it like holding a balloon open while air slowly leaks out. The balloon stays expanded — you are not squeezing it.</p><p><strong>Why this matters:</strong> When ribs stay open, air escapes slowly and evenly. Your vocal folds get steady pressure. Tone becomes supported and free.</p>",
+      exercise:{name:"Appoggio Expansion Drill",
+        steps:["Stand tall, hands on lower ribcage (sides of torso)","Breathe in through nose for 4 counts — feel ribs push hands outward","Pause — feel the expansion. Shoulders stay down.","Now hiss 'sss' while keeping ribs open as long as possible","Goal: 20 seconds of hiss with ribs still expanded at the end","The moment your ribs collapse, the air rushes out — that is what we are training against",
+        "Repeat 5 times. Each time, beat your previous duration"],
+        monitor:"Ribs expanded? Air flowing evenly? No chest heaving?",
+        skill:"airflow",xp:15}
     },
     {
-      id:3,name:"Expression",subtitle:"Making people feel something",
-      lessons:[
-        {
-          id:"l3-1",title:"Dynamics: Loud and Soft",type:"lesson",
-          content:"<p>Volume is not just 'more air.' <strong>Loud</strong> = more breath pressure + more resonance. <strong>Soft</strong> = less pressure but <em>maintained</em> resonance (do not go breathy).</p><p>Great singers use dynamics like a conversation — some words loud, some whispered. That's what makes you lean in.</p>",
-          exercise:{name:"Crescendo Drill",steps:["Pick a comfortable note","Start very soft (but NOT breathy — keep the buzz)","Gradually get louder over 8 seconds","Gradually get softer over 8 seconds","The tone quality should stay the same — only volume changes"],skill:"airflow",xp:25}
-        },
-        {
-          id:"l3-2",title:"Vibrato: Controlled Wobble",type:"lesson",
-          content:"<p>Vibrato is a slight, regular pitch variation that makes sustained notes sound alive. It happens naturally when your voice is <strong>balanced</strong> — not too tight, not too breathy.</p><p>Forced vibrato sounds like a wobble. Natural vibrato is a slight, even oscillation — about 5-7 wobbles per second.</p>",
-          exercise:{name:"Finding Natural Vibrato",steps:["Sing a comfortable note, hold it straight (no wobble) for 5 seconds","Relax — let the note 'breathe' — do not force it","If vibrato appears, that is your natural one","If not, try a gentle 'wah-wah-wah' to feel the motion","Practice on different notes — it should appear naturally"],skill:"source",xp:30}
-        },
-        {
-          id:"l3-3",title:"Emotional Intent",type:"lesson",
-          content:"<p>Two singers can sing the same song with the same notes. One moves you to tears. The other is forgettable. The difference: <strong>emotional intent</strong>.</p><p>Before you sing a phrase, ask: <em>What am I saying? Who am I saying it to? What do I want them to feel?</em> Then sing the answer.</p>",
-          quiz:[
-            {q:"What makes one singer more moving than another?",options:["Better technique","Louder voice","Emotional intent","More practice"],answer:2},
-            {q:"Before singing a phrase, you should know:",options:["The exact pitch","What you're saying and who you are saying it to","How long the note is","What key you're in"],answer:1}
-          ]
-        }
+      id:"vm3",title:"Vocal Fold Closure: The Source",type:"lesson",
+      content:"<p>Your vocal folds are two small muscles inside your larynx. Air passes through, they vibrate, sound is made.</p><p><strong>Three states of closure:</strong></p><p>💨 <strong>Breathy</strong> — folds not closing fully. Air wastes. Tone is weak, airy, lacks core. Most common in beginners.</p><p>🔒 <strong>Strained/Pressed</strong> — folds squeezing too hard. Sounds tight, pushed, effortful. Leads to fatigue and potential damage.</p><p>✅ <strong>Balanced</strong> — clean closure, no excess air, no excess squeeze. Tone is clear, free, sustainable. This is the target.</p><p><strong>The onset</strong> (how you start a note) reveals your closure quality:</p><p>Breathy onset = 'haaa' (air before tone)</p><p>Glottal onset = 'uh-oh' (hard closure before tone)</p><p>Balanced onset = clean 'ah' (tone and air start together)</p>",
+      exercise:{name:"Balanced Onset Finder",
+        steps:["Say 'ah' — notice if there is a breathy 'h' at the start",
+        "Now say 'ah' with a slight glottal stop — like 'uh-oh' in the middle — too hard",
+        "Now find the middle: clean 'ah' with no extra breath and no squeeze",
+        "Hum on 'm' for 5 seconds — that easy buzz IS balanced closure",
+        "Practice: hum 5 sec, open to 'ah' keeping the same easy feeling",
+        "Record yourself — can you hear the difference between breathy and balanced?"],
+        monitor:"Is your onset clean? No breathiness, no glottal attack?",
+        skill:"source",xp:15}
+    },
+    {
+      id:"vm4",title:"Resonance & Placement",type:"lesson",
+      content:"<p>Your vocal folds make a tiny buzz. Your <strong>resonators</strong> (throat, mouth, nasal passages) amplify and shape it into your unique voice.</p><p><strong>Forward placement</strong> (buzz in lips, cheekbones, 'mask' of face) = clear, bright, projecting tone. This is what carries over a band, fills a room, cuts through a mix.</p><p><strong>Throat resonance</strong> (buzz in throat) = darker, warmer tone but can sound swallowed or stuck. Common in self-taught singers.</p><p><strong>NYVC key insight:</strong> Resonance is about WHERE the vibration is felt, not how loud you sing. A softly sung note with forward placement will carry better than a loud note stuck in the throat.</p>",
+      exercise:{name:"Forward Placement Trainer",
+        steps:["Hum on 'm' — feel the buzz in your lips and nose",
+        "Keep that buzzing feeling, open to 'mah' — the buzz should stay forward, not drop to your throat",
+        "Slide up and down on 'mee' — keep lip/cheekbone buzz throughout",
+        "If you feel the buzz drop to your throat, stop and start over",
+        "Now sing a short phrase from a known song — can you keep that forward feeling?",
+        "Advanced: try the phrase very softly while keeping forward placement"],
+        monitor:"Where is the buzz? Forward in face = good. Dropped to throat = restart.",
+        skill:"resonance",xp:15}
+    },
+    {
+      id:"vm5",title:"Articulation Without Tension",type:"lesson",
+      content:"<p>Singing is sustained speech. If your words are unclear, the emotion does not land — no matter how beautiful your tone.</p><p><br><strong>The jaw problem:</strong> Most singers open their mouth too wide and lock the jaw. This creates tension, distorts vowels, and limits range.</p><p><br><strong>The fix:</strong> Let your lips and tongue do the work. Your jaw stays relaxed and only opens as much as needed. Think of speaking clearly, then sustain the words.</p><p><br><strong>Key consonants:</strong> 'm', 'n', 'ng' (nasal — lips/tongue). 't', 'd', 'l' (tongue tip). 'k', 'g' (back of tongue). 'p', 'b', 'f', 'v' (lips).</p>",
+      exercise:{name:"Consonant Clarity Builder",
+        steps:["Speak slowly: 'ma-me-mi-mo-mu' — feel every consonant",
+        "Now say it twice as fast — keep every single consonant crisp",
+        "Sing 'ma-me-mi-mo-mu' on one pitch — same clarity as speaking",
+        "Now try: 'la-le-li-lo-lo' — tongue tip touches behind front teeth",
+        "Sing a lyric you know — every word should be understandable without looking at words",
+        "Record yourself. Can you understand every word?"],
+        monitor:"Is your jaw relaxed? Are consonants crisp? No jaw clenching?",
+        skill:"articulation",xp:15}
+    },
+    {
+      id:"vm6",title:"Continuous Mix Voice",type:"lesson",
+      content:"<p><strong>The myth:</strong> You have chest voice, head voice, and a 'break' between them. You switch from one to the other.</p><p><p><strong>NYVC reality:</strong> Your voice is a <strong>continuous gradient</strong>. Chest and head are not separate registers — they are two ends of a spectrum. The 'break' is not a wall — it is a coordination your muscles have not learned to maintain through that range.</p><p><a><strong>What is mix?</strong> It is the balance between two sets of muscles: TA (thickens folds — chest) and CT (stretches folds — head). In mix, both are engaged. You can slide this balance smoothly across your entire range.</p>",
+      exercise:{name:"Smoothing the Break",
+        steps:["Slide up from your low chest voice — find where it wants to flip or crack",
+        "That transition zone is your break — go to that exact note",
+        "Sing that note on 'ng' (like the end of 'sing') — this keeps your folds connected",
+        "Slide up and down through that zone on 'ng' — no flip, just smooth",
+        "Now try 'mee' through the same zone — keep the connection",
+        "The goal: no sudden flip, just a smooth shift in balance"],
+        monitor:"Is the transition smooth? No flip, no crack? Both engaged?",
+        skill:"mix",xp:20}
+    }
+  ]
+},
+
+// ── 2. EAR TRAINING ──
+ear:{
+  name:"Ear Training",icon:"👂",color:"sec",
+  lessons:[
+    {
+      id:"et1",title:"Pitch Matching",type:"lesson",
+      content:"<p>Ear training is not about having a 'gift.' It is a trainable skill. Every great singer practiced matching pitch deliberately.</p><p><strong>How to practice:</strong></p><p>1. Play or imagine a note</p><p>2. Hear it in your mind first (do not guess)</p><p>3. Sing it — match the exact pitch</p><p>4. Listen to yourself — are you above, below, or on it?</p><p>5. Adjust — do not sing louder to compensate, adjust pitch directly</p><p><strong>The key:</strong> listen BEFORE you sing. Most beginners sing then listen. Reverse that order.</p>",
+      exercise:{name:"Pitch Match Drill",
+        steps:["Think of a note you can sing comfortably",
+        "Sing it. Hold it steady for 4 seconds",
+        "Without changing your voice, imagine that same note going slightly higher",
+        "Now sing that slightly higher note — how close were you?",
+        "Keep the original note in your mind — go back to it",
+        "Practice going between two neighboring notes — low to high and back",
+        "Over days, expand the distance between the two notes"],
+        monitor:"Are you hitting the exact pitch? Or slightly off?",
+        skill:"ear",xp:10}
+    },
+    {
+      id:"et2",title:"Interval Recognition",type:"lesson",
+      content:"<p>An <strong>interval</strong> is the distance between two notes. Your voice needs to learn these distances as muscle memory — how much to 'jump' from one note to another.</p><p><strong>Start here:</strong></p><p><p>• 2 half steps (minor 2nd) — very close, tense sound</p><p>• 2 whole steps (major 2nd) — do-re</p><p>• 3 half steps (minor 3rd) — sad/happy turning point</p><p>• 4 half steps (major 3rd) — bright, open</p><p>• 5 half steps (perfect 4th) — stable, strong</p><p>• 7 half steps (perfect 5th) — hollow, powerful</p><strong>Practice tip:</strong> Associate intervals with songs you know. 'Twinkle Twinkle' starts with a perfect 5th. 'Happy Birthday' starts with a major 2nd.</p>",
+      quiz:[
+        {q:"How many half steps in a perfect 5th?",options:["5","6","7","8"],answer:2},
+        {q:"What interval is 'Ha-ppy Birth-day' (first two notes)?",options:["Minor 2nd","Major 2nd","Minor 3rd","Major 3rd"],answer:1},
+        {q:"You should practice intervals by:",options:["Guessing randomly","Associating them with known songs","Singing as loud as possible","Only using an app"],answer:1}
       ]
     }
   ]
+},
+
+// ── 3. MUSIC THEORY (SINGER-FOCUSED) ──
+theory:{
+  name:"Music Theory",icon:"🎼",color:"pri",
+  lessons:[
+    {
+      id:"mu1",title:"Scales You Actually Need",type:"lesson",
+      content:"<p>You do not need to memorize every scale. Singers need three:</p><p>🎵 <strong>Major scale:</strong> do-re-mi-fa-sol-la-ti-do. Happy, bright. Practice ascending AND descending.</p><p>🎵 <strong>Minor scale:</strong> Same pattern, different starting point. Sadder, more complex. Most R&B, gospel, and emotional songs use minor.</p><p>🎵 <span class='span--pentatonic'>Pentatonic:</strong> 5 notes. Afrobeat, worship, pop hooks. Very safe for improvisation.</p>",
+      exercise:{name:"Scale Builder",
+        steps:["Sing do-re-mi-fa-sol-fa-mi-re-do (up and back) on 'doo'",
+        "Start on a comfortable note — go up by half steps (move starting pitch up)",
+        "Go from your lowest comfortable note to your highest — even tone throughout",
+        "Now do the same descending — high to low",
+        "Try singing on 'mee' instead of 'doo' — different vowel, same precision",
+        "Time yourself: how many scales can you sing perfectly in one breath?"],
+        skill:"ear",xp:10}
+    }
+  ]
+},
+
+// ── 4. SONG APPLICATION ──
+songsSystem:{
+  name:"Song Application",icon:"🎵",color:"gold",
+  lessons:[
+    {
+      id:"sa1",title:"How to Learn a Song (Pro Method)",type:"lesson",
+      content:"<p>Most singers try to learn a song by listening repeatedly and hoping it sticks. That is slow and unreliable.</p><p><strong>The pro method (used by session singers who learn 3 songs a day):</strong></p><p><p><strong>Step 1: Listen analytically.</strong> Do not sing along. Just listen. Map the song: Where does it go up? Where does it get powerful? Where is it intimate?</p><p><strong>Step 2: Speak the lyrics.</strong> Read the words out loud like poetry. Understand what each line means. If you do not know what you are saying, neither will your audience.</p><p><strong>Step 3: Hum the melody.</strong> No words, just the tune. Find where the hard intervals are.</p><p><strong>Step 4: Add lyrics to the hum.</strong> Speak-sing, then gradually sustain the notes.</p><p><strong>Step 5: Sing it full voice with the original.</strong> 70% volume. Stay under the original vocal.</p><p><strong>Step 6: Sing it without the original.</strong> This is where real learning happens.</p>",
+      quiz:[
+        {q:"What is step 1 of the pro song learning method?",options:["Sing along immediately","Listen analytically without singing","Memorize the lyrics","Record yourself"],answer:1},
+        {q:"Why speak the lyrics before singing them?",options:["It warms up your voice","You must understand what you are saying","It is a tradition","It helps you memorize"],answer:1}
+      ]
+    }
+  ]
+},
+
+// ── 5. PERFORMANCE ──
+performance:{
+  name:"Performance",icon:"🎤",color:"sec",
+  lessons:[
+    {
+      id:"pf1",title:"Stage Presence Fundamentals",type:"lesson",
+      content:"<p>Stage presence is not about being loud or dramatic. It is about <strong>commitment</strong>.</p><p><strong>The 3 rules:</strong></p><p>1. <strong>Own the space.</strong> Plant your feet. Do not fidget. When you are still, people watch.</p><p>2. <strong>Eye contact.</strong> Look at one person for a phrase, then move to another. They should feel like you are singing to them.</p><p>3. <strong>Emotional truth.</strong> If you do not believe the words, neither will anyone else. Find a real memory that matches the emotion of the song.</p>",
+      exercise:{name:"Presence Practice",
+        steps:["Stand in front of a mirror","Sing a song you know well — watch yourself","Notice: are you avoiding eye contact? Fidgeting? Looking at the ceiling?",
+        "Now sing it again — this time, look directly at your own eyes in the mirror",
+        "Sing to one specific imaginary person — someone you know who needs to hear these words",
+        "Record a video. Watch it back. Does it feel genuine?"],
+        skill:"performance",xp:15}
+    }
+  ]
+},
+
+// ── 6. GENRE TRAINING ──
+genre:{
+  name:"Genre Mastery",icon:"🎹",color:"pri",
+  lessons:[
+    {
+      id:"gr1",title:"Style vs. Mechanics",type:"lesson",
+      content:"<p><strong>The NYVC insight most programs miss:</strong> Genre is not a set of rules — it is a coordination profile. Adele, Whitney, Tems, and Tamela Mann are all doing the same physical things — but in different ratios.</p><p><strong>Pop:</strong> Clear tone, forward placement, precise pitch, conversational delivery</p><p><strong>R&B:</strong> Runs and melisma, breathy-to-full dynamic contrast, rhythmic precision</p><p><strong>Gospel/Worship:</strong> Power without strain, sustain, emotional build, belt/mix control</p><p><strong>Afrobeats:</strong> Rhythmic sync, relaxed tone, pocket placement, verse-to-chorus dynamics</p><p><strong>Jazz:</strong> Swing phrasing, melodic improvisation, relaxed but present tone</p><p><strong>Musical Theatre:</strong> Projection, diction precision, character voice, sustained belt</p>",
+      quiz:[
+        {q:"Genre is best understood as:",options:["A set of rules to follow","A coordination profile — different ratios of the same skills","Something you are born with","Only about what songs you sing"],answer:1},
+        {q:"Afrobeats vocal style emphasizes:",options:["Heavy vibrato and opera","Rhythmic sync, relaxed tone, and pocket","Screaming and distortion","No dynamics at all"],answer:1}
+      ]
+    }
+  ]
+},
+
+// ── 7. VOCAL PSYCHOLOGY ──
+psychology:{
+  name:"Vocal Psychology",icon:"🧠",color:"sec",
+  lessons:[
+    {
+      id:"ps1",title:"Fear of the High Note",type:"lesson",
+      content:"<p>Almost every singer has a note they are afraid of. The closer they get, the more tension they create — and the tension guarantees they will crack or strain.</p><p><strong>What is happening physically:</strong> Your brain senses 'danger' (the high note) and triggers a stress response. Larynx rises. Jaw tightens. Breath holding. All of these make the note HARDER to sing.</p><p><strong>The NYVC fix:</strong> You must retrain your nervous system to associate high notes with <strong>ease</strong>, not danger.</p><p>Practice the note BELOW your fear threshold until it feels boring. Then go one half step higher. Boring again. One more.</p><p><strong>The mantra:</strong> 'High notes are not harder — they are different. Less air, more forward, same ease.'</p>",
+      exercise:{name:"Fear Threshold Training",
+        steps:["Find the highest note you can sing easily with no tension",
+        "Sing it 5 times. Feel how easy it is.",
+        "Go one half step higher. Sing it softly. If tension appears, stop.",
+        "Go back down to the easy note. Then try the higher one again.",
+        "The goal is NOT to belt it. The goal is to sing it with ZERO fear response.",
+        "Over days, your threshold will rise — not because you pushed through fear, but because you removed it"],
+        skill:"mix",xp:20}
+    }
+  ]
+},
+
+// ── 8. PRODUCTION ──
+production:{
+  name:"Production",icon:"🎛️",color:"gold",
+  lessons:[
+    {
+      id:"pd1",title:"Record Yourself Like a Pro (Phone Only)",type:"lesson",
+      content:"<p>You do not need a studio to make a releasable vocal. You need a phone, a quiet room, and the right technique.</p><p><strong>Setup:</strong></p><p>• Small room with soft furnishings (bedroom, closet — not bathroom)</p><p>• Phone 30-45cm from mouth, slightly off-axis (reduces plosives)</p><p>• Use wired headphones with mic (better than phone mic for singing)</p><p>• Record at 70% of performance volume — you can turn up in editing, but clipping is permanent</p><p><strong>Free tools:</strong> BandLab (mobile + web), GarageBand (iPhone), Audacity (desktop)</p>",
+      exercise:{name:"First Phone Recording",
+        steps:["Find the quietest room in your space",
+        "Set phone on a stack of books, 40cm from your mouth, slightly to the side",
+        "Open your voice recorder or BandLab",
+        "Sing one verse of a song you know well — at 70% effort",
+        "Listen back immediately. Do NOT judge your voice — listen for: Is it clear? Is there room echo? Is it too quiet?",
+        "Adjust distance/angle and record again. Compare both takes."],
+        skill:"performance",xp:10}
+    }
+  ]
+},
+
+// ── 9. CAREER ──
+career:{
+  name:"Career",icon:"📈",color:"gold",
+  lessons:[
+    {
+      id:"cr1",title:"Your Income Paths as a Singer",type:"lesson",
+      content:"<p>Most singing programs stop at 'learn to sing.' But your users need income. Here are real paths:</p><p>💰 <strong>Session/Backing Vocals:</strong> Churches, studios, live bands. Reliable. $50-300/session. Requires: range, blend, sight-reading, reliability.</p><p>💰 <strong>Worship Leader:</strong> Church staff or volunteer. Requires: emotional delivery, microphone leadership, song selection.</p><p>💰 <strong>Original Artist:</strong> Spotify, Apple, TikTok. High ceiling, slow build. Requires: unique sound, consistent content, basic production.</p><p>💰 <strong>Teaching/Coaching:</strong> Once you are intermediate+, teach beginners. $30-100/hr. Requires: communication, patience, structured method.</p><p>💰 <strong>UGC/Content:</strong> Singing content for brands. Growing fast. Requires: camera presence, short-form vocal skills.</p>",
+      quiz:[
+        {q:"Which income path has the lowest barrier to entry?",options:["Original artist on Spotify","Session vocals","UGC content","Worship leader"],answer:2},
+        {q:"Teaching requires which skills?",options:["Perfect vocal ability","Communication, patience, structured method","A music degree","Famous social media presence"],answer:1}
+      ]
+    }
+  ]
+},
+
+// ── 10. IDENTITY ──
+identity:{
+  name:"Artist Identity",icon:"🔥",color:"sec",
+  lessons:[
+    {
+      id:"id1",title:"Who Are You As a Singer?",type:"lesson",
+      content:"<p>There are millions of singers. What makes you worth listening to is not your range or your technique — it is <strong>your perspective</strong>.</p><p><strong>The identity exercise:</strong></p><p>1. <strong>What can only YOU sing?</strong> What life experiences, emotions, cultural background do you bring that no one else has?</p><p>2. <strong>What do you want people to FEEL?</strong> Not 'impressed' — actually feel. Moved? Comforted? Energized? Challenged?</p><p>3. <strong>Who is your person?</strong> One specific human you are singing to. Not 'everyone.' One person.</p><p>4. <strong>What is your sound?</strong> Warm? Raw? Ethereal? Powerful? What adjective describes YOUR voice at its best?</p><p>Your answers become your artistic direction. Every song choice, every performance, every piece of content should reflect these answers.</p>",
+      exercise:{name:"Artist Identity Statement",
+        steps:["Write down: 'I am the singer who _____________' (what makes you unique)",
+        "Write down: 'When people hear my voice, I want them to feel _____________'",
+        "Write down: 'My ideal listener is _____________' (be specific — age, situation, what they need)",
+        "Write down: 'My sound is _____________' (3 adjectives max)",
+        "Write down: 'In one year, I want to be known for _____________'",
+        "Read your statement every day before you practice. Let it guide your choices."],
+        skill:"performance",xp:15}
+    }
+  ]
+},
+
+// ── 11. SYSTEM INTEGRATION (THE OS LAYER) ──
+osLayer:{
+  name:"System Integration",icon:"⚡",color:"pri",
+  lessons:[
+    {
+      id:"os1",title:"The Diagnosis → Exercise → Song Loop",type:"lesson",
+      content:"<p>This is what makes Singer OS different from a YouTube playlist:</p><p><strong>The adaptive loop:</strong></p><p>1. <strong>DIAGNOSE:</strong> What is your weakest system right now?</p><p>2. <strong>PRESCRIBE:</strong> Which exact lesson + exercise targets that weakness?</p><p>3. <strong>PRACTICE:</strong> Do the exercise. Earn XP. Skill goes up.</p><p>4. <strong>APPLY:</strong> Sing a song that uses that skill in a real context.</p><p>5. <strong>REASSESS:</strong> Has your weakness improved? What is the new weakest link?</p><p><strong>This loop runs forever.</strong> As you improve, the system detects new plateau areas and pushes you there. You never stagnate because the diagnosis is always honest.</p><p><strong>Today:</strong> Your system diagnosed your weakest area and prescribed this exact curriculum path. Follow it. Trust the loop.</p>",
+      quiz:[
+        {q:"What is step 1 of the adaptive loop?",options:["Pick a song","Diagnose your weakness","Practice randomly","Record yourself"],answer:1},
+        {q:"The loop runs:",options:["Once per month","Until you finish all lessons","Forever — it constantly reassesses","Only when you pay"],answer:2}
+      ]
+    }
+  ]
+},
+
+// ── VOCAL LOAD MANAGEMENT (embedded system) ──
+vocalLoad:{
+  name:"Vocal Health",icon:"❤️",color:"ok",
+  lessons:[
+    {
+      id:"vl1",title:"Vocal Load & Recovery",type:"lesson",
+      content:"<p><strong>This is the #1 thing missing from 99% of vocal programs.</strong></p><p>Your vocal folds are muscles. Like any muscle, they fatigue. Sing through fatigue = strain = potential injury = days/weeks of silence to recover.</p><p><strong>Vocal load budget:</strong> Every singer has a daily 'budget' of vocal effort. Beginners: ~30 minutes of actual singing. Intermediate: 45-60 min. Advanced: 2-3 hours with breaks.</p><p><strong>Warning signs you are over budget:</strong></p><p>• Voice feels 'heavy' or 'tired'</p><p>• You cannot hit notes that were easy yesterday</p><p>• Throat feels scratchy or sore (not from illness — from use)</p><p>• Your voice 'cuts out' on certain notes</p><p><strong>Recovery protocol:</strong> Vocal rest (silence) for 1-2 hours. NO whispering (that is worse than talking). Hydrate. Sleep. Tomorrow, your budget resets.</p><p><strong>NYVC rule:</strong> If it hurts, stop immediately. Pain is NOT part of training.</p>",
+      quiz:[
+        {q:"What is the recommended vocal practice time for beginners?",options:["2-3 hours","45-60 minutes","About 30 minutes of actual singing","As long as possible"],answer:2},
+        {q:"If your throat feels sore from singing, you should:",options:["Push through it","Sing more quietly","Stop completely and rest your voice","Drink cold water and keep going"],answer:2},
+        {q:"Whispering during vocal rest is:",options:["Perfectly fine — it rests the voice","Worse than normal talking — avoid it","Better than silence","Required for recovery"],answer:1}
+      ]
+    }
+  ]
+}};
+
+// ═══════════════════════════════════════════════════
+// SONGS DATABASE (tagged for adaptive matching)
+// ═══════════════════════════════════════════════════
+var SONGS=[
+  {id:"s1",title:"Breathe On Me",artist:"Worship",diff:1,stage:1,sys:["airflow","source"],
+   challenges:["sustained phrases","steady breath"," gentle onset"],
+   notes:"Focus: sing each phrase on one breath. Mark where you run out, then practice breathing there."},
+  {id:"s2",title:"Great Are You Lord",artist:"Worship",diff:2,stage:1,sys:["airflow","resonance"],
+   challenges:["long phrases","sustain","dynamic build"],
+   notes:"Focus: the chorus needs steady airflow on sustained notes. Do not gasp between lines."},
+  {id:"s3",title:"Hallelujah",artist:"Cohen/Buckley",diff:3,stage:2,sys:["source","resonance","mix"],
+   challenges:["register transitions","emotional dynamics","mix voice"],
+   notes:"Focus: the 'hallelujah' jumps need smooth mixing. Work the transition on 'ng' first."},
+  {id:"s4",title:"Essence",artist:"Wizkid ft. Tems",diff:2,stage:2,sys:["articulation","source"],
+   challenges:["fast diction","rhythmic precision","relaxed tone"],
+   notes:"Focus: every consonant must be crisp at speed. Speak the lyrics fast first."},
+  {id:"s5",title:"Someone Like You",artist:"Adele",diff:4,stage:3,sys:["source","resonance","airflow","mix"],
+   challenges:["emotional dynamics","chest-to-head","power without strain"],
+   notes:"Focus: intimate verses, powerful chorus. The contrast IS the song."},
+  {id:"s6",title:"Fight Song",artist:"Platten",diff:3,stage:2,sys:["airflow","source"],
+   challenges:["power without strain","breath management","belting"],
+   notes:"Focus: chorus needs strong airflow but relaxed throat. If it tightens, go back to humming."},
+  {id:"s7",title:"Take Me to the King",artist:"Tamela Mann",diff:5,stage:3,sys:["source","airflow","resonance","mix"],
+   challenges:["belting","sustain","emotional build","range"],
+   notes:"Focus: build from verse to chorus. Each section opens more. Save your full voice for the climax."},
+  {id:"s8",title:"Thinking Out Loud",artist:"Ed Sheeran",diff:2,stage:1,sys:["articulation","resonance"],
+   challenges:["soft sustained tone","clear diction","intimacy"],
+   notes:"Focus: this song lives in soft and clear. Do not push. Forward placement even at low volume."}
+];
+
+// ═══════════════════════════════════════════════════
+// ADAPTIVE ENGINE — Diagnosis → Prescription
+// ═══════════════════════════════════════════════════
+var ADAPTIVE={
+  diagnose:function(){
+    // Find weakest skill
+    var weakest=null,lowest=99;
+    for(var k in U.skills){if(U.skills[k]<lowest){lowest=U.skills[k];weakest=k;}}
+    if(!weakest)weakest="source";
+    // Find the lesson that trains this skill
+    var allLessons=ADAPTIVE.getAllLessons();
+    var prescribed=null;
+    for(var i=0;i<allLessons.length;i++){
+      if(allLessons[i].exercise&&allLessons[i].exercise.skill===weakest){
+        if(U.completed.indexOf(allLessons[i].id)===-1){prescribed=allLessons[i];break;}
+      }
+    }
+    // If all skill lessons done, find any incomplete
+    if(!prescribed){for(var i=0;i<allLessons.length;i++){if(U.completed.indexOf(allLessons[i].id)===-1){prescribed=allLessons[i];break;}}
+    }
+    // Find matching song
+    var song=null;
+    for(var i=0;i<SONGS.length;i++){
+      if(SONGS[i].stage<=U.stage&&U.completedSongs.indexOf(SONGS[i].id)===-1){song=SONGS[i];break;}
+      if(song===null&&SONGS[i].stage<=U.stage)song=SONGS[i];
+    }
+    return {weakest:weakest,skillName:ADAPTIVE.skillName(weakest),lesson:prescribed,song:song};
+  },
+  getAllLessons:function(){
+    var out=[];
+    var sys=CURRICULUM;
+    var keys=["mechanics","ear","theory","songsSystem","performance","genre","psychology","production","career","identity","osLayer","vocalLoad"];
+    for(var k=0;k<keys.length;k++){
+      if(sys[keys[k]]&&sys[keys[k]].lessons){out=out.concat(sys[keys[k]].lessons);}    }
+    return out;
+  },
+  skillName:function(k){
+    var n={airflow:"Airflow",source:"Source",resonance:"Resonance",articulation:"Articulation",ear:"Ear Training",mix:"Mix Voice",performance:"Performance"};
+    return n[k]||k;
+  },
+  skillDesc:function(k){
+    var d={airflow:"The foundation. Controlled airflow gives you phrase length, power, and stability.",
+      source:"Vocal fold closure. Clean onset, clear tone, no breathiness.",
+      resonance:"Tone shaping. Forward placement gives you projection and clarity.",
+      articulation:"Clear diction. Every word lands. No jaw tension.",
+      ear:"Pitch accuracy and musical awareness. You cannot sing what you cannot hear.",
+      mix:"The bridge between chest and head. Smooth transitions across your full range.",
+      performance:"Stage presence. Emotional delivery. Owning the room."};
+    return d[k]||"";
+  },
+  trackVocalLoad:function(minutes){
+    U.vocalLoad+=minutes;
+    U.lastPractice=new Date().toISOString();
+    if(U.vocalLoad>=U.maxLoad*0.8)ADAPTIVE.warnLoad();
+  },
+  warnLoad:function(){
+    toast("Vocal load high ("+Math.round(U.vocalLoad/U.maxLoad*100)+"%). Consider resting before next practice.","warn");
+  },
+  resetLoad:function(){U.vocalLoad=0;save();},
+  shouldSuggestBreak:function(){return U.vocalLoad>=U.maxLoad*0.6;}
 };
 
-var SONGS=[
-  {id:'g1',title:"Breathe On Me",artist:"Worship",diff:1,sys:['airflow'],stage:1,
-   notes:"Focus: steady breath. Sing each phrase on one breath. Don't gasp between lines.",
-   exercises:["Sing phrase 1 on one breath — mark where you run out","Practice breathing at that spot — quick, low breath","Sing full song breathing only at your marked spots"]},
-  {id:'g2',title:"Great Are You Lord",artist:"Worship",diff:2,sys:['airflow','source'],stage:1,
-   notes:"Focus: sustained phrases. The long notes need even airflow, not a blast at the start.",
-   exercises:["Sing the chorus — hold 'breath of every living thing' on steady airflow","Practice the high note: approach it with forward resonance, not force","Full run-through: focus on phrase endings — do not let tone collapse"]},
-  {id:'g3',title:"Hallelujah",artist:"Cohen/Buckley",diff:3,sys:['source','resonance'],stage:2,
-   notes:"Focus: register transitions. The 'hallelujah' jumps need smooth mixing, not flipping.",
-   exercises:["Sing 'hal-le-LU-jah' — practice the LU transition on 'ng' first","Work the verse: keep chest voice connected through the chorus jump","Full song: dynamic control — verses intimate, chorus opens up"]},
-  {id:'g4',title:"Essence",artist:"Wizkid ft. Tems",diff:2,sys:['articulation','source'],stage:2,
-   notes:"Focus: clear diction at speed. Every consonant must be crisp even in fast passages.",
-   exercises:["Speak the lyrics fast — every word clear","Sing verse 1 slowly — match the spoken clarity","Gradually speed up — never lose the consonants"]},
-  {id:'g5',title:"Someone Like You",artist:"Adele",diff:4,sys:['source','resonance','airflow'],stage:3,
-   notes:"Focus: emotional dynamics. This song lives in the contrast between intimate verses and powerful chorus.",
-   exercises:["Verse 1: sing it like you are talking to one person — soft, close","Chorus: open up — more resonance, more breath, more emotion","Bridge: the climax — full voice, full feeling, but controlled"]},
-  {id:'g6',title:"Fight Song",artist:"Platten",diff:3,sys:['airflow','source'],stage:2,
-   notes:"Focus: power without strain. The chorus needs strong airflow but relaxed throat.",
-   exercises:["Sing chorus on 'ng' first — feel the power without the words","Add words — same energy, but jaw stays loose","Full chorus: if throat tightens, go back to 'ng' and try again"]}
-];
+// ═══════════════════════════════════════════════════
+// WHATSAPP HANDOFF — Email → Human Coaching
+// ═══════════════════════════════════════════════════
+var WHATSAPP={
+  number:"2348012345678", // Replace with Toby's number
+  generateMessage:function(phase,issue){
+    var name=U.name||"Singer";
+    var msgs={
+      welcome:"Hey "+name+"! Welcome to Singer OS. I am Coach Toby. What is your biggest vocal challenge right now? Reply and I will send you your first exercise.",
+      plateau:name+", your progress data shows you have been working on "+issue+" but it has plateaued. This is the stage where most singers give up. Do not. Book a 1-on-1 session and we will break through together: https://wa.me/"+this.number+"?text=Hi%20Toby%2C%20I%20need%20help%20with%20"+encodeURIComponent(issue),
+      breakthrough:name+", you just unlocked "+issue+"! That is serious progress. Ready to go deeper? Book a session: https://wa.me/"+this.number+"?text=Hi%20Toby%2C%20I%20want%20to%20level%20up%20my%20"+encodeURIComponent(issue),
+      stuck:name+", you have been stuck on "+issue+" for a while. This is where a coach saves you months of frustration. Let us fix it together: https://wa.me/"+this.number+"?text=Hi%20Toby%2C%20I%20am%20stuck%20on%20"+encodeURIComponent(issue)+"%20and%20need%20help",
+      completion:name+", you completed the "+issue+" module! That is real growth. Want me to personally guide your next phase? Book here: https://wa.me/"+this.number+"?text=Hi%20Toby%2C%20I%20completed%20"+encodeURIComponent(issue)+"%20and%20want%20to%20go%20further"
+    };
+    return msgs[phase]||msgs.welcome;
+  },
+  handoff:function(phase,issue){
+    if(!U.email){showEmailCapture(phase,issue);return;}
+    var msg=WHATSAPP.generateMessage(phase,issue);
+    console.log("WhatsApp handoff to "+U.email+": "+msg.substring(0,80)+"...");
+    toast("Connecting you with Coach Toby. Check your messages!","g");
+    // In production: POST your API to send WhatsApp message
+  }
+};
+
+function showEmailCapture(phase,issue){
+  var c=document.getElementById("v-c");
+  var h="";
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
+  h+='<button class="btn btn-g btn-sm" onclick="go(\'home\')">← Back</button></div>';
+  h+='<h1 style="font-size:1.3rem;margin-bottom:6px">Get Personal Coaching</h1>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Coach Toby will send you a targeted exercise for your '+(issue||"vocal development")+' directly on WhatsApp.</p>';
+  h+='<input type="email" id="email-input" placeholder="Your email address" style="width:100%;padding:14px;border:2px solid var(--bd);border-radius:var(--r);background:var(--card);margin-bottom:12px;text-align:center">';
+  h+='<input type="tel" id="whatsapp-input" placeholder="Your WhatsApp number (with country code)" style="width:100%;padding:14px;border:2px solid var(--bd);border-radius:var(--r);background:var(--card);margin-bottom:16px;text-align:center">';
+  h+='<button class="btn btn-p" onclick="submitEmail(\''+phase+'\',\''+issue+'\')">Connect Me →</button>';
+  h+='<button class="btn btn-g" onclick="go(\'home\')">Maybe Later</button>';
+  c.innerHTML=h;
+  showSession();
+}
+
+function submitEmail(phase,issue){
+  var email=document.getElementById("email-input").value.trim();
+  var phone=document.getElementById("whatsapp-input").value.trim();
+  if(!email){toast("Enter your email");return;}
+  U.email=email;
+  if(phone)WHATSAPP.number=phone;
+  save();
+  WHATSAPP.handoff(phase,issue);
+}
 
 // ═══════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════
 function go(id){
-  var screens=document.querySelectorAll('.screen');
-  for(var i=0;i<screens.length;i++)screens[i].classList.remove('active');
-  document.getElementById('s-'+id).classList.add('active');
-  var items=document.querySelectorAll('.bnav-item');
-  for(var j=0;j<items.length;j++)items[j].classList.remove('active');
-  var ni=document.getElementById('n-'+id);
-  if(ni)ni.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
-  if(id==='home')renderHome();
-  if(id==='learn')renderLearn();
-  if(id==='practice')renderPractice();
-  if(id==='songs')renderSongs();
-  if(id==='progress')renderProgress();
+  var ss=document.querySelectorAll("screen");
+  for(var i=0;i<ss.length;i++)ss[i].classList.remove("active");
+  document.getElementById("s-"+id).classList.add("active");
+  var items=document.querySelectorAll(".bn-i");
+  for(var j=0;j<items.length;j++)items[j].classList.remove("on");
+  var ni=document.getElementById("n-"+id);
+  if(ni)ni.classList.add("on");
+  window.scrollTo({top:0,behavior:"instant"});
+  if(id==="home")renderHome();
+  if(id==="learn")renderLearn();
+  if(id==="practice")renderPractice();
+  if(id==="songs")renderSongs();
+  if(id==="progress")renderProgress();
+  if(id==="profile")renderProfile();
 }
+function showSession(){go("session")}
 
-function showSession(){go('session')}
-
-// ═══════════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════════
 function toast(msg,type){
-  var t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='toast show'+(type?' toast--'+type:'');
-  setTimeout(function(){t.className='toast';},2500);
+  var t=document.getElementById("ft");
+  t.innerHTML=msg;
+  t.className="ft show"+(type?" ft-"+type:"");
+  setTimeout(function(){t.className="ft";},3000);
 }
 
 // ═══════════════════════════════════════════════════
 // RENDER: HOME
 // ═══════════════════════════════════════════════════
 function renderHome(){
-  var c=document.getElementById('h-content');
-  document.getElementById('h-xp').textContent=U.xp+' XP';
-  var h='';
-  // Hero
-  h+='<div class="hero"><h1>Welcome, '+U.name+'</h1>';
-  h+='<p style="color:var(--text2)">Stage '+U.stage+': '+CURRICULUM.stages[U.stage-1].name+' — '+CURRICULUM.stages[U.stage-1].subtitle+'</p></div>';
+  var c=document.getElementById("h-c");
+  document.getElementById("h-xp").textContent=U.xp+" XP";
+  var dx=ADAPTIVE.diagnose();
+  var h="";
+  h+='<div class="hero"><h1>Welcome, '+U.name+"</h1>";
+  h+='<p>Stage '+U.stage+' — '+ADAPTIVE.skillDesc(dx.weakest)+' is your current focus.</p></div>';
 
-  // Next lesson
-  var nextLesson=findNextLesson();
-  if(nextLesson){
-    h+='<div class="sec"><div class="sec-header"><span class="sec-title">Continue Learning</span></div>';
-    h+='<div class="card card--accent" onclick="openLesson(\''+nextLesson.id+'\')">';
+  // Prescribed next step
+  if(dx.lesson){
+    h+='<div class="sec"><div class="sec-h"><span class="sec-t">Your Next Step</span><span class="tag tag-p">Level '+U.skills[dx.weakest]+'/10</span></div>';
+    h+='<div class="c c-a" onclick="openLesson(\''+dx.lesson.id+'\')">';
     h+='<div class="flex items-center gap-12">';
-    h+='<div class="lesson-num">'+(nextLesson.index+1)+'</div>';
-    h+='<div style="flex:1"><div style="font-weight:600;margin-bottom:2px">'+nextLesson.title+'</div>';
-    h+='<div style="font-size:.75rem;color:var(--text3)">'+nextLesson.type+' • Stage '+nextLesson.stage+'</div></div>';
-    h+='<span class="tag tag--primary">Start →</span>';
-    h+='</div></div></div>';
+    h+='<div class="li-ic">'+dx.lesson.type==="lesson"?"📖":"💪"+'</div>';
+    h+='<div style="flex:1"><div style="font-weight:600;margin-bottom:2px">'+dx.lesson.title+'</div>';
+    h+='<div style="font-size:.72rem;color:var(--tx3)">Targets: '+ADAPTIVE.skillName(dx.weakest)+' • '+parseInt(dx.lesson.exercise?dx.lesson.exercise.xp:10)+' XP</div></div>';
+    h+='<span class="tag tag-p">Start →</span></div></div></div>';
   }
 
   // Quick practice
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Quick Practice</span></div>';
-  var drills=[
-    {icon:'💨',name:'Breath Control',desc:'Sustain airflow 20 sec',skill:'airflow'},
-    {icon:'🎵',name:'Pitch Hold',desc:'Steady note, 10 sec',skill:'source'},
-    {icon:'🗣️',name:'Articulation',desc:'"ma-me-mi-mo-mu" x5',skill:'articulation'},
-    {icon:'🔔',name:'Forward Hum',desc:'Feel the buzz, 30 sec',skill:'resonance'}
-  ];
-  h+='<div class="btn-row">';
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Quick Practice</span>';
+  if(ADAPTIVE.shouldSuggestBreak())h+='<span class="tag tag-w">Load: '+Math.round(U.vocalLoad/U.maxLoad*100)+'%</span>';
+  h+='</div>';
+  var drills=[{ic:"💨",n:"Breath",s:"airflow"},{ic:"🎵",n:"Onset",s:"source"},{ic:"🗣️",n:"Diction",s:"articulation"},{ic:"🔔",n:"Resonance",s:"resonance"}];
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
   for(var i=0;i<drills.length;i++){
     var d=drills[i];
-    h+='<button class="btn btn--ghost btn--sm" style="flex:1;flex-direction:column;gap:4px;padding:12px 8px" onclick="quickDrill(\''+d.skill+'\',\''+d.name+'\')">';
-    h+='<span style="font-size:1.3rem">'+d.icon+'</span>';
-    h+='<span style="font-size:.65rem;font-weight:600">'+d.name+'</span>';
-    h+='</button>';
+    h+='<div class="c" style="text-align:center;padding:14px 8px" onclick="quickDrill(\'+d.s+\',\'+d.n+\')">';
+    h+='<div style="font-size:1.5rem;margin-bottom:4px">'+d.ic+'</div>';
+    h+='<div style="font-size:.75rem;font-weight:600">'+d.n+'</div></div>';
   }
   h+='</div></div>';
 
-  // Skills overview
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Your Voice Systems</span></div>';
-  var sys=['airflow','source','resonance','articulation'];
-  var sysNames={airflow:'Airflow',source:'Source',resonance:'Resonance',articulation:'Articulation'};
+  // Song suggestion
+  if(dx.song){
+    h+='<div class="sec"><div class="sec-h"><span class="sec-t">Apply It</span></div>';
+    h+='<div class="c c-g" onclick="openSong(\''+dx.song.id+'\')">';
+    h+='<div class="flex items-center gap-12">';
+    h+='<div class="li-ic li-g">🎵</div>';
+    h+='<div style="flex:1"><div style="font-weight:600;margin-bottom:2px">'+dx.song.title+'</div>';
+    h+='<div style="font-size:.72rem;color:var(--tx3)">'+dx.song.artist+' • '+dx.song.challenges[0]+'</div></div>';
+    h+='<span class="tag tag-g">Sing →</span></div></div></div>';
+  }
+
+  // Skills
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Voice Systems</span></div>';
+  var sys=["airflow","source","resonance","articulation"];
   for(var s=0;s<sys.length;s++){
     var sk=sys[s],lvl=U.skills[sk],pct=lvl*10;
-    h+='<div style="margin-bottom:12px">';
-    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
-    h+='<span style="font-size:.8rem;font-weight:600">'+sysNames[sk]+'</span>';
-    h+='<span style="font-size:.7rem;color:var(--text3)">'+lvl+'/10</span></div>';
-    h+='<div class="prog"><div class="prog-fill" style="width:'+pct+'%"></div></div></div>';
+    h+='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px">';
+    h+='<span style="font-size:.8rem">'+ADAPTIVE.skillName(sk)+'</span>';
+    h+='<span style="font-size:.7rem;color:var(--tx3)">'+lvl+'/10</span></div>';
+    h+='<div class="pr"><div class="pr-f" style="width:'+pct+'%"></div></div></div>';
   }
   h+='</div>';
 
-  // Song suggestion
-  var nextSong=findNextSong();
-  if(nextSong){
-    h+='<div class="sec"><div class="sec-header"><span class="sec-title">Suggested Song</span></div>';
-    h+='<div class="card" onclick="openSong(\''+nextSong.id+'\')">';
-    h+='<div class="flex items-center gap-12">';
-    h+='<div class="li-icon li-icon--gold">🎵</div>';
-    h+='<div style="flex:1"><div style="font-weight:600">'+nextSong.title+'</div>';
-    h+='<div style="font-size:.75rem;color:var(--text3)">'+nextSong.artist+' • Diff '+nextSong.diff+'/4</div></div>';
-    h+='<span class="tag tag--gold">Sing →</span>';
-    h+='</div></div></div>';
-  }
+  // CTA to human coach
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Need a Human Ear?</span></div>';
+  h+='<div class="c" style="text-align:center;padding:20px" onclick="WHATSAPP.handoff(\'stuck\',\''+dx.weakest+'\')">';
+  h+='<div style="font-size:2rem;margin-bottom:8px">🗣️</div>';
+  h+='<div style="font-weight:600;margin-bottom:4px">Get Personal Feedback</div>';
+  h+='<div style="font-size:.75rem;color:var(--tx3)">Coach Toby reviews your progress and sends targeted exercises via WhatsApp</div>';
+  h+='</div></div>';
 
   c.innerHTML=h;
 }
 
-function findNextLesson(){
-  for(var s=0;s<CURRICULUM.stages.length;s++){
-    var stage=CURRICULUM.stages[s];
-    if(stage.id>U.stage)break;
-    for(var l=0;l<stage.lessons.length;l++){
-      var lesson=stage.lessons[l];
-      if(U.completedLessons.indexOf(lesson.id)===-1){
-        return {id:lesson.id,title:lesson.title,type:lesson.type,stage:stage.id,index:l};
-      }
-    }
-  }
-  return null;
-}
-
-function findNextSong(){
-  for(var i=0;i<SONGS.length;i++){
-    if(SONGS[i].stage<=U.stage&&U.completedSongs.indexOf(SONGS[i].id)===-1)return SONGS[i];
-  }
-  return SONGS[0];
-}
-
 // ═══════════════════════════════════════════════════
-// RENDER: LEARN
+// RENDER: LEARN — All 11 systems
 // ═══════════════════════════════════════════════════
 function renderLearn(){
-  var c=document.getElementById('l-content');
-  document.getElementById('l-stage-label').textContent='Stage '+U.stage+': '+CURRICULUM.stages[U.stage-1].name;
+  var c=document.getElementById("l-c");
+  document.getElementById("l-lbl").textContent="All Systems • Stage "+U.stage;
   var h='';
-  h+='<div style="margin-bottom:20px"><h2 style="margin-bottom:4px">Your Curriculum</h2>';
-  h+='<p style="color:var(--text3);font-size:.85rem">Complete lessons to unlock the next stage.</p></div>';
+  h+='<h2 style="margin-bottom:4px">Full Curriculum</h2>';
+  var dp=ADAPTIVE.diagnose();
+  h+='<p style="color:var(--tx3);font-size:.85rem;margin-bottom:20px">Current focus: <strong style="color:var(--pri)">'+dp.skillName+'</strong> (level '+U.skills[dp.weakest]+'/10)</p>';
 
-  for(var s=0;s<CURRICULUM.stages.length;s++){
-    var stage=CURRICULUM.stages[s];
-    var locked=stage.id>U.stage;
-    var stageDone=true;
-    for(var l=0;l<stage.lessons.length;l++){
-      if(U.completedLessons.indexOf(stage.lessons[l].id)===-1){stageDone=false;break;}
-    }
-    h+='<div style="margin-bottom:20px">';
-    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">';
-    h+='<span style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:'+(locked?'var(--text3)':'var(--primary)')+'">Stage '+stage.id+'</span>';
-    if(stageDone)h+='<span class="tag tag--success">Done</span>';
-    if(locked)h+='<span class="tag" style="background:rgba(255,255,255,.05);color:var(--text3)">🔒 Locked</span>';
-    h+='</div>';
-    for(var l=0;l<stage.lessons.length;l++){
-      var lesson=stage.lessons[l];
-      var done=U.completedLessons.indexOf(lesson.id)!==-1;
-      var canAccess=!locked;
-      h+='<div class="li" style="margin-bottom:6px;opacity:'+(canAccess?'1':'0.4')+';pointer-events:'+(canAccess?'auto':'none')+'" onclick="openLesson(\''+lesson.id+'\')">';
-      h+='<div class="lesson-num '+(done?'lesson-num--done':'lesson-num--lock')+'">'+(done?'✓':(l+1))+'</div>';
-      h+='<div class="li-body"><div class="li-title">'+lesson.title+'</div>';
-      h+='<div class="li-sub">'+(lesson.type==='lesson'?'📖 Lesson':'🎯 Exercise')+(lesson.exercise?' • +'+lesson.exercise.xp+' XP':'')+'</div></div>';
-      if(done)h+='<span class="tag tag--success">Done</span>';
+  var systems=[
+    {key:"mechanics",label:"Vocal Mechanics",icon:"⚙️"},
+    {key:"ear",label:"Ear Training",icon:"👂"},
+    {key:"theory",label:"Music Theory",icon:"🎼"},
+    {key:"songsSystem",label:"Song Application",icon:"🎵"},
+    {key:"performance",label:"Performance",icon:"🎤"},
+    {key:"genre",label:"Genre Mastery",icon:"🎹"},
+    {key:"psychology",label:"Vocal Psychology",icon:"🧠"},
+    {key:"production",label:"Production",icon:"🎛️"},
+    {key:"career",label:"Career",icon:"📈"},
+    {key:"identity",label:"Artist Identity",icon:"🔥"},
+    {key:"osLayer",label:"System Integration",icon:"⚡"},
+    {key:"vocalLoad",label:"Vocal Health",icon:"❤️"}
+  ];
+  for(var s=0;s<systems.length;s++){
+    var sys=systems[s],data=CURRICULUM[sys.key];
+    if(!data||!data.lessons)continue;
+    var done=0;
+    for(var l=0;l<data.lessons.length;l++){if(U.completed.indexOf(data.lessons[l].id)!==-1)done++;}
+    h+='<div class="sec">';
+    h+='<div class="sec-h"><span class="sec-t">'+sys.icon+' '+sys.label+'</span>';
+    h+='<span style="font-size:.7rem;color:var(--tx3)">'+done+'/'+data.lessons.length+'</span></div>';
+    for(var l=0;l<data.lessons.length;l++){
+      var ls=data.lessons[l],isDone=U.completed.indexOf(ls.id)!==-1;
+      h+='<div class="li" style="margin-bottom:4px" onclick="openLesson(\''+ls.id+'\')">';
+      h+='<div class="esn '+(isDone?"style='background:rgba(34,197,94,.1);color:var(--ok)'":"")+'">'+(isDone?"✓":(l+1))+'</div>';
+      h+='<div class="li-b"><div class="li-t">'+ls.title+'</div>';
+      h+='<div class="li-sub">'+ls.type+' '+(ls.exercise?"• +"+ls.exercise.xp+" XP":"")+'</div></div>';
       h+='</div>';
     }
     h+='</div>';
@@ -475,377 +708,337 @@ function renderLearn(){
 }
 
 // ═══════════════════════════════════════════════════
-// OPEN LESSON (in session screen)
+// LESSON VIEWER (session screen)
 // ═══════════════════════════════════════════════════
-var currentLesson=null;
-var quizAnswers=[];
+var curLesson=null,quizAns=[];
 
 function openLesson(id){
-  // Find lesson
-  var lesson=null,stageId=1;
-  for(var s=0;s<CURRICULUM.stages.length;s++){
-    for(var l=0;l<CURRICULUM.stages[s].lessons.length;l++){
-      if(CURRICULUM.stages[s].lessons[l].id===id){
-        lesson=CURRICULUM.stages[s].lessons[l];
-        stageId=CURRICULUM.stages[s].id;
-        break;
-      }
-    }
+  var lesson=null;
+  var allSys=["mechanics","ear","theory","songsSystem","performance","genre","psychology","production","career","identity","osLayer","vocalLoad"];
+  for(var s=0;s<allSys.length;s++){
+    var sys=CURRICULUM[allSys[s]];
+    if(sys&&sys.lessons){for(var l=0;l<sys.lessons.length;l++){if(sys.lessons[l].id===id){lesson=sys.lessons[l];break;}}}
     if(lesson)break;
   }
   if(!lesson)return;
-  currentLesson=lesson;
-  var c=document.getElementById('v-content');
+  curLesson=lesson;
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
-  h+='<button class="btn btn--ghost btn--sm" onclick="go(\'learn\')">← Back</button>';
-  h+='<span class="tag tag--primary">Stage '+stageId+'</span></div>';
-  h+='<h1 style="font-size:1.4rem;margin-bottom:6px">'+lesson.title+'</h1>';
-
-  if(lesson.type==='lesson'){
-    h+='<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:16px;font-size:.95rem;line-height:1.7">';
-    h+=lesson.content;
-    h+='</div>';
-    if(lesson.quiz&&lesson.quiz.length>0){
-      h+='<button class="btn btn--primary" onclick="startQuiz()">Take Quiz →</button>';
-    }else if(lesson.exercise){
-      h+='<button class="btn btn--primary" onclick="startExercise()">Start Exercise →</button>';
-    }else{
-      h+='<button class="btn btn--success" onclick="completeLesson()">Mark Complete ✓</button>';
-    }
-  }
-  c.innerHTML=h;
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+  h+='<button class="btn btn-g btn-sm" onclick="go(\'learn\')">← Back</button>';
+  h+='<span class="tag tag-p">'+lesson.type+'</span></div>';
+  h+='<h1 style="font-size:1.3rem;margin-bottom:16px">'+lesson.title+'</h1>';
+  h+='<div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:18px;margin-bottom:16px;font-size:.9rem;line-height:1.7">';
+  h+=lesson.content+'</div>';
+  if(lesson.quiz&&lesson.quiz.length>0){h+='<button class="btn btn-p" onclick="startQuiz()">Take Quiz →</button>';}
+  else if(lesson.exercise){h+='<button class="btn btn-p" onclick="startExerciseView()">Start Exercise →</button>';}
+  else{h+='<button class="btn btn-s" onclick="finishLesson()">Mark Complete ✓</button>';}
   showSession();
+  if(typeof renderSession==="function")renderSession();
+}
+
+function renderSession(){
+  var c=document.getElementById("v-c");
+  c.scrollTop=0;
 }
 
 function startQuiz(){
-  if(!currentLesson||!currentLesson.quiz)return;
-  quizAnswers=[];
-  var c=document.getElementById('v-content');
+  if(!curLesson||!curLesson.quiz)return;
+  quizAns=[];
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
-  h+='<button class="btn btn--ghost btn--sm" onclick="openLesson(\''+currentLesson.id+'\')">← Back</button>';
-  h+='<span class="tag tag--gold">Quiz</span></div>';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+  h+='<button class="btn btn-g btn-sm" onclick="openLesson(\''+curLesson.id+'\')">← Back</button>';
+  h+='<span class="tag tag-g">Quiz</span></div>';
   h+='<h2 style="margin-bottom:16px">Check Your Understanding</h2>';
-  for(var q=0;q<currentLesson.quiz.length;q++){
-    var qq=currentLesson.quiz[q];
-    h+='<div style="margin-bottom:20px" id="q-block-'+q+'">';
-    h+='<p style="font-weight:600;margin-bottom:10px">'+(q+1)+'. '+qq.q+'</p>';
+  for(var q=0;q<curLesson.quiz.length;q++){
+    var qq=curLesson.quiz[q];
+    h+='<div style="margin-bottom:16px" id="qb-'+q+'">';
+    h+='<p style="font-weight:600;margin-bottom:8px">'+(q+1)+'. '+qq.q+'</p>';
     for(var o=0;o<qq.options.length;o++){
-      h+='<div class="q-option" id="q-'+q+'-'+o+'" onclick="selectAnswer('+q+','+o+','+qq.answer+')">';
-      h+='<div class="q-radio"></div>';
-      h+='<span style="font-size:.9rem">'+qq.options[o]+'</span></div>';
+      h+='<div class="qo" id="q-'+q+'-'+o+'" onclick="pickAns('+q+','+o+','+qq.answer+')">';
+      h+='<div class="qr"></div><span style="font-size:.85rem">'+qq.options[o]+'</span></div>';
     }
     h+='</div>';
   }
-  h+='<button class="btn btn--primary" id="quiz-submit" onclick="submitQuiz()" style="opacity:.5;pointer-events:none">Submit Answers</button>';
+  h+='<button class="btn btn-p" id="q-sub" style="opacity:.5;pointer-events:none" onclick="submitQuiz()">Submit</button>';
   c.innerHTML=h;
 }
 
-function selectAnswer(q,o,correct){
-  var block=document.getElementById('q-block-'+q);
-  var opts=block.querySelectorAll('.q-option');
-  for(var i=0;i<opts.length;i++)opts[i].classList.remove('selected');
-  document.getElementById('q-'+q+'-'+o).classList.add('selected');
-  quizAnswers[q]={selected:o,correct:correct};
-  // Enable submit if all answered
-  var allAnswered=true;
-  for(var i=0;i<currentLesson.quiz.length;i++){
-    if(!quizAnswers[i]){allAnswered=false;break;}
-  }
-  var btn=document.getElementById('quiz-submit');
-  if(allAnswered){btn.style.opacity='1';btn.style.pointerEvents='auto';}
+function pickAns(q,o,cor){
+  var block=document.getElementById("qb-"+q);
+  var opts=block.querySelectorAll(".qo");
+  for(var i=0;i<opts.length;i++)opts[i].classList.remove("sel");
+  document.getElementById("q-"+q+"-"+o).classList.add("sel");
+  quizAns[q]={sel:o,cor:cor};
+  var all=true;
+  for(var i=0;i<curLesson.quiz.length;i++){if(!quizAns[i]){all=false;break;}}
+  var btn=document.getElementById("q-sub");
+  if(all){btn.style.opacity="1";btn.style.pointerEvents="auto";}
 }
 
 function submitQuiz(){
-  var correct=0,total=currentLesson.quiz.length;
-  for(var q=0;q<total;q++){
-    var block=document.getElementById('q-block-'+q);
-    var opts=block.querySelectorAll('.q-option');
+  var cor=0,tot=curLesson.quiz.length;
+  for(var q=0;q<tot;q++){
+    var block=document.getElementById("qb-"+q);
+    var opts=block.querySelectorAll(".qo");
     for(var o=0;o<opts.length;o++){
-      opts[o].style.pointerEvents='none';
-      if(o===quizAnswers[q].correct)opts[o].classList.add('correct');
-      if(o===quizAnswers[q].selected&&o!==quizAnswers[q].correct)opts[o].classList.add('wrong');
+      opts[o].style.pointerEvents="none";
+      if(o===quizAns[q].cor)opts[o].classList.add("ok");
+      if(o===quizAns[q].sel&&o!==quizAns[q].cor)opts[o].classList.add("bad");
     }
-    if(quizAnswers[q].selected===quizAnswers[q].correct)correct++;
+    if(quizAns[q].sel===quizAns[q].cor)cor++;
   }
-  var passed=correct>=Math.ceil(total*0.5);
+  var passed=cor>=Math.ceil(tot*0.5);
   var xp=passed?20:5;
-  U.xp+=xp;
-  U.sessions++;
-  save();
-  var c=document.getElementById('v-content');
+  U.xp+=xp;U.sessions++;save();
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div class="card card--'+(passed?'success':'accent')+'" style="text-align:center;padding:32px;margin-bottom:16px">';
-  h+='<div style="font-size:2.5rem;margin-bottom:8px">'+(passed?'🎉':'📚')+'</div>';
-  h+='<h2>'+(passed?'Passed!':'Keep Learning')+'</h2>';
-  h+='<p style="color:var(--text3)">'+correct+'/'+total+' correct. +'+xp+' XP</p></div>';
-  if(passed){
-    h+='<button class="btn btn--success" onclick="completeLesson()">Continue →</button>';
-  }else{
-    h+='<button class="btn btn--primary" onclick="startQuiz()">Try Again</button>';
-    h+='<button class="btn btn--ghost" onclick="openLesson(\''+currentLesson.id+'\')">Review Lesson</button>';
-  }
+  h+='<div class="c '+(passed?"c-g":"c-a")+'" style="text-align:center;padding:28px;margin-bottom:16px">';
+  h+='<div style="font-size:2.5rem;margin-bottom:8px">'+(passed?"🎉":"📚")+'</div>';
+  h+='<h2>'+(passed?"Passed":"Keep Learning")+'</h2>';
+  h+='<p style="color:var(--tx3)">'+cor+'/'+tot+' correct. +'+xp+' XP</p></div>';
+  if(passed){h+='<button class="btn btn-s" onclick="finishLesson()">Continue →</button>';}
+  else{h+='<button class="btn btn-p" onclick="startQuiz()">Try Again</button>';
+  h+='<button class="btn btn-g" onclick="openLesson(\''+curLesson.id+'\')">Review</button>';}
   c.innerHTML=h;
 }
 
-function startExercise(){
-  if(!currentLesson||!currentLesson.exercise)return;
-  var ex=currentLesson.exercise;
-  var c=document.getElementById('v-content');
+function startExerciseView(){
+  if(!curLesson||!curLesson.exercise)return;
+  var ex=curLesson.exercise;
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
-  h+='<button class="btn btn--ghost btn--sm" onclick="openLesson(\''+currentLesson.id+'\')">← Back</button>';
-  h+='<span class="tag tag--gold">Exercise • +'+ex.xp+' XP</span></div>';
-  h+='<h1 style="font-size:1.3rem;margin-bottom:6px">'+ex.name+'</h1>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">Follow each step. Take your time.</p>';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+  h+='<button class="btn btn-g btn-sm" onclick="openLesson(\''+curLesson.id+'\')">← Back</button>';
+  h+='<span class="tag tag-g">Exercise • +'+ex.xp+' XP</span></div>';
+  h+='<h1 style="font-size:1.2rem;margin-bottom:6px">'+ex.name+'</h1>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Follow each step. Take your time.</p>';
   for(var s=0;s<ex.steps.length;s++){
-    h+='<div class="ex-step"><div class="ex-step-num">'+(s+1)+'</div>';
-    h+='<div class="ex-step-text"><h4>Step '+(s+1)+'</h4><p>'+ex.steps[s]+'</p></div></div>';
+    h+='<div class="es"><div class="esn">'+(s+1)+'</div>';
+    h+='<div class="est"><h4>Step '+(s+1)+'</h4><p>'+ex.steps[s]+'</p></div></div>';
   }
-  h+='<button class="btn btn--success btn--block" style="margin-top:16px" onclick="finishExercise()">I Completed This ✓</button>';
+  if(ex.monitor){
+    h+='<div class="c c-a" style="margin-top:12px"><strong>Self-Monitor:</strong><p style="margin-top:4px;color:var(--tx2);font-size:.82rem">'+ex.monitor+'</p></div>';
+  }
+  h+='<button class="btn btn-s" style="margin-top:16px" onclick="finishExercise()">I Completed This ✓</button>';
   c.innerHTML=h;
 }
 
 function finishExercise(){
-  var ex=currentLesson.exercise;
+  var ex=curLesson.exercise;
   U.xp+=ex.xp;
   U.skills[ex.skill]=Math.min(10,U.skills[ex.skill]+1);
   U.sessions++;
+  ADAPTIVE.trackVocalLoad(5);
   save();
-  toast('Exercise complete! +'+ex.xp+' XP, '+ex.skill+' skill up!','success');
-  completeLesson();
+  toast("Exercise complete! +"+ex.xp+" XP","s");
+  finishLesson();
 }
 
-function completeLesson(){
-  if(U.completedLessons.indexOf(currentLesson.id)===-1)U.completedLessons.push(currentLesson.id);
-  // Check if stage complete
-  var allDone=true;
-  for(var s=0;s<CURRICULUM.stages.length;s++){
-    if(CURRICULUM.stages[s].id===U.stage){
-      for(var l=0;l<CURRICULUM.stages[s].lessons.length;l++){
-        if(U.completedLessons.indexOf(CURRICULUM.stages[s].lessons[l].id)===-1){allDone=false;break;}
-      }
-      break;
-    }
-  }
-  if(allDone&&U.stage<CURRICULUM.stages.length){
-    U.stage++;
-    toast('Stage '+(U.stage-1)+' complete! Stage '+U.stage+' unlocked!','gold');
+function finishLesson(){
+  if(U.completed.indexOf(curLesson.id)===-1)U.completed.push(curLesson.id);
+  var ax=ADAPTIVE.diagnose();
+  if(U.skills[ax.weakest]>=10&&ax.weakest!=="performance"){
+    WHATSAPP.handoff("breakthrough",ax.skillName);
   }
   save();
-  go('learn');
+  go("learn");
+}
+
+function quickDrill(skill,name){
+  var c=document.getElementById("v-c");
+  var h='';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+  h+='<button class="btn btn-g btn-sm" onclick="go(\'home\')">← Back</button>';
+  h+='<span class="tag tag-g">Drill • +10 XP</span></div>';
+  h+='<h1 style="font-size:1.2rem;margin-bottom:6px">'+name+' Drill</h1>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Do this drill now. Focus on quality.</p>';
+  h+='<div class="c c-a text-center" style="padding:28px;margin-bottom:16px">';
+  h+='<div style="font-size:3rem;margin-bottom:12px">🎤</div>';
+  h+='<h3>Ready?</h3>';
+  h+='<p style="color:var(--tx3);margin-top:8px">When done, tap below.</p></div>';
+  h+='<button class="btn btn-s" onclick="finishQuickDrill(\''+skill+'\')">I Did It ✓</button>';
+  c.innerHTML=h;
+  showSession();
+}
+
+function finishQuickDrill(skill){
+  U.xp+=10;U.skills[skill]=Math.min(10,U.skills[skill]+1);U.sessions++;
+  ADAPTIVE.trackVocalLoad(2);save();
+  toast("Done! +10 XP","s");
+  go("home");
 }
 
 // ═══════════════════════════════════════════════════
 // RENDER: PRACTICE
 // ═══════════════════════════════════════════════════
 function renderPractice(){
-  var c=document.getElementById('p-content');
+  var c=document.getElementById("p-c");
   var h='';
   h+='<h2 style="margin-bottom:4px">Practice</h2>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">Repetition builds mastery. Pick a drill.</p>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Repetition builds mastery.</p>';
 
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Daily Drills</span></div>';
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Daily Drills</span></div>';
   var drills=[
-    {icon:'💨',name:'Breath Control',desc:'Sustain "sss" for 20 seconds. Even airflow.',skill:'airflow',xp:10},
-    {icon:'🎵',name:'Pitch Hold',desc:'Sing one note, hold steady for 10 seconds.',skill:'source',xp:10},
-    {icon:'🗣️',name:'Consonant Run',desc:'"ma-me-mi-mo-mu" x5. Every consonant crisp.',skill:'articulation',xp:10},
-    {icon:'🔔',name:'Forward Hum',desc:'Hum on "ng". Feel buzz in lips. 30 seconds.',skill:'resonance',xp:10},
-    {icon:'📈',name:'Scale Run',desc:'Do-re-mi-fa-sol-fa-mi-re-do. Slow and even.',skill:'source',xp:15},
-    {icon:'🌊',name:'Crescendo',desc:'One note: soft → loud → soft. 8 seconds.',skill:'airflow',xp:15}
+    {ic:"💨",n:"Breath Control",s:"airflow",d:"Hiss 'sss' for 20 sec"},
+    {ic:"🎵",n:"Balanced Onset",s:"source",d:"Clean 'ah' — no breath, no squeeze"},
+    {ic:"🗣️",n:"Diction Run",s:"articulation",d:"ma-me-mi-mo-mu x5 fast"},
+    {ic:"🔔",n:"Forward Hum",s:"resonance",d:"Hum 'ng', feel buzz 30 sec"}
   ];
   for(var i=0;i<drills.length;i++){
     var d=drills[i];
-    h+='<div class="li" onclick="quickDrill(\''+d.skill+'\',\''+d.name+'\','+d.xp+')">';
-    h+='<div class="li-icon">'+d.icon+'</div>';
-    h+='<div class="li-body"><div class="li-title">'+d.name+'</div><div class="li-sub">'+d.desc+'</div></div>';
-    h+='<span class="li-right">+'+d.xp+' XP</span></div>';
+    h+='<div class="li" onclick="quickDrill(\'+d.s+\',\'+d.n+\')">';
+    h+='<div class="li-ic">'+d.ic+'</div>';
+    h+='<div class="li-b"><div class="li-t">'+d.n+'</div><div class="li-sub">'+d.d+'</div></div>';
+    h+='<span class="li-r">+10</span></div>';
   }
   h+='</div>';
 
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Voice Diagnostic</span></div>';
-  h+='<div class="card card--accent" onclick="startDiagnostic()">';
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Voice Diagnostic</span></div>';
+  h+='<div class="c c-a" onclick="startDiag()">';
   h+='<div class="flex items-center gap-12">';
-  h+='<div class="li-icon li-icon--gold">🔍</div>';
-  h+='<div style="flex:1"><div style="font-weight:600;margin-bottom:2px">Voice Check</div>';
-  h+='<div style="font-size:.75rem;color:var(--text3)">Answer questions about your singing. Get a targeted exercise.</div></div>';
-  h+='</div></div></div>';
+  h+='<div class="li-ic li-g">🔍</div>';
+  h+='<div style="flex:1"><div style="font-weight:600;margin-bottom:2px">Full Voice Check</div>';
+  h+='<div style="font-size:.72rem;color:var(--tx3)">Answer questions about your singing. Get a targeted exercise prescription.</div></div></div></div></div>';
 
   c.innerHTML=h;
 }
 
-function quickDrill(skill,name,xp){
-  var c=document.getElementById('v-content');
-  var h='';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
-  h+='<button class="btn btn--ghost btn--sm" onclick="go(\'practice\')">← Back</button>';
-  h+='<span class="tag tag--gold">Drill • +'+xp+' XP</span></div>';
-  h+='<h1 style="font-size:1.3rem;margin-bottom:6px">'+name+'</h1>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">Do this drill now. Focus on quality, not speed.</p>';
-  h+='<div class="card card--highlight text-center" style="padding:32px;margin-bottom:16px">';
-  h+='<div style="font-size:3rem;margin-bottom:12px">🎤</div>';
-  h+='<h3>Ready?</h3>';
-  h+='<p style="color:var(--text3);margin-top:8px">When you are done, tap the button below.</p></div>';
-  h+='<button class="btn btn--success" onclick="finishQuickDrill(\''+skill+'\','+xp+')">I Did It ✓</button>';
-  c.innerHTML=h;
-  showSession();
-}
-
-function finishQuickDrill(skill,xp){
-  U.xp+=xp;
-  U.skills[skill]=Math.min(10,U.skills[skill]+1);
-  U.sessions++;
-  U.totalPracticeMinutes+=2;
-  save();
-  toast('Done! +'+xp+' XP','success');
-  go('practice');
-}
-
-function startDiagnostic(){
-  var symptoms=[
-    {id:'pitch',label:'My pitch wavers or drifts'},
-    {id:'strain',label:'My voice feels tight or painful'},
-    {id:'breathy',label:'Air escapes, tone lacks focus'},
-    {id:'power',label:'My voice lacks volume'},
-    {id:'crack',label:'My voice cracks between registers'},
-    {id:'tired',label:'My voice tires quickly'},
-    {id:'nasal',label:'My tone sounds pinched'}
+function startDiag(){
+  var syms=[
+    {id:"pitch",l:"Pitch wavers or drifts"},{id:"strain",l:"Voice feels tight or painful"},
+    {id:"breathy",l:"Air escapes, tone lacks focus"},{id:"power",l:"Voice lacks volume"},
+    {id:"crack",l:"Voice cracks between registers"},{id:"tired",l:"Voice tires quickly"},
+    {id:"nasal",l:"Tone sounds pinched"},{id:"range",l:"Cannot hit high or low notes"}
   ];
-  var c=document.getElementById('v-content');
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
-  h+='<button class="btn btn--ghost btn--sm" onclick="go(\'practice\')">← Back</button>';
-  h+='<span class="tag tag--primary">Diagnostic</span></div>';
-  h+='<h1 style="font-size:1.3rem;margin-bottom:6px">Voice Check</h1>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">Select all that apply to your singing right now.</p>';
-  for(var i=0;i<symptoms.length;i++){
-    var s=symptoms[i];
-    h+='<div class="q-option" id="diag-'+s.id+'" onclick="toggleDiag(\''+s.id+'\')">';
-    h+='<div class="q-radio"></div>';
-    h+='<span style="font-size:.9rem">'+s.label+'</span></div>';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+  h+='<button class="btn btn-g btn-sm" onclick="go(\'practice\')">← Back</button>';
+  h+='<span class="tag tag-p">Diagnostic</span></div>';
+  h+='<h1 style="font-size:1.2rem;margin-bottom:6px">Voice Check</h1>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Select all that apply to your singing right now.</p>';
+  for(var i=0;i<syms.length;i++){
+    var s=syms[i];
+    h+='<div class="qo" id="dg-'+s.id+'" onclick="toggleDiag(\''+s.id+'\')">';
+    h+='<div class="qr"></div><span style="font-size:.85rem">'+s.l+'</span></div>';
   }
-  h+='<button class="btn btn--primary" style="margin-top:16px" onclick="submitDiagnostic()">Get My Exercise →</button>';
+  h+='<button class="btn btn-p" style="margin-top:16px" onclick="submitDiag()">Get My Exercise →</button>';
   c.innerHTML=h;
   showSession();
 }
 
-var diagSelected=[];
+var diagSel=[];
 function toggleDiag(id){
-  var el=document.getElementById('diag-'+id);
-  var idx=diagSelected.indexOf(id);
-  if(idx===-1){diagSelected.push(id);el.classList.add('selected');}
-  else{diagSelected.splice(idx,1);el.classList.remove('selected');}
+  var el=document.getElementById("dg-"+id);
+  var idx=diagSel.indexOf(id);
+  if(idx===-1){diagSel.push(id);el.classList.add("sel");}
+  else{diagSel.splice(idx,1);el.classList.remove("sel");}
 }
 
-function submitDiagnostic(){
-  if(diagSelected.length===0){toast('Select at least one');return;}
+function submitDiag(){
+  if(diagSel.length===0){toast("Select at least one");return;}
   var scores={airflow:0,source:0,resonance:0,articulation:0};
-  var map={pitch:['source','airflow'],strain:['source'],breathy:['source','airflow'],power:['airflow'],crack:['source'],tired:['airflow','source'],nasal:['resonance']};
-  for(var i=0;i<diagSelected.length;i++){
-    var s=map[diagSelected[i]];
+  var map={pitch:["source","airflow"],strain:["source"],breathy:["source","airflow"],power:["airflow"],crack:["source"],tired:["airflow","source"],nasal:["resonance"],range:["source","mix"]};
+  for(var i=0;i<diagSel.length;i++){
+    var s=map[diagSel[i]];
     if(s)for(var j=0;j<s.length;j++)scores[s[j]]++;
   }
-  var primary='source',max=0;
-  for(var k in scores)if(scores[k]>max){max=scores[k];primary=k;}
+  var primary="source",mx=0;
+  for(var k in scores)if(scores[k]>mx){mx=scores[k];primary=k;}
+  U.diagnosticResults.push({date:new Date().toISOString(),primary:primary,symptoms:diagSel});
+
   var exercises={
-    airflow:{name:'Appoggio Reset',steps:['Stand tall, hands on lower ribs','Breathe in — ribs push hands out (sideways, not just belly)','Hold ribs open — blow "sss" while keeping ribs expanded','Do not let your chest collapse — the ribs stay wide as air flows out','Repeat 5 times — each time, sustain the "sss" longer','Now sing a short phrase — maintain that rib expansion throughout'],xp:20},
-    source:{name:'Balanced Onset',steps:['Hum on "m" for 5 seconds — feel the buzz','Open to "mah" — keep the same easy feeling','Sing "ah" 5 times — clean start, no breathy "h", no hard attack','Sing a scale — balanced onset on every note','Sing a phrase from a song — carry that balance into lyrics'],xp:20},
-    resonance:{name:'Forward Placement',steps:['Hum on "ng" — feel buzz in nose/lips','Slide up and down on "ng" — keep buzz forward','Sing "mee" — lips should tingle','Sing "mah" — same forward feeling','Sing a phrase — resonance stays forward, not in throat'],xp:20},
-    articulation:{name:'Clear Diction',steps:['Speak: "ma-me-mi-mo-mu" — slow, every consonant clear','Say it faster — keep clarity','Sing it on one pitch — same precision','Sing a lyric — every word understandable','Record yourself — can you hear every word?'],xp:20}
+    airflow:{name:"Appoggio & Air Efficiency",steps:["Hands on lower ribs. Breathe in — ribs push out.","Hiss 'sss' while holding ribs open. Goal: 20 sec.","Sing a phrase — ribs stay open throughout.","Practice: 5 phrases, all with maintained expansion.","Self-check: did your chest collapse on any phrase? Redo those."],skill:"airflow",xp:20},
+    source:{name:"Balanced Closure",steps:["Hum on 'm' for 5 sec — feel the easy buzz","Say 'ah' — is there a breathy 'h'? If yes, reduce it.","Say 'ah' — is it too hard/glottal? If yes, soften.","Find the middle: clean 'ah', no excess air, no squeeze.","Sing a scale on 'ah' — same balanced feeling on every note."],skill:"source",xp:20},
+    resonance:{name:"Forward Placement",steps:["Hum on 'm' — feel buzz in lips and nose","Open to 'mah' — buzz stays forward, not in throat","Slide up and down on 'mee' — keep forward throughout","Sing a verse of a known song — resonance stays forward","If buzz drops to throat, stop, hum, restart"],skill:"resonance",xp:20},
+    articulation:{name:"Clear Diction",steps:["Speak: 'ma-me-mi-mo-mu' — every consonant crisp","Say it faster — keep clarity","Sing it on one pitch — same precision","Sing a lyric — every word clear without jaw tension","Record: can you understand every word?"],skill:"articulation",xp:20},
+    mix:{name:"Smooth Transitions",steps:["Find your break — slide up, note where it flips","At that note, sing 'ng' — keeps folds connected","Slide through the zone on 'ng' — no flip","Try 'mee' through the zone — maintain connection","Sing a phrase that crosses the zone — smooth, no flip"],skill:"mix",xp:20}
   };
-  var ex=exercises[primary];
-  var c=document.getElementById('v-content');
+  var ex=exercises[primary]||exercises.source;
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
-  h+='<button class="btn btn--ghost btn--sm" onclick="go(\'practice\')">← Back</button>';
-  h+='<span class="tag tag--gold">Your Exercise • +'+ex.xp+' XP</span></div>';
-  h+='<h1 style="font-size:1.3rem;margin-bottom:6px">'+ex.name+'</h1>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">Based on your answers, this is your priority.</p>';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+  h+='<button class="btn btn-g btn-sm" onclick="go(\'practice\')">← Back</button>';
+  h+='<span class="tag tag-g">Your Exercise • +'+ex.xp+' XP</span></div>';
+  h+='<h1 style="font-size:1.2rem;margin-bottom:6px">'+ex.name+'</h1>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Based on your answers, this is your priority area.</p>';
   for(var s=0;s<ex.steps.length;s++){
-    h+='<div class="ex-step"><div class="ex-step-num">'+(s+1)+'</div>';
-    h+='<div class="ex-step-text"><h4>Step '+(s+1)+'</h4><p>'+ex.steps[s]+'</p></div></div>';
+    h+='<div class="es"><div class="esn">'+(s+1)+'</div>';
+    h+='<div class="est"><h4>Step '+(s+1)+'</h4><p>'+ex.steps[s]+'</p></div></div>';
   }
-  h+='<button class="btn btn--success btn--block" style="margin-top:16px" onclick="finishDiagDrill(\''+primary+'\','+ex.xp+')">I Completed This ✓</button>';
+  h+='<p style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:var(--r);padding:12px;font-size:.78rem;color:var(--tx2);margin-bottom:16px"><strong>Self-monitor:</strong> Are you hitting the target? If not, go back one step.</p>';
+  h+='<button class="btn btn-s" onclick="finishDiag(\''+ex.skill+'\','+ex.xp+')">I Completed This ✓</button>';
   c.innerHTML=h;
-  diagSelected=[];
+  diagSel=[];
 }
 
-function finishDiagDrill(skill,xp){
-  U.xp+=xp;
-  U.skills[skill]=Math.min(10,U.skills[skill]+1);
-  U.sessions++;
-  save();
-  toast('Exercise complete! +'+xp+' XP','success');
-  go('practice');
+function finishDiag(skill,xp){
+  U.xp+=xp;U.skills[skill]=Math.min(10,U.skills[skill]+1);U.sessions++;
+  ADAPTIVE.trackVocalLoad(5);save();
+  toast("Exercise complete! +"+xp+" XP","s");
+  go("practice");
 }
 
 // ═══════════════════════════════════════════════════
 // RENDER: SONGS
 // ═══════════════════════════════════════════════════
 function renderSongs(){
-  var c=document.getElementById('g-content');
+  var c=document.getElementById("g-c");
   var h='';
   h+='<h2 style="margin-bottom:4px">Song Library</h2>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">Apply your training to real songs.</p>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Apply your training.</p>';
   for(var i=0;i<SONGS.length;i++){
-    var s=SONGS[i];
-    var locked=s.stage>U.stage;
-    var done=U.completedSongs.indexOf(s.id)!==-1;
-    h+='<div class="li" style="opacity:'+(locked?'0.4':'1')+';pointer-events:'+(locked?'none':'auto')+'" onclick="openSong(\''+s.id+'\')">';
-    h+='<div class="li-icon '+(done?'li-icon--success':'li-icon--gold')+'">'+(done?'✓':'🎵')+'</div>';
-    h+='<div class="li-body"><div class="li-title">'+s.title+'</div>';
-    h+='<div class="li-sub">'+s.artist+' • Diff '+s.diff+'/4 • '+s.sys.join(', ')+'</div></div>';
-    if(done)h+='<span class="tag tag--success">Done</span>';
-    if(locked)h+='<span class="tag" style="background:rgba(255,255,255,.05);color:var(--text3)">🔒</span>';
-    if(!locked&&!done)h+='<span class="tag tag--primary">Sing →</span>';
+    var s=SONGS[i],locked=s.stage>U.stage,done=U.completedSongs.indexOf(s.id)!==-1;
+    h+='<div class="li" style="opacity:'+(locked?"0.4":"1")+';pointer-events:'+(locked?"none":"auto")+'" onclick="openSong(\''+s.id+'\')">';
+    h+='<div class="li-ic '+(done?"li-s":"li-g")+'">'+(done?"✓":"🎵")+'</div>';
+    h+='<div class="li-b"><div class="li-t">'+s.title+'</div>';
+    h+='<div class="li-sub">'+s.artist+' • Diff '+s.diff+'/5 • '+s.sys.join(", ")+'</div></div>';
+    if(done)h+='<span class="tag tag-s">Done</span>';
+    if(locked)h+='<span class="tag" style="background:rgba(255,255,255,.05);color:var(--tx3)">🔒</span>';
     h+='</div>';
   }
   c.innerHTML=h;
 }
 
 function openSong(id){
-  var song=null;
-  for(var i=0;i<SONGS.length;i++)if(SONGS[i].id===id)song=SONGS[i];
+  var song=null;for(var i=0;i<SONGS.length;i++)if(SONGS[i].id===id)song=SONGS[i];
   if(!song)return;
-  var c=document.getElementById('v-content');
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">';
-  h+='<button class="btn btn--ghost btn--sm" onclick="go(\'songs\')">← Back</button>';
-  h+='<span class="tag tag--gold">Song Practice</span></div>';
-  h+='<h1 style="font-size:1.4rem;margin-bottom:4px">'+song.title+'</h1>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">'+song.artist+'</p>';
-  h+='<div class="card mb-12"><h3 style="margin-bottom:8px">Training Focus</h3>';
-  h+='<p style="margin-bottom:8px">'+song.notes+'</p>';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+  h+='<button class="btn btn-g btn-sm" onclick="go(\'songs\')">← Back</button>';
+  h+='<span class="tag tag-g">Song Practice</span></div>';
+  h+='<h1 style="font-size:1.3rem;margin-bottom:4px">'+song.title+'</h1>';
+  h+='<p style="color:var(--tx3);margin-bottom:16px">'+song.artist+'</p>';
+  h+='<div class="c mb-12"><h3 style="margin-bottom:8px">Training Focus</h3>';
+  h+='<p style="margin-bottom:10px">'+song.notes+'</p>';
   h+='<div style="display:flex;gap:6px;flex-wrap:wrap">';
-  for(var s=0;s<song.sys.length;s++)h+='<span class="tag tag--primary">'+song.sys[s]+'</span>';
+  for(var s=0;s<song.sys.length;s++)h+='<span class="tag tag-p">'+song.sys[s]+'</span>';
   h+='</div></div>';
-  h+='<div class="card mb-12"><h3 style="margin-bottom:12px">Pre-Flight Exercises</h3>';
-  for(var e=0;e<song.exercises.length;e++){
-    h+='<div class="ex-step"><div class="ex-step-num">'+(e+1)+'</div>';
-    h+='<div class="ex-step-text"><p>'+song.exercises[e]+'</p></div></div>';
+  for(var ch=0;ch<song.challenges.length;ch++){
+    h+='<div class="es"><div class="esn">'+(ch+1)+'</div>';
+    h+='<div class="est"><p>'+song.challenges[ch]+'</p></div></div>';
   }
-  h+='</div>';
-  h+='<button class="btn btn--primary" onclick="practiceSong(\''+song.id+'\')">I Sang It ✓</button>';
+  h+='<button class="btn btn-p" onclick="practiceSong(\''+song.id+'\')">I Sang It ✓</button>';
   c.innerHTML=h;
   showSession();
 }
 
 function practiceSong(id){
-  var song=null;
-  for(var i=0;i<SONGS.length;i++)if(SONGS[i].id===id)song=SONGS[i];
-  U.xp+=50;
-  U.sessions++;
+  var song=null;for(var i=0;i<SONGS.length;i++)if(SONGS[i].id===id)song=SONGS[i];
+  U.xp+=50;U.sessions++;
   for(var s=0;s<song.sys.length;s++)U.skills[song.sys[s]]=Math.min(10,U.skills[song.sys[s]]+1);
   if(U.completedSongs.indexOf(id)===-1)U.completedSongs.push(id);
-  save();
-  var c=document.getElementById('v-content');
+  ADAPTIVE.trackVocalLoad(10);save();
+  var c=document.getElementById("v-c");
   var h='';
-  h+='<div class="card card--gold text-center" style="padding:32px;margin-bottom:16px">';
+  h+='<div class="c c-g text-center" style="padding:28px;margin-bottom:16px">';
   h+='<div style="font-size:3rem;margin-bottom:8px">🏆</div>';
   h+='<h2>Song Complete!</h2>';
-  h+='<p style="color:var(--text3)">+50 XP. Skills improved.</p></div>';
-  h+='<button class="btn btn--primary" onclick="go(\'songs\')">Back to Songs</button>';
+  h+='<p style="color:var(--tx3)">+50 XP. Skills improved.</p></div>';
+  h+='<button class="btn btn-p" onclick="go(\'songs\')">Back to Songs</button>';
   c.innerHTML=h;
 }
 
@@ -853,67 +1046,87 @@ function practiceSong(id){
 // RENDER: PROGRESS
 // ═══════════════════════════════════════════════════
 function renderProgress(){
-  var c=document.getElementById('r-content');
+  var c=document.getElementById("r-c");
   var h='';
   h+='<h2 style="margin-bottom:4px">Your Progress</h2>';
-  h+='<p style="color:var(--text3);margin-bottom:20px">Track your vocal growth.</p>';
-
-  h+='<div class="card card--gold text-center" style="padding:28px;margin-bottom:20px">';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Track your vocal growth.</p>';
+  h+='<div class="c c-g text-center" style="padding:24px;margin-bottom:20px">';
   h+='<div style="font-size:2.5rem;margin-bottom:8px">⭐</div>';
-  h+='<h2 style="font-size:1.8rem;margin-bottom:4px">'+U.xp+' XP</h2>';
-  h+='<p style="color:var(--text3)">Level '+U.level+' • '+U.sessions+' sessions • '+U.completedSongs.length+' songs • '+U.totalPracticeMinutes+' min practiced</p></div>';
+  h+='<h2 style="font-size:1.6rem;margin-bottom:4px">'+U.xp+' XP</h2>';
+  h+='<p style="color:var(--tx3);font-size:.8rem;margin-bottom:4px">Level '+U.level+' • '+U.sessions+' sessions</p></div>';
 
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Voice Systems</span></div>';
-  var sys=['airflow','source','resonance','articulation'];
-  var sysNames={airflow:'Airflow',source:'Source',resonance:'Resonance',articulation:'Articulation'};
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Voice Systems</span></div>';
+  var sys=["airflow","source","resonance","articulation","mix","ear","performance"];
+  var sn={airflow:"Airflow",source:"Source",resonance:"Resonance",articulation:"Articulation",mix:"Mix Voice",ear:"Ear",performance:"Performance"};
   for(var s=0;s<sys.length;s++){
-    var sk=sys[s],lvl=U.skills[sk],pct=lvl*10;
-    h+='<div style="margin-bottom:14px">';
-    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
-    h+='<span style="font-size:.85rem;font-weight:600">'+sysNames[sk]+'</span>';
-    h+='<span style="font-size:.75rem;color:var(--text3)">'+lvl+'/10</span></div>';
-    h+='<div class="prog"><div class="prog-fill" style="width:'+pct+'%"></div></div></div>';
+    var sk=sys[s],lvl=U.skills[sk]||0,pct=lvl*10;
+    h+='<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:4px">';
+    h+='<span style="font-size:.8rem">'+sn[sk]+'</span>';
+    h+='<span style="font-size:.7rem;color:var(--tx3)">'+lvl+'/10</span></div>';
+    h+='<div class="pr"><div class="pr-f" style="width:'+pct+'%"></div></div></div>';
   }
   h+='</div>';
 
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Stage Progress</span></div>';
-  h+='<div class="card card--accent text-center" style="padding:24px">';
-  h+='<h2 style="font-size:1.5rem;margin-bottom:4px">Stage '+U.stage+': '+CURRICULUM.stages[U.stage-1].name+'</h2>';
-  h+='<p style="color:var(--text3);margin-bottom:12px">'+CURRICULUM.stages[U.stage-1].subtitle+'</p>';
-  var stagePct=Math.round((U.stage-1)/CURRICULUM.stages.length*100);
-  h+='<div class="prog prog--gold"><div class="prog-fill" style="width:'+stagePct+'%"></div></div>';
-  h+='<p style="font-size:.7rem;color:var(--text3);margin-top:6px">'+stagePct+'% through curriculum</p></div></div>';
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Curriculum</span></div>';
+  h+='<p style="color:var(--tx3);font-size:.8rem">'+U.completed.length+' lessons completed</p></div>';
 
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Songs Completed ('+U.completedSongs.length+'/'+SONGS.length+')</span></div>';
-  if(U.completedSongs.length===0){
-    h+='<p style="color:var(--text3)">No songs completed yet.</p>';
-  }else{
-    for(var i=0;i<U.completedSongs.length;i++){
-      var song=null;
-      for(var j=0;j<SONGS.length;j++)if(SONGS[j].id===U.completedSongs[i])song=SONGS[j];
-      if(song)h+='<div class="card" style="padding:12px 16px;margin-bottom:6px"><span style="font-weight:600">'+song.title+'</span> <span style="color:var(--text3);font-size:.8rem">— '+song.artist+'</span></div>';
-    }
-  }
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Songs ('+U.completedSongs.length+'/'+SONGS.length+')</span></div>';
+  if(U.completedSongs.length===0){h+='<p style="color:var(--tx3);font-size:.8rem">No songs completed yet.</p>';}
+  else{for(var i=0;i<U.completedSongs.length;i++){var song=null;for(var j=0;j<SONGS.length;j++)if(SONGS[j].id===U.completedSongs[i])song=SONGS[j];if(song)h+='<div class="c" style="padding:10px 14px;margin-bottom:4px;font-size:.82rem"><strong>'+song.title+'</strong> <span style="color:var(--tx3)">— '+song.artist+'</span></div>';}}
   h+='</div>';
 
-  h+='<div class="sec"><div class="sec-header"><span class="sec-title">Lessons Completed</span></div>';
-  h+='<p style="color:var(--text3)">'+U.completedLessons.length+' lessons completed</p></div>';
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Vocal Health</span></div>';
+  h+='<p style="color:var(--tx3);font-size:.8rem">Vocal load: '+Math.round(U.vocalLoad/U.maxLoad*100)+'%</p>';
+  h+='<div class="pr pr-s" style="margin-top:8px"><div class="pr-f" style="width:'+Math.min(100,Math.round(U.vocalLoad/U.maxLoad*100))+'%"></div></div>';
+  if(U.vocalLoad>U.maxLoad*0.7)h+='<p style="color:var(--warn);font-size:.75rem;margin-top:6px">⚠ Consider resting your voice before next session</p>';
+  h+='</div>';
 
-  h+='<button class="btn btn--ghost" style="margin-top:20px" onclick="resetAll()">Reset All Progress</button>';
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Need a Coach?</span></div>';
+  h+='<div class="c" style="text-align:center;padding:16px" onclick="WHATSAPP.handoff(\'stuck\',\'overall\')">';
+  h+='<div style="font-size:1.5rem;margin-bottom:6px">🗣️</div>';
+  h+='<div style="font-weight:600;font-size:.85rem;margin-bottom:4px">Get Personal Feedback</div>';
+  h+='<div style="font-size:.72rem;color:var(--tx3)">Coach Toby reviews your progress via WhatsApp</div></div></div>';
+
+  h+='<button class="btn btn-g" style="margin-top:20px" onclick="resetAll()">Reset All Progress</button>';
   c.innerHTML=h;
 }
 
 function resetAll(){
-  U={name:'Singer',xp:0,level:1,stage:1,sessions:0,completedLessons:[],completedSongs:[],badges:[],skills:{airflow:0,source:0,resonance:0,articulation:0},lastActive:null,totalPracticeMinutes:0};
-  save();
-  toast('Progress reset');
-  go('home');
+  U={name:"Singer",email:"",xp:0,level:1,stage:1,sessions:0,skills:{airflow:0,source:0,resonance:0,articulation:0,ear:0,mix:0,performance:0},completed:[],completedSongs:[],badges:[],vocalLoad:0,maxLoad:100,lastPractice:null,weaknessHistory:[],diagnosticResults:[],preferences:{}};
+  save();toast("Progress reset");go("home");
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER: PROFILE (email capture + settings)
+// ═══════════════════════════════════════════════════
+function renderProfile(){
+  var c=document.getElementById("f-c");
+  var h='';
+  h+='<h2 style="margin-bottom:4px">Profile</h2>';
+  h+='<p style="color:var(--tx3);margin-bottom:20px">Your account and preferences.</p>';
+
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Account</span></div>';
+  h+='<div class="c"><label style="font-size:.75rem;color:var(--tx3)">Name</label>';
+  h+='<input type="text" id="p-name" value="'+U.name+'" style="width:100%;padding:10px 0;border-bottom:1px solid var(--bd);font-size:1rem" onchange="U.name=this.value;save();"></div>';
+  h+='<div class="c" style="margin-top:8px"><label style="font-size:.75rem;color:var(--tx3)">Email (for coaching handoff)</label>';
+  h+='<input type="email" id="p-email" value="'+U.email+'" placeholder="your@email.com" style="width:100%;padding:10px 0;border-bottom:1px solid var(--bd);font-size:1rem" onchange="U.email=this.value;save();"></div></div>';
+
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Stats</span></div>';
+  h+='<div class="c"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Total XP</span><strong>'+U.xp+'</strong></div>';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Sessions</span><strong>'+U.sessions+'</strong></div>';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Lessons Done</span><strong>'+U.completed.length+'</strong></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>Songs Done</span><strong>'+U.completedSongs.length+'</strong></div></div></div>';
+
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Get Coaching</span></div>';
+  h+='<div class="c c-a" style="text-align:center;padding:20px" onclick="WHATSAPP.handoff(\'welcome\',\'general\')">';
+  h+='<div style="font-size:2rem;margin-bottom:8px">🗣️</div>';
+  h+='<div style="font-weight:600;margin-bottom:4px">Connect with Coach Toby</div>';
+  h+='<div style="font-size:.75rem;color:var(--tx3)">Get personal exercises and feedback via WhatsApp</div></div></div>';
+
+  c.innerHTML=h;
 }
 
 // ═══════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════
 go('home');
-</script>
-</body>
-</html>
