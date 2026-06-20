@@ -107,6 +107,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   .q-card{padding:16px}
 }
 </style>
+  <script src="assets/vma-engine.js"></script>
 </head>
 <body>
 
@@ -438,64 +439,35 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
 </div>
 
+
 <script>
-// =============================================
-// MODULE 1 ENGINE
-// =============================================
-
 const MODULE = 1;
-const STORAGE_KEY = 'vma_student';
-const TERMS_KEY = 'vma_terms_agreed';
-const CORRECT_ANSWERS = {
-  'q1-1': 1, 'q1-2': 0, 'q1-3': 1, 'q1-4': 1, 'q1-5': 2
-};
+const CORRECT_ANSWERS = {'q1-1': 1, 'q1-2': 1, 'q1-3': 1, 'q1-4': 1, 'q1-5': 2};
 
-// --- Terms check ---
-if (localStorage.getItem(TERMS_KEY) !== 'true') {
-  window.location.href = 'terms.html';
-}
+const s = VMA.getStudent();
+if (!s) { window.location.href = 'academy.html'; }
 
-// --- Student ---
-function getStudent() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) { return null; }
-}
-function setStudent(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
-// --- Init student if first visit ---
-const s = getStudent();
-if (!s) {
-  window.location.href = 'academy.html';
-}
-
-// --- Lesson Navigation ---
 let currentLesson = 1;
 const totalLessons = 5;
 
 function showLesson(n) {
   for (let i = 1; i <= totalLessons; i++) {
-    const el = document.getElementById('lesson-1-' + i);
+    const el = document.getElementById('lesson-' + MODULE + '-' + i);
     if (el) el.style.display = i === n ? '' : 'none';
   }
   currentLesson = n;
   window.scrollTo({top:0,behavior:'smooth'});
   
-  // Mark lesson as read
-  if (window.VMA) {
-    const st = window.VMA.getStudent();
-    if (st) {
-      st.lessons = st.lessons || {};
-      st.lessons['1-' + n] = true;
-      window.VMA.setStudent(st);
-      window.VMA.awardXP(10, 'Completed Lesson 1.' + n);
-    }
+  const st = VMA.getStudent();
+  if (st) {
+    st.lessons = st.lessons || {};
+    st.lessons[MODULE + '-' + n] = true;
+    VMA.setStudent(st);
+    VMA.awardXP(10, 'Completed Lesson ' + MODULE + '.' + n);
   }
-  
   updateProgress();
 }
 
-// --- Task Completion ---
 function completeTask(taskId) {
   const btn = document.getElementById('taskBtn-' + taskId);
   if (!btn) return;
@@ -503,25 +475,19 @@ function completeTask(taskId) {
   btn.className = 'task-btn done';
   btn.onclick = null;
   
-  if (window.VMA) {
-    window.VMA.awardXP(25, 'Completed Task ' + taskId);
-    window.VMA.updateStreak();
-    window.VMA.showNotification('✓ Task complete! +25 XP');
-  }
+  VMA.awardXP(25, 'Completed Task ' + taskId);
+  VMA.updateStreak();
+  VMA.showNotification('✓ Task complete! +25 XP');
   
-  // Auto-advance to next lesson after short delay
   const lessonNum = parseInt(taskId.split('-')[1]);
   if (lessonNum < totalLessons) {
     setTimeout(() => showLesson(lessonNum + 1), 800);
   } else {
-    // All lessons done — show quiz
     setTimeout(() => showQuiz(), 800);
   }
-  
   updateProgress();
 }
 
-// --- Quiz ---
 let quizAnswers = {};
 let quizSubmitted = false;
 
@@ -531,8 +497,6 @@ function selectOpt(btn, qId) {
   parent.querySelectorAll('.q-opt').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   quizAnswers[qId] = Array.from(parent.querySelectorAll('.q-opt')).indexOf(btn);
-  
-  // Enable submit if all answered
   const allAnswered = Object.keys(CORRECT_ANSWERS).every(q => quizAnswers[q] !== undefined);
   document.getElementById('quizSubmit').disabled = !allAnswered;
 }
@@ -540,19 +504,16 @@ function selectOpt(btn, qId) {
 function submitQuiz() {
   if (quizSubmitted) return;
   quizSubmitted = true;
-  
   let correct = 0;
   const total = Object.keys(CORRECT_ANSWERS).length;
   
   for (const [qId, correctIdx] of Object.entries(CORRECT_ANSWERS)) {
     const opts = document.querySelectorAll('#' + qId + ' .q-opt');
     const selected = quizAnswers[qId];
-    
     opts.forEach((opt, i) => {
       if (i === correctIdx) opt.classList.add('correct');
       if (i === selected && i !== correctIdx) opt.classList.add('wrong');
     });
-    
     if (selected === correctIdx) correct++;
   }
   
@@ -564,28 +525,22 @@ function submitQuiz() {
     document.getElementById('quizMsg').textContent = 'You scored ' + correct + '/' + total + '. Great work!';
     document.getElementById('quizSubmit').style.display = 'none';
     
-    // Award XP and mark module complete
-    if (window.VMA) {
-      window.VMA.awardXP(15, 'Passed Module 1 Quiz (' + pct + '%)');
-      const st = window.VMA.getStudent();
-      if (st) {
-        st.quizzes = st.quizzes || {};
-        st.quizzes['1'] = pct;
-        st.modules[0] = 100;
-        window.VMA.setStudent(st);
-        window.VMA.awardBadge('breath');
-        window.VMA.showNotification('🏆 Module 1 Complete! +15 XP + Breath Badge');
-      }
+    VMA.awardXP(15, 'Passed Module ' + MODULE + ' Quiz (' + pct + '%)');
+    const st = VMA.getStudent();
+    if (st) {
+      st.quizzes = st.quizzes || {};
+      st.quizzes[MODULE] = pct;
+      st.modules[MODULE - 1] = 100;
+      VMA.setStudent(st);
+      VMA.showNotification('🏆 Module ' + MODULE + ' Complete! +15 XP');
     }
-    
-    // Show completion after delay
     setTimeout(() => {
-      document.getElementById('quiz-1').style.display = 'none';
+      document.getElementById('quiz-' + MODULE).style.display = 'none';
       document.getElementById('modComplete').style.display = '';
     }, 2000);
   } else {
     document.getElementById('quizTitle').textContent = 'Not quite there';
-    document.getElementById('quizMsg').textContent = 'You scored ' + correct + '/' + total + '. You need 80% to pass. Review the lessons and try again!';
+    document.getElementById('quizMsg').textContent = 'You scored ' + correct + '/' + total + '. You need 80% to pass. Review and try again!';
     document.getElementById('quizSubmit').style.display = 'none';
     document.getElementById('quizResult').style.display = '';
   }
@@ -594,62 +549,44 @@ function submitQuiz() {
 function retryQuiz() {
   quizAnswers = {};
   quizSubmitted = false;
-  
-  // Reset quiz UI
-  document.querySelectorAll('.q-opt').forEach(o => {
-    o.classList.remove('selected','correct','wrong');
-  });
+  document.querySelectorAll('.q-opt').forEach(o => o.classList.remove('selected','correct','wrong'));
   document.getElementById('quizSubmit').disabled = true;
   document.getElementById('quizSubmit').style.display = '';
   document.getElementById('quizResult').style.display = 'none';
 }
 
 function showQuiz() {
-  document.getElementById('quiz-1').style.display = '';
+  document.getElementById('quiz-' + MODULE).style.display = '';
   document.getElementById('modComplete').style.display = 'none';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// --- Progress ---
 function updateProgress() {
-  const st = getStudent();
+  const st = VMA.getStudent();
   if (!st) return;
-  
-  // Count completed lessons
   let lessonsDone = 0;
   for (let i = 1; i <= totalLessons; i++) {
-    if (st.lessons && st.lessons['1-' + i]) lessonsDone++;
+    if (st.lessons && st.lessons[MODULE + '-' + i]) lessonsDone++;
   }
   const tasksDone = document.querySelectorAll('.task-btn.done').length;
-  const quizPassed = st.quizzes && st.quizzes['1'] >= 80;
-  
+  const quizPassed = st.quizzes && st.quizzes[MODULE] >= 80;
   const pct = Math.round(((lessonsDone + tasksDone + (quizPassed ? 2 : 0)) / (totalLessons + totalLessons + 2)) * 100);
   document.getElementById('modProgress').style.width = pct + '%';
 }
 
-// --- Init ---
-// Show first uncompleted lesson, or first lesson
 let startLesson = 1;
 for (let i = 1; i <= totalLessons; i++) {
-  if (!s.lessons || !s.lessons['1-' + i]) { startLesson = i; break; }
+  if (!s.lessons || !s.lessons[MODULE + '-' + i]) { startLesson = i; break; }
   if (i === totalLessons) startLesson = totalLessons;
 }
 
-// If quiz already passed, show completion
-if (s.quizzes && s.quizzes['1'] >= 80) {
+if (s.quizzes && s.quizzes[MODULE] >= 80) {
   document.getElementById('modComplete').style.display = '';
 } else {
   showLesson(startLesson);
 }
 updateProgress();
-
-// Update nav avatar
 document.getElementById('navAvatar').textContent = (s.name || 'S').charAt(0).toUpperCase();
-
-// Expose for academy.html
-if (!window.VMA) window.VMA = {};
-window.VMA.getStudent = getStudent;
-window.VMA.setStudent = setStudent;
 </script>
 
 </body>
