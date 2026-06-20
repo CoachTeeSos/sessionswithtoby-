@@ -4,266 +4,1389 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Vocal Mastery Academy — Sessions with Toby</title>
-<meta name="theme-color" content="#0a0a10">
+<meta name="theme-color" content="#1E3A8A">
 <meta name="description" content="A structured vocal training program — from foundations to performance. 7 modules, 38 lessons, NYVC method, IPA system.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/design-system.css">
 <script src="assets/vma-engine.js"></script>
 <style>
-:root{--bg:#0a0a10;--surface:#0f0f16;--surface2:#16161f;--border:#1c1c28;--text:#e8e8f0;--text-soft:#a0a0b4;--muted:#5a5a70;--gold:#d4a843;--gold-light:#e8c46a;--mint:#00d4a0;--blue:#4a9eff;--purple:#a06eff;--orange:#ff8a4a;--red:#e05555;--radius:14px;--radius-sm:10px}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.6}
-.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 16px}
-@keyframes VMAfadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.anim-up{animation:VMAfadeIn .4s ease both}
+/* ── Page-specific overrides ── */
+.page { display:none; }
+.page.active { display:block; }
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,16,.94);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.nav-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);text-decoration:none;letter-spacing:-.02em}
-.nav-brand span{color:var(--gold)}
-.nav-links{display:flex;gap:4px;align-items:center}
-.nav-link{font-size:.72rem;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:var(--radius-sm);transition:all .15s}
-.nav-link:hover{color:var(--text);background:var(--surface)}
-.nav-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--mint));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--bg);cursor:pointer}
+/* ── Onboarding ── */
+.onboard { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:var(--s-3); text-align:center; }
+.onboard__logo { font-family:var(--font-display); font-size:2rem; font-weight:700; color:var(--navy); margin-bottom:var(--s-2); }
+.onboard__logo span { color:var(--cta); }
+.onboard__tagline { font-size:1.1rem; color:var(--text-soft); max-width:480px; margin-bottom:var(--s-4); }
+.onboard__form { width:100%; max-width:360px; }
+.onboard__input { width:100%; padding:var(--s-2); border:2px solid var(--border); border-radius:var(--r); font-size:1rem; text-align:center; margin-bottom:var(--s-2); transition:border-color .15s; background:var(--bg-card); color:var(--text); }
+.onboard__input:focus { outline:none; border-color:var(--cta); }
 
-/* HERO */
-.hero{padding:48px 0 32px;text-align:center;animation:VMAfadeIn .5s ease}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.15);border-radius:20px;font-size:.65rem;font-weight:600;color:var(--gold);margin-bottom:16px}
-.hero h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(1.6rem,5vw,2.4rem);letter-spacing:-.04em;line-height:1.1;margin-bottom:12px}
-.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--mint));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{color:var(--text-soft);font-size:.95rem;max-width:480px;margin:0 auto 24px;line-height:1.7}
-.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gold);color:var(--bg);border:none;border-radius:var(--radius);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;transition:all .2s}
-.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 6px 28px rgba(212,168,67,.22)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);font-weight:500;font-size:.9rem;color:var(--text);text-decoration:none;transition:all .15s}
-.btn-secondary:hover{border-color:var(--gold)}
-.hero-stats{display:flex;gap:24px;justify-content:center;margin-top:32px}
-.hero-stat{text-align:center}
-.hero-stat-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem;color:var(--gold)}
-.hero-stat-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+/* ── Dashboard ── */
+.dash__header { padding:var(--s-4) 0 var(--s-2); }
+.dash__welcome { font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+.dash__sub { color:var(--text-soft); font-size:.95rem; }
+.dash__stats { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--s-2); margin-bottom:var(--s-4); }
+.dash__stat { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r); padding:var(--s-3); text-align:center; }
+.dash__stat-val { font-family:var(--font-display); font-size:1.4rem; font-weight:700; color:var(--navy); }
+.dash__stat-label { font-size:.7rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-top:4px; }
+.dash__stat-val--gold { color:var(--gold); }
+.dash__stat-val--mint { color:var(--mint-dark); }
+.dash__stat-val--cta { color:var(--cta); }
 
-/* ONBOARDING */
-.onboard{padding:48px 0;text-align:center;animation:VMAfadeIn .4s ease}
-.onboard h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem;margin-bottom:8px}
-.onboard p{color:var(--text-soft);font-size:.9rem;margin-bottom:24px}
-.onboard-form{max-width:400px;margin:0 auto}
-.onboard-form input{width:100%;padding:14px 18px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:.9rem;font-family:inherit;margin-bottom:12px;transition:border-color .15s}
-.onboard-form input:focus{outline:none;border-color:var(--gold)}
-.onboard-form button{width:100%;padding:14px;background:var(--gold);color:var(--bg);border:none;border-radius:var(--radius);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
-.onboard-form button:hover{background:var(--gold-light)}
+/* ── Module Cards ── */
+.mod-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r-lg); margin-bottom:var(--s-2); overflow:hidden; transition:all .2s; cursor:pointer; }
+.mod-card:hover { box-shadow:var(--shadow-2); border-color:var(--lavender); }
+.mod-card__head { display:flex; align-items:center; gap:var(--s-2); padding:var(--s-3); }
+.mod-card__num { width:40px; height:40px; border-radius:var(--r); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:.9rem; flex-shrink:0; }
+.mod-card__num--navy { background:var(--navy); color:white; }
+.mod-card__num--cta { background:var(--cta); color:white; }
+.mod-card__num--mint { background:var(--mint); color:#065F46; }
+.mod-card__num--gold { background:var(--gold-bg); color:var(--gold); }
+.mod-card__info { flex:1; }
+.mod-card__title { font-family:var(--font-display); font-weight:600; font-size:1rem; color:var(--text); margin-bottom:2px; }
+.mod-card__desc { font-size:.8rem; color:var(--text-muted); }
+.mod-card__progress { text-align:right; min-width:48px; }
+.mod-card__pct { font-family:var(--font-display); font-weight:700; font-size:.85rem; color:var(--mint-dark); }
+.mod-card__bar { width:100%; height:4px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:4px; }
+.mod-card__fill { height:100%; background:var(--mint-dark); border-radius:2px; transition:width .5s ease; }
+.mod-card--locked { opacity:.5; pointer-events:none; }
+.mod-card--done { border-color:var(--mint); }
 
-/* MODULES */
-.modules{padding:32px 0}
-.section-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:-.02em;margin-bottom:20px}
-.mod-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:all .2s}
-.mod-card:hover{border-color:rgba(212,168,67,.2)}
-.mod-card-head{display:flex;align-items:center;gap:16px;padding:18px 20px;text-decoration:none;color:var(--text);cursor:pointer}
-.mod-num{width:40px;height:40px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.85rem;color:var(--gold);flex-shrink:0}
-.mod-info{flex:1}
-.mod-info h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;margin-bottom:2px}
-.mod-info p{font-size:.75rem;color:var(--muted)}
-.mod-progress{width:48px;text-align:right}
-.mod-progress-pct{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.8rem;color:var(--gold)}
-.mod-progress-bar{width:100%;height:3px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-top:4px}
-.mod-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--mint));border-radius:3px;transition:width .5s ease}
-.mod-card.locked{opacity:.5;pointer-events:none}
-.mod-card.completed{border-color:rgba(0,212,160,.2)}
-.mod-card.completed .mod-num{background:rgba(0,212,160,.1);color:var(--mint)}
+/* ── Lesson View ── */
+.lesson-view { animation:fadeUp .35s ease both; }
+.lesson-view__header { display:flex; align-items:center; gap:var(--s-2); margin-bottom:var(--s-3); }
+.lesson-view__back { color:var(--text-muted); font-size:.85rem; cursor:pointer; padding:var(--s-1); }
+.lesson-view__back:hover { color:var(--cta); }
+.lesson-view__title { font-family:var(--font-display); font-weight:700; font-size:1.3rem; color:var(--text); }
+.lesson-view__body { max-width:65ch; }
+.lesson-view__body h3 { font-size:1.05rem; margin-top:var(--s-3); margin-bottom:var(--s-1); }
+.lesson-view__body ul { padding-left:var(--s-3); margin-bottom:var(--s-2); }
+.lesson-view__body li { color:var(--text-soft); font-size:1rem; line-height:1.6; margin-bottom:6px; }
+.lesson-view__body .highlight { background:var(--gold-bg); padding:2px 6px; border-radius:4px; color:var(--text); font-weight:600; }
+.lesson-view__body .tip { background:var(--lavender-bg); border-left:4px solid var(--lavender); padding:var(--s-2); border-radius:0 var(--r-sm) var(--r-sm) 0; margin:var(--s-2) 0; }
+.lesson-view__body .tip p { color:var(--text-soft); font-size:.95rem; }
+.lesson-view__body .key { background:var(--bg-card); border-left:4px solid var(--navy); padding:var(--s-2); border-radius:0 var(--r-sm) var(--r-sm) 0; margin:var(--s-2) 0; }
+.lesson-view__body .key p { color:var(--text-soft); font-size:.95rem; }
+.lesson-view__nav { display:flex; justify-content:space-between; align-items:center; margin-top:var(--s-4); padding-top:var(--s-3); border-top:1px solid var(--border); }
 
-/* XP BAR */
-.xp-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between}
-.xp-info{display:flex;align-items:center;gap:12px}
-.xp-level{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--mint));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.75rem;color:var(--bg)}
-.xp-details h4{font-size:.85rem;font-weight:600}
-.xp-details p{font-size:.7rem;color:var(--muted)}
-.xp-amount{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:var(--gold)}
+/* ── Quiz View ── */
+.quiz-view { animation:fadeUp .35s ease both; }
+.quiz-view__result { text-align:center; padding:var(--s-5) var(--s-3); }
+.quiz-view__score { font-family:var(--font-display); font-size:3rem; font-weight:700; color:var(--navy); margin-bottom:var(--s-1); }
+.quiz-view__score--pass { color:var(--mint-dark); }
+.quiz-view__score--fail { color:var(--red); }
+.quiz-view__title { font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:var(--s-1); }
+.quiz-view__msg { color:var(--text-soft); font-size:1rem; margin-bottom:var(--s-3); }
 
-/* BADGES */
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--surface);border:1px solid var(--border);border-radius:20px;font-size:.7rem;font-weight:500;color:var(--text-soft)}
-.badge.earned{background:rgba(212,168,67,.08);border-color:rgba(212,168,67,.15);color:var(--gold)}
-.badge.locked{opacity:.4}
+/* ── Completion ── */
+.completion { text-align:center; padding:var(--s-6) var(--s-3); animation:fadeUp .5s ease both; }
+.completion__icon { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--mint),var(--navy)); display:flex; align-items:center; justify-content:center; font-size:2.5rem; margin:0 auto var(--s-3); box-shadow:0 8px 32px rgba(16,185,129,.2); }
+.completion__title { font-family:var(--font-display); font-size:1.6rem; font-weight:700; margin-bottom:var(--s-1); }
+.completion__msg { color:var(--text-soft); font-size:1rem; max-width:480px; margin:0 auto var(--s-4); }
+.completion__xp { display:inline-flex; align-items:center; gap:6px; padding:var(--s-1) var(--s-3); background:var(--gold-bg); border-radius:var(--r); font-family:var(--font-display); font-weight:700; font-size:1.1rem; color:var(--gold); margin-bottom:var(--s-3); }
 
-/* FOOTER */
-.footer{padding:32px 0;text-align:center;font-size:.68rem;color:var(--muted);border-top:1px solid var(--border);margin-top:32px}
+/* ── Certificate ── */
+.cert { background:var(--bg-card); border:2px solid var(--navy); border-radius:var(--r-xl); padding:var(--s-6) var(--s-5); text-align:center; max-width:560px; margin:0 auto; position:relative; overflow:hidden; }
+.cert::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--navy),var(--cta),var(--mint)); }
+.cert__icon { font-size:3rem; margin-bottom:var(--s-2); }
+.cert__label { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.2em; color:var(--text-muted); margin-bottom:var(--s-2); }
+.cert__name { font-family:var(--font-display); font-size:1.8rem; font-weight:700; color:var(--navy); margin-bottom:var(--s-1); }
+.cert__desc { color:var(--text-soft); font-size:.95rem; line-height:1.6; margin-bottom:var(--s-3); }
+.cert__details { display:flex; justify-content:center; gap:var(--s-4); margin-bottom:var(--s-3); }
+.cert__detail-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--text-muted); margin-bottom:4px; }
+.cert__detail-val { font-family:var(--font-display); font-weight:700; font-size:1rem; color:var(--text); }
+.cert__badges { display:flex; gap:6px; justify-content:center; flex-wrap:wrap; margin-bottom:var(--s-3); }
+.cert__badge { padding:4px 12px; background:var(--gold-bg); border-radius:12px; font-size:.7rem; color:var(--gold); font-weight:600; }
+.cert__footer { font-size:.7rem; color:var(--text-muted); }
 
-@media(max-width:480px){.hero{padding:32px 0 24px}.hero-stats{gap:16px}.mod-card-head{padding:14px 16px}}
+/* ── Badges display ── */
+.badge-grid { display:flex; gap:var(--s-1); flex-wrap:wrap; margin-bottom:var(--s-3); }
+.badge { display:inline-flex; align-items:center; gap:4px; padding:6px 14px; background:var(--bg-card); border:1px solid var(--border); border-radius:20px; font-size:.8rem; font-weight:500; color:var(--text-muted); }
+.badge--earned { background:var(--gold-bg); border-color:var(--gold); color:var(--text); }
+
+/* ── Footer ── */
+.footer { padding:var(--s-4) 0; text-align:center; font-size:.75rem; color:var(--text-muted); border-top:1px solid var(--border); margin-top:var(--s-5); }
+
+@media(max-width:768px) {
+  .dash__stats { grid-template-columns:repeat(2,1fr); }
+  .cert { padding:var(--s-4) var(--s-3); }
+  .cert__details { gap:var(--s-2); }
+}
 </style>
 </head>
 <body>
 
-<div class="nav">
-  <a href="academy.html" class="nav-brand">Vocal<span>Mastery</span></a>
-  <div class="nav-links">
-    <a href="#modules" class="nav-link">Modules</a>
-    <a href="dashboard.html" class="nav-link">Progress</a>
-    <div class="nav-avatar" id="navAvatar" onclick="window.location.href='dashboard.html'">S</div>
+<!-- ═══ TOP BAR ═══ -->
+<div class="topbar">
+  <div class="topbar__inner">
+    <a href="#" class="topbar__brand" onclick="showPage('dashboard');return false;">Vocal<span>Mastery</span></a>
+    <div class="topbar__progress" id="topbarProgress" style="display:none;">
+      <div class="topbar__progress-bar"><div class="topbar__progress-fill" id="topbarFill" style="width:0%"></div></div>
+      <span class="topbar__progress-text" id="topbarPct">0%</span>
+    </div>
   </div>
 </div>
 
-<div class="wrap">
-
-  <!-- ONBOARDING (shown if no student) -->
-  <div class="onboard" id="onboardSection">
-    <h2>Welcome to Vocal Mastery Academy</h2>
-    <p>7 modules. 38 lessons. NYVC method. IPA system. Your voice will never be the same.</p>
-    <div class="onboard-form">
-      <input type="text" id="studentName" placeholder="Your first name" maxlength="30">
-      <button onclick="startAcademy()">Start Your Training →</button>
+<!-- ═══ ONBOARDING ═══ -->
+<div class="page" id="page-onboard">
+  <div class="onboard">
+    <div class="onboard__logo">Vocal<span>Mastery</span></div>
+    <p class="onboard__tagline">7 modules. 38 lessons. NYVC method. IPA system. Your voice will never be the same.</p>
+    <div class="onboard__form">
+      <input type="text" class="onboard__input" id="onboardName" placeholder="Your first name" maxlength="30" onkeydown="if(event.key==='Enter')startAcademy()">
+      <button class="btn btn--primary btn--lg w-full" onclick="startAcademy()">Start Your Training →</button>
     </div>
   </div>
+</div>
 
-  <!-- DASHBOARD (shown if student exists) -->
-  <div id="dashboardSection" style="display:none">
-
-    <div class="hero anim-up">
-      <div class="hero-badge">Vocal Mastery Academy</div>
-      <h1>Your Voice. <span>Mastered.</span></h1>
-      <p>A structured vocal training program — from foundations to performance. NYVC method. IPA system. BandLab practicals.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">7</div><div class="hero-stat-label">Modules</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">38</div><div class="hero-stat-label">Lessons</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">35+</div><div class="hero-stat-label">Tasks</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">7</div><div class="hero-stat-label">Quizzes</div></div>
-      </div>
+<!-- ═══ DASHBOARD ═══ -->
+<div class="page" id="page-dashboard">
+  <div class="wrap">
+    <div class="dash__header">
+      <div class="dash__welcome" id="dashWelcome">Welcome</div>
+      <div class="dash__sub" id="dashSub">Your vocal journey starts here.</div>
     </div>
-
-    <div class="xp-bar" id="xpBar">
-      <div class="xp-info">
-        <div class="xp-level" id="xpLevel">1</div>
-        <div class="xp-details">
-          <h4 id="xpName">Student</h4>
-          <p id="xpStreak">0 day streak</p>
-        </div>
-      </div>
-      <div class="xp-amount" id="xpAmount">0 XP</div>
+    <div class="dash__stats">
+      <div class="dash__stat"><div class="dash__stat-val dash__stat-val--cta" id="statXP">0</div><div class="dash__stat-label">Total XP</div></div>
+      <div class="dash__stat"><div class="dash__stat-val dash__stat-val--gold" id="statLevel">1</div><div class="dash__stat-label">Level</div></div>
+      <div class="dash__stat"><div class="dash__stat-val dash__stat-val--mint" id="statModules">0/7</div><div class="dash__stat-label">Done</div></div>
+      <div class="dash__stat"><div class="dash__stat-val" id="statStreak">0</div><div class="dash__stat-label">Streak</div></div>
     </div>
+    <div class="badge-grid" id="badgeGrid"></div>
+    <div id="modList"></div>
+    <div class="footer">Vocal Mastery Academy · Sessions with Toby · © 2026</div>
+  </div>
+</div>
 
-    <div class="badges" id="badges">
-      <div class="badge locked" id="badge-foundations">🏗️ Foundations</div>
-      <div class="badge locked" id="badge-technique">🎯 Technique</div>
-      <div class="badge locked" id="badge-theory">📐 Theory</div>
-      <div class="badge locked" id="badge-repertoire">🎵 Repertoire</div>
-      <div class="badge locked" id="badge-performance">🎤 Performance</div>
-      <div class="badge locked" id="badge-articulation">🗣️ Articulation</div>
-      <div class="badge locked" id="badge-complete">🏆 Graduate</div>
-    </div>
-
-    <div class="modules" id="modules">
-      <div class="section-title">Your Modules</div>
-
-      <div class="mod-card" id="mod-card-1">
-        <a class="mod-card-head" href="module-1.html">
-          <div class="mod-num">1</div>
-          <div class="mod-info"><h3>Foundations — Know Your Instrument</h3><p>Breath, posture, range, vocal health</p></div>
-          <div class="mod-progress"><div class="mod-progress-pct" id="mod-pct-1">0%</div><div class="mod-progress-bar"><div class="mod-progress-fill" id="mod-fill-1" style="width:0%"></div></div></div>
-        </a>
+<!-- ═══ LESSON VIEW ═══ -->
+<div class="page" id="page-lesson">
+  <div class="wrap wrap--narrow">
+    <div class="lesson-view">
+      <div class="lesson-view__header">
+        <span class="lesson-view__back" onclick="showPage('dashboard')">← Back</span>
+        <span class="lesson-view__title" id="lessonTitle"></span>
       </div>
-
-      <div class="mod-card locked" id="mod-card-2">
-        <a class="mod-card-head" href="module-2.html">
-          <div class="mod-num">2</div>
-          <div class="mod-info"><h3>Technique — Build Your Sound</h3><p>Resonance, registers, vibrato, belt</p></div>
-          <div class="mod-progress"><div class="mod-progress-pct" id="mod-pct-2">0%</div><div class="mod-progress-bar"><div class="mod-progress-fill" id="mod-fill-2" style="width:0%"></div></div></div>
-        </a>
-      </div>
-
-      <div class="mod-card locked" id="mod-card-3">
-        <a class="mod-card-head" href="module-3.html">
-          <div class="mod-num">3</div>
-          <div class="mod-info"><h3>Music Theory — Understand the Language</h3><p>Scales, rhythm, intervals, song structure</p></div>
-          <div class="mod-progress"><div class="mod-progress-pct" id="mod-pct-3">0%</div><div class="mod-progress-bar"><div class="mod-progress-fill" id="mod-fill-3" style="width:0%"></div></div></div>
-        </a>
-      </div>
-
-      <div class="mod-card locked" id="mod-card-4">
-        <a class="mod-card-head" href="module-4.html">
-          <div class="mod-num">4</div>
-          <div class="mod-info"><h3>Song Selection — Choose What Serves You</h3><p>Voice types, transposition, repertoire</p></div>
-          <div class="mod-progress"><div class="mod-progress-pct" id="mod-pct-4">0%</div><div class="mod-progress-bar"><div class="mod-progress-fill" id="mod-fill-4" style="width:0%"></div></div></div>
-        </a>
-      </div>
-
-      <div class="mod-card locked" id="mod-card-5">
-        <a class="mod-card-head" href="module-5.html">
-          <div class="mod-num">5</div>
-          <div class="mod-info"><h3>Performance — Move People</h3><p>Emotion, dynamics, scenarios, mic technique</p></div>
-          <div class="mod-progress"><div class="mod-progress-pct" id="mod-pct-5">0%</div><div class="mod-progress-bar"><div class="mod-progress-fill" id="mod-fill-5" style="width:0%"></div></div></div>
-        </a>
-      </div>
-
-      <div class="mod-card locked" id="mod-card-6">
-        <a class="mod-card-head" href="module-6.html">
-          <div class="mod-num">6</div>
-          <div class="mod-info"><h3>Articulation & Language — Sing Clearly</h3><p>IPA vowels/consonants, English, Nigerian languages</p></div>
-          <div class="mod-progress"><div class="mod-progress-pct" id="mod-pct-6">0%</div><div class="mod-progress-bar"><div class="mod-progress-fill" id="mod-fill-6" style="width:0%"></div></div></div>
-        </a>
-      </div>
-
-      <div class="mod-card locked" id="mod-card-7">
-        <a class="mod-card-head" href="module-7.html">
-          <div class="mod-num">7</div>
-          <div class="mod-info"><h3>Advanced Craft — Find Your Voice</h3><p>Identity, improvisation, longevity, mentoring</p></div>
-          <div class="mod-progress"><div class="mod-progress-pct" id="mod-pct-7">0%</div><div class="mod-progress-bar"><div class="mod-progress-fill" id="mod-fill-7" style="width:0%"></div></div></div>
-        </a>
-      </div>
-
+      <div class="lesson-view__body" id="lessonBody"></div>
+      <div class="lesson-view__nav" id="lessonNav"></div>
     </div>
   </div>
+</div>
 
-  <div class="footer">Vocal Mastery Academy · Sessions with Toby · © 2026</div>
+<!-- ═══ QUIZ VIEW ═══ -->
+<div class="page" id="page-quiz">
+  <div class="wrap wrap--narrow">
+    <div class="quiz-view" id="quizView"></div>
+  </div>
+</div>
+
+<!-- ═══ COMPLETION ═══ -->
+<div class="page" id="page-complete">
+  <div class="wrap wrap--narrow">
+    <div class="completion" id="completionView"></div>
+  </div>
+</div>
+
+<!-- ═══ CERTIFICATE ═══ -->
+<div class="page" id="page-certificate">
+  <div class="wrap wrap--narrow" id="certView"></div>
+</div>
+
+<!-- ═══ BOTTOM AUDIO BAR ═══ -->
+<div class="audio-bar" id="audioBar" style="display:none;">
+  <div class="audio-bar__inner">
+    <div class="audio-bar__controls">
+      <button class="audio-bar__btn" id="btnPlay" onclick="toggleMetronome()" title="Metronome">⏱</button>
+      <button class="audio-bar__btn" onclick="toggleTone()" title="Reference Tone">🎵</button>
+    </div>
+    <div class="audio-bar__bpm">
+      <span>BPM</span>
+      <input type="number" id="bpmInput" value="80" min="40" max="200" onchange="updateBPM(this.value)">
+    </div>
+    <div class="audio-bar__volume">
+      <span>🔊</span>
+      <input type="range" id="volInput" min="0" max="100" value="70" onchange="updateVolume(this.value)">
+    </div>
+  </div>
 </div>
 
 <script>
 (function(){
-  'use strict';
-  var s=VMA.getStudent();
+'use strict';
 
-  window.startAcademy=function(){
-    var name=document.getElementById('studentName').value.trim();
-    if(!name){document.getElementById('studentName').focus();return;}
-    var student={name:name,xp:0,level:1,streak:1,lastActive:new Date().toDateString(),lessons:{},quizzes:{},modules:[0,0,0,0,0,0,0],badges:[]};
-    VMA.setStudent(student);
-    showDashboard();
-  };
+/* ═══════════════════════════════════════════════════════════
+   MODULE DATA — All 7 modules, lessons, tasks, quizzes
+   ═══════════════════════════════════════════════════════════ */
 
-  function showDashboard(){
-    document.getElementById('onboardSection').style.display='none';
-    document.getElementById('dashboardSection').style.display='';
-    updateUI();
+var MODULES = [
+/* ── MODULE 1: FOUNDATIONS ── */
+{
+  id:1, title:'Foundations', subtitle:'Know Your Instrument',
+  icon:'🏗️', color:'navy',
+  desc:'Breath, posture, range, vocal health — the foundation everything else is built on.',
+  lessons:[
+    {
+      id:'1-1', title:'1.1: Your Voice — The Instrument You Were Born With',
+      body:`<p>Every singer starts with one advantage: <span class="highlight">you already have a voice</span>. It's the most personal instrument in the world — no two are alike. Before we build technique, you need to understand what you're working with.</p>
+      <h3>The Vocal Mechanism</h3>
+      <p>Your voice is produced by three systems working together:</p>
+      <ul>
+        <li><strong>The Breather</strong> — Your lungs and diaphragm. They push air upward. No air, no sound. Period.</li>
+        <li><strong>The Vibrator</strong> — Your vocal folds (formerly "vocal cords"). Two small muscles inside your larynx that vibrate when air passes through them. Faster vibration = higher pitch.</li>
+        <li><strong>The Resonator</strong> — Your throat, mouth, nasal cavity, and chest. These spaces amplify and shape the raw sound into your unique tone.</li>
+      </ul>
+      <div class="key"><p><strong>NYVC Principle #1:</strong> Your voice is a living instrument. It changes with your health, emotions, sleep, and hydration. Treat it with respect — it's the only one you'll ever have.</p></div>`,
+      task:{text:'Record yourself speaking "Hello, my name is [your name]" in your normal speaking voice. Then sing the same phrase on a comfortable pitch. Listen back — what differences do you hear between speaking and singing?', label:'Task 1.1'}
+    },
+    {
+      id:'1-2', title:'1.2: Breath — The Engine of Everything',
+      body:`<p>Breath is the engine of singing. Without proper breath support, everything else falls apart — pitch, tone, power, stamina. This is the single most important skill you'll learn.</p>
+      <h3>Diaphragmatic Breathing</h3>
+      <p>Most people breathe shallowly — only filling the top of their lungs. Singers need <span class="highlight">diaphragmatic breathing</span> — deep, low, expanding the belly and ribs.</p>
+      <p><strong>The exercise:</strong> Lie on your back. Place one hand on your chest, one on your belly. Breathe in — only the belly hand should move. The chest hand stays still. Now stand up and try to replicate that feeling.</p>
+      <h3>The 4-Count Breath Cycle</h3>
+      <ul>
+        <li><strong>Inhale</strong> — 4 counts, low and deep, belly expands</li>
+        <li><strong>Hold</strong> — 2 counts, engage your core (don't lock your throat)</li>
+        <li><strong>Exhale</strong> — 8 counts, steady stream of air, hissing "sssss"</li>
+        <li><strong>Rest</strong> — 2 counts, release, repeat</li>
+      </ul>
+      <div class="tip"><p><strong>NYVC Exercise — "The Candle":</strong> Hold a candle 6 inches from your mouth. Exhale so the flame flickers but never goes out. That's the steady air stream you need for singing.</p></div>`,
+      task:{text:'Practice the 4-count breath cycle for 5 minutes. Then try sustaining a single note (any comfortable pitch) for as long as you can on one breath. Record your time. Try to beat it tomorrow.', label:'Task 1.2'}
+    },
+    {
+      id:'1-3', title:'1.3: Posture — Stand Like a Singer',
+      body:`<p>Your posture directly affects your breathing, your resonance, and your confidence. Bad posture = bad singing. It's that simple.</p>
+      <h3>The NYVC Posture Checklist</h3>
+      <ul>
+        <li><strong>Feet</strong> — Shoulder-width apart, weight evenly distributed</li>
+        <li><strong>Knees</strong> — Slightly soft, never locked</li>
+        <li><strong>Pelvis</strong> — Neutral, not tucked or tilted</li>
+        <li><strong>Spine</strong> — Long, tall, as if a string is pulling you up from the crown of your head</li>
+        <li><strong>Shoulders</strong> — Down and back, relaxed, not hunched</li>
+        <li><strong>Head</strong> — Level, chin parallel to the floor (not tilted up or down)</li>
+        <li><strong>Jaw</strong> — Relaxed, slightly dropped, no tension</li>
+      </ul>
+      <div class="key"><p><strong>Common mistake:</strong> Singing with your head tilted up to reach high notes. This strains your throat and cuts off your air. Keep your head level — let your breath and resonance do the work.</p></div>`,
+      task:{text:'Stand in front of a mirror. Go through the posture checklist. Then sing a simple phrase (like "I love you Lord") with bad posture, then with good posture. Record both. Hear the difference?', label:'Task 1.3'}
+    },
+    {
+      id:'1-4', title:'1.4: Finding Your Range',
+      body:`<p>Your vocal range is the span from the lowest note you can sing to the highest. Every singer's range is different — and it can be expanded with training.</p>
+      <h3>How to Find Your Range</h3>
+      <p>Use a piano app (like "Piano" on your phone). Start at middle C (C4) and sing "ah" on each note going down as far as you can. That's your lowest note. Then go up from middle C as far as you can. That's your highest note.</p>
+      <h3>Voice Types (Approximate)</h3>
+      <ul>
+        <li><strong>Bass</strong> — E2 to E4</li>
+        <li><strong>Baritone</strong> — A2 to A4</li>
+        <li><strong>Tenor</strong> — C3 to C5</li>
+        <li><strong>Alto</strong> — F3 to F5</li>
+        <li><strong>Soprano</strong> — C4 to C6</li>
+      </ul>
+      <div class="tip"><p><strong>Important:</strong> Don't worry about your voice type yet. Most singers haven't found their full range. Focus on expanding it through proper technique.</p></div>`,
+      task:{text:'Find your range using a piano app. Write down your lowest and highest comfortable notes. Then find 3 songs that sit comfortably in your range. Record yourself singing one of them.', label:'Task 1.4'}
+    },
+    {
+      id:'1-5', title:'1.5: Vocal Health — Protect Your Instrument',
+      body:`<p>Your vocal folds are delicate. They can be damaged by misuse, dehydration, illness, and environmental factors. Here's how to protect them.</p>
+      <h3>The Vocal Health Rules</h3>
+      <ul>
+        <li><strong>Hydrate</strong> — Drink at least 8 glasses of water a day. Your vocal folds need moisture to vibrate efficiently.</li>
+        <li><strong>Rest</strong> — After heavy singing, give your voice 24 hours of light use. Whispering is NOT rest — it strains your voice more than normal speech.</li>
+        <li><strong>Warm up</strong> — Never sing cold. 5 minutes of lip trills, humming, and gentle scales before any serious singing.</li>
+        <li><strong>Avoid</strong> — Smoking, excessive caffeine, dairy before singing (creates mucus), shouting/screaming.</li>
+        <li><strong>Steam</strong> — Breathing steam from hot water (not boiling) hydrates your vocal folds directly. Do this before performances.</li>
+      </ul>
+      <div class="key"><p><strong>NYVC truth:</strong> The singers who last decades are the ones who respect their instrument. Treat your voice like a professional athlete treats their body.</p></div>`,
+      task:{text:'Create your personal vocal health plan: (1) Daily water intake goal, (2) Warm-up routine, (3) One habit to stop. Write it down and keep it visible.', label:'Task 1.5'}
+    }
+  ],
+  quiz:[
+    {q:'What are the three systems that produce your voice?', options:['Lungs, throat, mouth','Breather, Vibrator, Resonator','Heart, brain, lungs','Vocal cords, tongue, lips'], a:1},
+    {q:'In diaphragmatic breathing, what should stay still?', options:['Your belly','Your chest','Your shoulders','Your head'], a:1},
+    {q:'What happens when you tilt your head up to reach high notes?', options:['It helps you reach higher notes','It strains your throat and cuts off air','It improves resonance','Nothing — it's recommended'], a:1},
+    {q:'How much water should singers drink daily?', options:['2-4 glasses','4-6 glasses','At least 8 glasses','Only when thirsty'], a:2},
+    {q:'What is NOT a good way to rest your voice?', options:['Speaking softly','Whispering','Staying hydrated','Avoiding caffeine'], a:1}
+  ],
+  badge:'foundations'
+},
+
+/* ── MODULE 2: TECHNIQUE ── */
+{
+  id:2, title:'Technique', subtitle:'Build Your Sound',
+  icon:'🎯', color:'cta',
+  desc:'Resonance, registers, vibrato, belt — the tools that transform a voice into an instrument.',
+  lessons:[
+    {
+      id:'2-1', title:'2.1: Resonance — Where the Magic Happens',
+      body:`<p>Resonance is what makes your voice sound rich, full, and projected. Without it, you sound thin and weak. With it, you fill a room.</p>
+      <h3>The Resonance Chambers</h3>
+      <p>Your body has three main resonance chambers:</p>
+      <ul>
+        <li><strong>Chest</strong> — Low notes resonate here. Place your hand on your chest and hum low — you'll feel the vibration. This gives your voice warmth and power.</li>
+        <li><strong>Mouth/Throat (Pharynx)</strong> — Middle notes resonate here. This is your primary resonance space. An open throat = big, beautiful tone.</li>
+        <li><strong>Head/Sinuses</strong> — High notes resonate here. You'll feel a "buzz" around your cheekbones and forehead. This is head voice.</li>
+      </ul>
+      <div class="key"><p><strong>NYVC Exercise — "The Hum Test":</strong> Hum on a comfortable pitch. Move the pitch up and down. Feel where the vibration moves — chest → throat → head. That's your resonance shifting.</p></div>`,
+      task:{text:'Hum a simple melody (like "Amazing Grace"). Focus on feeling the resonance shift from chest to head as you go higher. Record yourself — does your tone sound full and connected?', label:'Task 2.1'}
+    },
+    {
+      id:'2-2', title:'2.2: Vocal Registers — Chest, Mix, and Head',
+      body:`<p>A vocal register is a range of tones produced by the same vibratory pattern of the vocal folds. Think of them as "gears" in a car — each one works best in its own range.</p>
+      <h3>The Three Main Registers</h3>
+      <ul>
+        <li><strong>Chest Voice</strong> — Your lower range. Strong, rich, powerful. Used in most pop, gospel, and Afrobeats. Feels like speaking.</li>
+        <li><strong>Head Voice</strong> — Your higher range. Light, airy, floating. Used in falsetto and high melodies. Feels like a "lift" in your head.</li>
+        <li><strong>Mix Voice</strong> — The blend between chest and head. The holy grail of contemporary singing. Gives you power in your high range without straining.</li>
+      </ul>
+      <div class="tip"><p><strong>The Break (Passaggio):</strong> Most singers have a "break" point where chest voice wants to flip into head voice. Learning to smooth this transition — mixing — is one of the most important skills in singing.</p></div>`,
+      task:{text:'Sing a scale from your lowest comfortable note to your highest. Notice where your voice "flips" or "breaks." That's your passaggio. Practice sliding through that break gently — don't push through it.', label:'Task 2.2'}
+    },
+    {
+      id:'2-3', title:'2.3: Vibrato — The Pulse of Life',
+      body:`<p>Vibrato is a slight, rapid variation in pitch that adds warmth and life to your voice. It's not a wobble — it's a controlled oscillation that happens naturally when your technique is solid.</p>
+      <h3>How Vibrato Works</h3>
+      <p>Vibrato is produced by a balance between breath support and vocal fold tension. Too much tension = straight tone (no vibrato). Too much air = wobble (too much vibrato). The sweet spot is in the middle.</p>
+      <h3>Developing Vibrato</h3>
+      <p>Most singers develop vibrato naturally as their technique improves. Forcing it creates a fake, unnatural sound. Focus on breath support and relaxation — vibrato will come.</p>
+      <div class="key"><p><strong>NYVC Exercise — "The Pulse":</strong> Sustain a comfortable note. Gently pulse your belly (like a slow "huh-huh-huh"). This creates a manual vibrato. As you get comfortable, let your body take over the pulsing naturally.</p></div>`,
+      task:{text:'Sustain a comfortable mid-range note for 8 seconds. Try it with straight tone, then with gentle vibrato. Record both. Which sounds more natural and alive?', label:'Task 2.3'}
+    },
+    {
+      id:'2-4', title:'2.4: Belt Technique — Power Without Pain',
+      body:`<p>Belting is singing loudly and powerfully in your chest-mix range. It's the sound you hear in gospel, musical theatre, and pop. Done right, it's thrilling. Done wrong, it destroys voices.</p>
+      <h3>The NYVC Belt Rules</h3>
+      <ul>
+        <li><strong>Support from the belly</strong> — Belt is 70% breath support, 30% voice. If your belly isn't engaged, you're shouting, not belting.</li>
+        <li><strong>Keep the throat open</strong> — A closed throat = strain. Imagine you're about to yawn. That open feeling is what you want.</li>
+        <li><strong>Use "ng" to find the placement</strong> — Sing "ng" (like the end of "sing") on a high note. Feel where it vibrates? That forward placement is where belt lives.</li>
+        <li><strong>Don't push</strong> — If it hurts, stop. Belt should feel powerful, not painful.</li>
+      </ul>
+      <div class="tip"><p><strong>NYVC Exercise — "The Call":</strong> Call out "HEY!" across a room. Feel how your belly engages and your throat stays open? That's the feeling of belt. Now try to sing with that same energy.</p></div>`,
+      task:{text:'Choose a powerful phrase from a gospel or worship song. Sing it first softly, then with belt technique. Focus on belly support and open throat. Record both versions.', label:'Task 2.4'}
+    },
+    {
+      id:'2-5', title:'2.5: Dynamics — The Art of Loud and Soft',
+      body:`<p>Dynamics are the variations in volume — from pianissimo (very soft) to fortissimo (very loud). Most beginners sing at one volume: loud. Learning dynamics is what separates amateurs from artists.</p>
+      <h3>The Dynamic Range</h3>
+      <ul>
+        <li><strong>pp (pianissimo)</strong> — Very soft. Intimate, vulnerable. Requires excellent breath control.</li>
+        <li><strong>mp (mezzo-piano)</strong> — Moderately soft. Gentle, warm.</li>
+        <li><strong>mf (mezzo-forte)</strong> — Moderately loud. Your "normal" singing voice.</li>
+        <li><strong>f (forte)</strong> — Loud. Powerful, commanding.</li>
+        <li><strong>ff (fortissimo)</strong> — Very loud. Full power, maximum impact.</li>
+      </ul>
+      <div class="key"><p><strong>NYVC truth:</strong> The most powerful moment in a song is often the quietest. A whisper that fills a room is more impressive than a shout.</p></div>`,
+      task:{text:'Take a simple phrase and sing it at 5 different volumes — from barely audible to full power. Record each one. Notice how your breath support changes at each level.', label:'Task 2.5'}
+    },
+    {
+      id:'2-6', title:'2.6: Putting Technique Together',
+      body:`<p>You've learned breath, resonance, registers, vibrato, belt, and dynamics. Now it's time to put them all together into one cohesive sound.</p>
+      <h3>The NYVC Technique Stack</h3>
+      <p>Think of technique as a stack of building blocks. Each one supports the one above it:</p>
+      <ul>
+        <li><strong>Foundation:</strong> Posture + Breath</li>
+        <li><strong>Core:</strong> Resonance + Register placement</li>
+        <li><strong>Color:</strong> Vibrato + Dynamics</li>
+        <li><strong>Power:</strong> Belt + Projection</li>
+      </ul>
+      <p>If your foundation is weak, everything above it crumbles. If your breath is solid, everything else becomes easier.</p>
+      <div class="tip"><p><strong>BandLab Practical — Module 2:</strong> Record a song that uses at least 3 techniques you've learned. Apply breath support, resonance, dynamics, and vibrato. Share the link with Coach Toby.</p></div>`,
+      task:{text:'Record a full song applying everything from Module 2. Focus on breath support, open throat, resonance, and dynamics. Submit to BandLab as "[Module 2] Technique Demo - [Your Name]".', label:'Task 2.6'}
+    }
+  ],
+  quiz:[
+    {q:'Where do low notes primarily resonate?', options:['Head','Chest','Sinuses','Nose'], a:1},
+    {q:'What is the "mix voice"?', options:['A blend of chest and head voice','A very loud chest voice','A falsetto voice','A speaking voice'], a:0},
+    {q:'What produces natural vibrato?', options:['Wobbling the jaw','Balance between breath support and vocal fold tension','Singing very loudly','Moving the tongue'], a:1},
+    {q:'What percentage of belting is breath support?', options:['30%','50%','70%','90%'], a:2},
+    {q:'What is the most powerful moment in a song often?', options:['The loudest note','The highest note','The quietest moment','The fastest run'], a:2}
+  ],
+  badge:'technique'
+},
+
+/* ── MODULE 3: MUSIC THEORY ── */
+{
+  id:3, title:'Music Theory', subtitle:'Understand the Language',
+  icon:'📐', color:'gold',
+  desc:'Scales, rhythm, intervals, song structure — the grammar of music.',
+  lessons:[
+    {
+      id:'3-1', title:'3.1: The Major Scale — Home Base',
+      body:`<p>The major scale is the foundation of Western music. Every song you know is built from scales. Understanding this gives you the power to learn songs faster, improvise, and communicate with other musicians.</p>
+      <h3>The Pattern</h3>
+      <p>The major scale follows a specific pattern of whole steps (W) and half steps (H): <span class="highlight">W-W-H-W-W-W-H</span></p>
+      <p>Starting on C: C → D → E → F → G → A → B → C</p>
+      <p>The notes are numbered 1 through 7 (the 8th note is the octave — the same as note 1, but higher). These numbers are called <strong>scale degrees</strong>.</p>
+      <div class="key"><p><strong>Why singers care:</strong> When you know the key of a song, you know which notes are "home" (the root, note 1) and which create tension (the 7th, the 4th). This helps you anticipate where the melody is going.</p></div>`,
+      task:{text:'Sing the C major scale (C-D-E-F-G-A-B-C) ascending and descending. Use a piano app to check your pitch accuracy. Record in BandLab.', label:'Task 3.1'}
+    },
+    {
+      id:'3-2', title:'3.2: The Minor Scale — The Emotional Scale',
+      body:`<p>If the major scale is sunshine, the minor scale is rain. Minor scales sound sad, serious, intense, or mysterious. Most Afrobeats, gospel, and pop use a mix of major and minor.</p>
+      <h3>The Natural Minor Pattern</h3>
+      <p>W-H-W-W-H-W-W. Starting on A: A → B → C → D → E → F → G → A</p>
+      <p>Notice: A minor uses the SAME notes as C major, just starting on A. This is called the <strong>relative minor</strong>. Every major scale has a relative minor that shares its notes.</p>
+      <div class="tip"><p><strong>For Nigerian singers:</strong> Highlife, Fuji, and Afrobeats all use heavy syncopation. If you only sing on the main beat, you'll sound stiff. Practice singing slightly behind the beat — it creates that relaxed, groovy feel.</p></div>`,
+      task:{text:'Sing the A natural minor scale. Then sing the C major scale. Notice they use the same notes? Now sing a simple melody in A minor. Record in BandLab.', label:'Task 3.2'}
+    },
+    {
+      id:'3-3', title:'3.3: Rhythm and Time Signatures',
+      body:`<p>Rhythm is the pattern of sounds in time. As a singer, your rhythm determines whether you sound tight or sloppy. You can have perfect pitch and still sound bad with poor rhythm.</p>
+      <h3>Time Signatures</h3>
+      <ul>
+        <li><strong>4/4 (Common Time):</strong> 4 beats per bar. Most pop, gospel, Afrobeats, rock. Count: 1-2-3-4, 1-2-3-4</li>
+        <li><strong>3/4 (Waltz Time):</strong> 3 beats per bar. Some ballads, hymns. Count: 1-2-3, 1-2-3</li>
+        <li><strong>6/8:</strong> 6 beats per bar, felt as 2 groups of 3. Many African rhythms, some gospel</li>
+      </ul>
+      <h3>Syncopation — The Secret of Groove</h3>
+      <p>Syncopation is when you accent the <strong>off-beats</strong> — the "and" between the main beats. This is what makes Afrobeats and funk feel so alive.</p>`,
+      task:{text:'Choose a song. Tap the beat while listening. Now try clapping on the off-beats (the "and" between each beat). Record yourself in BandLab: first sing the melody on the beat, then try it with syncopation.', label:'Task 3.3'}
+    },
+    {
+      id:'3-4', title:'3.4: Intervals — The Distance Between Notes',
+      body:`<p>An interval is the distance between two notes. Understanding intervals helps you hear melodies, harmonize, and sight-sing.</p>
+      <h3>Common Intervals (from the root)</h3>
+      <ul>
+        <li><strong>Unison (0 semitones):</strong> Same note</li>
+        <li><strong>Minor 2nd (1 semitone):</strong> Jaws theme — tension</li>
+        <li><strong>Major 2nd (2 semitones):</strong> "Happy Birthday" first two notes</li>
+        <li><strong>Major 3rd (4 semitones):</strong> "When the Saints" — bright, happy</li>
+        <li><strong>Perfect 5th (7 semitones):</strong> Star Wars theme — strong, open</li>
+        <li><strong>Octave (12 semitones):</strong> "Somewhere Over the Rainbow" — same note, higher</li>
+      </ul>
+      <div class="key"><p><strong>NYVC tip:</strong> Learn to recognize intervals by associating them with songs you know. This is called "reference songs" and it's the fastest way to train your ear.</p></div>`,
+      task:{text:'Using a piano app, play and sing these intervals from C: major 2nd, major 3rd, perfect 5th, octave. Record yourself singing each interval. Can you hear the difference?', label:'Task 3.4'}
+    },
+    {
+      id:'3-5', title:'3.5: Song Structure — How Songs Are Built',
+      body:`<p>Most popular songs follow a predictable structure. Understanding it helps you learn songs faster, memorize lyrics, and even write your own songs.</p>
+      <h3>The Common Structure</h3>
+      <ul>
+        <li><strong>Intro</strong> — Instrumental opening. Sets the mood.</li>
+        <li><strong>Verse</strong> — Tells the story. Lower energy, more conversational.</li>
+        <li><strong>Pre-Chorus</strong> — Builds tension. "And I will always..."</li>
+        <li><strong>Chorus</strong> — The main message. Highest energy, most memorable.</li>
+        <li><strong>Bridge</strong> — The contrast. New melody, new perspective. "But if you wanna leave..."</li>
+        <li><strong>Outro</strong> — The ending. Wind down or big finish.</li>
+      </ul>
+      <div class="tip"><p><strong>Exercise:</strong> Pick a song you know well. Map out its structure — where are the verses, chorus, bridge? This trains your ear to hear song architecture.</p></div>`,
+      task:{text:'Choose a worship song or gospel song. Map out its structure (verse, chorus, bridge, etc.). Write it down. Then record yourself singing it, paying attention to how the energy changes between sections.', label:'Task 3.5'}
+    }
+  ],
+  quiz:[
+    {q:'What is the pattern of the major scale?', options:['W-H-W-W-H-W-W','W-W-H-W-W-W-H','H-W-W-H-W-W-W','W-W-W-H-W-W-H'], a:1},
+    {q:'What is the relative minor of C major?', options:['E minor','A minor','D minor','G minor'], a:1},
+    {q:'What is syncopation?', options:['Singing very fast','Accenting the off-beats','Singing in 4/4 time','Holding long notes'], a:1},
+    {q:'How many semitones in a perfect 5th?', options:['5','6','7','8'], a:2},
+    {q:'Which section of a song is usually the highest energy?', options:['Verse','Intro','Chorus','Outro'], a:2}
+  ],
+  badge:'theory'
+},
+
+/* ── MODULE 4: SONG SELECTION ── */
+{
+  id:4, title:'Song Selection', subtitle:'Choose What Serves You',
+  icon:'🎵', color:'purple',
+  desc:'Voice types, transposition, repertoire — sing songs that make you sound your best.',
+  lessons:[
+    {
+      id:'4-1', title:'4.1: Voice Types — Know Your Category',
+      body:`<p>Voice type (or "voice classification") is a system for categorizing voices based on range, weight, and timbre. It's not about limiting you — it's about understanding your instrument.</p>
+      <h3>The Main Voice Types</h3>
+      <ul>
+        <li><strong>Soprano</strong> — Highest female voice. Range: C4-C6. Light, bright, agile. Think: Whitney Houston (early), Sinach.</li>
+        <li><strong>Mezzo-Soprano</strong> — Middle female voice. Range: A3-A5. Rich, warm, versatile. Think: Mercy Chinwo, Adele.</li>
+        <li><strong>Alto/Contralto</strong> — Lowest female voice. Range: F3-F5. Deep, full, powerful. Think: Eedris Abdulkareem (female equivalent).</li>
+        <li><strong>Tenor</strong> — Highest male voice. Range: C3-C5. Bright, ringing, powerful. Think: Wizkid (upper range).</li>
+        <li><strong>Baritone</strong> — Middle male voice. Range: A2-A4. Warm, rich, versatile. Think: Timi Dakolo.</li>
+        <li><strong>Bass</strong> — Lowest male voice. Range: E2-E4. Deep, resonant, commanding.</li>
+      </ul>
+      <div class="key"><p><strong>NYVC truth:</strong> Your voice type is not a prison. It's a starting point. Many great singers cross voice types. Know yours, then expand beyond it.</p></div>`,
+      task:{text:'Research your voice type. Find 3 singers who share your voice type. Listen to their songs — what do you notice about their range, tone, and style?', label:'Task 4.1'}
+    },
+    {
+      id:'4-2', title:'4.2: Transposition — Make Any Song Yours',
+      body:`<p>Transposition means changing the key of a song to fit your range. If a song is too high or too low, you can move it up or down to where it sits comfortably in your voice.</p>
+      <h3>How to Transpose</h3>
+      <p>Find the original key of a song (search "[song name] key" online). If it's in C major and too high for you, try Bb major or A major — each is one or two semitones lower.</p>
+      <p>Use a piano app to play the melody in the new key. Sing along. Does it feel better? If not, try another key.</p>
+      <div class="tip"><p><strong>Pro tip:</strong> Most worship teams transpose songs regularly. If you can say "Can we take it down a step?" you're already ahead of most singers.</p></div>`,
+      task:{text:'Choose a song that's slightly too high or too low for you. Find the original key. Transpose it down or up by 1-2 semitones. Record yourself singing it in the new key.', label:'Task 4.2'}
+    },
+    {
+      id:'4-3', title:'4.3: Building Your Repertoire',
+      body:`<p>Your repertoire is your collection of "go-to" songs — songs you can sing excellently at any time. Every working singer needs a solid repertoire.</p>
+      <h3>The Repertoire Formula</h3>
+      <ul>
+        <li><strong>3-5 worship/gospel songs</strong> — For church services and ministry</li>
+        <li><strong>2-3 Afrobeats/pop songs</strong> — For social events and fun</li>
+        <li><strong>1-2 ballads</strong> — For emotional moments and auditions</li>
+        <li><strong>1 "showstopper"</strong> — A song that showcases your best qualities</li>
+      </ul>
+      <div class="key"><p><strong>NYVC principle:</strong> It's better to know 10 songs excellently than 50 songs poorly. Quality over quantity. Master your repertoire.</p></div>`,
+      task:{text:'Create your repertoire list: 10 songs you want to master. For each song, write the key, the range, and what makes it good for your voice. Start learning them one by one.', label:'Task 4.3'}
+    },
+    {
+      id:'4-4', title:'4.4: Context — Singing for the Right Moment',
+      body:`<p>A great singer knows WHAT to sing and WHEN. The same song can be perfect in one context and completely wrong in another. Context is everything.</p>
+      <h3>Context Considerations</h3>
+      <ul>
+        <li><strong>Worship/Ministry:</strong> Songs that point people to God. Lyrics matter more than vocal acrobatics.</li>
+        <li><strong>Concert/Performance:</strong> Songs that showcase your voice and connect emotionally with the audience.</li>
+        <li><strong>Recording:</strong> Songs that sound great on a track. Production-friendly, consistent tone.</li>
+        <li><strong>Audition:</strong> Songs that show your range, control, and personality in 2 minutes.</li>
+      </ul>`,
+      task:{text:'For each context (worship, concert, recording, audition), choose 2 songs from your repertoire that would work best. Explain why each song fits that context.', label:'Task 4.4'}
+    },
+    {
+      id:'4-5', title:'4.5: Song Analysis — Dissect Before You Sing',
+      body:`<p>Before learning a new song, analyze it. Understanding the structure, melody, lyrics, and emotional arc helps you learn faster and perform better.</p>
+      <h3>The NYVC Song Analysis Framework</h3>
+      <ul>
+        <li><strong>Key & Range:</strong> What key is it in? What's the highest and lowest note?</li>
+        <li><strong>Structure:</strong> Verse, chorus, bridge? How many times does each repeat?</li>
+        <li><strong>Melody:</strong> Does it step (move by adjacent notes) or leap (jump)? Where are the high points?</li>
+        <li><strong>Lyrics:</strong> What's the message? Where's the emotional climax?</li>
+        <li><strong>Dynamics:</strong> Where should it be soft? Where should it build?</li>
+      </ul>`,
+      task:{text:'Choose a song you want to learn. Analyze it using the NYVC framework above. Write down your analysis. Then record yourself singing it with your analysis in mind.', label:'Task 4.5'}
+    }
+  ],
+  quiz:[
+    {q:'What is the approximate range of a soprano?', options:['A3-A5','C4-C6','F3-F5','C3-C5'], a:1},
+    {q:'What does transposition mean?', options:['Changing the tempo','Changing the key','Changing the lyrics','Changing the rhythm'], a:1},
+    {q:'How many songs should you aim to master?', options:['50+ songs','Exactly 20','10 songs excellently','As many as possible'], a:2},
+    {q:'What matters most in worship/ministry singing?', options:['Vocal acrobatics','Lyrics that point people to God','Singing as loud as possible','Impressing the audience'], a:1},
+    {q:'What does the NYVC Song Analysis Framework include?', options:['Only the melody','Key, range, structure, melody, lyrics, dynamics','Only the lyrics','Only the key'], a:1}
+  ],
+  badge:'repertoire'
+},
+
+/* ── MODULE 5: PERFORMANCE ── */
+{
+  id:5, title:'Performance', subtitle:'Move People',
+  icon:'🎤', color:'orange',
+  desc:'Emotion, dynamics, stage presence, mic technique — the art of moving an audience.',
+  lessons:[
+    {
+      id:'5-1', title:'5.1: Emotional Access — Feel It to Sing It',
+      body:`<p>Technical perfection without emotion is just a vocal exercise. The greatest singers in history aren't the most technically skilled — they're the ones who make you <em>feel</em> something.</p>
+      <h3>The NYVC Emotional Access Method</h3>
+      <ul>
+        <li><strong>Understand the lyrics</strong> — What is the song actually saying? What's the story?</li>
+        <li><strong>Find your connection</strong> — When have you felt this emotion in your own life?</li>
+        <li><strong>Visualize</strong> — As you sing, picture the scene. See the person. Feel the moment.</li>
+        <li><strong>Don't act — be</strong> — Authentic emotion is felt, not performed. If you feel it, the audience feels it.</li>
+      </ul>
+      <div class="key"><p><strong>NYVC truth:</strong> You can't give what you don't have. If the song is about God's faithfulness, remember a time God was faithful to you. That memory will color your voice.</p></div>`,
+      task:{text:'Choose a song with deep emotional content. Before singing it, close your eyes and visualize the story. Then sing it with your eyes closed. Record it. Now sing it "performing" to an audience. Which version moves you more?', label:'Task 5.1'}
+    },
+    {
+      id:'5-2', title:'5.2: Stage Presence — Command the Room',
+      body:`<p>Stage presence is how you carry yourself when you perform. It's your body language, your eye contact, your energy. You can have a great voice and still bore an audience with bad stage presence.</p>
+      <h3>The NYVC Stage Presence Rules</h3>
+      <ul>
+        <li><strong>Own the space</strong> — Stand tall. Move with purpose. Don't hide behind the mic stand.</li>
+        <li><strong>Eye contact</strong> — Look at individuals in the audience. Not at the floor, not at the ceiling.</li>
+        <li><strong>Facial expression</strong> — Your face should match the emotion of the song. If you look bored, the audience feels bored.</li>
+        <li><strong>Movement</strong> — Move naturally. Step forward for intimate moments. Step back for big moments.</li>
+      </ul>`,
+      task:{text:'Record yourself performing a song on video. Watch it back critically. Score yourself on: posture (1-10), eye contact (1-10), facial expression (1-10), movement (1-10). What needs work?', label:'Task 5.2'}
+    },
+    {
+      id:'5-3', title:'5.3: Microphone Technique',
+      body:`<p>The microphone is your best friend and your worst enemy. Good mic technique makes you sound professional. Bad mic technique makes you sound amateur, no matter how good your voice is.</p>
+      <h3>The NYVC Mic Rules</h3>
+      <ul>
+        <li><strong>Distance</strong> — Hold the mic 2-4 inches from your mouth. Closer for soft singing, further for loud.</li>
+        <li><strong>Angle</strong> — Point the mic slightly off-center (not directly at your mouth) to reduce plosives (popping P's and B's).</li>
+        <li><strong>Don't eat the mic</strong> — Singing with the mic touching your lips causes distortion and feedback.</li>
+        <li><strong>Hand position</strong> — Hold the mic in the middle, not at the top (blocks the capsule) or bottom (loose connection).</li>
+      </ul>`,
+      task:{text:'Practice mic technique with your phone (as a mock mic). Sing a song at different volumes, adjusting your distance. Record yourself and listen — is the volume consistent?', label:'Task 5.3'}
+    },
+    {
+      id:'5-4', title:'5.4: Performance Scenarios — Be Ready for Anything',
+      body:`<p>Every performance is different. A worship service is not a concert. An audition is not a rehearsal. Here's how to approach the most common scenarios:</p>
+      <h3>Scenario 1: Worship Leading</h3>
+      <p>Your job is to lead people into God's presence. Sing with authority and intimacy. Watch the room — if people are connecting, stay in the moment. If they're distracted, bring it back.</p>
+      <h3>Scenario 2: Concert/Event</h3>
+      <p>This is your time to shine. Give everything. Connect with the audience. Move. Emote. This is where your stage presence matters most.</p>
+      <h3>Scenario 3: Audition</h3>
+      <p>Be prepared. Be professional. Sing the best 2 minutes of your life. Make them remember you. Thank them. Leave.</p>
+      <h3>Scenario 4: Recording Session</h3>
+      <p>Consistency is everything. Sing the same way every take. Listen to the track. Blend. Don't over-sing — the microphone hears everything.</p>
+      <h3>Scenario 5: Open Mic/Spontaneous</h3>
+      <p>Be ready to sing at any time. Have 3 songs you can sing cold. Confidence comes from preparation.</p>`,
+      task:{text:'Choose one performance scenario. Write a 1-paragraph plan: How would you prepare? What would you sing? How would you carry yourself? Then practice performing in that scenario.', label:'Task 5.4'}
+    },
+    {
+      id:'5-5', title:'5.5: Overcoming Stage Fright',
+      body:`<p>Stage fright is normal. Even the most experienced performers get nervous. The difference is that professionals have learned to use that energy instead of being paralyzed by it.</p>
+      <h3>The NYVC Anti-Fright Toolkit</h3>
+      <ul>
+        <li><strong>Breathe</strong> — 4 counts in, 8 counts out. This calms your nervous system.</li>
+        <li><strong>Reframe</strong> — Nervousness and excitement feel the same. Tell yourself "I'm excited" instead of "I'm scared."</li>
+        <li><strong>Prepare</strong> — Most stage fright comes from not knowing the material well enough. Over-prepare.</li>
+        <li><strong>Focus outward</strong> — Stop thinking about yourself. Focus on the message, the audience, the music.</li>
+        <li><strong>Start small</strong> — Sing for one person. Then two. Then five. Build up gradually.</li>
+      </ul>`,
+      task:{text:'Identify your biggest fear about performing. Write it down. Then write the NYVC reframe for it. Practice the breathing exercise for 5 minutes daily this week.', label:'Task 5.5'}
+    },
+    {
+      id:'5-6', title:'5.6: Your Performance Standard',
+      body:`<p>You've learned emotion, stage presence, mic technique, scenarios, and how to handle fear. Now it's time to set your personal performance standard.</p>
+      <h3>The NYVC Performance Checklist</h3>
+      <ul>
+        <li>☐ I know the song cold — lyrics, melody, dynamics</li>
+        <li>☐ I've connected emotionally to the lyrics</li>
+        <li>☐ I've practiced with a microphone</li>
+        <li>☐ I know my stage presence plan</li>
+        <li>☐ I've warmed up my voice</li>
+        <li>☐ I'm hydrated and rested</li>
+        <li>☐ I'm singing to serve, not to impress</li>
+      </ul>
+      <div class="tip"><p><strong>BandLab Practical — Module 5:</strong> Record a full performance — song, emotion, dynamics, everything. This is your best work yet. Share with Coach Toby.</p></div>`,
+      task:{text:'Complete the NYCV Performance Checklist for a song of your choice. Record your performance in BandLab. Submit as "[Module 5] Performance - [Your Name]".', label:'Task 5.6'}
+    }
+  ],
+  quiz:[
+    {q:'What is the most important element of emotional singing?', options:['Vocal range','Feeling the emotion authentically','Singing loudly','Perfect technique'], a:1},
+    {q:'How far should the mic be from your mouth?', options:['Touching your lips','1 inch','2-4 inches','12 inches'], a:2},
+    {q:'What is the #1 cause of stage fright?', options:['Bad audience','Not knowing the material well enough','Poor lighting','Wrong song choice'], a:1},
+    {q:'How should you reframe nervousness?', options:['Ignore it','Tell yourself "I'm excited"','Don't perform','Take medication'], a:1},
+    {q:'In a recording session, what matters most?', options:['Singing as loud as possible','Consistency','Adding lots of riffs','Singing fast'], a:1}
+  ],
+  badge:'performance'
+},
+
+/* ── MODULE 6: ARTICULATION & LANGUAGE ── */
+{
+  id:6, title:'Articulation & Language', subtitle:'Sing Clearly in Any Tongue',
+  icon:'🗣️', color:'blue',
+  desc:'IPA vowels/consonants, English diction, Nigerian languages — every word lands.',
+  lessons:[
+    {
+      id:'6-1', title:'6.1: Why Articulation Matters',
+      body:`<p>You could sing perfectly in tune and still not be understood. <span class="highlight">Clarity is everything</span>. Whether you're singing in English, Yoruba, Igbo, or Hausa — if they can't understand the words, the message is lost.</p>
+      <h3>The Articulators</h3>
+      <p>Five parts of your mouth shape words: <strong>lips, tongue, teeth, hard palate, and soft palate</strong>. When any of these are lazy, your words become muddy.</p>
+      <div class="key"><p><strong>NYVC principle:</strong> Singing is sustained speech. If you wouldn't mumble it in conversation, don't mumble it when you sing. Every consonant needs intention.</p></div>`,
+      task:{text:'Sing "The strength of the Lord is forever and ever" focusing on clear consonants. Then sing it again focusing on pure vowels. Record both in BandLab — which communicates better?', label:'Task 6.1'}
+    },
+    {
+      id:'6-2', title:'6.2: The IPA Vowel System',
+      body:`<p>The International Phonetic Alphabet gives us precise names for vowel shapes. This removes ambiguity — when a coach says "sing [i]," every singer produces the exact same vowel.</p>
+      <h3>The 5 Pure Vowels</h3>
+      <ul>
+        <li><strong>[i]</strong> — "ee" in "see". Tongue high and forward, lips spread. High head voice, bright tone.</li>
+        <li><strong>[e]</strong> — "ay" in "day". Tongue mid-high, lips slightly spread. Upper mix, transitioning up.</li>
+        <li><strong>[a]</strong> — "ah" in "father". Tongue low and flat, mouth open. Middle range, warm tone.</li>
+        <li><strong>[o]</strong> — "o" in "go". Tongue mid-back, lips rounded. Lower mix, adding depth.</li>
+        <li><strong>[u]</strong> — "oo" in "food". Tongue high-back, lips tightly rounded. High notes, dark tone, power.</li>
+      </ul>`,
+      task:{text:'Sing the 5 pure vowels [i, e, a, o, u] on a single comfortable pitch. Hold each for 4 seconds. Record in BandLab — are the vowel shapes distinct?', label:'Task 6.2'}
+    },
+    {
+      id:'6-3', title:'6.3: Consonants — The Backbone of Clarity',
+      body:`<p>Vowels carry the tone. Consonants carry the meaning. Without clear consonants, lyrics become mush.</p>
+      <h3>Problem Consonants for Singers</h3>
+      <ul>
+        <li><strong>S and Z:</strong> Can become harsh and sibilant. Keep the "s" short and controlled.</li>
+        <li><strong>T and D:</strong> Often dropped at the end of words. Exaggerate the tongue tip contact.</li>
+        <li><strong>R:</strong> Can distort the vowel. Soften it, especially in British-influenced singing.</li>
+        <li><strong>L:</strong> Can become dark and swallow the vowel. Keep the tongue tip up.</li>
+        <li><strong>M, N, NG:</strong> Your friends — they create nasal resonance and help placement.</li>
+      </ul>
+      <div class="tip"><p><strong>NYVC exercise:</strong> Exaggerate every consonant in a phrase like "The love of God is broader than the measure of man's mind." Overdo it. Then pull back 20%. That's your performance clarity.</p></div>`,
+      task:{text:'Take a verse from a song you know. Sing it exaggerating every consonant. Then sing it normally. Then find the middle ground. Record all 3 in BandLab.', label:'Task 6.3'}
+    },
+    {
+      id:'6-4', title:'6.4: Singing in English — Diction Rules',
+      body:`<p>English has specific challenges for singers: silent letters, schwa sounds, and the tendency to swallow endings.</p>
+      <h3>The Schwa [ə]</h3>
+      <p>The most common vowel sound in English — the "uh" in "the," "a," "of." In singing, schwas should be brief and light. Don't give them full vowel weight.</p>
+      <h3>Common English Diction Mistakes</h3>
+      <ul>
+        <li>Singing "the" as "thee" instead of "thuh" before consonants</li>
+        <li>Dropping the final "d" in "and," "God," "Lord"</li>
+        <li>Over-pronouncing "r" in words like "father," "water"</li>
+        <li>Singing "ing" as "ing" instead of "in'" in casual contexts</li>
+      </ul>`,
+      task:{text:'Sing "The love of God is broader than the measure of man's mind" focusing on clear English diction. Pay attention to the schwa [ə] in "the" and "of." Record in BandLab.', label:'Task 6.4'}
+    },
+    {
+      id:'6-5', title:'6.5: Singing in Nigerian Languages',
+      body:`<p>Yoruba, Igbo, and Hausa each have unique phonetic characteristics. Understanding them helps you sing in these languages with authenticity.</p>
+      <h3>Yoruba</h3>
+      <ul>
+        <li>Tonal language — pitch changes meaning</li>
+        <li>Vowels are pure and consistent: a, e, ẹ, i, o, ọ, u</li>
+        <li>Consonants are generally softer than English</li>
+        <li>The "gb" and "kp" sounds are unique — practice them slowly</li>
+      </ul>
+      <h3>Igbo</h3>
+      <ul>
+        <li>Also tonal — melody must respect the tonal patterns</li>
+        <li>Rich vowel system with nasalized vowels</li>
+        <li>Consonant clusters like "gb," "gh," "nw," "ny" need careful articulation</li>
+      </ul>
+      <h3>Hausa</h3>
+      <ul>
+        <li>Tonal with two basic tones (high and low) plus a falling tone</li>
+        <li>Glottal stops (represented by \') are important — don't skip them</li>
+        <li>Vowels can be short or long — length changes meaning</li>
+      </ul>
+      <div class="key"><p><strong>Universal principle:</strong> Whatever language you sing in, the vowels carry the tone and the consonants carry the meaning. Master both.</p></div>`,
+      task:{text:'Choose a song in a Nigerian language you speak. Identify 3 specific phonetic features of that language. Record yourself singing it with those features clearly articulated. Share with BandLab.', label:'Task 6.5'}
+    },
+    {
+      id:'6-6', title:'6.6: Putting It All Together',
+      body:`<p>The goal isn't perfection — it's <strong>intelligibility</strong>. Can the audience understand you? If yes, your articulation is working.</p>
+      <h3>The Clarity Checklist</h3>
+      <ul>
+        <li>☐ Are your vowels pure and consistent?</li>
+        <li>☐ Are your consonants clear — especially at the beginnings and ends of words?</li>
+        <li>☐ Are you respecting the phonetic rules of the language you're singing in?</li>
+        <li>☐ Can someone who doesn't know the song still understand the words?</li>
+      </ul>
+      <div class="tip"><p><strong>BandLab Practical — Module 6:</strong> Record a song in any language with crystal-clear diction. Submit as "[Module 6] Articulation - [Your Name]".</p></div>`,
+      task:{text:'Complete the BandLab practical. Also: Record yourself reading a paragraph from a book out loud, then singing the same words. Compare — what changes when you sing vs. speak?', label:'Task 6.6'}
+    }
+  ],
+  quiz:[
+    {q:'What are the five articulators?', options:['Lungs, throat, mouth, nose, ears','Lips, tongue, teeth, hard palate, soft palate','Vocal folds, diaphragm, chest, head, face','Hands, eyes, face, body, voice'], a:1},
+    {q:'In IPA, what does [a] represent?', options:['The "ee" sound','The "oo" sound','The open "ah" sound as in "father"','The "oh" sound'], a:2},
+    {q:'What is the schwa sound [ə]?', options:['A loud, emphasized vowel','The "uh" sound in unstressed syllables','A type of consonant','A breathing technique'], a:1},
+    {q:'Why are Yoruba, Igbo, and Hausa considered tonal languages?', options:['They are always sung loudly','Pitch changes the meaning of words','They use more tones than English','They have more vowels than consonants'], a:1},
+    {q:'What carries the meaning in sung words?', options:['The vowels','The consonants','The melody','The volume'], a:1}
+  ],
+  badge:'articulation'
+},
+
+/* ── MODULE 7: ADVANCED CRAFT ── */
+{
+  id:7, title:'Advanced Craft', subtitle:'Find Your Voice',
+  icon:'🏆', color:'gold',
+  desc:'Identity, improvisation, longevity, mentoring — from student to artist.',
+  lessons:[
+    {
+      id:'7-1', title:'7.1: Vocal Identity — What Makes YOU Sound Like You',
+      body:`<p>Every great singer has a recognizable sound. Not because they tried to sound unique — but because they stopped trying to sound like everyone else.</p>
+      <h3>The Identity Discovery Process</h3>
+      <ul>
+        <li><strong>What do you sound like when you're not performing?</strong> Your natural speaking voice is the foundation of your singing voice.</li>
+        <li><strong>What singers do you admire — and why?</strong> The qualities you admire in others are often the qualities you already have.</li>
+        <li><strong>What do people compliment?</strong> Others often hear your strengths before you do.</li>
+        <li><strong>What feels effortless?</strong> Your natural strengths feel easy. Your weaknesses feel like work.</li>
+      </ul>
+      <div class="key"><p><strong>NYVC truth:</strong> Your vocal identity already exists. You don't create it — you uncover it by removing the things that aren't you.</p></div>`,
+      task:{text:'Sing "I love you Lord" in 3 different styles: gospel, pop, and ballad. Record all 3 in BandLab. Listen back — which felt most natural? That's your identity.', label:'Task 7.1'}
+    },
+    {
+      id:'7-2', title:'7.2: Improvisation and Riffs',
+      body:`<p>Improvisation isn't about showing off — it's about expressing what the written melody can't. A well-placed riff can turn a good performance into an unforgettable one.</p>
+      <h3>The NYVC Riff Framework</h3>
+      <ul>
+        <li><strong>Start simple:</strong> One note above or below the melody note. That's a riff.</li>
+        <li><strong>Use chord tones:</strong> Riffs that land on chord tones (1, 3, 5, 7) sound intentional.</li>
+        <li><strong>Rhythm matters more than pitch:</strong> A simple rhythm on one note beats a complex run with no rhythm.</li>
+        <li><strong>Less is more:</strong> One great riff per phrase. Not every note needs decoration.</li>
+        <li><strong>End on the melody:</strong> Always return to the written melody. Riffs are seasoning, not the main course.</li>
+      </ul>`,
+      task:{text:'Take a simple melody. Add one riff per phrase — just one note above or below the melody. Record in BandLab. Then try a version with more riffs. Which sounds better?', label:'Task 7.2'}
+    },
+    {
+      id:'7-3', title:'7.3: Genre Versatility',
+      body:`<p>The most employable singers can cross genres. A worship singer who can also do Afrobeats. A gospel singer who can also do R&B. Versatility is a superpower.</p>
+      <h3>What Changes Between Genres</h3>
+      <ul>
+        <li><strong>Vocal placement:</strong> Forward for pop/gospel, deeper for classical/jazz</li>
+        <li><strong>Vibrato:</strong> Heavy for classical, light for pop, variable for gospel</li>
+        <li><strong>Diction:</strong> Crisp for pop, legato for classical, rhythmic for Afrobeats</li>
+        <li><strong>Dynamics:</strong> Wide range for classical/gospel, compressed for pop/rock</li>
+        <li><strong>Emotional delivery:</strong> Restrained for jazz, full for gospel, conversational for pop</li>
+      </ul>`,
+      task:{text:'Take one short phrase and sing it in 3 different genres (e.g., Afrobeats rhythm, R&B smoothness, worship reverence). Record all 3 in BandLab.', label:'Task 7.3'}
+    },
+    {
+      id:'7-4', title:'7.4: Vocal Longevity — Sing for Decades',
+      body:`<p>Some singers peak at 25 and are done by 35. Others sing beautifully into their 70s. The difference is how they treat their instrument.</p>
+      <h3>The Longevity Principles</h3>
+      <ul>
+        <li><strong>Never sing through pain:</strong> Pain is a warning. Rest, don't push.</li>
+        <li><strong>Warm up every time:</strong> Even 5 minutes of lip trills and humming before singing.</li>
+        <li><strong>Hydrate constantly:</strong> Your vocal folds need moisture to vibrate efficiently.</li>
+        <li><strong>Rest your voice:</strong> After heavy singing, give your voice 24 hours of light use.</li>
+        <li><strong>Keep learning:</strong> Technique improves with age. Your voice at 40 can be better than at 25.</li>
+      </ul>`,
+      task:{text:'Create your personal vocal longevity plan: (1) Daily warm-up routine, (2) Hydration target, (3) Rest schedule, (4) One habit to stop. Write it down and keep it visible.', label:'Task 7.4'}
+    },
+    {
+      id:'7-5', title:'7.5: Teaching and Mentoring Others',
+      body:`<p>The best way to master something is to teach it. When you can explain a concept to someone else, you truly understand it.</p>
+      <h3>How to Teach What You've Learned</h3>
+      <ul>
+        <li><strong>Start with the "why":</strong> People learn better when they understand why something matters</li>
+        <li><strong>Use analogies:</strong> "Your voice is like a guitar" is more memorable than technical jargon</li>
+        <li><strong>Demonstrate:</strong> Sing it correctly, then sing it incorrectly. Let them hear the difference</li>
+        <li><strong>Be patient:</strong> Everyone learns at different speeds</li>
+        <li><strong>Encourage:</strong> A kind word at the right moment can change someone's life</li>
+      </ul>`,
+      task:{text:'Teach one concept from this academy to someone else — a friend, family member, or fellow singer. Write down: What did you teach? How did you explain it? What was their response?', label:'Task 7.5'}
+    },
+    {
+      id:'7-6', title:'7.6: Your Next Steps — From Student to Artist',
+      body:`<p>You've completed 7 modules. You have the foundation. Now what?</p>
+      <h3>The Artist Development Path</h3>
+      <ol>
+        <li><strong>Build your repertoire:</strong> 10-15 songs you can sing excellently in your genre</li>
+        <li><strong>Record consistently:</strong> One recording per week. Quality improves with quantity</li>
+        <li><strong>Perform regularly:</strong> Open mics, church services, small events. Stage time is irreplaceable</li>
+        <li><strong>Get feedback:</strong> From coaches, peers, and audiences. Listen more than you defend</li>
+        <li><strong>Develop your brand:</strong> What do you want to be known for? Start building that identity now</li>
+        <li><strong>Connect with other musicians:</strong> Collaborate. Learn from them. Build your network</li>
+      </ol>
+      <div class="tip"><p><strong>BandLab Practical — Module 7 (Final):</strong> Record your best performance yet. Show everything you've learned. Submit as "[Module 7] Final Performance - [Your Name]".</p></div>`,
+      task:{text:'Complete your final BandLab performance. Write a reflection: What have you learned? What are your strengths? What do you still want to improve? Where do you want to go from here?', label:'Task 7.6'}
+    }
+  ],
+  quiz:[
+    {q:'How do you discover your vocal identity?', options:['Copy your favorite singer exactly','Remove what isn't you — your identity already exists underneath','Take a DNA test','Only sing in one genre'], a:1},
+    {q:'What's the most important principle for riffs?', options:['Use as many notes as possible','Use chord tones, keep rhythm clear, and always return to the melody','Only riff on high notes','Never riff — stick to the written melody'], a:1},
+    {q:'What changes most between genres?', options:['The language','Vocal placement, vibrato, diction, dynamics, and emotional delivery','The key of the song','Nothing — all genres are the same'], a:1},
+    {q:'What's the #1 rule for vocal longevity?', options:['Sing as much as possible to build endurance','Never sing through pain — rest when your voice needs it','Only sing in your best key','Avoid warming up'], a:1},
+    {q:'What's the best way to master what you've learned?', options:['Keep it to yourself','Teach it to someone else','Only practice alone','Focus on theory, not practice'], a:1}
+  ],
+  badge:'complete'
+}
+];
+
+/* ═══════════════════════════════════════════════════════════
+   APP STATE
+   ═══════════════════════════════════════════════════════════ */
+var state = {
+  currentPage: 'onboard',
+  currentMod: null,
+  currentLesson: null,
+  quizAnswers: {},
+  quizSubmitted: false
+};
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════════ */
+function showPage(pageId) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    pages[i].classList.remove('active');
+  }
+  var target = document.getElementById('page-' + pageId);
+  if (target) target.classList.add('active');
+  state.currentPage = pageId;
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  if (pageId === 'dashboard') {
+    renderDashboard();
+    document.getElementById('topbarProgress').style.display = 'flex';
+    document.getElementById('audioBar').style.display = 'block';
+  } else if (pageId === 'onboard') {
+    document.getElementById('topbarProgress').style.display = 'none';
+    document.getElementById('audioBar').style.display = 'none';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ONBOARDING
+   ═══════════════════════════════════════════════════════════ */
+function startAcademy() {
+  var name = document.getElementById('onboardName').value.trim();
+  if (!name) { document.getElementById('onboardName').focus(); return; }
+  VMA.createStudent(name);
+  VMA.updateStreak();
+  showPage('dashboard');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DASHBOARD
+   ═══════════════════════════════════════════════════════════ */
+function renderDashboard() {
+  var s = VMA.get();
+  if (!s) { showPage('onboard'); return; }
+
+  document.getElementById('dashWelcome').textContent = 'Welcome back, ' + s.name;
+  document.getElementById('statXP').textContent = s.xp;
+  document.getElementById('statLevel').textContent = VMA.getLevel(s.xp);
+  document.getElementById('statStreak').textContent = s.streak;
+
+  var done = 0;
+  for (var i = 0; i < 7; i++) { if (s.modules && s.modules[i] >= 100) done++; }
+  document.getElementById('statModules').textContent = done + '/7';
+
+  // Badges
+  var badgeGrid = document.getElementById('badgeGrid');
+  var badgeDefs = [
+    {id:'foundations', label:'🏗️ Foundations'},
+    {id:'technique', label:'🎯 Technique'},
+    {id:'theory', label:'📐 Theory'},
+    {id:'repertoire', label:'🎵 Repertoire'},
+    {id:'performance', label:'🎤 Performance'},
+    {id:'articulation', label:'🗣️ Articulation'},
+    {id:'complete', label:'🏆 Graduate'}
+  ];
+  var badgeHTML = '';
+  for (var b = 0; b < badgeDefs.length; b++) {
+    var earned = s.badges && s.badges.indexOf(badgeDefs[b].id) >= 0;
+    badgeHTML += '<span class="badge ' + (earned ? 'badge--earned' : '') + '">' + badgeDefs[b].label + '</span>';
+  }
+  badgeGrid.innerHTML = badgeHTML;
+
+  // Module cards
+  var modList = document.getElementById('modList');
+  var modHTML = '';
+  for (var m = 0; m < MODULES.length; m++) {
+    var mod = MODULES[m];
+    var pct = s.modules && s.modules[mod.id-1] ? s.modules[mod.id-1] : 0;
+    var isDone = pct >= 100;
+    var isLocked = mod.id > 1 && (!s.modules || s.modules[mod.id-2] < 50);
+    var numClass = isDone ? 'mod-card__num--mint' : (isLocked ? 'mod-card__num--gold' : 'mod-card__num--' + mod.color);
+    modHTML += '<div class="mod-card ' + (isDone ? 'mod-card--done' : '') + (isLocked ? 'mod-card--locked' : '') + '" onclick="openModule(' + mod.id + ')">';
+    modHTML += '<div class="mod-card__head">';
+    modHTML += '<div class="mod-card__num ' + numClass + '">' + mod.id + '</div>';
+    modHTML += '<div class="mod-card__info"><div class="mod-card__title">' + mod.title + ' — ' + mod.subtitle + '</div><div class="mod-card__desc">' + mod.desc + '</div></div>';
+    modHTML += '<div class="mod-card__progress"><div class="mod-card__pct">' + pct + '%</div><div class="mod-card__bar"><div class="mod-card__fill" style="width:' + pct + '%"></div></div></div>';
+    modHTML += '</div></div>';
+  }
+  modList.innerHTML = modHTML;
+
+  // Topbar progress
+  var totalPct = Math.round(done / 7 * 100);
+  document.getElementById('topbarFill').style.width = totalPct + '%';
+  document.getElementById('topbarPct').textContent = totalPct + '%';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LESSON VIEW
+   ═══════════════════════════════════════════════════════════ */
+function openModule(modId) {
+  var mod = MODULES[modId-1];
+  if (!mod) return;
+  state.currentMod = mod;
+  state.currentLesson = null;
+  state.quizAnswers = {};
+  state.quizSubmitted = false;
+
+  // Find first incomplete lesson
+  var s = VMA.get();
+  var startLesson = 1;
+  for (var i = 1; i <= mod.lessons.length; i++) {
+    if (!s.lessons || !s.lessons[modId + '-' + i]) {
+      startLesson = i;
+      break;
+    }
+    if (i === mod.lessons.length) startLesson = mod.lessons.length;
   }
 
-  function updateUI(){
-    var st=VMA.getStudent();if(!st)return;
-    document.getElementById('navAvatar').textContent=(st.name||'S').charAt(0).toUpperCase();
-    document.getElementById('xpName').textContent=st.name;
-    document.getElementById('xpAmount').textContent=st.xp+' XP';
-    document.getElementById('xpLevel').textContent=VMA.getLevel(st.xp);
-    document.getElementById('xpStreak').textContent=st.streak+' day streak';
+  showLesson(startLesson);
+  showPage('lesson');
+  document.getElementById('topbarProgress').style.display = 'flex';
+  document.getElementById('audioBar').style.display = 'block';
+}
 
-    // Module progress
-    for(var i=1;i<=7;i++){
-      var pct=st.modules[i-1]||0;
-      document.getElementById('mod-pct-'+i).textContent=pct+'%';
-      document.getElementById('mod-fill-'+i).style.width=pct+'%';
-      var card=document.getElementById('mod-card-'+i);
-      if(pct>=100){card.classList.add('completed');card.classList.remove('locked');}
-      else if(i===1||st.modules[i-2]>=50){card.classList.remove('locked');}
+function showLesson(lessonIdx) {
+  var mod = state.currentMod;
+  if (!mod || lessonIdx < 1 || lessonIdx > mod.lessons.length) return;
+  var lesson = mod.lessons[lessonIdx-1];
+  state.currentLesson = lessonIdx;
+
+  document.getElementById('lessonTitle').textContent = lesson.title;
+  document.getElementById('lessonBody').innerHTML = lesson.body;
+
+  // Task button
+  var s = VMA.get();
+  var taskDone = s.lessons && s.lessons[mod.id + '-' + lessonIdx + '-task'];
+  var taskHTML = '<div class="task">';
+  taskHTML += '<div class="task__label">' + lesson.task.label + '</div>';
+  taskHTML += '<div class="task__text">' + lesson.task.text + '</div>';
+  if (taskDone) {
+    taskHTML += '<button class="btn btn--done" disabled>✓ Submitted</button>';
+  } else {
+    taskHTML += '<button class="btn btn--primary" onclick="completeTask(' + mod.id + ',' + lessonIdx + ')">Mark as Done ✓</button>';
+  }
+  taskHTML += '</div>';
+  document.getElementById('lessonBody').innerHTML += taskHTML;
+
+  // Navigation
+  var navHTML = '';
+  if (lessonIdx > 1) {
+    navHTML += '<button class="btn btn--secondary" onclick="showLesson(' + (lessonIdx-1) + ')">← Previous</button>';
+  } else {
+    navHTML += '<span></span>';
+  }
+  if (lessonIdx < mod.lessons.length) {
+    navHTML += '<button class="btn btn--secondary" onclick="showLesson(' + (lessonIdx+1) + ')">Next Lesson →</button>';
+  } else {
+    navHTML += '<button class="btn btn--primary" onclick="startQuiz()">Take Quiz →</button>';
+  }
+  document.getElementById('lessonNav').innerHTML = navHTML;
+
+  // Update progress
+  updateModProgress();
+}
+
+function completeTask(modId, lessonIdx) {
+  var s = VMA.get();
+  if (!s) return;
+
+  // Mark task done
+  s.lessons = s.lessons || {};
+  s.lessons[modId + '-' + lessonIdx + '-task'] = true;
+  VMA.setStudent(s);
+
+  VMA.awardXP(25, 'Task ' + modId + '.' + lessonIdx);
+  VMA.updateStreak();
+  VMA.notify('✓ Task complete! +25 XP');
+
+  // Advance to next lesson after brief delay
+  var mod = MODULES[modId-1];
+  if (lessonIdx < mod.lessons.length) {
+    setTimeout(function() { showLesson(lessonIdx + 1); }, 600);
+  } else {
+    setTimeout(function() { startQuiz(); }, 600);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   QUIZ
+   ═══════════════════════════════════════════════════════════ */
+function startQuiz() {
+  var mod = state.currentMod;
+  if (!mod) return;
+  state.quizAnswers = {};
+  state.quizSubmitted = false;
+
+  var html = '<div class="card"><h2 style="margin-bottom:var(--s-1)">Module ' + mod.id + ' Quiz</h2>';
+  html += '<p class="text-muted text-sm" style="margin-bottom:var(--s-3)">Answer all ' + mod.quiz.length + ' questions. You need 80% to pass.</p>';
+
+  for (var i = 0; i < mod.quiz.length; i++) {
+    var q = mod.quiz[i];
+    html += '<div class="q-card" id="q' + mod.id + '-' + i + '">';
+    html += '<div class="q-num">Question ' + (i+1) + ' of ' + mod.quiz.length + '</div>';
+    html += '<div class="q-text">' + q.q + '</div>';
+    for (var j = 0; j < q.options.length; j++) {
+      html += '<button class="q-opt" onclick="selectAnswer(' + i + ',' + j + ')">' + q.options[j] + '</button>';
+    }
+    html += '</div>';
+  }
+
+  html += '<button class="btn btn--primary btn--lg" id="quizSubmitBtn" onclick="submitQuiz()" disabled>Submit Answers</button>';
+  html += '</div>';
+
+  // Result area (hidden initially)
+  html += '<div class="quiz-view__result" id="quizResult" style="display:none;">';
+  html += '<div class="quiz-view__score" id="quizScore">0%</div>';
+  html += '<div class="quiz-view__title" id="quizTitle">Quiz Complete</div>';
+  html += '<div class="quiz-view__msg" id="quizMsg"></div>';
+  html += '<button class="btn btn--secondary" id="quizRetryBtn" onclick="retryQuiz()" style="display:none;">Try Again</button>';
+  html += '</div>';
+
+  document.getElementById('quizView').innerHTML = html;
+  showPage('quiz');
+}
+
+function selectAnswer(qIdx, optIdx) {
+  if (state.quizSubmitted) return;
+  var mod = state.currentMod;
+  state.quizAnswers[qIdx] = optIdx;
+
+  // Update UI
+  var qCard = document.getElementById('q' + mod.id + '-' + qIdx);
+  var opts = qCard.querySelectorAll('.q-opt');
+  for (var i = 0; i < opts.length; i++) {
+    opts[i].classList.remove('selected');
+  }
+  opts[optIdx].classList.add('selected');
+
+  // Check if all answered
+  var allAnswered = true;
+  for (var i = 0; i < mod.quiz.length; i++) {
+    if (state.quizAnswers[i] === undefined) { allAnswered = false; break; }
+  }
+  document.getElementById('quizSubmitBtn').disabled = !allAnswered;
+}
+
+function submitQuiz() {
+  if (state.quizSubmitted) return;
+  state.quizSubmitted = true;
+
+  var mod = state.currentMod;
+  var correct = 0;
+  var total = mod.quiz.length;
+
+  for (var i = 0; i < total; i++) {
+    var q = mod.quiz[i];
+    var qCard = document.getElementById('q' + mod.id + '-' + i);
+    var opts = qCard.querySelectorAll('.q-opt');
+    var sel = state.quizAnswers[i];
+
+    // Clear previous classes
+    for (var j = 0; j < opts.length; j++) {
+      opts[j].classList.remove('correct', 'wrong');
+      opts[j].style.pointerEvents = 'none';
     }
 
-    // Badges
-    var badgeIds=['foundations','technique','theory','repertoire','performance','articulation','complete'];
-    for(var b=0;b<badgeIds.length;b++){
-      var el=document.getElementById('badge-'+badgeIds[b]);
-      if(st.badges&&st.badges.indexOf(badgeIds[b])>=0){el.classList.add('earned');el.classList.remove('locked');}
+    // Mark correct/wrong
+    opts[q.a].classList.add('correct');
+    if (sel !== q.a) {
+      opts[sel].classList.add('wrong');
+    } else {
+      correct++;
     }
   }
 
-  if(s){showDashboard();}
-  else{document.getElementById('onboardSection').style.display='';document.getElementById('dashboardSection').style.display='none';}
+  var pct = Math.round(correct / total * 100);
+  var passed = pct >= 80;
+
+  // Hide submit button, show result
+  document.getElementById('quizSubmitBtn').style.display = 'none';
+  document.getElementById('quizResult').style.display = 'block';
+  document.getElementById('quizScore').textContent = pct + '%';
+  document.getElementById('quizScore').className = 'quiz-view__score ' + (passed ? 'quiz-view__score--pass' : 'quiz-view__score--fail');
+
+  if (passed) {
+    document.getElementById('quizTitle').textContent = '🎉 Passed!';
+    document.getElementById('quizMsg').textContent = 'You scored ' + correct + '/' + total + '. Excellent work!';
+
+    // Award XP and badge
+    VMA.awardXP(15, 'Module ' + mod.id + ' Quiz (' + pct + '%)');
+    var s = VMA.get();
+    if (s) {
+      s.quizzes = s.quizzes || {};
+      s.quizzes[mod.id] = pct;
+      s.modules[mod.id-1] = 100;
+      VMA.setStudent(s);
+      VMA.awardBadge(mod.badge);
+      VMA.notify('🏆 Module ' + mod.id + ' Complete! +15 XP + Badge');
+    }
+
+    // Show completion after delay
+    setTimeout(function() { showCompletion(); }, 2000);
+  } else {
+    document.getElementById('quizTitle').textContent = 'Not quite there';
+    document.getElementById('quizMsg').textContent = 'You scored ' + correct + '/' + total + '. You need 80% to pass. Review and try again!';
+    document.getElementById('quizRetryBtn').style.display = 'inline-flex';
+  }
+}
+
+function retryQuiz() {
+  state.quizAnswers = {};
+  state.quizSubmitted = false;
+
+  var mod = state.currentMod;
+
+  // Reset all option buttons
+  for (var i = 0; i < mod.quiz.length; i++) {
+    var qCard = document.getElementById('q' + mod.id + '-' + i);
+    var opts = qCard.querySelectorAll('.q-opt');
+    for (var j = 0; j < opts.length; j++) {
+      opts[j].classList.remove('selected', 'correct', 'wrong');
+      opts[j].style.pointerEvents = '';
+    }
+  }
+
+  // Show submit button, hide result
+  document.getElementById('quizSubmitBtn').style.display = 'inline-flex';
+  document.getElementById('quizSubmitBtn').disabled = true;
+  document.getElementById('quizResult').style.display = 'none';
+  document.getElementById('quizRetryBtn').style.display = 'none';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPLETION
+   ═══════════════════════════════════════════════════════════ */
+function showCompletion() {
+  var mod = state.currentMod;
+  var s = VMA.get();
+  var allDone = true;
+  for (var i = 1; i <= 7; i++) {
+    if (!s.quizzes || s.quizzes[i] < 80) { allDone = false; break; }
+  }
+
+  var html = '<div class="completion__icon">✓</div>';
+  html += '<div class="completion__title">Module ' + mod.id + ' Complete!</div>';
+  html += '<div class="completion__msg">You've mastered ' + mod.title + '. ' + mod.desc + '</div>';
+  html += '<div class="completion__xp">+15 XP Earned</div>';
+
+  if (allDone) {
+    html += '<br><button class="btn btn--primary btn--lg" onclick="showCertificate()">🏆 Claim Your Certificate</button>';
+  } else {
+    html += '<br><button class="btn btn--primary btn--lg" onclick="showPage('dashboard')">Back to Dashboard →</button>';
+  }
+  html += '<br><a href="#" onclick="showLesson(1);return false;" class="text-sm text-muted" style="display:block;margin-top:var(--s-2)">← Review lessons</a>';
+
+  document.getElementById('completionView').innerHTML = html;
+  showPage('complete');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CERTIFICATE
+   ═══════════════════════════════════════════════════════════ */
+function showCertificate() {
+  var s = VMA.get();
+  if (!s) return;
+
+  var allDone = true;
+  for (var i = 1; i <= 7; i++) {
+    if (!s.quizzes || s.quizzes[i] < 80) { allDone = false; break; }
+  }
+  if (!allDone) { showPage('dashboard'); return; }
+
+  var date = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+  var badgeLabels = {'foundations':'🏗️ Foundations','technique':'🎯 Technique','theory':'📐 Theory','repertoire':'🎵 Repertoire','performance':'🎤 Performance','articulation':'🗣️ Articulation','complete':'🏆 Graduate'};
+  var badgeHTML = '';
+  for (var b = 0; b < s.badges.length; b++) {
+    badgeHTML += '<span class="cert__badge">' + (badgeLabels[s.badges[b]] || s.badges[b]) + '</span>';
+  }
+
+  var html = '<div class="cert">';
+  html += '<div class="cert__icon">🏆</div>';
+  html += '<div class="cert__label">Vocal Mastery Academy</div>';
+  html += '<h2 style="font-family:var(--font-display);font-size:1.5rem;margin-bottom:var(--s-1)">Certificate of Completion</h2>';
+  html += '<div class="cert__name">' + s.name + '</div>';
+  html += '<div class="cert__desc">has successfully completed all 7 modules of the Vocal Mastery Academy program, demonstrating proficiency in vocal technique, music theory, song selection, performance, and articulation using the NYVC method and IPA system.</div>';
+  html += '<div class="cert__details"><div><div class="cert__detail-label">Total XP</div><div class="cert__detail-val">' + s.xp + '</div></div><div><div class="cert__detail-label">Level</div><div class="cert__detail-val">' + VMA.getLevel(s.xp) + '</div></div><div><div class="cert__detail-label">Date</div><div class="cert__detail-val">' + date + '</div></div></div>';
+  html += '<div class="cert__badges">' + badgeHTML + '</div>';
+  html += '<div class="cert__footer">Sessions with Toby · Vocal Mastery Academy · © 2026</div>';
+  html += '<div style="display:flex;gap:var(--s-1);justify-content:center;margin-top:var(--s-3)">';
+  html += '<button class="btn btn--secondary" onclick="showPage('dashboard')">Dashboard</button>';
+  html += '<button class="btn btn--secondary" onclick="window.print()">Print</button>';
+  html += '</div></div>';
+
+  document.getElementById('certView').innerHTML = html;
+  showPage('certificate');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRESS
+   ═══════════════════════════════════════════════════════════ */
+function updateModProgress() {
+  var s = VMA.get();
+  if (!s || !state.currentMod) return;
+  var mod = state.currentMod;
+  var lessonsDone = 0;
+  var tasksDone = 0;
+  for (var i = 1; i <= mod.lessons.length; i++) {
+    if (s.lessons && s.lessons[mod.id + '-' + i]) lessonsDone++;
+    if (s.lessons && s.lessons[mod.id + '-' + i + '-task']) tasksDone++;
+  }
+  var quizDone = s.quizzes && s.quizzes[mod.id] >= 80 ? 1 : 0;
+  var total = mod.lessons.length * 2 + 1;
+  var pct = Math.round(((lessonsDone + tasksDone + quizDone) / total) * 100);
+  document.getElementById('topbarFill').style.width = pct + '%';
+  document.getElementById('topbarPct').textContent = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AUDIO BAR (Metronome + Tone Generator)
+   ═══════════════════════════════════════════════════════════ */
+var audioCtx = null;
+var metronomeInterval = null;
+var metronomeRunning = false;
+var currentBPM = 80;
+var currentVolume = 0.7;
+var toneOsc = null;
+
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+}
+
+function toggleMetronome() {
+  initAudio();
+  var btn = document.getElementById('btnPlay');
+  if (metronomeRunning) {
+    clearInterval(metronomeInterval);
+    metronomeRunning = false;
+    btn.classList.remove('audio-bar__btn--active');
+  } else {
+    var interval = 60000 / currentBPM;
+    metronomeInterval = setInterval(function() {
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.frequency.value = 800;
+      gain.gain.value = currentVolume * 0.3;
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+      osc.stop(audioCtx.currentTime + 0.1);
+    }, interval);
+    metronomeRunning = true;
+    btn.classList.add('audio-bar__btn--active');
+  }
+}
+
+function toggleTone() {
+  initAudio();
+  if (toneOsc) {
+    toneOsc.stop();
+    toneOsc = null;
+  } else {
+    toneOsc = audioCtx.createOscillator();
+    var gain = audioCtx.createGain();
+    toneOsc.connect(gain);
+    gain.connect(audioCtx.destination);
+    toneOsc.frequency.value = 440;
+    gain.gain.value = currentVolume * 0.2;
+    toneOsc.start();
+  }
+}
+
+function updateBPM(val) {
+  currentBPM = Math.max(40, Math.min(200, parseInt(val) || 80));
+  if (metronomeRunning) {
+    clearInterval(metronomeInterval);
+    var interval = 60000 / currentBPM;
+    metronomeInterval = setInterval(function() {
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.frequency.value = 800;
+      gain.gain.value = currentVolume * 0.3;
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+      osc.stop(audioCtx.currentTime + 0.1);
+    }, interval);
+  }
+}
+
+function updateVolume(val) {
+  currentVolume = parseInt(val) / 100;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════════ */
+(function() {
+  if (!VMA.checkTerms()) {
+    // First visit — show onboarding
+    showPage('onboard');
+    return;
+  }
+  var s = VMA.get();
+  if (!s) {
+    showPage('onboard');
+    return;
+  }
+  showPage('dashboard');
+})();
+
 })();
 </script>
-
 </body>
 </html>
