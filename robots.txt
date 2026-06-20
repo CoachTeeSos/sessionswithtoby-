@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://coachteesos.github.io/coachtoby-site/sitemap.xml
+Disallow: /thank-you.html
+Disallow: /google3cba4f0713525b29.html
 
-# Crawl-delay for respectful bots
-Crawl-delay: 1
+Sitemap: https://coachteesos.github.io/sessionswithtoby-/sitemap.xml
