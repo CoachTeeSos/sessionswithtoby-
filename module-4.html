@@ -114,6 +114,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <h1>Song Selection — Choose What Serves You</h1>
     <p>The right song in the right key can make a good singer sound great. The wrong song can make a great singer sound average. Learn to choose wisely.</p>
     <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
+    <div style="background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0 0">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px">The wrong song can make a great singer sound average. The right song can make you unforgettable.</p>
+      <p style="font-size:.82rem;color:var(--text-soft);line-height:1.6">Song selection isn't just about what you like — it's about what serves YOUR voice. This module teaches you to choose like a pro.</p>
+    </div>
   </div>
 
   <!-- GENRE SPOTLIGHT -->
@@ -156,7 +160,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box key">
       <p><strong>Why this matters for song selection:</strong> A light lyric soprano singing Adele's "Rolling in the Deep" will strain because that song sits in a heavy, low range. A dramatic baritone singing Bruno Mars' "When I Was Your Man" will struggle with the high notes. Match the song's weight to your weight.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-4-1">
+      <div class="task-label">Task 4-1</div>
+      <p>Using the voice type chart in this lesson, identify your voice type. Sing a song that fits your type and one that doesn't. Record both in BandLab — which sounds better?</p>
+      <button class="task-btn" id="taskBtn-4-1" onclick="completeTask('4-1')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 4.2 -->
   <div class="content" id="lesson-4-2" style="display:none">
@@ -230,7 +240,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
         <tr><td>Eb major</td><td>Try D or Db</td><td>Try F or F#</td></tr>
       </tbody>
     </table>
-  </div>
+  
+    <div class="task" id="task-4-3">
+      <div class="task-label">Task 4-3</div>
+      <p>Take a simple song (like "Happy Birthday"). Sing it in its original key, then transpose it up a whole step and sing again. Record both versions in BandLab.</p>
+      <button class="task-btn" id="taskBtn-4-3" onclick="completeTask('4-3')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 4.4 -->
   <div class="content" id="lesson-4-4" style="display:none">
@@ -533,6 +549,7 @@ function submitQuiz() {
     setTimeout(() => {
       document.getElementById('quiz-4').style.display = 'none';
       document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
     }, 2000);
   } else {
     document.getElementById('quizTitle').textContent = 'Not quite there';
@@ -578,6 +595,7 @@ for (let i = 1; i <= totalLessons; i++) {
 
 if (s.quizzes && s.quizzes['4'] >= 80) {
   document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
 } else {
   showLesson(startLesson);
 }

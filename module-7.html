@@ -114,6 +114,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <h1>Advanced Craft — Find Your Voice</h1>
     <p>You've built technique, theory, and skill. Now it's time to find what makes you <em>you</em>. This is where singers become artists.</p>
     <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
+    <div style="background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0 0">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px">You've learned technique. Now it's time to find your voice.</p>
+      <p style="font-size:.82rem;color:var(--text-soft);line-height:1.6">Every great singer has a sound that's uniquely theirs. Not copied. Not manufactured. Discovered. This final module helps you find yours.</p>
+    </div>
   </div>
 
   <!-- GENRE SPOTLIGHT -->
@@ -153,7 +157,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       <li>Listen back and ask: "Which one felt most like ME?"</li>
       <li>That's your identity pointing you home</li>
     </ol>
-  </div>
+  
+    <div class="task" id="task-7-1">
+      <div class="task-label">Task 7-1</div>
+      <p>Sing the same phrase "I love you Lord" in 3 different styles: gospel, pop, and ballad. Record all 3 in BandLab. Listen back — which felt most natural? That's your identity.</p>
+      <button class="task-btn" id="taskBtn-7-1" onclick="completeTask('7-1')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 7.2 -->
   <div class="content" id="lesson-7-2" style="display:none">
@@ -213,7 +223,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box key">
       <p><strong>The secret:</strong> Versatility doesn't mean changing who you are. It means adjusting your <em>delivery</em> while keeping your <em>identity</em>. Your timbre stays the same. Your phrasing adapts. Your emotion shifts. But it's always you.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-7-3">
+      <div class="task-label">Task 7-3</div>
+      <p>Take one short phrase and sing it in 3 different genres (e.g., Afrobeats rhythm, R&B smoothness, worship reverence). Record all 3 in BandLab.</p>
+      <button class="task-btn" id="taskBtn-7-3" onclick="completeTask('7-3')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 7.4 -->
   <div class="content" id="lesson-7-4" style="display:none">
@@ -285,7 +301,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       <li>Respect rest days</li>
       <li>Avoid smoking and excessive alcohol</li>
     </ul>
-  </div>
+  
+    <div class="task" id="task-7-5">
+      <div class="task-label">Task 7-5</div>
+      <p>Write your personal vocal health plan: daily water intake, warm-up routine (minimum 3 exercises), rest schedule, and one habit to stop. Keep it somewhere visible.</p>
+      <button class="task-btn" id="taskBtn-7-5" onclick="completeTask('7-5')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 7.6 -->
   <div class="content" id="lesson-7-6" style="display:none">
@@ -538,6 +560,7 @@ function submitQuiz() {
     setTimeout(() => {
       document.getElementById('quiz-7').style.display = 'none';
       document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
     }, 2000);
   } else {
     document.getElementById('quizTitle').textContent = 'Not quite there';
@@ -583,6 +606,7 @@ for (let i = 1; i <= totalLessons; i++) {
 
 if (s.quizzes && s.quizzes['7'] >= 80) {
   document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
 } else {
   showLesson(startLesson);
 }

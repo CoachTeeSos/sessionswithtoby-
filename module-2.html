@@ -122,6 +122,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <h1>Technique — Build Your Sound</h1>
     <p>Now that you understand your instrument, let's develop control. Resonance, registers, vibrato, and the NYVC method for exercises.</p>
     <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
+    <div style="background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0 0">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px">The difference between a good singer and a great one isn't talent. It's technique.</p>
+      <p style="font-size:.82rem;color:var(--text-soft);line-height:1.6">You can have the most beautiful tone in the world. But without control, it's like having a sports car with no steering wheel. This module gives you the wheel.</p>
+    </div>
   </div>
 
   <!-- GENRE SPOTLIGHT -->
@@ -161,7 +165,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box key">
       <p><strong>Test:</strong> Sing a comfortable note on "ng" (like the end of "sing"). Feel where the vibration is. Now open to "ah" and try to keep that same front-of-face vibration. If the vibration moves back into your throat, you've lost placement.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-2-1">
+      <div class="task-label">Task 2-1</div>
+      <p>Hum an "mmm" on a comfortable pitch. Feel the vibration in your face (lips, nose, cheekbones). Now open to "ah" while keeping that same buzzing feeling. Record yourself in BandLab — can you hear the difference between "mmm" and "ah"?</p>
+      <button class="task-btn" id="taskBtn-2-1" onclick="completeTask('2-1')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 2.2 -->
   <div class="content" id="lesson-2-2" style="display:none">
@@ -190,7 +200,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box tip">
       <p><strong>For worship singers:</strong> Most worship singing lives in the mix voice range. Developing a strong mix means you can sing for hours without fatigue. This is the register that sustains long worship sets.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-2-2">
+      <div class="task-label">Task 2-2</div>
+      <p>Speak normally — that's chest voice. Slide up from your speaking pitch on "oo" — at some point you'll feel a "flip" to head voice. Now try to keep the same quality going higher — that's mix voice. Record all three in BandLab.</p>
+      <button class="task-btn" id="taskBtn-2-2" onclick="completeTask('2-2')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 2.3 -->
   <div class="content" id="lesson-2-3" style="display:none">
@@ -574,6 +590,7 @@ function submitQuiz() {
     setTimeout(() => {
       document.getElementById('quiz-2').style.display = 'none';
       document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
     }, 2000);
   } else {
     document.getElementById('quizTitle').textContent = 'Not quite there';
@@ -619,6 +636,7 @@ for (let i = 1; i <= totalLessons; i++) {
 
 if (s.quizzes && s.quizzes['2'] >= 80) {
   document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
 } else {
   showLesson(startLesson);
 }

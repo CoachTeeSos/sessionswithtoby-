@@ -131,6 +131,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <h1>Performance — Move People</h1>
     <p>Technique gets you to the note. Emotion makes them feel it. This module is about the space between the notes — where the magic lives.</p>
     <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
+    <div style="background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0 0">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px">Your audience doesn't remember your notes. They remember how you made them feel.</p>
+      <p style="font-size:.82rem;color:var(--text-soft);line-height:1.6">Technique gets you to the note. Emotion makes them cry, dance, or worship. This is the module that transforms singers into communicators.</p>
+    </div>
   </div>
 
   <!-- GENRE SPOTLIGHT -->
@@ -265,7 +269,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box tip">
       <p><strong>NYVC insight:</strong> The bridge is where most singers lose the audience. They treat it like a "break" instead of the emotional peak. The bridge is where you should be MOST vulnerable, MOST connected. It's the moment people remember.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-5-3">
+      <div class="task-label">Task 5-3</div>
+      <p>Take the phrase "Amazing Grace, how sweet the sound." Sing it 3 ways: (1) emphasize "Amazing", (2) emphasize "sweet", (3) emphasize "sound". Record all 3 in BandLab.</p>
+      <button class="task-btn" id="taskBtn-5-3" onclick="completeTask('5-3')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 5.4: SCENARIOS -->
   <div class="content" id="lesson-5-4" style="display:none">
@@ -350,7 +360,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box tip">
       <p><strong>For worship singers:</strong> If you're holding a handheld mic, don't grip it at the head (creates handling noise). Hold it mid-shaft. Keep it at chin level, not mouth level — this reduces plosives and gives a more natural sound.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-5-5">
+      <div class="task-label">Task 5-5</div>
+      <p>Record yourself singing the same phrase at 3 distances from your phone/mic: close (5cm), medium (15cm), far (30cm). Listen back — which sounds best?</p>
+      <button class="task-btn" id="taskBtn-5-5" onclick="completeTask('5-5')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 5.6: PERFORMANCE ANXIETY -->
   <div class="content" id="lesson-5-6" style="display:none">
@@ -601,6 +617,7 @@ function submitQuiz() {
     setTimeout(() => {
       document.getElementById('quiz-5').style.display = 'none';
       document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
     }, 2000);
   } else {
     document.getElementById('quizTitle').textContent = 'Not quite there';
@@ -646,6 +663,7 @@ for (let i = 1; i <= totalLessons; i++) {
 
 if (s.quizzes && s.quizzes['5'] >= 80) {
   document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
 } else {
   showLesson(startLesson);
 }

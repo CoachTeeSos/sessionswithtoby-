@@ -131,6 +131,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <h1>Music Theory — Understand the Language</h1>
     <p>You don't need to be a composer. But understanding the language of music makes you a faster, smarter, more intentional singer.</p>
     <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
+    <div style="background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0 0">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px">Ever wonder how some singers make it look effortless?</p>
+      <p style="font-size:.82rem;color:var(--text-soft);line-height:1.6">It's not magic. It's music theory — the hidden architecture behind every song you love. Once you see it, you'll never hear music the same way again.</p>
+    </div>
   </div>
 
   <!-- GENRE SPOTLIGHT -->
@@ -197,7 +201,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <h3>Minor Scale — The Emotional Scale</h3>
     <p>The natural minor scale pattern: W-H-W-W-H-W-W. Starting on A: A → B → C → D → E → F → G → A</p>
     <p>Minor scales sound sad, serious, or intense. Most Afrobeats and gospel use a mix of major and minor — the minor gives emotional depth.</p>
-  </div>
+  
+    <div class="task" id="task-3-1">
+      <div class="task-label">Task 3-1</div>
+      <p>Sing the C major scale (C-D-E-F-G-A-B-C) ascending and descending. Use a piano app to check your pitch accuracy. Record in BandLab.</p>
+      <button class="task-btn" id="taskBtn-3-1" onclick="completeTask('3-1')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 3.2 -->
   <div class="content" id="lesson-3-2" style="display:none">
@@ -269,7 +279,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       <li>Start on any note, go up an Octave (12 semitones) — same note, higher</li>
       <li>Now go DOWN a Minor 3rd (3 semitones) — sounds like "Greensleeves"</li>
     </ol>
-  </div>
+  
+    <div class="task" id="task-3-3">
+      <div class="task-label">Task 3-3</div>
+      <p>Sing these intervals from any starting note: Major 3rd (do-mi), Perfect 5th (do-sol), Octave (do-do). Use a piano app to verify. Record in BandLab.</p>
+      <button class="task-btn" id="taskBtn-3-3" onclick="completeTask('3-3')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 3.4 -->
   <div class="content" id="lesson-3-4" style="display:none">
@@ -561,6 +577,7 @@ function submitQuiz() {
     setTimeout(() => {
       document.getElementById('quiz-3').style.display = 'none';
       document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
     }, 2000);
   } else {
     document.getElementById('quizTitle').textContent = 'Not quite there';
@@ -606,6 +623,7 @@ for (let i = 1; i <= totalLessons; i++) {
 
 if (s.quizzes && s.quizzes['3'] >= 80) {
   document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
 } else {
   showLesson(startLesson);
 }

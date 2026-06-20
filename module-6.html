@@ -121,6 +121,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <h1>Articulation & Language — Sing Clearly in Any Tongue</h1>
     <p>Your voice is an instrument. Your words are the message. This module ensures the message is heard — in any language.</p>
     <div class="mod-progress-bar"><div class="mod-progress-fill" id="modProgress" style="width:0%"></div></div>
+    <div style="background:linear-gradient(135deg,rgba(212,168,67,.06),rgba(0,212,160,.04));border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:16px;margin:16px 0 0">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:6px">You could sing perfectly in tune and still not be understood.</p>
+      <p style="font-size:.82rem;color:var(--text-soft);line-height:1.6">Clarity is everything. Whether you're singing in English, Yoruba, or Igbo — if they can't understand the words, the message is lost. This module fixes that.</p>
+    </div>
   </div>
 
   <!-- GENRE SPOTLIGHT -->
@@ -159,7 +163,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       <li><strong>Vowel distortion:</strong> Singing "ee" with too much jaw tension, making it sound strained.</li>
       <li><strong>Language mixing:</strong> Pronouncing words from one language with the accent of another unintentionally.</li>
     </ul>
-  </div>
+  
+    <div class="task" id="task-6-1">
+      <div class="task-label">Task 6-1</div>
+      <p>Sing "The strength of the Lord is forever and ever" focusing on clear consonants. Then sing it again focusing on pure vowels. Record both in BandLab.</p>
+      <button class="task-btn" id="taskBtn-6-1" onclick="completeTask('6-1')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 6.2 -->
   <div class="content" id="lesson-6-2" style="display:none">
@@ -189,7 +199,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box tip">
       <p><strong>Exercise:</strong> Sing the 5 pure vowels on one comfortable pitch: [i] [e] [a] [o] [u]. Hold each for 4 seconds. Notice how your mouth shape changes. Now do it ascending in pitch — notice how the vowels naturally get smaller/tighter as you go up.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-6-2">
+      <div class="task-label">Task 6-2</div>
+      <p>Sing the 5 pure vowels [i, e, a, o, u] on a single comfortable pitch. Hold each for 4 seconds. Record in BandLab and listen — are the vowel shapes distinct?</p>
+      <button class="task-btn" id="taskBtn-6-2" onclick="completeTask('6-2')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 6.3 -->
   <div class="content" id="lesson-6-3" style="display:none">
@@ -249,7 +265,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="content-box key">
       <p><strong>NYVC rule:</strong> Stressed syllables get full vowels. Unstressed syllables get schwa [ə]. This is what makes English singing sound natural, not forced.</p>
     </div>
-  </div>
+  
+    <div class="task" id="task-6-4">
+      <div class="task-label">Task 6-4</div>
+      <p>Sing "The love of God is broader than the measure of man's mind" focusing on clear English diction. Pay attention to the schwa [ə] in "the" and "of". Record in BandLab.</p>
+      <button class="task-btn" id="taskBtn-6-4" onclick="completeTask('6-4')">Mark as Done ✓</button>
+    </div>
+</div>
 
   <!-- LESSON 6.5 -->
   <div class="content" id="lesson-6-5" style="display:none">
@@ -547,6 +569,7 @@ function submitQuiz() {
     setTimeout(() => {
       document.getElementById('quiz-6').style.display = 'none';
       document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
     }, 2000);
   } else {
     document.getElementById('quizTitle').textContent = 'Not quite there';
@@ -592,6 +615,7 @@ for (let i = 1; i <= totalLessons; i++) {
 
 if (s.quizzes && s.quizzes['6'] >= 80) {
   document.getElementById('modComplete').style.display = '';
+      document.getElementById('modComplete').scrollIntoView({behavior:'smooth',block:'center'});
 } else {
   showLesson(startLesson);
 }
