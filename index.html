@@ -177,9 +177,10 @@ p:last-child{margin-bottom:0}
 <div class="container pad" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
   <div style="font-size:2.5rem;margin-bottom:12px">🎵</div>
   <h1 style="margin-bottom:6px">The Singer's Conservatory</h1>
-  <p class="text-muted" style="max-width:360px;margin-bottom:28px">An adaptive vocal training engine. It diagnoses your weakness, prescribes exercises, tracks your growth. No guessing.</p>
+  <p class="text-muted" style="max-width:360px;margin-bottom:28px">An adaptive vocal training engine. It diagnoses your weakness, prescribes exercises, tracks your growth.</p>
   <div style="width:100%;max-width:300px">
-    <input type="text" id="onboard-name" placeholder="Your first name" style="width:100%;padding:14px;border:2px solid var(--border);border-radius:var(--r);background:var(--card);color:var(--text);font-size:.95rem;text-align:center;margin-bottom:10px;outline:none" onkeydown="if(event.key==='Enter')SC.start()">
+    <input type="text" id="onboard-name" placeholder="Your first name" style="width:100%;padding:14px;border:2px solid var(--border);border-radius:var(--r);background:var(--card);color:var(--text);font-size:.95rem;text-align:center;margin-bottom:10px;outline:none">
+    <input type="email" id="onboard-email" placeholder="Your email address" style="width:100%;padding:14px;border:2px solid var(--border);border-radius:var(--r);background:var(--card);color:var(--text);font-size:.95rem;text-align:center;margin-bottom:16px;outline:none" onkeydown="if(event.key==='Enter')SC.start()">
     <button class="btn btn--primary btn--lg btn--full" onclick="SC.start()">Begin Training →</button>
   </div>
 </div>
@@ -281,7 +282,7 @@ var DIAGNOSTIC={
       break_in_registers:'Your voice cracks or flips between registers',
       fatigue:'Your voice tires quickly during singing',
       nasality:'Your tone has a pinched, nasal quality',
-      loss_of_control:'You cannot reliably control pitch, volume, or tone'
+      loss_of_control:'You cannot reliably control pitch, volume, or tone',
     };
     var problem=symptoms.length>0?problemMap2[symptoms[symptoms.length-1]]||symptoms[symptoms.length-1]:'General development needed';
     return {
@@ -401,7 +402,7 @@ var EXERCISE_GEN={
     }else{
       exercise.name='Articulation: Clean Consonant-Vowel Transitions';
       exercise.goal='Clear diction without jaw tension or tongue rigidity';
-      exercise.consonant_strategy:'Slow articulation — every consonant deliberate and clean';
+      exercise.consonant_strategy='Slow articulation — every consonant deliberate and clean';
       exercise.method=[
         'Step 1: Isolation — Speak "ma-me-mi-mo-mu" slowly, feel each consonant',
         'Step 2: SOVT reset — '+sovtInstr,
@@ -420,7 +421,7 @@ var EXERCISE_GEN={
 var SONG_DB=[
   {id:'s1',title:'Lean On Me',artist:'Bill Withers',range:'D3-A4',rangeDemand:'low',technique:['airflow','source'],breathLoad:'light',vowelProfile:'mixed',difficulty:1,emotionalIntent:'Comfort, support',genre:'Soul',riskFlags:[],trainingFunction:'diagnostic'},
   {id:'s2',title:'Amazing Grace',artist:'Traditional',range:'D3-E4',rangeDemand:'low',technique:['airflow'],breathLoad:'heavy',vowelProfile:'dark',difficulty:1,emotionalIntent:'Reverence',genre:'Hymn',riskFlags:['breath_overload'],trainingFunction:'development'},
-  {id:'s3',title:'Can\\'t Help Falling in Love',artist:'Elvis Presley',range:'C3-E4',rangeDemand:'low',technique:['source','articulation'],breathLoad:'medium',vowelProfile:'mixed',difficulty:2,emotionalIntent:'Love, devotion',genre:'Pop',riskFlags:[],trainingFunction:'development'},
+  {id:'s3',title:'Cant Help Falling in Love',artist:'Elvis Presley',range:'C3-E4',rangeDemand:'low',technique:['source','articulation'],breathLoad:'medium',vowelProfile:'mixed',difficulty:2,emotionalIntent:'Love, devotion',genre:'Pop',riskFlags:[],trainingFunction:'development'},
   {id:'s4',title:'Hallelujah',artist:'Leonard Cohen',range:'C3-E4',rangeDemand:'low',technique:['source','resonance'],breathLoad:'medium',vowelProfile:'dark',difficulty:3,emotionalIntent:'Longing, beauty',genre:'Folk',riskFlags:['pitch_instability'],trainingFunction:'diagnostic'},
   {id:'s5',title:'Thinking Out Loud',artist:'Ed Sheeran',range:'D3-A4',rangeDemand:'low',technique:['articulation','resonance'],breathLoad:'medium',vowelProfile:'bright',difficulty:3,emotionalIntent:'Love, devotion',genre:'Pop',riskFlags:[],trainingFunction:'development'},
   {id:'s6',title:'Fight Song',artist:'Rachel Platten',range:'D3-E5',rangeDemand:'mid',technique:['source','airflow'],breathLoad:'heavy',vowelProfile:'bright',difficulty:4,emotionalIntent:'Determination',genre:'Pop',riskFlags:['strain_risk'],trainingFunction:'performance'},
@@ -877,7 +878,7 @@ function generateDrill(system,diffMod){
     ],
     articulation:[
       {id:'ar1',title:'Consonant Clarity',description:'Clean diction without tension',steps:['Speak: "ma-me-mi-mo-mu" — slow, clear','Sing: "ma-me-mi-mo-mu" on one pitch','Increase speed — keep clarity','Add words: "My mama makes me march"','Apply to: "Shake It Off"']},
-      {id:'ar2',title:'Tongue Agility',description:'Release tongue tension',steps:['Say "la-la-la" — fast, light','Say "ta-ta-ta' — crisp, no strain','Say "ka-ka-ka' — back of tongue','Sing: "la-ta-ka" on 3 pitches','Apply to fast lyrics']},
+      {id:'ar2',title:'Tongue Agility',description:'Release tongue tension',steps:['Say "la-la-la" — fast, light','Say "ta-ta-ta" — crisp, no strain','Say "ka-ka-ka" — back of tongue','Sing: "la-ta-ka" on 3 pitches','Apply to fast lyrics']},
       {id:'ar3',title:'Jaw Release',description:'Sing without jaw clenching',steps:['Yawn — feel jaw drop','Say "ah" — jaw should be loose','Sing "ah-ah-ah" — jaw stays loose','Place hand on jaw — sing, feel for tension','Apply to sustained notes']}
     ]
   };
@@ -1200,16 +1201,151 @@ var QA={passed:0,failed:0,errors:[],
 };
 
 /* ═══════════════════════════════════════════════════
+   NURTURE SYSTEM
+   Tracks user progress and sends WhatsApp nudges
+   based on their activity and skill gaps
+   ═══════════════════════════════════════════════════ */
+var NURTURE={
+  // Nurture messages based on user state
+  messages:{
+    welcome:"Hey {name}! 🎤 Welcome to The Singer's Conservatory. Your voice has a gift inside. Let's unlock it together. Reply START to begin your first lesson.",
+    day1_no_activity:"{name}, your voice is waiting. 🎵 Just 5 minutes today. Open your first lesson — it's waiting for you.",
+    day3_no_activity:"{name}, 3 days silent. The best singers show up even when they don't feel like it. What's your biggest vocal struggle? Reply and I'll send you the exact exercise.",
+    day7_no_activity:"{name}, it's been a week. Remember why you started. Your voice matters. Come back — I have a 2-minute warmup perfect for you.",
+    streak3:"🔥 {name}, 3 days in a row! That's how real singers are built. Keep going!",
+    streak7:"🏆 {name}, one week streak! You're not just singing — you're training. This is how professionals do it.",
+    skill_up:"Nice work, {name}! 💪 Your {system} just leveled up to {level}/10. The exercises are working. Keep going!",
+    stage_up:"🎯 {name}, you've reached Stage {stage}! That's {stage_name}. You're further than {pct}% of singers. What's next: {next_focus}",
+    level5:"⭐ {name}, you're halfway to mastery (Stage 5)! Most singers never get this serious. You're different.",
+    level10:"👑 {name}, you did it. All 10 stages. You didn't just learn to sing — you became a vocal athlete. Let's talk about what's next.",
+    inactive_return:"Welcome back, {name}! 🎉 It's been {days} days. Your voice missed you. Jump back in — pick up where you left off.",
+    whatsapp_cta:"Ready to go deeper, {name}? 📱 Book a 1-on-1 session with Coach Toby: https://wa.me/2348012345678?text=Hi%20Toby%2C%20I%20want%20to%20book%20a%20vocal%20coaching%20session"
+  },
+
+  // Generate nurture message based on current user state
+  generate:function(u){
+    if(!u.email)return null;
+    var now=new Date();
+    var lastActive=u.lastActive?new Date(u.lastActive):null;
+    var daysSinceActive=lastActive?Math.floor((now-lastActive)/(1000*60*60*24)):999;
+    var joined=u.joinedDate?new Date(u.joinedDate):now;
+    var daysSinceJoin=Math.floor((now-joined)/(1000*60*60*24));
+    var msg=null;
+
+    // Determine which message to send
+    if(daysSinceJoin<=1&&u.nurtureStep===0){
+      msg=this.msg('welcome',u);
+      u.nurtureStep=1;
+    }else if(daysSinceActive>=7&&u.nurtureStep<7){
+      msg=this.msg('day7_no_activity',u);
+      u.nurtureStep=7;
+    }else if(daysSinceActive>=3&&u.nurtureStep<3){
+      msg=this.msg('day3_no_activity',u);
+      u.nurtureStep=3;
+    }else if(daysSinceActive>=1&&u.nurtureStep<2&&daysSinceJoin>1){
+      msg=this.msg('day1_no_activity',u);
+      u.nurtureStep=2;
+    }
+
+    // Check skill-based nudges
+    if(!msg){
+      for(var k in u.skills){
+        if(u.skills[k]>0&&u.skills[k]%3===0){
+          var prevNurture=u.lastNurtureSkill||'';
+          if(prevNurture!==k+u.skills[k]){
+            msg=this.msg('skill_up',u,'{system}',VOCAL_SYSTEMS[k].name,'{level}',u.skills[k]);
+            u.lastNurtureSkill=k+u.skills[k];
+          }
+        }
+      }
+    }
+
+    // Stage-based nudges
+    if(!msg&&u.stage>1){
+      var prevStage=u.lastNurtureStage||0;
+      if(u.stage>prevStage){
+        var pct=Math.round((10-u.stage)*10);
+        var nextFocus=u.stage<10?STAGES[u.stage].name:'Mastery';
+        msg=this.msg('stage_up',u,'{stage}',u.stage,'{stage_name}',STAGES[u.stage-1].name,'{pct}',pct,'{next_focus}',nextFocus);
+        u.lastNurtureStage=u.stage;
+      }
+    }
+
+    // Return-to-app nudge (after 5+ days inactive, then they come back)
+    if(!msg&&daysSinceActive>5&&u.sessions>1){
+      msg=this.msg('inactive_return',u,'{days}',daysSinceActive);
+    }
+
+    // High-level CTA (stage 5+)
+    if(!msg&&u.stage>=5&&u.sessions>=10){
+      var lastCta=u.lastNurtureCta||0;
+      if(Date.now()-lastCta>7*24*60*60*1000){
+        msg=this.msg('whatsapp_cta',u);
+        u.lastNurtureCta=Date.now();
+      }
+    }
+
+    if(msg){
+      u.lastNurture=now.toISOString();
+      saveState();
+    }
+    return msg;
+  },
+
+  // Fill template variables
+  fill:function(msg,u){
+    return msg.replace(/{name}/g,u.name||'Singer');
+  },
+
+  msg:function(key,u){
+    var msg=this.messages[key]||'';
+    var args=Array.prototype.slice.call(arguments,2);
+    for(var i=0;i<args.length;i+=2){
+      msg=msg.replace(new RegExp('\\{'+args[i]+'\\}','g'),args[i+1]);
+    }
+    return msg.replace(/{name}/g,u.name||'Singer');
+  },
+
+  // Simulate sending (in production, this would hit your email/WhatsApp API)
+  send:function(msg,u){
+    console.log('NURTURE to '+u.email+': '+msg);
+    // In production: POST to your email/WhatsApp service
+    // fetch('https://your-api.com/send',{method:'POST',body:JSON.stringify({to:u.email,message:msg})});
+    return msg;
+  },
+
+  // Check and send nurture
+  checkAndSend:function(u){
+    var msg=this.generate(u);
+    if(msg)this.send(msg,u);
+    return msg;
+  }
+};
+
+/* ═══════════════════════════════════════════════════
    INIT
    ═══════════════════════════════════════════════════ */
 loadState();
+// Ensure nurture fields exist
+if(!U.nurtureStep)U.nurtureStep=0;
+if(!U.joinedDate)U.joinedDate=new Date().toISOString();
+if(!U.lastNurtureSkill)U.lastNurtureSkill='';
+if(!U.lastNurtureStage)U.lastNurtureStage=0;
+if(!U.lastNurtureCta)U.lastNurtureCta=0;
 var hasState=U.name!=='Student';
 if(hasState&&U.sessions>0){nav('home');}
 else{nav('onboard');}
-setTimeout(function(){QA.run();},800);
+setTimeout(function(){
+  QA.run();
+  // Check nurture after page loads
+  if(U.email&&U.name!=='Student'){
+    var nudge=NURTURE.checkAndSend(U);
+    if(nudge)console.log('Nurture sent:',nudge.substring(0,60));
+  }
+},800);
 
 window.SC={
-  start:function(){var n=document.getElementById('onboard-name').value.trim();if(!n)return;U.name=n;U.lastActive=new Date().toDateString();saveState();nav('home');},
+  start:function(){var n=document.getElementById('onboard-name').value.trim();var e=document.getElementById('onboard-email').value.trim();if(!n)return;U.name=n;if(e)U.email=e;U.lastActive=new Date().toDateString();U.joinedDate=new Date().toISOString();U.nurtureStep=0;U.lastNurture=null;saveState();nav('home');},
   nav:nav,
   openStage:openStage,
   startDiagnosis:startDiagnosis,
