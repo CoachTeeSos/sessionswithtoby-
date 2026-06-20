@@ -1337,9 +1337,9 @@ if(!U.joinedDate)U.joinedDate=new Date().toISOString();
 if(!U.lastNurtureSkill)U.lastNurtureSkill='';
 if(!U.lastNurtureStage)U.lastNurtureStage=0;
 if(!U.lastNurtureCta)U.lastNurtureCta=0;
-var hasState=U.name!=='Student';
-if(hasState&&U.sessions>0){nav('home');}
-else{nav('onboard');}
+// Always go to home — skip onboarding
+if(U.name==='Student')U.name='Singer';
+nav('home');
 setTimeout(function(){
   QA.run();
   // Check nurture after page loads
