@@ -1812,7 +1812,7 @@ var CURRICULUM = {
   },
 
   // ===== SONG SELECTION =====
-  songselect: {
+  ensemble: {
     title: 'Song Selection',
     icon: 'G',
     modules: [
@@ -1928,7 +1928,39 @@ var CURRICULUM = {
 // SONG LIBRARY — with practical YouTube reference examples
 // ============================================================
 var SONGS = [
-  { id: 'sg1', title: 'Breathe On Me', artist: 'Worship', level: 1, tags: ['breath control', 'sustained notes'], focus: 'Sing each phrase on one breath. Feel the rib expansion.', ref: 'YouTube: search "Breathe On Me worship vocal tutorial"' },
+  { id: 'sg1', title: 'Breathe On Me', artist: 'Worship', level: 1, tags: ['breath control', 'sustained notes',
+      {
+        id: 'se2', stage: 3,
+        outcome: 'Be able to perform classic gospel songs that young singers avoid and understand why they are essential',
+        title: 'Classic Gospel Every Singer Must Know',
+        xp: 45,
+        content: '<p>Young singers today run from the classics. They want to sing Tems and Burna Boy but cannot handle <b>Donald Lawrence</b>, <b>Kirk Franklin</b>, <b>Fred Hammond</b>, or <b>Donnie McClurkin</b>. This is a mistake.</p><p><b>Why these songs matter:</b> They are the foundation. Every riff, every run, every ad-lib in modern gospel and R&B comes from these masters.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin:10px 0"><div style="font-weight:700;margin-bottom:8px">The Essential List</div><div style="font-size:0.78rem"><b>Donald Lawrence:</b> "The Blessing of Abraham", "Encourage Yourself", "The Best Is Yet To Come"</div><div style="font-size:0.78rem;margin-top:4px"><b>Kirk Franklin:</b> "Stomp", "Imagine Me", "Revolution"</div><div style="font-size:0.78rem;margin-top:4px"><b>Fred Hammond:</b> "No Weapon", "Blessed", "Let The Praise Begin"</div><div style="font-size:0.78rem;margin-top:4px"><b>Donnie McClurkin:</b> "We Fall Down", "Stand", "Speak To Me"</div><div style="font-size:0.78rem;margin-top:4px"><b>Hezekiah Walker:</b> "Every Praise", "Better", "Souled Out"</div></div><div class="ref-box"><div class="ref-box-title">What To Watch Out For</div><p><b>1. Breath control:</b> These songs have LONG phrases. "The Blessing of Abraham" has phrases that last 12+ seconds.</p><p><b>2. Runs and embellishments:</b> Every line has optional runs. Young singers skip them and that is why they sound flat.</p><p><b>3. Dynamics:</b> These songs go from whisper to shout. If you sing at one volume, you are not singing.</p><p><b>4. Lyrics with meaning:</b> "We Fall Down" is not a performance. It is a confession.</p></div>',
+        exercise: { name: 'Classic Gospel Mastery', steps: ['Learn "The Blessing of Abraham" — breath control', 'Learn "Encourage Yourself" — runs and dynamics', 'Learn "We Fall Down" — emotional delivery', 'Perform all 3 with full runs and dynamics'], skill: 'style', xp: 45 }
+      },
+      {
+        id: 'se3', stage: 3,
+        outcome: 'Be able to sing riffs and runs with precision — the vocabulary of professional singers',
+        title: 'Riffs and Runs Masterclass',
+        xp: 50,
+        content: '<p>Riffs and runs are not decoration. They are <b>the language</b> of gospel, R&B, and soul. A singer without runs is like a speaker without inflection.</p><p><b>The 7 Essential Run Patterns:</b></p><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;font-size:0.75rem;margin:8px 0"><div><b>1. Ascending Scale:</b> Do-Re-Mi-Fa-Sol (fast)</div><div><b>2. Descending Scale:</b> Sol-Fa-Mi-Re-Do</div><div><b>3. Neighbor Tone:</b> Note to step above to back</div><div><b>4. Skip and Return:</b> Note to skip up to step back</div><div><b>5. Pentatonic Slide:</b> 5-note scale fragment</div><div><b>6. Chromatic Approach:</b> Half-step below target</div><div><b>7. Octave Split:</b> Jump octave, fill on way down</div></div><div style="font-size:0.8rem"><b>Study:</b> Brandy "Almost Doesnt Count" (verse runs), Jasmine Sullivan "Rise Up" (bridge), Whitney Houston "I Have Nothing" (pentascale slide), Donald Lawrence "Encourage Yourself" (chromatic ad-libs)</div><div class="ref-box"><div class="ref-box-title">NYVC Practice Method</div><p>1. Sing the run SLOWLY on "lah". Every note clear.<br>2. Gradually increase speed.<br>3. Apply to a song. Find a sustained note, add a run.<br>4. Record yourself. Compare. Adjust.<br><b>Golden rule:</b> A run should enhance emotion, not show off.</p></div>',
+        exercise: { name: 'Run Patterns', steps: ['Practice Pattern 1 on all 12 keys', 'Practice Pattern 3 until automatic', 'Learn the Brandy run from "Almost Doesnt Count"', 'Add runs to any song — find 3 places'], skill: 'style', xp: 50 }
+      },
+      {
+        id: 'se4', stage: 4,
+        outcome: 'Be able to lead a song from start to finish including setlist arrangement',
+        title: 'How to Lead a Song and Setlist Arrangement',
+        xp: 55,
+        content: '<p>Knowing how to sing is only half the job. A worship leader must know how to <b>lead</b> — take a room from silence to surrender.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin:10px 0"><div style="font-weight:700;margin-bottom:8px">The 5-Part Setlist Arc</div><div style="font-size:0.78rem"><b>1. Opening (Warm-up):</b> Medium tempo, familiar. <i>"Every Praise" by Hezekiah Walker</i></div><div style="font-size:0.78rem;margin-top:4px"><b>2. Build (Energy Rise):</b> Increase tempo and intensity. <i>"Stomp" by Kirk Franklin</i></div><div style="font-size:0.78rem;margin-top:4px"><b>3. Peak (Climax):</b> Highest energy. <i>"The Blessing of Abraham" by Donald Lawrence</i></div><div style="font-size:0.78rem;margin-top:4px"><b>4. Valley (Intimacy):</b> Strip it down. <i>"We Fall Down" by Donnie McClurkin</i></div><div style="font-size:0.78rem;margin-top:4px"><b>5. Close (Send-off):</b> Hopeful, declarative. <i>"The Best Is Yet To Come" by Donald Lawrence</i></div></div><div class="ref-box"><div class="ref-box-title">Common Mistakes</div><p>1. Singing YOUR setlist instead of serving the congregation.<br>2. No transitions — dead air kills momentum.<br>3. Ignoring the band — follow the drummer, follow the pianist.<br>4. Over-singing — sometimes the melody straight is most powerful.</p></div>',
+        exercise: { name: 'Setlist Design', steps: ['Design a 5-song setlist using the 5-part arc', 'Practice counting in and cutting off', 'Lead a full setlist — record and review'], skill: 'career', xp: 55 }
+      },
+      {
+        id: 'se5', stage: 4,
+        outcome: 'Be able to perform a Brandy or Jasmine Sullivan standard with full vocal technique',
+        title: 'Brandy and Jasmine Sullivan Standards',
+        xp: 50,
+        content: '<p><b>Brandy</b> is the queen of riffs, runs, and layered harmonies. <b>Jasmine Sullivan</b> is the queen of power, control, and emotional delivery.</p><div style="font-size:0.78rem"><b>Brandy standards:</b> "Almost Doesnt Count" (verse runs), "Have You Ever" (sustained notes, dynamics), "Full Moon" (riff patterns), "Best Friend" (head voice, playful runs)</div><div style="font-size:0.78rem;margin-top:6px"><b>Jasmine Sullivan standards:</b> "Rise Up" (power, sustained belt), "Bust Your Windows" (anger-to-vulnerability), "Need U Bad" (gospel roots, runs), "Lost Without U" (whisper-to-belt)</div><div class="ref-box"><div class="ref-box-title">NYVC Approach</div><p>Learn melody first (no runs). Add runs one at a time. Add dynamics. Add emotion. Most singers try all four at once and that is why they fail.</p></div>',
+        exercise: { name: 'Standard Mastery', steps: ['Learn "Almost Doesnt Count" — melody only', 'Add runs one phrase at a time', 'Learn "Rise Up" — sustained belt', 'Perform both with full technique'], skill: 'style', xp: 50 }
+      }], focus: 'Sing each phrase on one breath. Feel the rib expansion.', ref: 'YouTube: search "Breathe On Me worship vocal tutorial"' },
   { id: 'sg2', title: 'Great Are You Lord', artist: 'Worship', level: 1, tags: ['steady airflow', 'dynamics'], focus: 'Steady airflow on sustained notes. No pushing.', ref: 'YouTube: search "Great Are You Lord vocal tutorial"' },
   { id: 'sg3', title: 'Amazing Grace', artist: 'Traditional', level: 1, tags: ['pitch', 'simplicity'], focus: 'Every note in tune. Simple melody, pure tone.', ref: 'YouTube: search "Amazing Grace singing lesson"' },
   { id: 'sg4', title: 'Hallelujah', artist: 'Leonard Cohen', level: 2, tags: ['emotion', 'dynamics', 'storytelling'], focus: 'Tell the story. Soft verses, powerful chorus.', ref: 'YouTube: search "Hallelujah vocal analysis"' },
@@ -2073,7 +2105,7 @@ function renderLearn() {
   ];
 
   // Collect all modules by stage
-  var allSections = ['mechanics', 'ear', 'theory', 'vocalweight', 'bgvproject', 'performance', 'style', 'songselect', 'songwriting', 'production', 'career'];
+  var allSections = ['mechanics', 'ear', 'theory', 'vocalweight', 'bgvproject', 'performance', 'style', 'ensemble', 'songwriting', 'production', 'career'];
 
   for (var si = 0; si < stages.length; si++) {
     var stage = stages[si];
@@ -3088,20 +3120,29 @@ function _drawSR(){
   if(ld)ld.textContent=lv.name;
   var tgt=lv.n[Math.floor(Math.random()*lv.n.length)];
   _sr.tgt=tgt;
-  var pos=_sp[tgt];var y=70+(4-pos)*6;
-  var s='<svg viewBox="0 0 300 110" style="max-width:100%;height:auto">';
-  for(var i=0;i<5;i++)s+='<line x1="20" y1="'+(30+i*12)+'" x2="280" y2="'+(30+i*12)+'" stroke="var(--border)" stroke-width="1"/>';
-  s+='<text x="25" y="65" fill="var(--pri)" font-size="32">G</text>';
-  s+='<ellipse cx="150" cy="'+y+'" rx="9" ry="6" fill="var(--pri)"/>';
-  s+='<ellipse cx="150" cy="'+y+'" rx="13" ry="9" fill="none" stroke="var(--gold)" stroke-width="2"/>';
-  if(pos>4){for(var l=5;l<=pos;l+=1){var ly=70+(4-l)*6;s+='<line x1="135" y1="'+ly+'" x2="165" y2="'+ly+'" stroke="var(--border)" stroke-width="1"/>';}}
-  else if(pos<-1){for(var l=-2;l>=pos;l-=1){var ly=70+(4-l)*6;s+='<line x1="135" y1="'+ly+'" x2="165" y2="'+ly+'" stroke="var(--border)" stroke-width="1"/>';}}
+  // Staff: lines at y=30,38,46,54,62. Middle line(B4)=y54. Each half-step=4px.
+  var posMap={'C4':70,'C#4':68,'D4':66,'D#4':64,'E4':62,'F4':60,'F#4':58,'G4':56,'G#4':54,'A4':52,'A#4':50,'B4':48,'C5':46,'C#5':44,'D5':42,'D#5':40,'E5':38,'F5':36,'F#5':34,'G5':32,'G#5':30,'A5':28,'A#5':26,'B5':24,'C6':22,'C#6':20,'D6':18,'B3':56,'A3':60,'G3':64,'F3':68,'E3':72};
+  var y=posMap[tgt]||50;
+  var s='<svg viewBox="0 0 320 110" style="max-width:100%;height:auto">';
+  s+='<text x="6" y="60" fill="var(--tx)" font-size="44" font-family="serif">G</text>';
+  for(var i=0;i<5;i++){
+    var ly=30+i*8;
+    s+='<line x1="38" y1="'+ly+'" x2="300" y2="'+ly+'" stroke="var(--tx2)" stroke-width="0.7"/>';
+  }
+  s+='<line x1="38" y1="30" x2="38" y2="62" stroke="var(--tx2)" stroke-width="0.8"/>';
+  s+='<line x1="300" y1="30" x2="300" y2="62" stroke="var(--tx2)" stroke-width="0.8"/>';
+  if(y>62){for(var ly=70;ly<=y;ly+=8){s+='<line x1="158" y1="'+ly+'" x2="182" y2="'+ly+'" stroke="var(--tx2)" stroke-width="0.7"/>';}}
+  else if(y<30){for(var ly=22;ly>=y;ly-=8){s+='<line x1="158" y1="'+ly+'" x2="182" y2="'+ly+'" stroke="var(--tx2)" stroke-width="0.7"/>';}}
+  s+='<ellipse cx="170" cy="'+y+'" rx="5" ry="3.5" fill="var(--pri)"/>';
+  s+='<ellipse cx="170" cy="'+y+'" rx="9" ry="7" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3,2"/>';
+  if(y>46){s+='<line x1="175" y1="'+y+'" x2="175" y2="'+(y-26)+'" stroke="var(--pri)" stroke-width="1.2"/>';}
+  else{s+='<line x1="165" y1="'+y+'" x2="165" y2="'+(y+26)+'" stroke="var(--pri)" stroke-width="1.2"/>';}
   s+='</svg>';
-  var b='<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px">';
-  for(var i=0;i<lv.n.length;i++){var n=lv.n[i];b+='<button class="btn btn-w" style="min-width:36px;padding:5px 8px;font-size:0.8rem" onclick="checkSR(\''+n.replace(/'/g,"\\'")+'\')">'+n.replace(/\d/,'')+'<sub style="font-size:0.55rem">'+n.replace(/\D/g,'')+'</sub></button>';}
+  var b='<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px">';
+  for(var i=0;i<lv.n.length;i++){var n=lv.n[i];b+='<button class="btn btn-w" style="min-width:38px;padding:6px 10px;font-size:0.85rem;font-weight:600" onclick="checkSR(\''+n.replace(/'/g,"\\'")+'\')">'+n+'</button>';}
   b+='</div>';
   c.innerHTML=s+b;
-  if(fb){fb.textContent='What note is highlighted?';fb.style.color='var(--tx)';}
+  if(fb){fb.textContent='What note is circled?';fb.style.color='var(--tx)';}
   if(sc)sc.textContent='Score: '+_sr.ok+'/'+_sr.tot+' | Streak: '+_sr.stk;
 }
 
@@ -3148,12 +3189,31 @@ var _ch=[];
 function renderChordBuilder(){
   var c=document.getElementById('chord-piano-container');
   if(!c)return;
-  var s='<svg viewBox="0 0 280 80" style="max-width:100%;height:auto">';
-  var wk=[0,2,4,5,7,9,11,12,14,16,17,19,21,23];
-  var bk=[1,3,6,8,10,13,15,18,20,22];
-  for(var i=0;i<14;i++){var m=48+wk[i];var sel=_ch.indexOf(m)!==-1;s+='<rect x="'+(i*20)+'" y="0" width="19" height="75" rx="2" fill="'+(sel?'oklch(0.65 0.20 270 / 0.3)':'var(--card2)')+'" stroke="var(--border)" stroke-width="1" onclick="toggleChordNote('+m+')"/>';}
-  for(var i=0;i<9;i++){var m=48+bk[i];var sel=_ch.indexOf(m)!==-1;var xp=(i<2)?(i*20+14):(i<5)?(i*20+24):(i*20+34);s+='<rect x="'+xp+'" y="0" width="13" height="45" rx="2" fill="'+(sel?'var(--pri)':'var(--bg)')+'" stroke="var(--border)" stroke-width="1" onclick="toggleChordNote('+m+')"/>';}
-  s+='</svg>';c.innerHTML=s;_updChord();
+  var s='<svg viewBox="0 0 340 160" style="max-width:100%;height:auto;background:var(--bg2);border-radius:8px;padding:2px">';
+  var wNotes=[0,2,4,5,7,9,11];
+  var wNames=['C','D','E','F','G','A','B'];
+  for(var o=0;o<2;o++){
+    for(var k=0;k<7;k++){
+      var x=2+o*168+k*24;
+      var midi=48+o*12+wNotes[k];
+      var sel=_ch.indexOf(midi)!==-1;
+      s+='<rect x="'+x+'" y="2" width="23" height="150" rx="3" fill="'+(sel?'oklch(0.65 0.20 270 / 0.35)':'#f5f5f5')+'" stroke="#bbb" stroke-width="1"/>';
+      s+='<text x="'+(x+11.5)+'" y="142" text-anchor="middle" font-size="9" fill="'+(sel?'var(--pri)':'#999')+'" font-weight="600">'+wNames[k]+'</text>';
+    }
+  }
+  var bOff=[16,40,88,112,136];
+  var bMidi=[1,3,6,8,10];
+  for(var o=0;o<2;o++){
+    for(var b=0;b<5;b++){
+      var x=2+o*168+bOff[b];
+      var midi=48+o*12+bMidi[b];
+      var sel=_ch.indexOf(midi)!==-1;
+      s+='<rect x="'+x+'" y="2" width="14" height="95" rx="2" fill="'+(sel?'var(--pri)':'#1a1a1a')+'" stroke="#000" stroke-width="0.5"/>';
+    }
+  }
+  s+='</svg>';
+  c.innerHTML=s;
+  _updChord();
 }
 function toggleChordNote(m){var i=_ch.indexOf(m);if(i===-1)_ch.push(m);else _ch.splice(i,1);_ch.sort(function(a,b){return a-b;});renderChordBuilder();}
 function _updChord(){
