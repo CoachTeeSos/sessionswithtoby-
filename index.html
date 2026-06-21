@@ -1078,7 +1078,7 @@ function go(id) {
   if (id === 'learn') renderLearn();
   if (id === 'practice') renderPractice();
   if (id === 'songs') renderSongs();
-  if (id === 'instruments') renderInstruments();
+  if (id === 'theory') renderTheory();
   if (id === 'quiz') renderQuiz();
   if (id === 'progress') renderProgress();
   if (id === 'profile') renderProfile();
@@ -1137,94 +1137,6 @@ var COACH = {
 // ============================================================
 // Every module: outcome first, then deep content, then exercise
 // Content drawn from NYVC method, exercise science research, and practical pedagogy
-// ============================================================
-
-var SONGS = [
-  { id: 'sg1', title: 'Breathe On Me', artist: 'Worship', level: 1, tags: ['breath control', 'sustained notes'], focus: 'Sing each phrase on one breath. Feel the rib expansion.', ref: 'YouTube: search "Breathe On Me worship vocal tutorial"' },
-  { id: 'sg2', title: 'Great Are You Lord', artist: 'Worship', level: 1, tags: ['steady airflow', 'dynamics'], focus: 'Steady airflow on sustained notes. No pushing.', ref: 'YouTube: search "Great Are You Lord vocal tutorial"' },
-  { id: 'sg3', title: 'Amazing Grace', artist: 'Traditional', level: 1, tags: ['pitch', 'simplicity'], focus: 'Every note in tune. Simple melody, pure tone.', ref: 'YouTube: search "Amazing Grace singing lesson"' },
-  { id: 'sg4', title: 'Hallelujah', artist: 'Leonard Cohen', level: 2, tags: ['emotion', 'dynamics', 'storytelling'], focus: 'Tell the story. Soft verses, powerful chorus.', ref: 'YouTube: search "Hallelujah vocal analysis"' },
-  { id: 'sg5', title: 'Someone Like You', artist: 'Adele', level: 2, tags: ['belt', 'emotion', 'mix voice'], focus: 'Intimate verses, powerful chorus. Mix voice on the high notes.', ref: 'YouTube: search "Someone Like You vocal technique"' },
-  { id: 'sg6', title: 'Essence', artist: 'Wizkid ft. Tems', level: 2, tags: ['Afro', 'rhythm', 'style'], focus: 'Rhythmic precision. Speak the lyrics first, then sing them.', ref: 'YouTube: search "Essence vocal cover tutorial"' },
-  { id: 'sg7', title: 'Thinking Out Loud', artist: 'Ed Sheeran', level: 2, tags: ['soft tone', 'clarity', 'intimacy'], focus: 'Soft and clear. Every word matters. No shouting.', ref: 'YouTube: search "Thinking Out Loud singing tips"' },
-  { id: 'sg8', title: 'All I Ask', artist: 'Adele', level: 2, tags: ['belt', 'range', 'control'], focus: 'Massive range. Control the belt. Do not push.', ref: 'YouTube: search "All I Ask Adele vocal analysis"' },
-  { id: 'sg9', title: 'I Will Always Love You', artist: 'Whitney Houston', level: 3, tags: ['belt', 'mix', 'runs', 'dynamics'], focus: 'The ultimate test. Belt, mix, runs, and emotional dynamics.', ref: 'YouTube: search "I Will Always Love You vocal analysis"' },
-  { id: 'sg10', title: 'Listen', artist: 'Beyonce', level: 3, tags: ['belt', 'runs', 'power', 'control'], focus: 'Power with precision. Every run must be clean.', ref: 'YouTube: search "Listen Beyonce vocal tutorial"' },
-  { id: 'sg11', title: 'Gravity', artist: 'John Mayer', level: 3, tags: ['style', 'runs', 'soul', 'improvisation'], focus: 'Soul singing. Runs, improvisation, style. Make it yours.', ref: 'YouTube: search "Gravity John Mayer vocal cover"' },
-  { id: 'sg12', title: 'Jealous', artist: 'Labrinth', level: 3, tags: ['mix', 'emotion', 'breaks', 'control'], focus: 'Emotional breaks. Mix voice control. Raw and vulnerable.', ref: 'YouTube: search "Jealous Labrinth vocal analysis"' },
-  { id: 'sg13', title: "Runnin' (Lose It All)", artist: 'Naughty Boy ft. Beyonce', level: 3, tags: ['belt', 'breath', 'power', 'Afro-fusion'], focus: 'Breath control at speed. Belt over Afro beat.', ref: 'YouTube: search "Runnin vocal tutorial"' },
-  { id: 'sg14', title: 'Love on the Brain', artist: 'Rihanna', level: 3, tags: ['Doo-wop', 'style', 'runs', 'retro'], focus: 'Retro style. Doo-wop runs. Vibrato control.', ref: 'YouTube: search "Love on the Brain vocal analysis"' }
-];
-
-// ============================================================
-// MILLIONAIRE QUIZ
-// ============================================================
-var QUIZ_QUESTIONS = [
-  { q: 'What is the term for the space between two notes?', options: ['Interval', 'Chord', 'Scale', 'Octave'], answer: 0, prize: 100 },
-  { q: 'How many beats does a whole note get in 4/4 time?', options: ['1', '2', '3', '4'], answer: 3, prize: 200 },
-  { q: 'What does "forte" (f) mean in music?', options: ['Soft', 'Loud', 'Fast', 'Slow'], answer: 1, prize: 300 },
-  { q: 'What is the home key of a song called?', options: ['Dominant', 'Tonic', 'Subdominant', 'Modulation'], answer: 1, prize: 500 },
-  { q: 'What is the relative minor of C major?', options: ['A minor', 'E minor', 'G minor', 'D minor'], answer: 0, prize: 1000 },
-  { q: 'Which vocal register is the lowest for most singers?', options: ['Falsetto', 'Chest voice', 'Head voice', 'Whistle'], answer: 1, prize: 2000 },
-  { q: 'What is a "glottal stop"?', options: ['A type of breath', 'A vocal fold closure', 'A resonance technique', 'A singing style'], answer: 1, prize: 5000 },
-  { q: 'What does "appoggio" mean in singing?', options: ['Breath support', 'Vowel placement', 'Larynx control', 'Resonance'], answer: 0, prize: 10000 },
-  { q: 'What is the interval between C and G?', options: ['Major 3rd', 'Perfect 4th', 'Perfect 5th', 'Major 6th'], answer: 2, prize: 25000 },
-  { q: 'In solfege, what syllable represents the 5th scale degree?', options: ['Mi', 'Fa', 'Sol', 'La'], answer: 2, prize: 50000 },
-  { q: 'What is the term for singing multiple notes on one syllable?', options: ['Vibrato', 'Melisma', 'Staccato', 'Legato'], answer: 1, prize: 75000 },
-  { q: "What is the 'passaggio' in singing?", options: ['A song section', 'A register break', 'A breathing technique', 'A style'], answer: 1, prize: 100000 },
-  { q: 'What is the harmonic series?', options: ['A chord progression', 'Overtones above a fundamental', 'A scale pattern', 'A rhythm pattern'], answer: 1, prize: 250000 },
-  { q: 'Which form is AABA most associated with?', options: ['Sonata', '32-bar song form', 'Rondo', 'Theme and variations'], answer: 1, prize: 500000 },
-  { q: 'What is "formant tuning" in classical singing?', options: ['Matching resonance to vowel', 'Tuning the larynx', 'Adjusting breath pressure', 'Changing pitch'], answer: 0, prize: 750000 },
-  { q: 'Who is considered the father of modern vocal pedagogy?', options: ['Manuel Garcia II', 'Lamperti', 'Lilli Lehmann', 'Enrico Caruso'], answer: 0, prize: 1000000 }
-];
-
-var PRIZE_LADDER = [100, 200, 300, 500, 1000, 2000, 5000, 10000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000];
-var SAFE_MILESTONES = [3, 7, 11];
-
-// ============================================================
-// AUTH SCREEN
-// ============================================================
-function renderAuth() {
-  var c = document.getElementById('s-auth');
-  if (!c) return;
-  var h = '';
-  h += '<div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:var(--s6);max-width:400px;margin:0 auto">';
-  h += '<div style="text-align:center;margin-bottom:var(--s7)">';
-  h += '<div style="font-size:3rem;margin-bottom:var(--s3)">🎤</div>';
-  h += '<h1 style="font-size:var(--2xl);font-weight:900;margin-bottom:var(--s2)">Singer OS</h1>';
-  h += '<p class="text-muted">Your complete vocal training system. Free forever.</p></div>';
-
-  h += '<div class="c"><label>Your Name</label><input class="input" id="auth-name" placeholder="What should we call you?"></div>';
-  h += '<div class="c"><label>Email Address</label><input class="input" id="auth-email" type="email" placeholder="your@email.com"></div>';
-  h += '<div class="c"><label>WhatsApp Number</label><input class="input" id="auth-wa" type="tel" placeholder="e.g. 2348012345678"></div>';
-
-  h += '<button class="btn btn-p" style="margin-top:var(--s4)" onclick="doAuth()">Start Training</button>';
-
-  h += '<p class="text-xs text-muted text-center mt-4">Your email and WhatsApp are your ticket. No password needed. You can access your progress from any device using your unique link.</p>';
-  h += '</div>';
-  c.innerHTML = h;
-}
-
-function doAuth() {
-  var name = document.getElementById('auth-name').value.trim();
-  var email = document.getElementById('auth-email').value.trim();
-  var wa = document.getElementById('auth-wa').value.trim();
-
-  if (!name) { toast('Enter your name', 'err'); return; }
-
-  if (AUTH.register(email, wa, name)) {
-    U.name = name;
-    U.email = email;
-    GAME.init();
-    SRS.init();
-    save();
-    toast('Welcome, ' + name + '!', 'ok');
-    go('home');
-  }
-}
-
-// ============================================================
-// RENDER FUNCTIONS
 // ============================================================
 
 var CURRICULUM = {
@@ -1388,39 +1300,137 @@ var CURRICULUM = {
     icon: 'E',
     modules: [
       {
-        id: 'e1', stage: 1,
-        outcome: 'Be able to identify pitch direction, match a note by ear, and recognize intervals up to a perfect 5th',
-        title: 'Ear Foundation — Listening Like a Musician',
+        id: 'e1',
+        stage: 1,
+        outcome: 'Be able to hear when you are sharp or flat — and correct it instantly',
+        title: 'Pitch Awareness',
+        xp: 15,
+        content: '<p>Most singers who "cannot sing" actually have untrained ears. Pitch is a skill. You can learn to hear it.</p><p><b>Sharp</b> = above the note (usually from tension or pushing too much air). <b>Flat</b> = below the note (usually from not enough energy or lazy vocal fold closure). <b>In tune</b> = locked in, the note "rings."</p><p>Here is the truth: true tone-deafness (amusia) affects about 2% of the population. If you can tell when a car horn is high or low, you are not tone-deaf. You just need training.</p><p>The key is <b>listening before singing</b>. Hear the note in your head first. Then sing it. Then check: were you on, above, or below?</p>',
+        exercise: {
+          name: 'Mirror Pitch',
+          steps: [
+            'Play a note on a piano app, YouTube keyboard, or virtual piano website',
+            'Listen for 3 seconds. Hear it in your head.',
+            'Sing it back. Listen: are you above (sharp), below (flat), or on?',
+            'If sharp, relax and drop slightly. If flat, add a tiny bit of energy.',
+            'Try 5 different notes. Score yourself: how many were in tune?',
+            'Repeat daily. Your accuracy will improve fast. Track your score.'
+          ],
+          skill: 'ear',
+          xp: 15
+        }
+      },
+      {
+        id: 'e2',
+        stage: 2,
+        outcome: 'Be able to sing intervals — 3rds, 5ths, octaves — on demand',
+        title: 'Interval Recognition',
         xp: 20,
-        content: '<p>Ear training is not a talent. It is a <b>skill you build</b>.</p><p><b>Module 1: Pitch Direction</b> — Higher or lower? Play two notes, say answer before checking.</p><p><b>Module 2: Note Matching</b> — Play a note, sing it back, check with tuner.</p><p><b>Interval refs:</b> Twinkle=5th. Happy Birthday=2nd. Over the Rainbow=octave. Amazing Grace=4th.</p><p><b>Nigerian:</b> Essence=steps+3rds. Ojuelegba=4ths. Skelewu=minor 3rds. Nara=4ths+5ths.</p><div class="ref-box"><div class="ref-box-title">Deepen Your Ear</div><p>YouTube: Rick Beato. App: Perfect Ear.</p></div>',
+        content: '<p>Intervals are the distance between two notes. If you can hear and sing intervals, you can learn any song by ear.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 400 120" style="max-width:100%;height:auto"><line x1="40" y1="60" x2="360" y2="60" stroke="var(--border)" stroke-width="2"/><circle cx="80" cy="60" r="6" fill="var(--pri)"/><text x="80" y="85" fill="var(--tx)" font-size="9" text-anchor="middle">Do (1)</text><circle cx="140" cy="60" r="4" fill="var(--tx3)"/><text x="140" y="85" fill="var(--tx3)" font-size="8" text-anchor="middle">Re (2)</text><circle cx="200" cy="60" r="6" fill="var(--pri-hi)"/><text x="200" y="85" fill="var(--tx)" font-size="9" text-anchor="middle">Mi (3)</text><text x="140" y="40" fill="var(--pri-hi)" font-size="9" text-anchor="middle">← Major 3rd →</text><line x1="80" y1="45" x2="200" y2="45" stroke="var(--pri-hi)" stroke-width="1" stroke-dasharray="3,2"/><circle cx="260" cy="60" r="4" fill="var(--tx3)"/><text x="260" y="85" fill="var(--tx3)" font-size="8" text-anchor="middle">Fa (4)</text><circle cx="320" cy="60" r="6" fill="var(--gold)"/><text x="320" y="85" fill="var(--tx)" font-size="9" text-anchor="middle">Sol (5)</text><text x="200" y="25" fill="var(--gold)" font-size="9" text-anchor="middle">← Perfect 5th →</text><line x1="80" y1="30" x2="320" y2="30" stroke="var(--gold)" stroke-width="1" stroke-dasharray="3,2"/><circle cx="360" cy="60" r="6" fill="var(--ok)"/><text x="360" y="85" fill="var(--tx)" font-size="9" text-anchor="middle">Do (8)</text><text x="220" y="15" fill="var(--ok)" font-size="9" text-anchor="middle">← Octave →</line><line x1="80" y1="18" x2="360" y2="18" stroke="var(--ok)" stroke-width="1" stroke-dasharray="3,2"/></svg><div class="text-xs text-muted mt-2">Intervals measured from Do. 3rd = 3 scale degrees apart. 5th = 5 apart. Octave = 8 (same note, higher).</div></div><p>Start with the easy ones:</p><p><b>Octave:</b> Same note, higher. "Some-where" from "Over the Rainbow" (first two notes).</p><p><b>Perfect 5th:</b> "Twinkle Twinkle Little Star" (first two notes).</p><p><b>Major 3rd:</b> "When the Saints Go Marching In" (first two notes).</p><p><b>Perfect 4th:</b> "Here Comes the Bride" (first two notes).</p><p>Learn to associate each interval with a familiar song.</p>',
         exercise: {
-          name: 'Ear Gym',
-          steps: ['Download piano app', 'Play C, sing C, check', 'Play two notes, say higher/lower', 'Do 20 pairs daily', 'Sing Twinkle, identify intervals'],
-          skill: 'ear', xp: 20
+          name: 'Interval Flashcards',
+          steps: [
+            'Play a root note. Then play a 5th above. Sing both: "do-sol"',
+            'Play a root note. Then a 3rd above. Sing both: "do-mi"',
+            'Play a root note. Then an octave above. Sing both: "do-do"',
+            'Now try without the piano: sing a note, then sing a 5th above from memory.',
+            'Do 10 reps of each interval. Use solfege: do-sol (5th), do-mi (3rd), do-do (octave).',
+            'Advanced: try minor 3rd (first two notes of "Greensleeves"), tritone ("The Simpsons" theme).'
+          ],
+          skill: 'ear',
+          xp: 20
         }
       },
       {
-        id: 'e2', stage: 2,
-        outcome: 'Be able to identify all intervals within an octave',
-        title: 'Interval Mastery — The Language of Melody',
+        id: 'e3',
+        stage: 2,
+        outcome: 'Be able to hear a chord and identify if it is major, minor, or dominant',
+        title: 'Chord Quality',
         xp: 25,
-        content: '<p>Intervals = <b>distance between two notes</b>. Alphabet of music.</p><p><b>12 Intervals:</b> m2(Jaws). M2(Happy Birthday). m3(Greensleeves). M3(When the Saints). P4(Here Comes the Bride). TT(Simmonds). P5(Twinkle). m6(Entertainer). M6(My Bonnie). m7(Somewhere). M7(Take On Me). P8(Over the Rainbow).</p><p><b>Nigerian:</b> Durosoke=2nds+3rds. Ojuelegba=4ths. Skelewu=minor 3rds.</p><p><b>Jazz:</b> Autumn Leaves=2nds+3rds+4ths. So What=4ths.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Rick Beato — Intervals Explained. Instagram: @oche_official.</p></div>',
+        content: '<p>Chords have colors. <b>Major</b> = happy/bright. <b>Minor</b> = sad/dark. <b>Dominant 7th</b> = tense/wants to resolve.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 380 100" style="max-width:100%;height:auto"><rect x="10" y="10" width="110" height="80" rx="6" fill="oklch(0.72 0.18 145 / 0.08)" stroke="var(--ok)" stroke-width="1"/><text x="65" y="30" fill="var(--ok)" font-size="10" text-anchor="middle" font-weight="800">MAJOR</text><circle cx="45" cy="70" r="5" fill="var(--ok)"/><text x="45" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Root</text><circle cx="65" cy="55" r="5" fill="var(--ok)"/><text x="65" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Maj 3</text><circle cx="85" cy="40" r="5" fill="var(--ok)"/><text x="85" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Perf 5</text><text x="65" y="50" fill="var(--ok)" font-size="8" text-anchor="middle">Bright</text><rect x="135" y="10" width="110" height="80" rx="6" fill="oklch(0.65 0.20 270 / 0.08)" stroke="var(--pri)" stroke-width="1"/><text x="190" y="30" fill="var(--pri)" font-size="10" text-anchor="middle" font-weight="800">MINOR</text><circle cx="170" cy="70" r="5" fill="var(--pri)"/><text x="170" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Root</text><circle cx="190" cy="60" r="5" fill="var(--pri)"/><text x="190" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Min 3 ↓</text><circle cx="210" cy="45" r="5" fill="var(--pri)"/><text x="210" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Perf 5</text><text x="190" y="50" fill="var(--pri)" font-size="8" text-anchor="middle">Dark</text><rect x="260" y="10" width="110" height="80" rx="6" fill="oklch(0.78 0.16 60 / 0.08)" stroke="var(--warn)" stroke-width="1"/><text x="315" y="30" fill="var(--warn)" font-size="10" text-anchor="middle" font-weight="800">DOMINANT 7</text><circle cx="295" cy="70" r="5" fill="var(--warn)"/><text x="295" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Root</text><circle cx="315" cy="55" r="5" fill="var(--warn)"/><text x="315" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Maj 3</text><circle cx="335" cy="40" r="5" fill="var(--warn)"/><text x="335" y="85" fill="var(--tx)" font-size="8" text-anchor="middle">Min 7 ↓</text><text x="315" y="50" fill="var(--warn)" font-size="8" text-anchor="middle">Tense</text></svg><div class="text-xs text-muted mt-2">Hear the difference? Major = bright. Minor = dark. Dominant = wants to resolve.</div></div><p>Here is how to train your ear:</p><p>1. Play a major chord. Listen. Say "bright." Sing: do-mi-sol.</p><p>2. Play a minor chord. Listen. Say "dark." Sing: do-me-sol (lowered 3rd).</p><p>3. Play a dominant 7th. Listen. Say "tense." It wants to go somewhere.</p><p>4. Now have someone play random chords. Call out major/minor/dominant.</p><p>Goal: 80% accuracy on 20 random chords.</p>',
         exercise: {
-          name: 'Interval Bootcamp',
-          steps: ['Memorize reference songs', 'Play two notes, identify interval', 'Do 30 daily', 'Identify Essence intervals', 'Identify Autumn Leaves intervals'],
-          skill: 'ear', xp: 25
+          name: 'Chord Color Sort',
+          steps: [
+            'Play a major chord. Listen. Say "bright." Sing do-mi-sol.',
+            'Play a minor chord. Listen. Say "dark." Sing do-me-sol.',
+            'Play a dominant 7th. Listen. Say "tense."',
+            'Now have someone play random chords. Call out major/minor/dominant.',
+            'Goal: 80% accuracy on 20 random chords.',
+            'Advanced: add diminished (creepy, unstable) and augmented (dreamy, floating).'
+          ],
+          skill: 'ear',
+          xp: 25
+        }
+      }
+    ]
+  },
+
+  // ===== VOCAL WEIGHT, BRIGHTNESS & HARMONICS =====
+  vocalweight: {
+    title: 'Vocal Weight & Brightness',
+    icon: 'W',
+    modules: [
+      {
+        id: 'w1',
+        stage: 3,
+        outcome: 'Be able to control vocal weight at will — from light and thin to heavy and powerful',
+        title: 'Vocal Weight Control',
+        xp: 25,
+        content: '<p><b>What NYVC teaches:</b> Vocal weight is how much "body" you put into the sound. Light weight = thin folds, less mass vibrating. Heavy weight = thick folds, more mass vibrating. You need BOTH — and you need to switch between them.</p><p><b>The science:</b> Your vocal folds can vibrate in different modes. Thin folds (light weight) = head voice, falsetto. Thick folds (heavy weight) = chest voice, belt. The "mix" is a coordination between the two.</p><p><b>How to feel it:</b></p><p>1. Say "uh-oh" — feel the light, thin sound? That is light weight.</p><p>2. Say "HEY!" loudly — feel the heavy, thick sound? That is heavy weight.</p><p>3. Now slide from "uh-oh" to "HEY" on one note — feel the weight shift? THAT is control.</p><div class="ref-box"><div class="ref-box-title">NYVC Method</div><p>Justin Stoney: "Vocal weight is one of the four main style controls. The others are larynx height, resonance placement, and vowel shape. Master all four and you can create any sound."</p></div>',
+        exercise: {
+          name: 'Weight Slider',
+          steps: [
+            'Pick a comfortable mid-range note',
+            'Sing it with the lightest, thinnest sound you can (like a whisper-sing)',
+            'Now sing the same note with the heaviest, thickest sound (like a shout)',
+            'Now slide smoothly from light to heavy on one note — like a volume knob turning up',
+            'Now slide from heavy to light — like a volume knob turning down',
+            'Practice this daily. The goal: instant control. Light or heavy, on demand.'
+          ],
+          skill: 'mix',
+          xp: 25
         }
       },
       {
-        id: 'e3', stage: 2,
-        outcome: 'Be able to hear chord qualities and identify chord progressions in songs',
-        title: 'Chord Quality & Progression Ear',
-        xp: 30,
-        content: '<p>Hear <b>chords</b> (3+ notes). Know chords without sheet music.</p><p><b>4 Qualities:</b> Major(happy). Minor(sad). Dim(tense). Aug(dreamy).</p><p><b>Progressions:</b> I-V-vi-IV(pop). ii-V-I(jazz). I-IV-V(blues).</p><p><b>Nigerian:</b> Fela=2-3 chords. Essence=I-V-vi-IV. Ye=i-VI-III-VII.</p><p><b>Jazz:</b> Autumn Leaves=ii-V-I.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Rick Beato — Chord Progressions. App: ireal pro.</p></div>',
+        id: 'w2',
+        stage: 3,
+        outcome: 'Be able to control vocal brightness at will — from dark and warm to bright and cutting',
+        title: 'Brightness Control',
+        xp: 25,
+        content: '<p><b>What NYVC teaches:</b> Brightness is controlled by <b>larynx height</b> and <b>resonance placement</b>. These are the two main "style changers."</p><p><b>Larynx height:</b> High larynx = bright, twangy, cutting (country, belt, pop). Low larynx = dark, warm, round (classical, jazz). Neutral = speech-like (contemporary).</p><p><b>Resonance placement:</b> Forward (buzz in lips/cheekbones) = clear, projecting. Throat (buzz in back of throat) = dark, swallowed. Nasal (buzz in nose) = twangy, brassy.</p><p><b>How to feel it:</b></p><p>1. Say "meow" like a cat — feel the high larynx? That is bright.</p><p>2. Say "yawn" — feel the low larynx? That is dark.</p><p>3. Now slide from "meow" to "yawn" on one note — feel the brightness shift? THAT is control.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 400 100" style="max-width:100%;height:auto"><text x="200" y="15" fill="var(--tx)" font-size="11" text-anchor="middle" font-weight="800">Brightness Spectrum</text><rect x="30" y="30" width="100" height="50" rx="6" fill="oklch(0.82 0.16 95 / 0.15)" stroke="var(--gold)" stroke-width="1"/><text x="80" y="50" fill="var(--gold)" font-size="10" text-anchor="middle" font-weight="800">BRIGHT</text><text x="80" y="68" fill="var(--tx3)" font-size="8" text-anchor="middle">High larynx</text><text x="80" y="78" fill="var(--tx3)" font-size="8" text-anchor="middle">Forward/Nasal</text><rect x="150" y="30" width="100" height="50" rx="6" fill="oklch(0.65 0.20 270 / 0.08)" stroke="var(--pri)" stroke-width="1"/><text x="200" y="50" fill="var(--pri)" font-size="10" text-anchor="middle" font-weight="800">NEUTRAL</text><text x="200" y="68" fill="var(--tx3)" font-size="8" text-anchor="middle">Mid larynx</text><text x="200" y="78" fill="var(--tx3)" font-size="8" text-anchor="middle">Forward</text><rect x="270" y="30" width="100" height="50" rx="6" fill="oklch(0.40 0.05 260 / 0.15)" stroke="var(--tx2)" stroke-width="1"/><text x="320" y="50" fill="var(--tx2)" font-size="10" text-anchor="middle" font-weight="800">DARK</text><text x="320" y="68" fill="var(--tx3)" font-size="8" text-anchor="middle">Low larynx</text><text x="320" y="78" fill="var(--tx3)" font-size="8" text-anchor="middle">Throat</text><line x1="130" y1="55" x2="150" y2="55" stroke="var(--border)" stroke-width="1" marker-end="url(#arrow)"/><line x1="250" y1="55" x2="270" y2="55" stroke="var(--border)" stroke-width="1" marker-end="url(#arrow)"/></svg></div>',
         exercise: {
-          name: 'Chord Detective',
-          steps: ['Listen to Essence, tap chord changes', 'Sing root notes', 'Identify Autumn Leaves ii-V-I', 'Identify No Woman No Cry I-V-vi-IV'],
-          skill: 'ear', xp: 30
+          name: 'Brightness Slider',
+          steps: [
+            'Pick a comfortable note. Sing it with the BRIGHTEST sound (meow-like, high larynx)',
+            'Now sing the same note with the DARKEST sound (yawn-like, low larynx)',
+            'Now slide smoothly from bright to dark on one note',
+            'Now slide from dark to bright',
+            'Practice on different notes across your range',
+            'Goal: instant control. Bright or dark, on demand. No transition needed.'
+          ],
+          skill: 'style',
+          xp: 25
+        }
+      },
+      {
+        id: 'w3',
+        stage: 3,
+        outcome: 'Be able to understand and use harmonics to shape your tone — even without a spectogram',
+        title: 'Harmonics & Formants',
+        xp: 30,
+        content: '<p><b>What NYVC teaches:</b> Your voice produces not just one note, but a <b>stack of harmonics</b> — the fundamental pitch plus overtones at higher frequencies. The balance of these harmonics creates your unique tone color.</p><p><b>Harmonics</b> are the raw overtones your vocal folds produce. They are fixed by the pitch you sing.</p><p><b>Formants</b> are the resonances of your vocal tract (throat, mouth, nose). They are NOT fixed — you can change them by changing the shape of your vocal tract. This is how you create different vowel sounds AND different tone colors.</p><p><b>The key insight:</b> You do not need a spectogram to control harmonics and formants. You can <b>hear</b> them and <b>feel</b> them.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 400 120" style="max-width:100%;height:auto"><text x="200" y="15" fill="var(--tx)" font-size="11" text-anchor="middle" font-weight="800">Harmonics vs Formants</text><rect x="20" y="25" width="170" height="85" rx="6" fill="oklch(0.65 0.20 270 / 0.06)" stroke="var(--pri)" stroke-width="1"/><text x="105" y="42" fill="var(--pri)" font-size="10" text-anchor="middle" font-weight="800">HARMONICS (Fixed)</text><line x1="40" y1="55" x2="170" y2="55" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="55" x2="40" y2="45" stroke="var(--pri)" stroke-width="2"/><text x="40" y="75" fill="var(--tx3)" font-size="7" text-anchor="middle">F0</text><line x1="70" y1="55" x2="70" y2="40" stroke="var(--pri-hi)" stroke-width="2"/><text x="70" y="75" fill="var(--tx3)" font-size="7" text-anchor="middle">H2</text><line x1="100" y1="55" x2="100" y2="35" stroke="var(--gold)" stroke-width="2"/><text x="100" y="75" fill="var(--tx3)" font-size="7" text-anchor="middle">H3</text><line x1="130" y1="55" x2="130" y2="30" fill="var(--tx3)" stroke="var(--tx3)" stroke-width="2"/><text x="130" y="75" fill="var(--tx3)" font-size="7" text-anchor="middle">H4</text><text x="105" y="100" fill="var(--tx3)" font-size="8" text-anchor="middle">Set by vocal fold vibration</text><rect x="210" y="25" width="170" height="85" rx="6" fill="oklch(0.72 0.18 145 / 0.06)" stroke="var(--ok)" stroke-width="1"/><text x="295" y="42" fill="var(--ok)" font-size="10" text-anchor="middle" font-weight="800">FORMANTS (Adjustable)</text><path d="M230,55 Q260,35 290,55 Q320,75 350,55" fill="none" stroke="var(--ok)" stroke-width="2"/><text x="295" y="75" fill="var(--tx3)" font-size="7" text-anchor="middle">Vocal tract resonance</text><text x="295" y="90" fill="var(--tx3)" font-size="7" text-anchor="middle">Changes with mouth shape</text><text x="295" y="100" fill="var(--tx3)" font-size="8" text-anchor="middle">You control this!</text></svg></div><p><b>How to feel formants without a spectogram:</b></p><p>1. Hum on "mmm" — feel the buzz on your lips? That is a low formant.</p><p>2. Open to "ah" — feel the buzz move to your throat? That is a higher formant.</p><p>3. Say "ee" — feel the buzz move forward and up? That is formant tuning.</p><p>4. Now sing a note and slowly change from "mmm" to "ah" to "ee" — hear the tone color change? THAT is formant control.</p><div class="ref-box"><div class="ref-box-title">NYVC Method</div><p>Justin Stoney: "The larynx is a style changer. The resonators are tone changers. Master both and you can create any sound." Formant tuning is how classical singers project over an orchestra without a microphone — they tune their formants to match their harmonics. You can do the same thing.</p></div>',
+        exercise: {
+          name: 'Formant Tuning (No Spectogram Needed)',
+          steps: [
+            'Hum on "mmm" for 5 seconds — feel the lip buzz. That is your baseline.',
+            'Open to "ah" — feel the buzz move to your throat. Notice the tone got darker.',
+            'Change to "ee" — feel the buzz move forward and up. Notice the tone got brighter.',
+            'Now sing a note and cycle: mmm → ah → ee → ah → mmm. Hear the tone color change?',
+            'Advanced: sing a scale and keep the "ee" formant on every note. Notice how the tone stays bright and focused.',
+            'This is formant tuning. You are shaping your vocal tract to emphasize certain harmonics. No spectogram needed — just your ears and your mouth.'
+          ],
+          skill: 'resonance',
+          xp: 30
         }
       }
     ]
@@ -1430,211 +1440,451 @@ var CURRICULUM = {
     icon: 'T',
     modules: [
       {
-        id: 't1', stage: 1,
-        outcome: 'Be able to understand rhythm, time signatures, and count music',
-        title: 'Rhythm & Time — The Heartbeat of Music',
+        id: 't1',
+        stage: 1,
+        outcome: 'Be able to read sheet music — notes, rhythms, and time signatures',
+        title: 'Read the Page',
         xp: 20,
-        content: '<p>Before notes, there is <b>rhythm</b>. Rhythm is the pattern of sounds and silences in time.</p><p><b>Beat:</b> The steady pulse. <b>Tempo:</b> Speed in BPM (60=slow, 120=pop, 140+=dance).</p><p><b>Time Signature:</b> 4/4 (pop), 3/4 (waltz), 6/8 (ballad).</p><p><b>Rhythm Values:</b> Whole=4 beats. Half=2. Quarter=1. Eighth=1/2. Sixteenth=1/4.</p><p><b>Song references:</b> "We Will Rock You" = simplest rock rhythm. "Essence" = syncopated Afro feel. "Water No Get Enemy" = Afrobeat polyrhythm. "Happy Birthday" = 3/4 waltz.</p><p><b>Nigerian:</b> "Ojuelegba" = syncopated 6/8. "Sungba" = slow 4/4. "Get Busy" = dembow. "Fast Wine" = straight 4/4.</p><p><b>Jazz:</b> "Take the A Train" = swing 4/4.</p><p><b>Classical:</b> Beethoven\'s 5th = short-short-short-long.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Rick Beato — Rhythm Explained. App: Metronome Beats.</p></div>',
+        content: '<p>Sheet music is a map. Notes tell you <b>what</b> to play. Rhythm tells you <b>when</b>. Time signature tells you <b>how to count</b>.</p><p><b>Treble clef lines (bottom to top):</b> <b>E</b>very <b>G</b>ood <b>B</b>oy <b>D</b>oes <b>F</b>ine</p><p><b>Treble clef spaces (bottom to top):</b> <b>F</b>-<b>A</b>-<b>C</b>-<b>E</b> (spells "face")</p><p><b>Bass clef lines:</b> <b>G</b>ood <b>B</b>oys <b>D</b>o <b>F</b>ine <b>A</b>lways</p><p><b>Bass clef spaces:</b> <b>A</b>ll <b>C</b>ows <b>E</b>at <b>G</b>rass</p><p><b>Rhythm values:</b> Whole note = 4 beats. Half = 2. Quarter = 1. Eighth = 1/2. Sixteenth = 1/4.</p><p><b>Time signatures:</b> 4/4 = 4 quarter-note beats per measure. 3/4 = 3 (waltz). 6/8 = 6 eighth-note beats.</p>',
         exercise: {
-          name: 'Rhythm Gym',
-          steps: ['Put on Essence, tap foot, count 1-2-3-4', 'Clap on beats 2 and 4', 'Clap on the "and" (syncopation)', 'Use metronome at 80 BPM, clap quarters, eighths, sixteenths', 'Sing Twinkle Twinkle while clapping the beat'],
-          skill: 'theory', xp: 20
+          name: 'Note Flash',
+          steps: [
+            'Write out the treble clef: lines E-G-B-D-F, spaces F-A-C-E',
+            'Quiz yourself: point to a random line/space, name the note in 2 seconds',
+            'Now add bass clef: lines G-B-D-F-A, spaces A-C-E-G',
+            'Practice reading a simple melody from sheet music (search "beginner sheet music" online)',
+            'Goal: read 20 notes in 60 seconds without mistakes.',
+            'Advanced: read both clefs at once (like piano music).'
+          ],
+          skill: 'theory',
+          xp: 20
         }
       },
       {
-        id: 't2', stage: 1,
-        outcome: 'Be able to use solfege to sing any melody in any key',
-        title: 'Solfege — The Musician\'s Secret Language',
+        id: 't2',
+        stage: 1,
+        outcome: 'Be able to build any major or minor scale from any starting note',
+        title: 'Scale Builder',
+        xp: 20,
+        content: '<p>Scales are patterns. You do not memorize every scale — you memorize the <b>pattern</b> and apply it.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 400 100" style="max-width:100%;height:auto"><rect x="40" y="20" width="320" height="50" rx="4" fill="none" stroke="var(--border)" stroke-width="1"/><text x="50" y="50" fill="var(--tx)" font-size="11" font-weight="700">C Major Scale</text><line x1="50" y1="60" x2="350" y2="60" stroke="var(--border)" stroke-width="1"/><circle cx="80" cy="60" r="5" fill="var(--pri)"/><text x="80" y="80" fill="var(--tx)" font-size="9" text-anchor="middle">C</text><text x="80" y="55" fill="var(--tx3)" font-size="8" text-anchor="middle">W</text><circle cx="120" cy="60" r="5" fill="var(--pri)"/><text x="120" y="80" fill="var(--tx)" font-size="9" text-anchor="middle">D</text><text x="120" y="55" fill="var(--tx3)" font-size="8" text-anchor="middle">W</text><circle cx="160" cy="60" r="5" fill="var(--pri)"/><text x="160" y="80" fill="var(--tx)" font-size="9" text-anchor="middle">E</text><text x="160" y="55" fill="var(--tx3)" font-size="8" text-anchor="middle">H</text><circle cx="200" cy="60" r="5" fill="var(--pri)"/><text x="200" y="80" fill="var(--tx)" font-size="9" text-anchor="middle">F</text><text x="200" y="55" fill="var(--tx3)" font-size="8" text-anchor="middle">W</text><circle cx="240" cy="60" r="5" fill="var(--pri)"/><text x="240" y="80" fill="var(--tx)" font-size="9" text-anchor="middle">G</text><text x="240" y="55" fill="var(--tx3)" font-size="8" text-anchor="middle">W</text><circle cx="280" cy="60" r="5" fill="var(--pri)"/><text x="280" y="80" fill="var(--tx)" font-size="9" text-anchor="middle">A</text><text x="280" y="55" fill="var(--tx3)" font-size="8" text-anchor="middle">W</text><circle cx="320" cy="60" r="5" fill="var(--pri)"/><text x="320" y="80" fill="var(--tx)" font-size="9" text-anchor="middle">B</text><text x="320" y="55" fill="var(--tx3)" font-size="8" text-anchor="middle">H</text><circle cx="350" cy="60" r="5" fill="var(--gold)"/><text x="350" y="80" fill="var(--gold)" font-size="9" text-anchor="middle">C</text><text x="200" y="15" fill="var(--tx2)" font-size="10" text-anchor="middle">W = Whole step (2 half steps) &nbsp;&nbsp; H = Half step (1 half step)</text></svg></div><p><b>Major scale pattern:</b> Whole-Whole-Half-Whole-Whole-Whole-Half (WWHWWWH)</p><p>A "whole step" = 2 half steps (like C to D). A "half step" = 1 half step (like E to F).</p><p><b>Minor scale pattern:</b> Whole-Half-Whole-Whole-Half-Whole-Whole (WHWWHWW)</p><p>Start on any note. Apply the pattern. You have a scale. The pattern never changes — only the starting note changes.</p>',
+        exercise: {
+          name: 'Scale Construction',
+          steps: [
+            'Pick C. Apply WWHWWWH: C-D-E-F-G-A-B-C. That is C major.',
+            'Pick G. Apply the pattern: G-A-B-C-D-E-F#-G. G major (notice the F#).',
+            'Pick A. Apply WHWWHWW: A-B-C-D-E-F-G-A. A natural minor.',
+            'Build 5 major scales and 5 minor scales from random starting notes.',
+            'Goal: build any major scale in under 30 seconds.',
+            'Advanced: build harmonic minor (raised 7th) and melodic minor (raised 6th and 7th ascending).'
+          ],
+          skill: 'theory',
+          xp: 20
+        }
+      },
+      {
+        id: 't3',
+        stage: 2,
+        outcome: 'Be able to identify key signatures — how many sharps or flats',
+        title: 'Key Signature Decoder',
+        xp: 20,
+        content: '<p>Key signatures tell you which notes are sharp or flat throughout a piece. The <b>circle of fifths</b> is your cheat sheet.</p><p><b>Sharps order:</b> <b>F</b>ather <b>C</b>harles <b>G</b>oes <b>D</b>own <b>A</b>nd <b>E</b>nds <b>B</b>attle</p><p><b>Flats order:</b> Reverse — <b>B</b>attle <b>E</b>nds <b>A</b>nd <b>D</b>own <b>G</b>oes <b>C</b>harles <b>F</b>ather</p><p>1 sharp = G major. 2 sharps = D major. 3 = A major. 4 = E major. 5 = B major.</p><p>1 flat = F major. 2 flats = Bb major. 3 = Eb major. 4 = Ab major. 5 = Db major.</p><p>Quick trick for sharps: the last sharp is the 7th note of the scale. Go up one half step = the key.</p><p>Quick trick for flats: the second-to-last flat IS the key (for 2+ flats).</p>',
+        exercise: {
+          name: 'Key Signature Speed',
+          steps: [
+            'Memorize: 1 sharp = G, 2 = D, 3 = A, 4 = E, 5 = B',
+            'Memorize: 1 flat = F, 2 = Bb, 3 = Eb, 4 = Ab, 5 = Db',
+            'Look at a key signature. Name the key in 5 seconds.',
+            'Do 20 key signatures. Time yourself.',
+            'Goal: identify any key signature in under 3 seconds.',
+            'Advanced: identify both the major key AND its relative minor.'
+          ],
+          skill: 'theory',
+          xp: 20
+        }
+      },
+      {
+        id: 't4',
+        stage: 2,
+        outcome: 'Be able to build and identify triads — major, minor, diminished, augmented',
+        title: 'Triad Architect',
         xp: 25,
-        content: '<p>Solfege: <b>Do-Re-Mi-Fa-Sol-La-Ti-Do</b>. Each syllable = one scale degree.</p><p><b>7 Syllables:</b> Do (home). Re (rising). Mi (bright). Fa (sigh). Sol (strong). La (melancholy). Ti (tense).</p><p><b>Chromatic:</b> Sharps: Di-Ri-Fi-Si-Li. Flats: Ra-Me-Se-Le-Te.</p><p><b>Minor:</b> La-Ti-Do-Re-Mi-Fa-Sol-La.</p><p><b>Song solfege:</b> Twinkle=Do-Do-Sol-Sol-La-La-Sol. Happy=Sol-Sol-La-So-Do-Ti. Amazing=Sol-Mi-Do-Do-So-Mi-Do. Ode=Mi-Mi-Fa-So So-Fa-Mi-Re. Essence=Sol-So-Mi-Re-Do-Do.</p><p><b>Jazz:</b> Autumn Leaves=La-Do-Mi-Fa Mi-Re-Do-Ti. Blue Bossa=La-Do-Mi-Fa.</p><p><b>Classical:</b> Ode to Joy=Mi-Mi-Fa-So So-Fa-Mi-Re Do-Do-Re-Mi Mi-Re-Do.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Jacob Collier — How to Use Solfege.</p></div>',
+        content: '<p>Triads are 3-note chords. They are the building blocks of all harmony.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 360 140" style="max-width:100%;height:auto"><rect x="20" y="10" width="100" height="120" rx="6" fill="oklch(0.65 0.20 270 / 0.08)" stroke="var(--pri)" stroke-width="1"/><text x="70" y="30" fill="var(--pri)" font-size="11" text-anchor="middle" font-weight="800">MAJOR</text><circle cx="50" cy="110" r="6" fill="var(--pri)"/><text x="50" y="60" fill="var(--tx)" font-size="9" text-anchor="middle">R</text><text x="50" y="125" fill="var(--tx3)" font-size="8" text-anchor="middle">Root</text><circle cx="70" cy="80" r="6" fill="var(--pri-hi)"/><text x="70" y="75" fill="var(--tx)" font-size="9" text-anchor="middle">3rd</text><text x="70" y="125" fill="var(--tx3)" font-size="8" text-anchor="middle">Maj 3rd</text><circle cx="90" cy="50" r="6" fill="var(--gold)"/><text x="90" y="45" fill="var(--tx)" font-size="9" text-anchor="middle">5th</text><text x="90" y="125" fill="var(--tx3)" font-size="8" text-anchor="middle">Perf 5th</text><text x="70" y="100" fill="oklch(0.72 0.18 145)" font-size="9" text-anchor="middle">Happy</text><rect x="130" y="10" width="100" height="120" rx="6" fill="oklch(0.65 0.20 270 / 0.08)" stroke="var(--border-hi)" stroke-width="1"/><text x="180" y="30" fill="var(--tx2)" font-size="11" text-anchor="middle" font-weight="800">MINOR</text><circle cx="160" cy="110" r="6" fill="var(--tx2)"/><text x="160" y="60" fill="var(--tx)" font-size="9" text-anchor="middle">R</text><text x="160" y="125" fill="var(--tx3)" font-size="8" text-anchor="middle">Root</text><circle cx="180" cy="90" r="6" fill="var(--tx3)"/><text x="180" y="75" fill="var(--tx)" font-size="9" text-anchor="middle">3rd</text><text x="180" y="125" fill="var(--tx3)" font-size="8" text-anchor="middle">Min 3rd ↓</text><circle cx="200" cy="50" r="6" fill="var(--gold)"/><text x="200" y="45" fill="var(--tx)" font-size="9" text-anchor="middle">5th</text><text x="200" y="125" fill="var(--tx3)" font-size="8" text-anchor="middle">Perf 5th</text><text x="180" y="100" fill="var(--tx3)" font-size="9" text-anchor="middle">Sad</text><rect x="240" y="10" width="100" height="120" rx="6" fill="oklch(0.65 0.20 25 / 0.08)" stroke="var(--err)" stroke-width="1"/><text x="290" y="30" fill="var(--err)" font-size="11" text-anchor="middle" font-weight="800">DIMINISHED</text><circle cx="270" cy="110" r="6" fill="var(--err)"/><text x="270" y="60" fill="var(--tx)" font-size="9" text-anchor="middle">R</text><circle cx="290" cy="90" r="6" fill="var(--tx3)"/><text x="290" y="75" fill="var(--tx)" font-size="9" text-anchor="middle">Min 3rd ↓</text><circle cx="310" cy="70" r="6" fill="var(--err)"/><text x="310" y="55" fill="var(--tx)" font-size="9" text-anchor="middle">5th ↓</text><text x="310" y="125" fill="var(--tx3)" font-size="8" text-anchor="middle">Dim 5th</text><text x="290" y="100" fill="var(--err)" font-size="9" text-anchor="middle">Tense</text></svg><div class="text-xs text-muted mt-2">All triads share the same Root and Perfect 5th. Only the 3rd changes the mood.</div></div><p><b>Major triad:</b> Root + Major 3rd + Perfect 5th (C-E-G). Sounds happy, bright.</p><p><b>Minor triad:</b> Root + Minor 3rd + Perfect 5th (C-Eb-G). Sounds sad, dark.</p><p><b>Diminished triad:</b> Root + Minor 3rd + Diminished 5th (C-Eb-Gb). Sounds tense, unstable.</p><p><b>Augmented triad:</b> Root + Major 3rd + Augmented 5th (C-E-G#). Sounds dreamy, floating.</p><p>The only thing that changes is the 3rd and 5th. The root stays the same.</p>',
         exercise: {
-          name: 'Solfege Bootcamp',
-          steps: ['Sing C major scale in solfege 5 times', 'Sing Twinkle in solfege', 'Sing Happy Birthday in solfege', 'Sing Amazing Grace in solfege', 'Figure out Essence solfege by ear', 'Advanced: sing in minor La-Ti-Do-Re-Mi-Fa-Sol-La'],
-          skill: 'theory', xp: 25
+          name: 'Triad Factory',
+          steps: [
+            'Build C major: C + E + G. Play or sing it. Hear the brightness.',
+            'Build C minor: C + Eb + G. Hear the difference? The 3rd dropped.',
+            'Build C diminished: C + Eb + Gb. Sounds tense, wants to resolve.',
+            'Build C augmented: C + E + G#. Sounds dreamy, floating.',
+            'Now build all 4 types starting on F, G, and Bb.',
+            'Advanced: add 7th chords — major 7th (C-E-G-B), dominant 7th (C-E-G-Bb), minor 7th (C-Eb-G-Bb).'
+          ],
+          skill: 'theory',
+          xp: 25
         }
       },
       {
-        id: 't3', stage: 2,
-        outcome: 'Be able to build any scale (major, minor, pentatonic, blues, modes) and understand keys',
-        title: 'Scales & Keys — The Map of Music',
-        xp: 25,
-        content: '<p><b>Major Scale:</b> W-W-H-W-W-W-H. C Major=C-D-E-F-G-A-B-C.</p><p><b>Natural Minor:</b> W-H-W-W-H-W-W. A Minor=A-B-C-D-E-F-G-A.</p><p><b>Pentatonic (5 notes):</b> Major=C-D-E-G-A. Minor=A-C-D-E-G.</p><p><b>Blues Scale:</b> Minor pentatonic + blue note. A-C-D-Eb-E-G.</p><p><b>7 Modes:</b> Ionian (major). Dorian (jazzy minor). Phrygian (Spanish). Lydian (dreamy). Mixolydian (bluesy). Aeolian (minor). Locrian (unstable).</p><p><b>Nigerian:</b> Traditional music = pentatonic. Afrobeat = Mixolydian. Afro-pop = Dorian/Aeolian. Highlife = Ionian.</p><p><b>Jazz:</b> Autumn Leaves=major+minor. Blue Bossa=Dorian. So What=Dorian.</p><p><b>Song references:</b> Essence=minor pentatonic. Ye=natural minor. Free Mind=Dorian. Water No Get Enemy=pentatonic. No Woman NoCry=major I-V-vi-IV.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Rick Beato — Modes Explained.</p></div>',
-        exercise: {
-          name: 'Scale Mastery',
-          steps: ['Sing C major 5 times', 'Sing A natural minor 5 times', 'Sing C major pentatonic 5 times', 'Sing A minor pentatonic 5 times', 'Sing A blues scale 5 times', 'Sing D Dorian (jazzy minor)', 'Sing G Mixolydian (bluesy major)'],
-          skill: 'theory', xp: 25
-        }
-      },
-      {
-        id: 't4', stage: 2,
-        outcome: 'Be able to build and identify all chord types',
-        title: 'Chord Construction — The Architecture of Harmony',
+        id: 't5',
+        stage: 3,
+        outcome: 'Be able to sight-sing a simple melody you have never seen before',
+        title: 'Sight-Singing',
         xp: 30,
-        content: '<p><b>Triads:</b> Major(C-E-G). Minor(C-Eb-G). Diminished(C-Eb-Gb). Augmented(C-E-G#).</p><p><b>7th Chords:</b> Maj7(C-E-G-B). Dom7(C-E-G-Bb). Min7(C-Eb-G-Bb).</p><p><b>Extended:</b> 9th, 11th, 13th. The R&B sound.</p><p><b>Number System:</b> I-ii-iii-IV-V-vi-vii°. Same in every key.</p><p><b>Nigerian:</b> Afrobeat=2-3 chords. Afro-pop=I-V-vi-IV. Gospel=7ths,9ths,sus4.</p><p><b>Jazz:</b> Autumn Leaves=Gm7-C7-Fmaj7 (ii-V-I).</p><p><b>R&B:</b> D\'Angelo=Dm9-G13-Cmaj9. Erykah=Am9-Dm9-G13-Cmaj9.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Rick Beato — Chord Construction.</p></div>',
+        content: '<p>Sight-singing = reading music and singing it instantly. It is the ultimate test of musicianship. If you can do this, you can learn any song from sheet music.</p><p>Use <b>solfege</b>: Do-Re-Mi-Fa-Sol-La-Ti-Do. Each syllable = one scale degree. This gives you a "handle" for each note.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 400 120" style="max-width:100%;height:auto"><line x1="40" y1="100" x2="360" y2="100" stroke="var(--border)" stroke-width="2"/><line x1="40" y1="100" x2="40" y2="20" stroke="var(--border)" stroke-width="2"/><text x="30" y="105" fill="var(--tx3)" font-size="10">Low</text><text x="350" y="105" fill="var(--tx3)" font-size="10">High</text><circle cx="80" cy="90" r="6" fill="var(--pri)"/><text x="80" y="115" fill="var(--tx)" font-size="9" text-anchor="middle">Do</text><circle cx="120" cy="78" r="6" fill="var(--pri)"/><text x="120" y="115" fill="var(--tx)" font-size="9" text-anchor="middle">Re</text><circle cx="160" cy="66" r="6" fill="var(--pri)"/><text x="160" y="115" fill="var(--tx)" font-size="9" text-anchor="middle">Mi</text><circle cx="200" cy="54" r="6" fill="var(--pri)"/><text x="200" y="115" fill="var(--tx)" font-size="9" text-anchor="middle">Fa</text><circle cx="240" cy="42" r="6" fill="var(--pri)"/><text x="240" y="115" fill="var(--tx)" font-size="9" text-anchor="middle">Sol</text><circle cx="280" cy="30" r="6" fill="var(--pri)"/><text x="280" y="115" fill="var(--tx)" font-size="9" text-anchor="middle">La</text><circle cx="320" cy="18" r="6" fill="var(--pri)"/><text x="320" y="115" fill="var(--tx)" font-size="9" text-anchor="middle">Ti</text><circle cx="360" cy="6" r="6" fill="var(--gold)"/><text x="360" y="115" fill="var(--gold)" font-size="9" text-anchor="middle">Do</text><path d="M80,90 Q100,84 120,78 Q140,72 160,66 Q180,60 200,54 Q220,48 240,42 Q260,36 280,30 Q300,24 320,18 Q340,12 360,6" fill="none" stroke="var(--pri-hi)" stroke-width="2" stroke-dasharray="4,2" opacity="0.5"/></svg><div class="text-xs text-muted mt-2">C Major Scale — each dot is a note. Sing up: Do-Re-Mi-Fa-Sol-La-Ti-Do</div></div><p>The process:</p><p>1. Identify the key. Find "Do."</p><p>2. Look at the first note. What scale degree is it?</p><p>3. Sing the scale quickly: Do-Re-Mi-Fa-Sol-La-Ti-Do.</p><p>4. Now sing the melody using solfege syllables.</p><p>5. Finally, sing the lyrics.</p><p>Start slow. Speed comes with practice.</p>',
         exercise: {
-          name: 'Chord Builder',
-          steps: ['Build all 4 triads from C', 'Build all 7th chords from C', 'Build diatonic chords in C: C-Dm-Em-F-G-Am-Bdim', 'Identify Essence chords (I-V-vi-IV)', 'Identify Autumn Leaves (ii-V-I)'],
-          skill: 'theory', xp: 30
-        }
-      },
-      {
-        id: 't5', stage: 3,
-        outcome: 'Be able to analyze any song — key, chords, scale, form, arrangement',
-        title: 'Song Analysis — The Musician\'s X-Ray Vision',
-        xp: 35,
-        content: '<p><b>5-Step Framework:</b> 1) Find key (hum tonic). 2) Identify scale (solfege). 3) Map chords (numbers). 4) Identify form. 5) Analyze arrangement.</p><p><b>Essence:</b> Key:Am. Scale:A pentatonic. Chords:Am-F-C-G (i-VI-III-VII).</p><p><b>Autumn Leaves:</b> Key:Gm. Chords:Gm7-C7-Fmaj7 (ii-V-I). Form:AABA.</p><p><b>Water No Get Enemy:</b> Key:C. Chords:C+F (I+IV). Form:Through-composed.</p><p><b>So What:</b> Key:D Dorian. Chords:Dm7 for 16 bars.</p><p><b>No Woman No Cry:</b> Key:C. Chords:C-G-Am-F (I-V-vi-IV).</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Rick Beato — Song Analysis. Website: hooktheory.com.</p></div>',
-        exercise: {
-          name: 'Song Autopsy',
-          steps: ['Pick Essence, find key, sing tonic', 'Sing melody in solfege', 'Map chords in numbers', 'Identify form', 'Do same for Autumn Leaves', 'Do same for Fela song'],
-          skill: 'theory', xp: 35
+          name: 'First Sight',
+          steps: [
+            'Pick a simple melody in C major (no accidentals). Search "beginner sight singing exercises."',
+            'Identify the key and starting note. Sing the scale: Do-Re-Mi-Fa-Sol-La-Ti-Do.',
+            'Read the melody note by note, singing each one in solfege.',
+            'Start slow. Use a piano to check yourself.',
+            'Do one new melody daily. Keep a log of your accuracy.',
+            'Advanced: try melodies with accidentals (sharps/flats). Use chromatic solfege: Di-Ri-Fi-Si-Li for sharps, Ra-Me-Se-Le-Te for flats.'
+          ],
+          skill: 'sight',
+          xp: 30
         }
       }
     ]
   },
 
+  // ===== BGV PROJECT: EAR TRAINING + BANDLAB =====
+  bgvproject: {
+    title: 'BGV Project',
+    icon: 'V',
+    modules: [
+      {
+        id: 'bgv1', stage: 4,
+        outcome: 'Be able to listen to a harmony line, replicate it, record it in Bandlab, and submit it',
+        title: 'Background Vocals Project',
+        xp: 50,
+        content: '<p>This is a <b>hands-on project</b>. You will use everything you have learned — ear training, pitch matching, vocal technique, and Bandlab production — to create background vocals for a real song.</p><p><b>The Project:</b></p><p>1. <b>Listen:</b> We give you a song with the lead vocal removed. Listen to the original first. Focus on the background vocal harmonies. Where do they enter? What notes do they sing? How do they blend?</p><p>2. <b>Learn:</b> Using solfege, figure out the harmony line. Sing along until you can match it exactly. Use the pitch detection tool (Practice tab) to check your accuracy.</p><p>3. <b>Record:</b> Open Bandlab. Import the backing track (we provide the link). Record your harmony line. Use the effects chain from the Bandlab module to make it sound professional.</p><p>4. <b>Submit:</b> Export your recording and send it to Coach Toby via WhatsApp with the subject: "BGV Project — [Your Name] — [Song Title]"</p><div class="ref-box"><div class="ref-box-title">Song Choices (Pick One)</div><p><b>Worship:</b> "Great Are You Lord" — harmonies on the chorus (Sol-Do-Mi-Do)</p><p><b>Pop:</b> "Someone Like You" — "Never mind, I\'ll find someone like you" (harmony on "someone like you")</p><p><b>Afro:</b> "Essence" — Tems\' ad-libs and harmonies</p><p><b>R&B:</b> "All of Me" — John Legend (harmonies on the bridge)</p><p><b>Jazz:</b> "Fly Me to the Moon" — classic jazz harmonies (3rds and 5ths)</p></div><div class="ref-box"><div class="ref-box-title">What Coach Toby Listens For</div><p>1. <b>Pitch accuracy:</b> Are you in tune? (Use the pitch detector to check before submitting)</p><p>2. <b>Blend:</b> Does your voice sit well in the mix? Not too loud, not too quiet.</p><p>3. <b>Timing:</b> Are you locked in with the lead vocal? No drifting.</p><p>4. <b>Tone:</b> Is your tone appropriate for the genre? (Warm for worship, bright for pop, smooth for R&B)</p><p>5. <b>Production:</b> Did you use Bandlab effects properly? (Compressor, EQ, Reverb — from the Bandlab module)</p></div>',
+        exercise: {
+          name: 'BGV Recording Project',
+          steps: [
+            'Pick a song from the list above',
+            'Listen to the original 5 times. Focus ONLY on the background vocals each time',
+            'Sing along with the background vocals. Record yourself on your phone. Listen back.',
+            'Open bandlab.com. Create a new project.',
+            'Import the backing track (search "[song name] backing track karaoke" on YouTube, download, import to Bandlab)',
+            'Record your harmony line. Do 5 takes. Pick the best one.',
+            'Apply effects: Compressor (3:1) → EQ (cut <100Hz, boost 3kHz) → Reverb (Plate, 20%)',
+            'Mix: Your vocal should sit BEHIND the lead. Turn your track down 3-6dB.',
+            'Export as MP3. Send to Coach Toby via WhatsApp: "BGV Project — [Name] — [Song]"',
+            'Coach Toby will give you feedback on pitch, blend, timing, tone, and production'
+          ],
+          skill: 'ear',
+          xp: 50
+        }
+      }
+    ]
+  },
+
+  // ===== PERFORMANCE =====
+  performance: {
+    title: 'Performance',
+    icon: 'P',
+    modules: [
+      {
+        id: 'p1',
+        stage: 5,
+        outcome: 'Be able to perform a song with emotional connection — not just correct notes',
+        title: 'Sing With Meaning',
+        xp: 20,
+        content: '<p>Anyone can hit the notes. But <b>performance</b> is about making the audience feel something. The secret: <b>know what you are singing about</b>.</p><p>Before you sing a song, answer three questions:</p><p><b>1. What is this song about?</b> (The story, the message)</p><p><b>2. What am I trying to say?</b> (Your personal connection to the lyrics)</p><p><b>3. Who am I saying it to?</b> (A person, God, yourself, the audience)</p><p>If you cannot answer these, you are just making sounds. The audience will feel the difference.</p>',
+        exercise: {
+          name: 'Emotion Map',
+          steps: [
+            'Pick a song you know well',
+            'Write down the emotion of each section (verse 1, chorus, verse 2, bridge)',
+            'Sing it again — this time, focus ONLY on the emotion, not the technique',
+            'Record yourself. Listen: can you hear the story?',
+            'If it sounds flat, go deeper into the lyrics. What would YOU feel in that moment?',
+            'Advanced: perform it for someone. Watch their face. Did they feel it?'
+          ],
+          skill: 'performance',
+          xp: 20
+        }
+      },
+      {
+        id: 'p2',
+        stage: 4,
+        outcome: 'Be able to manage stage fright and perform under pressure',
+        title: 'Own the Stage',
+        xp: 20,
+        content: '<p>Stage fright is your body preparing for danger. Adrenaline, racing heart, sweaty palms — these are the same whether you are scared or excited.</p><p>The trick: <b>redirect the energy</b>. Tell yourself "I am excited" instead of "I am scared." Same physical state, different interpretation.</p><p>The real cure: <b>exposure</b>. The more you perform, the more normal it feels. Start small. Build up.</p>',
+        exercise: {
+          name: 'Pressure Training',
+          steps: [
+            'Sing your song alone. Notice how it feels. Record it.',
+            'Now sing it for one person you trust. Notice the difference.',
+            'Sing it for 3 people. Then 5. Then 10.',
+            'Record yourself on video. Watch it. Get used to being seen.',
+            'Perform at an open mic, church, or small gathering.',
+            'The goal is not to eliminate nerves. It is to perform well DESPITE them.'
+          ],
+          skill: 'performance',
+          xp: 20
+        }
+      }
+    ]
+  },
+
+  // ===== STYLE & GENRE =====
   style: {
     title: 'Style Mastery',
     icon: 'S',
     modules: [
       {
-        id: 's1', stage: 4,
-        outcome: 'Be able to sing in the Worship/Gospel style with authentic tone, runs, and emotional delivery',
-        title: 'Worship & Gospel — The Voice of Praise',
-        xp: 25,
-        content: '<p>Gospel is the foundation of modern popular music. R&B, soul, pop, rock — they all come from gospel.</p><p><b>4 Pillars:</b> 1) Breath support (appoggio). 2) Chest voice dominance (heavy, powerful). 3) Runs and melisma (clear, in tune). 4) Emotional delivery (feeling over perfection).</p><p><b>Nigerian gospel:</b> Tim Godfrey "Nara," Sinach "Way Maker," Mercy Chinwo "Excess Love," Tope Alabi "Logan Ti Ode," Frank Edwards "Mma Mma."</p><p><b>American gospel:</b> Kirk Franklin "Smile," CeCe Winans "Alabaster Box," Whitney Houston "I Will Always Love You," Aretha Franklin "Amazing Grace" (live).</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Aretha Franklin — Amazing Grace (Live). Instagram: @oche_official.</p></div>',
+        id: 's1',
+        stage: 4,
+        outcome: 'Be able to sing in worship style — open, bright, sustained with emotional conviction',
+        title: 'Worship Voice',
+        xp: 20,
+        content: '<p>Worship singing is about <b>connection, not performance</b>. The sound should be open, bright, and sustained — but the emotion is what makes it land.</p><p><b>The sound:</b> Open throat (slightly lowered larynx), forward resonance (buzz in the mask), steady airflow, minimal vibrato on sustained notes. Think "lifting" the sound upward.</p><p><b>The emotion:</b> You are singing TO someone (God, the audience, yourself). Every line should feel like a conversation, not a performance. Before you sing a worship song, ask: "What am I saying? Who am I saying it to?"</p><p><b>Common mistakes:</b> Pushing too much air (sounds breathy), closing the throat (sounds swallowed), singing without intention (sounds empty).</p><div class="ref-box"><div class="ref-box-title">Listen & Learn</div><p>Study these artists: <b>Tasha Cobbs Leonard</b> (power + emotion), <b>Sinach</b> (declaration style), <b>Maverick City</b> (raw, intimate), <b>Hillsong Worship</b> (anthemic, corporate). Each has a different approach to worship — find yours.</p></div>',
         exercise: {
-          name: 'Gospel Run Bootcamp',
-          steps: ['Sing "Ah" on C4, hold 10 seconds', 'Sing Do-Re-Do on "Ah", 5 times', 'Sing Do-Re-Mi-Re-Do, 5 times', 'Sing full scale on "Ah", 5 times', 'Do it FAST — that is a run', 'Add a run on "Way Maker"'],
-          skill: 'style', xp: 25
+          name: 'Worship Phrase Builder',
+          steps: [
+            'Pick a simple worship phrase: "I will sing unto the Lord" or "Holy, holy, holy"',
+            'Say it first — with conviction, like you mean it. Feel the weight of the words.',
+            'Now sing it on one note — open throat, forward resonance, steady air.',
+            'Add a gentle crescendo on the last word — let it build.',
+            'Sing it again, but this time close your eyes. Sing it like a prayer.',
+            'Record yourself. Listen: does it sound like worship, or just singing?'
+          ],
+          skill: 'style',
+          xp: 20
         }
       },
       {
-        id: 's2', stage: 4,
-        outcome: 'Be able to sing in the Pop style with clean tone and controlled vibrato',
-        title: 'Pop — The Art of the Hook',
-        xp: 25,
-        content: '<p>Pop demands <b>perfect</b> vocals — pitch, tone, timing, emotion.</p><p><b>4 Pillars:</b> 1) Clean tone (forward resonance). 2) Controlled vibrato (sparingly). 3) Pitch perfection (within 5 cents). 4) The hook (memorable, singable).</p><p><b>Nigerian pop:</b> Wizkid "Essence," Davido "If," Burna Boy "Ye," Tems "Free Mind," Rema "Calm Down," Ayra Starr "Rush," Fireboy "Peru."</p><p><b>International:</b> Adele "Someone Like You," Beyoncé "Halo," Billie Eilish "Bad Guy," The Weeknd "Blinding Lights."</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: New York Vocal Coaching, Singgeek.</p></div>',
+        id: 's2',
+        stage: 4,
+        outcome: 'Be able to sing in pop style — conversational, forward, rhythmically precise',
+        title: 'Pop Voice',
+        xp: 20,
+        content: '<p>Pop singing is <b>speech-plus</b>. It is conversational, forward, and rhythmically precise. The tone is bright but not operatic. The delivery is direct.</p><p><b>The sound:</b> Neutral-to-high larynx, forward resonance (buzz in the lips/cheekbones), speech-like delivery, rhythmic precision. Vowels are slightly narrowed compared to classical.</p><p><b>The delivery:</b> Pop singers "talk" the lyrics. Consonants are crisp. Phrases are rhythmic, not sustained. Dynamics are controlled — verses are intimate, choruses are powerful.</p><p><b>Common mistakes:</b> Singing it like a ballad (too much vibrato, too sustained), being too breathy (lacks presence), ignoring rhythm (sounds lazy).</p><div class="ref-box"><div class="ref-box-title">Listen & Learn</div><p>Study these artists: <b>Adele</b> (power + control), <b>Ed Sheeran</b> (conversational, rhythmic), <b>SZA</b> (texture, dynamics), <b>Burna Boy</b> (Afro-pop fusion). Notice how each one "talks" through the melody.</p></div>',
         exercise: {
-          name: 'Pop Vocal Polish',
-          steps: ['Sing Essence, focus on clean tone', 'Record yourself, listen for pitch', 'Sing Someone Like You, focus on vibrato', 'Use pitch detector, stay within 5 cents'],
-          skill: 'style', xp: 25
+          name: 'Speech-to-Song',
+          steps: [
+            'Pick a pop song you know well. Speak the lyrics out loud — like you are telling a story.',
+            'Now speak the lyrics in rhythm — keep the conversational feel but add the timing.',
+            'Now sing it — keep the same speech-like quality. Do not "opera-fy" it.',
+            'Focus on consonants: every "t", "d", "k", "p" should be crisp.',
+            'Record yourself. Does it sound like talking with melody, or singing?'
+          ],
+          skill: 'style',
+          xp: 20
         }
       },
       {
-        id: 's3', stage: 4,
-        outcome: 'Be able to sing in the R&B/Soul style with runs, melisma, and emotional storytelling',
-        title: 'R&B & Soul — The Voice of Feeling',
+        id: 's3',
+        stage: 4,
+        outcome: 'Be able to sing in R&B style — smooth, dynamic, with runs and emotional texture',
+        title: 'R&B Voice',
+        xp: 25,
+        content: '<p>R&B is about <b>feel, texture, and dynamics</b>. It is smooth, intimate, and emotionally raw. Runs (melisma), dynamics (soft to powerful), and vocal texture (breathy to full) are the tools.</p><p><b>The sound:</b> Neutral larynx, forward resonance, smooth legato (connected notes), controlled breathiness for intimacy, full voice for power. Runs should be clean and intentional — not accidental.</p><p><b>The runs:</b> R&B runs are not random. They follow the scale. Practice running up and down the pentatonic scale (1-2-3-5-6-5-3-2-1) until it is smooth. Then add it to phrases.</p><p><b>Common mistakes:</b> Over-running (every note does not need a run), pushing too hard on high notes (belt when you should mix), being too breathy throughout (lose the power).</p><div class="ref-box"><div class="ref-box-title">Listen & Learn</div><p>Study these artists: <b>Brandy</b> (runs, layering), <b>H.E.R.</b> (intimate, textured), <b>Daniel Caesar</b> (smooth, understated), <b>Tems</b> (Afro-R&B fusion). Notice how they use dynamics — soft verses, powerful choruses.</p></div>',
+        exercise: {
+          name: 'Pentatonic Run Builder',
+          steps: [
+            'Sing the pentatonic scale: Do-Re-Mi-Sol-La-Sol-Mi-Re-Do (1-2-3-5-6-5-3-2-1)',
+            'Sing it slowly first — every note clear and even.',
+            'Speed it up gradually. Keep it smooth — no gaps between notes.',
+            'Add it to a phrase: end a line with a pentatonic run instead of holding the note.',
+            'Practice the run starting on different notes: C pentatonic, D pentatonic, G pentatonic.',
+            'Advanced: add a "turn" — go up the scale, then come back down. That is your basic R&B run.'
+          ],
+          skill: 'style',
+          xp: 25
+        }
+      },
+      {
+        id: 's4',
+        stage: 4,
+        outcome: 'Be able to sing in Afro/Afrobeats style — rhythmic, percussive, syncopated',
+        title: 'Afro Voice',
+        xp: 25,
+        content: '<p>Afro singing is <b>rhythm first, melody second</b>. It is percussive, syncopated, and groove-driven. The voice is an instrument in the rhythm section.</p><p><b>The sound:</b> Forward resonance, rhythmic precision, short phrases (not sustained), percussive consonants, call-and-response patterns. The larynx is neutral-to-high. The delivery is energetic and direct.</p><p><b>The rhythm:</b> Afro music is built on polyrhythm — multiple rhythms happening at once. Your voice should lock into the groove. If you cannot clap the rhythm while singing, you are not in the pocket.</p><p><b>Common mistakes:</b> Singing it like a ballad (too sustained, not enough rhythm), ignoring the groove (sounds disconnected from the beat), being too stiff (Afro music needs bounce).</p><div class="ref-box"><div class="ref-box-title">Listen & Learn</div><p>Study these artists: <b>Burna Boy</b> (Afro-fusion, rhythmic), <b>Wizkid</b> (smooth Afro-pop), <b>Tems</b> (Afro-R&B, understated), <b>Davido</b> (energetic, anthemic). Notice how the voice rides the rhythm — it does not float above it.</p></div>',
+        exercise: {
+          name: 'Rhythm Lock',
+          steps: [
+            'Pick an Afro song you know. Clap the beat while you speak the lyrics.',
+            'Now speak the lyrics IN RHYTHM — every syllable should land on a beat or subdivision.',
+            'Sing it — keep the same rhythmic precision. Short phrases, percussive delivery.',
+            'Add a call-and-response: sing a line, then "answer" it with a different phrase.',
+            'Record yourself with a backing track. Are you in the pocket or drifting?'
+          ],
+          skill: 'style',
+          xp: 25
+        }
+      },
+      {
+        id: 's5',
+        stage: 4,
+        outcome: 'Be able to sing in ballad style — intimate, vulnerable, emotionally raw',
+        title: 'Ballad Voice',
+        xp: 20,
+        content: '<p>Ballads are about <b>intimacy and vulnerability</b>. The audience should feel like you are singing directly to them — or to yourself. Every word matters.</p><p><b>The sound:</b> Soft-to-moderate volume, controlled breathiness (not weak — intentional), gentle vibrato on sustained notes, dynamic contrast (soft verses, building choruses). The larynx is neutral. The resonance is forward but soft.</p><p><b>The emotion:</b> Ballads require you to be vulnerable. You cannot hide behind technique. The audience needs to feel what you feel. Before singing a ballad, connect to a real emotion — love, loss, longing, gratitude.</p><p><b>Common mistakes:</b> Being too loud (loses intimacy), too breathy (lacks presence), no dynamics (sounds flat), singing without emotional connection (sounds empty).</p><div class="ref-box"><div class="ref-box-title">Listen & Learn</div><p>Study these artists: <b>Adele</b> (Someone Like You — raw vulnerability), <b>Sam Smith</b> (Stay With Me — intimate, understated), <b>Whitney Houston</b> (I Will Always Love You — builds from intimate to powerful). Notice how they start small and build.</p></div>',
+        exercise: {
+          name: 'Intimacy Scale',
+          steps: [
+            'Pick a ballad. Sing the first verse as if you are whispering to one person.',
+            'Use controlled breathiness — not weak, but soft and intentional.',
+            'On the chorus, open up — more volume, more resonance, more emotion.',
+            'On the bridge, go even bigger — this is the emotional peak.',
+            'On the final chorus, pull back — end with intimacy, not power.',
+            'Record yourself. Can you hear the dynamic journey? Does it feel like a story?'
+          ],
+          skill: 'style',
+          xp: 20
+        }
+      },
+      {
+        id: 's6',
+        stage: 4,
+        outcome: 'Be able to switch between any style on demand — same song, different feels',
+        title: 'Style Chameleon',
         xp: 30,
-        content: '<p>R&B is where gospel meets pop. The voice is everything.</p><p><b>5 Pillars:</b> 1) Melisma (ornate runs). 2) Ad-libs (musical, fit harmony). 3) Emotional storytelling. 4) Vocal layering. 5) The pocket (groove).</p><p><b>Nigerian R&B:</b> Tems "Free Mind," Wizkid "Essence," Simi "Duduke," Niniola "Maradona."</p><p><b>International:</b> D\'Angelo "Untitled," Erykah Badu "On & On," Alicia Keys "Fallin\'," Daniel Caesar "Best Part," SZA "Love Galore."</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: D\'Angelo — Untitled. Erykah Badu — On & On.</p></div>',
+        content: '<p>This is the ultimate test. Can you take ONE song and sing it in <b>five completely different styles</b>? If you can, you are a versatile singer.</p><p>The secret: style is not a different voice. It is the <b>same voice with different settings</b>:</p><p><b>Larynx height:</b> High = bright/twangy. Low = dark/warm. Neutral = speech-like.</p><p><b>Resonance:</b> Forward = clear. Throat = dark. Nasal = twangy.</p><p><b>Vowel shape:</b> Wide = powerful. Narrow = intimate.</p><p><b>Dynamics/Rhythm:</b> Sustained = worship/ballad. Rhythmic = pop/Afro. Runs = R&B.</p><p>Master these four controls, and you can create any style.</p>',
         exercise: {
-          name: 'R&B Vocal Gym',
-          steps: ['Sing Free Mind, focus on warm tone', 'Add a run on "Free-"', 'Sing D\'Angelo, focus on ad-libs', 'Record yourself, add ad-libs, check harmony fit'],
-          skill: 'style', xp: 30
-        }
-      },
-      {
-        id: 's4', stage: 4,
-        outcome: 'Be able to sing in the Afrobeat/Afro-pop style with authentic rhythm, tone, and energy',
-        title: 'Afrobeat & Afro-Pop — The African Sound',
-        xp: 25,
-        content: '<p>Afrobeat is a <b>movement</b>. Fela Kuti created it by fusing Yoruba music with jazz, funk, and highlife.</p><p><b>5 Pillars:</b> 1) Rhythm first. 2) Pentatonic melody. 3) Call and response. 4) Energy and attitude. 5) Nigerian language/rhythm.</p><p><b>Afrobeat:</b> Fela "Water No Get Enemy," "Zombie." King Sunny Ade. Osadebe.</p><p><b>Afro-pop:</b> Wizkid "Essence," Burna Boy "Ye," Davido "If," Tems "Free Mind," Rema "Calm Down," Asake "Sungba," Ckay "Love Nwantiti."</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Fela Kuti — Live at Glastonbury. Burna Boy — African Giant.</p></div>',
-        exercise: {
-          name: 'Afrobeat Vocal Gym',
-          steps: ['Listen to Water No Get Enemy, tap rhythm', 'Sing Essence melody, rhythm first', 'Sing Ye, focus on chant energy', 'Practice call-and-response'],
-          skill: 'style', xp: 25
-        }
-      },
-      {
-        id: 's5', stage: 4,
-        outcome: 'Be able to sing in the Jazz style with scat singing and improvisation',
-        title: 'Jazz — The Musician\'s Music',
-        xp: 35,
-        content: '<p>Jazz is the ultimate test of musicianship. You cannot fake jazz.</p><p><b>5 Pillars:</b> 1) Scat singing (musical, fits harmony). 2) Swing feel. 3) Harmonic awareness. 4) Conversational phrasing. 5) Interpretation (make it yours).</p><p><b>Standards:</b> "Autumn Leaves" (ii-V-I), "Fly Me to the Moon" (I-vi-ii-V), "Blue Bossa" (Dorian), "So What" (Dorian), "Giant Steps" (rapid modulations).</p><p><b>Vocals:</b> Ella Fitzgerald (scat), Sarah Vaughan (range), Billie Holiday (emotion), Nina Simone (fusion), Jacob Collier (modern).</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Ella Fitzgerald — How High the Moon (Live). Jacob Collier — Moon River.</p></div>',
-        exercise: {
-          name: 'Jazz Vocal Gym',
-          steps: ['Listen to Autumn Leaves, sing melody, swing feel', 'Sing Fly Me to the Moon, behind the beat', 'Practice scat over ii-V-I', 'Sing Summertime, focus on interpretation'],
-          skill: 'style', xp: 35
-        }
-      },
-      {
-        id: 's6', stage: 4,
-        outcome: 'Be able to adapt your voice to any genre',
-        title: 'The Chameleon — Genre Fluidity',
-        xp: 30,
-        content: '<p>The most valuable singers are <b>chameleons</b>. They can sing any genre.</p><p><b>4 Controls:</b> 1) Larynx height (high = bright, low = dark). 2) Resonance (forward = bright, back = dark). 3) Vowel shape (spread = happy, rounded = sad). 4) Dynamics/rhythm (straight = modern, swing = jazz, syncopation = Afro).</p><p><b>Genre Challenge:</b> Pick one song. Sing it in 5 styles: Gospel, Pop, R&B, Jazz, Afro. Record each.</p><p><b>Fusion:</b> Jacob Collier (jazz+pop+gospel), Burna Boy (Afro+R&B), Beyoncé (pop+Afro+gospel), Anderson .Paak (funk+hip-hop+soul).</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Jacob Collier — Genre Fusion. Postmodern Jukebox.</p></div>',
-        exercise: {
-          name: 'Genre Chameleon',
-          steps: ['Pick Essence, sing in gospel style', 'Sing in pop style', 'Sing in R&B style', 'Sing in jazz style', 'Sing in Afro style', 'Record all 5, compare'],
-          skill: 'style', xp: 30
+          name: 'Style Swap Challenge',
+          steps: [
+            'Pick one phrase: "I will sing unto the Lord" or any simple line',
+            'Sing it in worship style: open, bright, sustained, lifted',
+            'Sing it in pop style: forward, conversational, rhythmic, crisp',
+            'Sing it in R&B style: smooth, add a run, dynamic, textured',
+            'Sing it in Afro style: rhythmic, percussive, syncopated, energetic',
+            'Sing it in ballad style: soft, intimate, vulnerable, building',
+            'If you can do all 5 and they sound DIFFERENT, you have mastered style.'
+          ],
+          skill: 'style',
+          xp: 30
         }
       }
     ]
   },
 
+  // ===== CAREER & MONETIZATION =====
   career: {
-    title: 'Music Career & Monetization',
+    title: 'Music Career',
     icon: 'C',
     modules: [
       {
-        id: 'c1', stage: 5,
-        outcome: 'Be able to build a professional music brand, get booked, and earn from your voice',
-        title: 'Music Career — From Singer to Brand',
-        xp: 30,
-        content: '<p>You can sing. Now <b>monetize</b>.</p><p><b>5 Revenue Streams:</b> 1) Live performance (₦50K-₦500K/gig in Nigeria). 2) Session singing (₦20K-₦100K/session in Lagos). 3) Background vocals (BGV module). 4) Teaching (recession-proof). 5) Content creation (YouTube, TikTok, Spotify).</p><p><b>Get Booked (Nigeria):</b> Build repertoire (50+ songs). Record demo (Bandlab). Network. Social media daily. Register with agencies (Chocolate City, Mavin).</p><p><b>Get Booked (International):</b> SoundBetter, AirGigs, Fiverr ($50-500/song). DistroKid (royalties). Patreon ($5-50/fan/month). YouTube (10K subs = $500-2K/month). Sync licensing ($500-50K).</p><p><b>Pricing:</b> Beginner ₦20K-50K. Intermediate ₦50K-200K. Advanced ₦200K-1M. Expert ₦1M+. <b>Do not undercharge.</b></p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>Website: soundbetter.com. distrokid.com. YouTube: Rick Beato, Andrew Huang.</p></div>',
+        id: 'c1',
+        stage: 5,
+        outcome: 'Be able to set up a basic music brand — name, image, and online presence',
+        title: 'Build Your Brand',
+        xp: 15,
+        content: '<p>Your brand is <b>who you are as an artist</b>. It is not just a logo. It is your sound, your story, your look, your values.</p><p>Ask yourself: What makes me different? What do I stand for? Who is my audience?</p><p>Your brand should be consistent across everything: your social media, your photos, your bio, your sound. If someone sees your post without your name, they should know it is you.</p>',
         exercise: {
-          name: 'Career Launch Pad',
-          steps: ['Record 3-song demo in Bandlab', 'Create Instagram Reel singing popular song', 'Sign up on soundbetter.com', 'Set rates (start ₦50K/gig)', 'Message 5 producers on Instagram', 'Goal: first paid gig within 30 days'],
-          skill: 'performance', xp: 30
+          name: 'Brand Blueprint',
+          steps: [
+            'Write your artist statement in 3 sentences: Who are you? What do you sing? Why?',
+            'Choose 3 adjectives that describe your sound (e.g., "soulful, powerful, authentic")',
+            'Pick a color palette (3 colors) that represents your brand',
+            'Set up or optimize your Instagram/Bio to reflect your brand',
+            'Post one piece of content this week that aligns with your brand.'
+          ],
+          skill: 'theory',
+          xp: 15
         }
       },
       {
-        id: 'c2', stage: 5,
-        outcome: 'Be able to protect your music, understand contracts, and build a sustainable music business',
-        title: 'Music Business — Protect Your Craft',
-        xp: 25,
-        content: '<p><b>5 Must-Knows:</b> 1) Copyright (register with COSON Nigeria or Library of Congress US). 2) Publishing (do NOT sign away unless significant). 3) Royalties (mechanical, performance, sync, print). 4) Contracts (never sign without reading — check term, territory, rights, royalties, exit clause). 5) Business structure (register business, separate bank account, track income/expenses).</p><p><b>Nigeria:</b> COSON, MCSN, CIFI loans.</p><p><b>International:</b> ASCAP/BMI/SESAC, DistroKid, Songtrust.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>Website: songtrust.com. Book: All You Need to Know About the Music Business by Donald Passman.</p></div>',
+        id: 'c2',
+        stage: 5,
+        outcome: 'Be able to monetize your voice — at least 3 income streams for singers',
+        title: 'Get Paid to Sing',
+        xp: 20,
+        content: '<p>Singers have more income streams than ever: <b>live performances</b>, <b>session vocals</b>, <b>teaching</b>, <b>content creation</b>, <b>licensing</b>, <b>coaching</b>.</p><p>The key: start with what you have now. Build from there.</p><p>Do not wait until you are "good enough." Start earning while you learn. Every gig, every session, every post builds your brand and your skills simultaneously.</p>',
         exercise: {
-          name: 'Business Foundation',
-          steps: ['Register next song with COSON', 'Create income/expense spreadsheet', 'Open separate bank account for music', 'Read one music business article per week'],
-          skill: 'performance', xp: 25
+          name: 'Income Map',
+          steps: [
+            'List every way you currently earn (or could earn) from your voice',
+            'Rate each: how realistic is it in the next 3 months? (1-5)',
+            'Pick the top 3. Write one action step for each.',
+            'Example: "Session vocals → create a demo reel → post on SoundBetter"',
+            'Take one action this week. Revenue starts with movement.'
+          ],
+          skill: 'theory',
+          xp: 20
         }
       }
     ]
   },
 
-  songwriting: {
-    title: 'Songwriting',
-    icon: 'W',
+  // ===== SONG SELECTION =====
+  songselect: {
+    title: 'Song Selection',
+    icon: 'G',
     modules: [
       {
-        id: 'sw1', stage: 5,
-        outcome: 'Be able to write a complete song — lyrics, melody, and basic arrangement',
-        title: 'Song Writing — From Idea to Finished Song',
-        xp: 30,
-        content: '<p>Every singer should be a songwriter. <b>Original music</b> is the only music you fully own.</p><p><b>5-Step Framework:</b> 1) Start with a feeling ("This song is about ___"). 2) Write the hook (1-2 words, memorable). 3) Build melody (pentatonic scale, simple). 4) Write lyrics (verse 1 setup, verse 2 develop, chorus climax, bridge new perspective). 5) Arrange (instruments, dynamics, build).</p><p><b>Nigerian songwriting:</b> Wizkid "Essence" (one-word hook). Burna Boy "Ye" (chant). Fela "Water No Get Enemy" (proverb). Sinach "Way Maker" (declaration). Simi "Duduke" (lullaby).</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Andrew Huang, Rick Beato, Jacob Collier. App: Hookpad. Website: hooktheory.com.</p></div>',
+        id: 'g1',
+        stage: 4,
+        outcome: 'Be able to pick the right song for any scenario — training, covers, worship, or gigs',
+        title: 'Song Selection Guide',
+        xp: 25,
+        content: '<p>Pick songs with <b>purpose</b>, not just "what sounds good."</p><div class="ref-box"><div class="ref-box-title">Training a Technique</div><p><b>Breath:</b> Long phrases. "Great Are You Lord."</p><p><b>Mix:</b> Gentle transitions. "Hallelujah."</p><p><b>Belt:</b> Short, punchy highs. "Listen" — Beyoncé.</p><p><b>Runs:</b> Space for embellishment. "Someone Like You."</p><p><b>Rhythm:</b> Syncopation. "Essence" — Wizkid.</p></div><div class="ref-box"><div class="ref-box-title">Cover</div><p>1. Range match. 2. Story match. 3. Audience match.</p><p><b>NYVC:</b> "A cover should sound like YOU singing their song." — Coach Toby</p></div><div class="ref-box"><div class="ref-box-title">Worship Leading</div><p>Key: G to D. Range: Within an octave. Repetition: Easy choruses. Arc: Intimate → build → climax. Lyrics: "We" not "I."</p></div><div class="ref-box"><div class="ref-box-title">Professional Gig</div><p>15-sec hook. Singalong. Variety. Personal story. Strong ending.</p></div>',
         exercise: {
-          name: 'Write Your First Song',
-          steps: ['Write: "This song is about ___"', 'Pick chord progression (I-V-vi-IV)', 'Sing a hook (1-2 words)', 'Write verse 1 (4 lines)', 'Write chorus (2-4 lines)', 'Record in Bandlab', 'Share, get feedback, revise'],
-          skill: 'theory', xp: 30
+          name: 'Build Your Library',
+          steps: ['Write your goal', 'List 3 criteria', 'Create 3 playlists: Training, Covers, Performance', 'Update monthly. Ask WHY each moving song works.'],
+          skill: 'theory',
+          xp: 25
         }
       }
     ]
   },
 
+  // ===== SONGWRITING =====
+  songwriting: {
+    title: 'Songwriting',
+    icon: 'P',
+    modules: [
+      {
+        id: 'p1',
+        stage: 5,
+        outcome: 'Be able to write a complete song about anything using a proven framework',
+        title: 'Song Writing Framework',
+        xp: 30,
+        content: '<p>Songwriting is a <b>process</b>, not magic.</p><div class="ref-box"><div class="ref-box-title">Step 1: Topic</div><p>"This song is about ______." Be specific. "My grandmother\'s kitchen" > "love."</p></div><div class="ref-box"><div class="ref-box-title">Step 2: Emotion</div><p>Happy = Major, fast. Sad = Minor, slow. Angry = Minor, fast. Defiant = Minor→Major shift.</p></div><div class="ref-box"><div class="ref-box-title">Step 3: Hook FIRST</div><p>3-7 words. Repeats 3+ times. Easy to hum. "I will always love you." Build verses AROUND it.</p></div><div class="ref-box"><div class="ref-box-title">Step 4: Verses</div><p>V1: Scene. V2: Conflict. Bridge: Twist. Use concrete images.</p></div><div class="ref-box"><div class="ref-box-title">Step 5: Structure</div><p>Pop: V1→C→V2→C→Br→C. Ballad: V1→V2→C→V3→C. Afro: Hook→V1→Hook→V2→Br→Hook.</p></div>',
+        exercise: {
+          name: 'Write Your First Song',
+          steps: ['Topic sentence', 'Emotion + mode', 'Write the hook (3-7 words)', 'Verse 1 (concrete images)', 'Chorus (expand hook)', 'Record it. You wrote a song.'],
+          skill: 'theory',
+          xp: 30
+        }
+      },
+      {
+        id: 'p2',
+        stage: 4,
+        outcome: 'Be able to use modes and modal interchange to evoke emotions at will',
+        title: 'Modes & Emotional Control',
+        xp: 30,
+        content: '<p><b>NYVC:</b> Modes are emotional tools. Each has a distinct color.</p><div class="ref-box"><div class="ref-box-title">Mode Emotion Map</div><p><b>Ionian (Major):</b> Happy, bright, stable.</p><p><b>Dorian (Minor):</b> Soulful, jazzy, cool.</p><p><b>Phrygian (Minor):</b> Dark, tense, Spanish.</p><p><b>Lydian (Major):</b> Dreamy, floating, magical.</p><p><b>Mixolydian (Major):</b> Bluesy, gritty, strong.</p><p><b>Aeolian (Minor):</b> Sad, longing, natural.</p><p><b>Locrian (Dim):</b> Unstable, creepy, rare.</p></div><div class="ref-box"><div class="ref-box-title">Modal Interchange</div><p>Borrow chords from parallel mode. C major → borrow Ab from C minor. Sudden dark shift. bVI = epic lift. iv = sad longing.</p></div><div class="ref-box"><div class="ref-box-title">Evoke Emotions</div><p><b>Hope:</b> Minor verse → major chorus. <b>Longing:</b> Hold Ti, no resolve. <b>Power:</b> Mixolydian. <b>Peace:</b> Lydian. <b>Urgency:</b> Phrygian.</p></div>',
+        exercise: {
+          name: 'Mode Lab',
+          steps: ['Pick an emotion', 'Pick the matching mode', 'Play its scale — hear the color?', 'Write a 4-chord progression', 'Sing a melody — does it evoke the emotion?', 'Advanced: Minor verse → major chorus. Record it.'],
+          skill: 'theory',
+          xp: 30
+        }
+      }
+    ]
+  },
+
+  // ===== BANDLAB PRODUCTION =====
   production: {
     title: 'Bandlab Production',
     icon: 'B',
     modules: [
       {
-        id: 'b1', stage: 5,
-        outcome: 'Be able to produce a professional-sounding vocal recording using Bandlab\'s free tools',
-        title: 'Bandlab Production — Record Like a Pro',
+        id: 'b1',
+        stage: 5,
+        outcome: 'Be able to use all of Bandlab\'s free effects for professional recordings',
+        title: 'Bandlab Effects Guide',
         xp: 30,
-        content: '<p>Bandlab is free, browser-based, and powerful enough for <b>release-quality</b> vocals.</p><p><b>7-Step Chain:</b> 1) Record (quiet room, 6-12 inches, -12dB, 5 takes). 2) Compressor (3:1, 3-6dB reduction). 3) EQ (cut <80Hz, boost 3k+10k). 4) De-esser. 5) Reverb (Pop: Plate 15-25%. Gospel: Hall 25-35%. Jazz: Room 10-15%). 6) Delay (Pop: Slapback 80ms. Gospel: Quarter-note. R&B: Dotted eighth). 7) Mastering (Bandlab built-in).</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: In The Mix, Bandlab Tutorials, Produce Like a Pro.</p></div>',
+        content: '<p><b>Bandlab is free.</b> Browser + mobile.</p><div class="ref-box"><div class="ref-box-title">Clean Vocal</div><p>Compressor (3:1) → EQ (cut <80Hz, boost 3k+10k) → Reverb (Room, 15-25%).</p></div><div class="ref-box"><div class="ref-box-title">Worship</div><p>Light compressor. Warm EQ. Cathedral reverb (25-35%). Slapback delay.</p></div><div class="ref-box"><div class="ref-box-title">Pop / Afro</div><p>Aggressive compressor (4:1). Bright EQ. Plate reverb (15-20%).</p></div><div class="ref-box"><div class="ref-box-title">With Backing Track</div><p>Import track → -6dB. Record with headphones. EQ vocal IN the track. Reverb on both. Mix: Voice 0dB, track -6 to -10dB.</p></div><div class="ref-box"><div class="ref-box-title">Fix Bad Recording</div><p>Noise Reduction → Compress + normalize → Less reverb → Pitch Correction 30-50% → Time Warp.</p></div>',
         exercise: {
-          name: 'Produce a Vocal',
-          steps: ['Open bandlab.com, create project', 'Record yourself singing', 'Apply compressor (3:1, 3-6dB)', 'Apply EQ (cut <80Hz, boost 3k+10k)', 'Apply reverb (Plate 20%)', 'Apply delay (Slapback 80ms 10%)', 'Master with Bandlab', 'Export MP3, listen on phone/car/earbuds'],
-          skill: 'theory', xp: 30
+          name: 'Bandlab Practice',
+          steps: ['Go to bandlab.com', 'Record yourself singing', 'Apply effects chain for your scenario', 'Export — listen on phone, car, earbuds', 'Re-do with different settings. Compare.', 'Advanced: Import backing track. Record over it. Mix.'],
+          skill: 'theory',
+          xp: 30
         }
       }
     ]
@@ -1645,247 +1895,124 @@ var CURRICULUM = {
     modules: [
       {
         id: 'i1', stage: 3,
-        outcome: 'Be able to read music on the staff and understand how notes map to piano keys',
-        title: 'The Staff & Piano — Your Visual Map of Music',
-        xp: 30,
-        content: '<p>Every instrument uses the same musical language. If you can read the staff and understand the piano keyboard, you can learn <b>any</b> instrument.</p><p><b>The Musical Staff</b> — 5 lines. Notes sit on lines or in spaces. Higher position = higher pitch.</p><p><b>Treble Clef Lines (bottom to top):</b> E-G-B-D-F (Every Good Boy Does Fine)</p><p><b>Treble Clef Spaces (bottom to top):</b> F-A-C-E (FACE)</p><p><b>Bass Clef Lines:</b> G-B-D-F-A (Good Boys Do Fine Always)</p><p><b>Bass Clef Spaces:</b> A-C-E-G (All Cows Eat Grass)</p><p><b>Middle C:</b> The anchor point. Sits on a ledger line below treble clef and above bass clef. Near the center of the piano.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 400 120" style="max-width:100%;height:auto"><line x1="40" y1="30" x2="360" y2="30" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="50" x2="360" y2="50" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="70" x2="360" y2="70" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="90" x2="360" y2="90" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="110" x2="360" y2="110" stroke="var(--border)" stroke-width="1"/><text x="50" y="75" fill="var(--pri)" font-size="40">G-clef</text><ellipse cx="120" cy="110" rx="7" ry="5" fill="var(--pri)"/><text x="120" y="25" fill="var(--tx)" font-size="8">E</text><ellipse cx="160" cy="90" rx="7" ry="5" fill="var(--ok)"/><text x="160" y="125" fill="var(--tx)" font-size="8">F</text><ellipse cx="200" cy="70" rx="7" ry="5" fill="var(--pri)"/><text x="200" y="25" fill="var(--tx)" font-size="8">G</text><ellipse cx="240" cy="50" rx="7" ry="5" fill="var(--ok)"/><text x="240" y="25" fill="var(--tx)" font-size="8">A</text><ellipse cx="280" cy="30" rx="7" ry="5" fill="var(--pri)"/><text x="280" y="25" fill="var(--tx)" font-size="8">B</text><ellipse cx="320" cy="110" rx="7" ry="5" fill="var(--gold)"/><text x="320" y="125" fill="var(--gold)" font-size="8">Middle C</text><line x1="300" y1="100" x2="340" y2="100" stroke="var(--border)" stroke-width="1"/></svg></div><p><b>The Piano Keyboard</b> — Each key = one note. The pattern of white and black keys repeats every octave. Find C: it is always to the LEFT of the 2 black keys.</p><p><b>Pattern:</b> 2 black keys, then 3 black keys, repeating. C-D-E-F-G-A-B-C (one octave).</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Search "piano for beginners music theory" — Piano Lessons on the Web, Andrew Furmanczyk.</p><p>App: Simply Piano (free trial). App: Perfect Piano (free).</p></div>',
-        exercise: {
-          name: 'Staff & Piano Bootcamp',
-          steps: ['Draw a treble clef staff. Label every line and space.', 'Find Middle C on a piano app. Play every C on the keyboard.', 'Play the C major scale: C-D-E-F-G-A-B-C. Say note names.', 'Play in solfege: Do-Re-Mi-Fa-Sol-La-Ti-Do.', 'Advanced: play G major: G-A-B-C-D-E-F#-G.'],
-          skill: 'theory', xp: 30
-        }
+        outcome: 'Be able to read notes on the staff through interactive, incremental sight-reading training',
+        title: 'Sight Reading Masterclass',
+        xp: 50,
+        content: '<p>Most people are terrified of sheet music because they were taught all at once. Our method: start with ONE note, master it, add ONE more. Build confidence incrementally.</p><p><b>How this works:</b> The staff below is interactive. Click any note to hear it and see its name. Start with Level 1 (just 3 notes) and work up.</p><div style="text-align:center;margin:8px 0"><button class="btn btn-s" onclick="startSightReading()">&#9839; Start Sight Reading Practice</button></div><div id="sr-level" style="text-align:center;font-size:0.8rem;color:var(--tx3);margin-bottom:8px">Level 1: 3 notes</div><div id="sr-staff-container" style="display:flex;justify-content:center"></div><div id="sr-feedback" style="text-align:center;margin-top:8px;font-size:0.85rem;min-height:40px"></div><div id="sr-score" style="text-align:center;font-size:0.8rem;color:var(--tx3)"></div><div class="ref-box"><div class="ref-box-title">Why This Works</div><p>Research shows incremental learning is 5x more effective than massed practice. Each level adds just 2-3 new notes. By Level 8, you read the full staff but it feels easy.</p></div>',
+        exercise: { name: 'Sight Reading Levels', steps: ['Complete Level 1 (C, E, G). 10 correct in a row.', 'Complete Level 2 (add D, F). 10 correct.', 'Complete Level 3 (add A, B). 10 correct.', 'Complete all 8 levels.'], skill: 'theory', xp: 50 }
       },
       {
         id: 'i2', stage: 3,
-        outcome: 'Be able to see intervals visually on the staff and piano',
-        title: 'Intervals — The Distance Between Notes',
-        xp: 30,
-        content: '<p>An interval is the <b>distance between two notes</b>. See it visually, hear it.</p><p><b>On the staff:</b> 2nd = line to space. 3rd = line to line. 4th = line to space. 5th = line to line.</p><p><b>On the piano:</b> 2nd = 2 keys. 3rd = 4 keys. 4th = 5 keys. 5th = 7 keys.</p><p><b>Half step:</b> Any key to the very next key. <b>Whole step:</b> 2 half steps.</p><p><b>Major scale pattern:</b> W-W-H-W-W-W-H. Creates the "do-re-mi" sound.</p><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Search "intervals on piano visual" — Andrew Huang, 12tone.</p><p>App: Tenuto — interval identification.</p></div>',
-        exercise: {
-          name: 'Interval Visualizer',
-          steps: ['Play C-D on piano. Count keys (2). That is a 2nd.', 'Play C-E. Count keys (4). That is a 3rd.', 'Play C-F. Count keys (5). That is a 4th.', 'Play C-G. Count keys (7). That is a 5th.', 'Do the same from G: G-A=2nd, G-B=3rd, G-C=4th, G-D=5th.'],
-          skill: 'theory', xp: 30
-        }
+        outcome: 'Be able to identify any interval by ear and see it visually',
+        title: 'Interval Trainer',
+        xp: 40,
+        content: '<p>Interactive interval trainer. It plays two notes. You guess the interval.</p><div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--r);padding:16px;margin:12px 0"><div style="text-align:center;margin-bottom:12px"><span style="font-size:1.1rem;font-weight:700;color:var(--pri)">&#9837; INTERVAL TRAINER</span></div><div style="display:flex;justify-content:space-between;margin-bottom:12px;font-size:0.8rem"><span>Score: <b id="int-score" style="color:var(--pri)">0</b></span><span>Streak: <b id="int-streak" style="color:var(--gold)">0</b></span><span>Accuracy: <b id="int-acc" style="color:var(--ok)">0%</b></span></div><div style="text-align:center;margin-bottom:12px"><button class="btn btn-s" onclick="playInterval()" style="font-size:1.1rem;padding:12px 24px">&#9654; Play Interval</button></div><div id="interval-options" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px"><button class="btn btn-w int-opt" onclick="guessInterval(0)">m2</button><button class="btn btn-w int-opt" onclick="guessInterval(1)">M2</button><button class="btn btn-w int-opt" onclick="guessInterval(2)">m3</button><button class="btn btn-w int-opt" onclick="guessInterval(3)">M3</button><button class="btn btn-w int-opt" onclick="guessInterval(4)">P4</button><button class="btn btn-w int-opt" onclick="guessInterval(5)">TT</button><button class="btn btn-w int-opt" onclick="guessInterval(6)">P5</button><button class="btn btn-w int-opt" onclick="guessInterval(7)">Oct</button></div><div id="int-feedback" style="text-align:center;font-size:0.9rem;min-height:60px;padding:8px;background:var(--bg2);border-radius:var(--r)"></div></div><div class="ref-box"><div class="ref-box-title">Pro Tip</div><p>Each interval has a signature song. m2 = Jaws. P5 = Star Wars. Octave = Somewhere Over the Rainbow.</p></div>',
+        exercise: { name: 'Interval Mastery', steps: ['Play 20 intervals. Goal: 80%+ accuracy.', 'Sing the reference song for each interval.'], skill: 'ear', xp: 40 }
       },
       {
         id: 'i3', stage: 4,
-        outcome: 'Be able to see scales and chords visually on staff, piano, and guitar fretboard',
-        title: 'Scales & Chords — Visual Patterns on Any Instrument',
-        xp: 35,
-        content: '<p>Scales and chords are <b>patterns</b>. Learn the pattern on one instrument, play it on any instrument.</p><p><b>Major Scale:</b> W-W-H-W-W-W-H. C major = all white keys on piano. On guitar = specific fret pattern. On staff = specific line/space pattern.</p><p><b>Chords:</b> Major = Root+M3+P5 (4+3 half steps). Minor = Root+m3+P5 (3+4). Dim = 3+3. Aug = 4+4.</p><p><b>On piano:</b> C major = C-E-G (skip one white key between each). A minor = A-C-E.</p><p><b>On guitar:</b> Chord shapes are movable. Learn one shape, slide it up the neck.</p><p><b>On staff:</b> Chords = stacked notes. C major = C, E, G written together.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><svg viewBox="0 0 400 100" style="max-width:100%;height:auto"><text x="10" y="20" fill="var(--tx3)" font-size="9" font-weight="700">C MAJOR CHORD</text><line x1="40" y1="50" x2="120" y2="50" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="60" x2="120" y2="60" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="70" x2="120" y2="70" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="80" x2="120" y2="80" stroke="var(--border)" stroke-width="1"/><line x1="40" y1="90" x2="120" y2="90" stroke="var(--border)" stroke-width="1"/><ellipse cx="80" cy="90" rx="6" ry="4" fill="var(--pri)"/><text x="70" y="85" fill="var(--tx)" font-size="7">C</text><ellipse cx="80" cy="70" rx="6" ry="4" fill="var(--pri)"/><text x="90" y="73" fill="var(--tx)" font-size="7">E</text><ellipse cx="80" cy="50" rx="6" ry="4" fill="var(--pri)"/><text x="90" y="53" fill="var(--tx)" font-size="7">G</text><text x="80" y="40" fill="var(--pri)" font-size="8" text-anchor="middle">C Major</text><text x="80" y="30" fill="var(--tx3)" font-size="7" text-anchor="middle">Root-3rd-5th</text><text x="200" y="20" fill="var(--tx3)" font-size="9" font-weight="700">GUITAR FRETBOARD</text><rect x="200" y="35" width="180" height="8" rx="1" fill="var(--card2)" stroke="var(--border)" stroke-width="1"/><rect x="200" y="45" width="180" height="8" rx="1" fill="var(--card2)" stroke="var(--border)" stroke-width="1"/><rect x="200" y="55" width="180" height="8" rx="1" fill="var(--card2)" stroke="var(--border)" stroke-width="1"/><rect x="200" y="65" width="180" height="8" rx="1" fill="var(--card2)" stroke="var(--border)" stroke-width="1"/><rect x="200" y="75" width="180" height="8" rx="1" fill="var(--card2)" stroke="var(--border)" stroke-width="1"/><rect x="200" y="85" width="180" height="8" rx="1" fill="var(--card2)" stroke="var(--border)" stroke-width="1"/><line x1="200" y1="35" x2="200" y2="93" stroke="var(--tx)" stroke-width="2"/><circle cx="230" cy="89" r="5" fill="var(--pri)"/><circle cx="260" cy="79" r="5" fill="var(--pri)"/><circle cx="290" cy="69" r="5" fill="var(--pri)"/><circle cx="230" cy="69" r="5" fill="var(--ok)"/><circle cx="260" cy="59" r="5" fill="var(--ok)"/><circle cx="290" cy="49" r="5" fill="var(--ok)"/><text x="260" y="30" fill="var(--tx3)" font-size="7" text-anchor="middle">C Major Scale pattern</text></svg></div><div class="ref-box"><div class="ref-box-title">Go Deeper</div><p>YouTube: Marty Music, JustinGuitar. App: Yousician. App: Ultimate Guitar.</p></div>',
-        exercise: {
-          name: 'Scale & Chord Visualizer',
-          steps: ['Play C major scale on piano. Say each note name.', 'Play C major chord (C-E-G). Hear "happy."', 'Play A minor chord (A-C-E). Hear "sad." Compare.', 'Draw the treble clef. Write C major scale (one octave).', 'Mark C major chord notes on staff (C-E-G).', 'Advanced: write G major scale. Notice F#.'],
-          skill: 'theory', xp: 35
-        }
+        outcome: 'Be able to build any chord by ear and see its formula on staff, piano, and guitar',
+        title: 'Chord Builder',
+        xp: 40,
+        content: '<p>Interactive chord builder. Click notes on the piano to build chords. The system identifies the chord in real-time.</p><div style="background:var(--bg);border:2px solid var(--border);border-radius:var(--r);padding:16px;margin:12px 0"><div style="text-align:center;margin-bottom:12px"><span style="font-size:1.1rem;font-weight:700;color:var(--pri)">&#9838; CHORD BUILDER</span></div><div style="text-align:center;margin-bottom:12px"><div style="font-size:1.5rem;font-weight:900;color:var(--pri)" id="chord-name">&#8212;</div><div style="font-size:0.8rem;color:var(--tx3)" id="chord-formula">Click notes to build a chord</div></div><div id="chord-piano-container" style="display:flex;justify-content:center;margin-bottom:12px"></div><div style="display:flex;justify-content:center;gap:8px;margin-bottom:12px"><button class="btn btn-s" onclick="playChord()">&#9654; Play Chord</button><button class="btn btn-w" onclick="clearChord()">&#10005; Clear</button></div></div><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin:12px 0"><div style="font-size:0.9rem;font-weight:700;margin-bottom:8px">Chord Formulas</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;font-size:0.75rem"><div><b>Major:</b> Root + M3 + P5</div><div><b>Minor:</b> Root + m3 + P5</div><div><b>Dim:</b> Root + m3 + dim5</div><div><b>Aug:</b> Root + M3 + aug5</div><div><b>Maj7:</b> Maj + M7</div><div><b>Min7:</b> Min + m7</div></div></div>',
+        exercise: { name: 'Chord Construction', steps: ['Build C major (C-E-G). Play it.', 'Build A minor (A-C-E). Play it. Compare.', 'Build G major (G-B-D). Play it.', 'Advanced: build C major 7 (C-E-G-B).'], skill: 'theory', xp: 40 }
       }
     ]
-  },
-
-  
-  // Autocorrelation pitch detection
-  detectPitch: function(buffer, sampleRate) {
-    var bufLen = buffer.length;
-    var correlations = new Float32Array(bufLen);
-    
-    // RMS check — is there enough signal?
-    var rms = 0;
-    for (var i = 0; i < bufLen; i++) rms += buffer[i] * buffer[i];
-    rms = Math.sqrt(rms / bufLen);
-    if (rms < 0.01) return null; // Too quiet
-    
-    // Autocorrelation
-    for (var lag = 0; lag < bufLen; lag++) {
-      var sum = 0;
-      for (var j = 0; j < bufLen - lag; j++) {
-        sum += buffer[j] * buffer[j + lag];
-      }
-      correlations[lag] = sum;
-    }
-    
-    // Find first peak after initial decay
-    var found = false;
-    var firstPeak = 0;
-    for (var lag = 1; lag < bufLen - 1; lag++) {
-      if (correlations[lag] > correlations[lag - 1] && correlations[lag] > correlations[lag + 1]) {
-        if (!found) { firstPeak = lag; found = true; }
-        if (lag > firstPeak + 10) break;
-      }
-    }
-    
-    if (!found || firstPeak < 10) return null;
-    return sampleRate / firstPeak;
-  },
-  
-  // Convert frequency to note name + cents
-  freqToNote: function(freq) {
-    var midi = 12 * Math.log2(freq / 440) + 69;
-    var midiRound = Math.round(midi);
-    var cents = Math.round((midi - midiRound) * 100);
-    var octave = Math.floor(midiRound / 12);
-    var noteName = this.noteNames[midiRound % 12];
-    return { name: noteName, octave: octave, cents: cents, freq: freq, midi: midiRound };
-  },
-  
-  start: function(targetNoteName) {
-    if (this.isRunning) this.stop();
-    this.init();
-    this.targetNote = targetNoteName;
-    
-    var self = this;
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
-      self.stream = stream;
-      self.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      var source = self.audioCtx.createMediaStreamSource(stream);
-      self.analyser = self.audioCtx.createAnalyser();
-      self.analyser.fftSize = 2048;
-      source.connect(self.analyser);
-      self.isRunning = true;
-      self.loop();
-    }).catch(function(err) {
-      toast('Microphone access denied. Allow mic to use pitch detector.', 'err');
-    });
-  },
-  
-  loop: function() {
-    if (!this.isRunning) return;
-    var self = this;
-    var buffer = new Float32Array(this.analyser.fftSize);
-    this.analyser.getFloatTimeDomainData(buffer);
-    
-    var freq = this.detectPitch(buffer, this.audioCtx.sampleRate);
-    if (freq) {
-      var note = this.freqToNote(freq);
-      onPitchDetected(note);
-    }
-    
-    requestAnimationFrame(function() { self.loop(); });
-  },
-  
-  stop: function() {
-    this.isRunning = false;
-    if (this.stream) {
-      this.stream.getTracks().forEach(function(t) { t.stop(); });
-    }
-    if (this.audioCtx) {
-      this.audioCtx.close();
-    }
-    this.stream = null;
-    this.audioCtx = null;
   }
-};
 
-// Global callback (set by pitch UI)
-var onPitchDetected = function(note) {};
 
-// ============================================================
-// SPACED REPETITION SYSTEM
-// ============================================================
-var SRS = {
-  // Intervals in hours: 1h, 4h, 12h, 1d, 3d, 7d, 14d, 30d
-  intervals: [1, 4, 12, 24, 72, 168, 336, 720],
-  
-  init: function() {
-    try {
-      var stored = localStorage.getItem('singerOS_srs');
-      if (stored) U.srsData = JSON.parse(stored);
-    } catch(e) {}
-    if (!U.srsData) U.srsData = {};
-  },
-  
-  // Record that a skill was practiced
-  record: function(skill) {
-    if (!U.srsData[skill]) U.srsData[skill] = { level: 0, nextReview: Date.now(), history: [] };
-    var item = U.srsData[skill];
-    item.level = Math.min(item.level + 1, this.intervals.length - 1);
-    item.nextReview = Date.now() + this.intervals[item.level] * 3600000;
-    item.history.push(Date.now());
-    this.save();
-  },
-  
-  // Get skills due for review
-  getDue: function() {
-    var now = Date.now();
-    var due = [];
-    for (var skill in U.srsData) {
-      if (U.srsData[skill].nextReview <= now) {
-        due.push(skill);
-      }
-    }
-    return due;
-  },
-  
-  // Get recommended next practice
-  getRecommendation: function() {
-    var due = this.getDue();
-    if (due.length === 0) return null;
-    // Prioritize lowest level (most urgent)
-    due.sort(function(a, b) {
-      return U.srsData[a].nextReview - U.srsData[b].nextReview;
-    });
-    return due[0];
-  },
-  
-  save: function() {
-    try { localStorage.setItem('singerOS_srs', JSON.stringify(U.srsData)); } catch(e) {}
-  }
 };
 
 // ============================================================
-// GAMIFICATION — Streaks, Leaderboard, XP Multipliers
+// SONG LIBRARY — with practical YouTube reference examples
 // ============================================================
-var GAME = {
-  init: function() {
-    // Check streak
-    var today = new Date().toDateString();
-    var last = U.lastPractice;
-    if (last) {
-      var lastDate = new Date(last).toDateString();
-      var yesterday = new Date(Date.now() - 86400000).toDateString();
-      if (lastDate !== today && lastDate !== yesterday) {
-        U.streak = 0; // Streak broken
-      }
-    }
-    U.lastPractice = Date.now();
-    if (!U.streak) U.streak = 0;
-    save();
-  },
-  
-  // XP multiplier based on streak
-  getMultiplier: function() {
-    if (U.streak >= 30) return 3.0;
-    if (U.streak >= 14) return 2.5;
-    if (U.streak >= 7) return 2.0;
-    if (U.streak >= 3) return 1.5;
-    return 1.0;
-  },
-  
-  // Add XP with multiplier
-  addXP: function(amount) {
-    var mult = this.getMultiplier();
-    var earned = Math.round(amount * mult);
-    U.xp += earned;
-    // Level up every 100 XP
-    U.level = Math.floor(U.xp / 100) + 1;
+var SONGS = [
+  { id: 'sg1', title: 'Breathe On Me', artist: 'Worship', level: 1, tags: ['breath control', 'sustained notes'], focus: 'Sing each phrase on one breath. Feel the rib expansion.', ref: 'YouTube: search "Breathe On Me worship vocal tutorial"' },
+  { id: 'sg2', title: 'Great Are You Lord', artist: 'Worship', level: 1, tags: ['steady airflow', 'dynamics'], focus: 'Steady airflow on sustained notes. No pushing.', ref: 'YouTube: search "Great Are You Lord vocal tutorial"' },
+  { id: 'sg3', title: 'Amazing Grace', artist: 'Traditional', level: 1, tags: ['pitch', 'simplicity'], focus: 'Every note in tune. Simple melody, pure tone.', ref: 'YouTube: search "Amazing Grace singing lesson"' },
+  { id: 'sg4', title: 'Hallelujah', artist: 'Leonard Cohen', level: 2, tags: ['emotion', 'dynamics', 'storytelling'], focus: 'Tell the story. Soft verses, powerful chorus.', ref: 'YouTube: search "Hallelujah vocal analysis"' },
+  { id: 'sg5', title: 'Someone Like You', artist: 'Adele', level: 2, tags: ['belt', 'emotion', 'mix voice'], focus: 'Intimate verses, powerful chorus. Mix voice on the high notes.', ref: 'YouTube: search "Someone Like You vocal technique"' },
+  { id: 'sg6', title: 'Essence', artist: 'Wizkid ft. Tems', level: 2, tags: ['Afro', 'rhythm', 'style'], focus: 'Rhythmic precision. Speak the lyrics first, then sing them.', ref: 'YouTube: search "Essence vocal cover tutorial"' },
+  { id: 'sg7', title: 'Thinking Out Loud', artist: 'Ed Sheeran', level: 2, tags: ['soft tone', 'clarity', 'intimacy'], focus: 'Soft and clear. Every word matters. No shouting.', ref: 'YouTube: search "Thinking Out Loud singing tips"' },
+  { id: 'sg8', title: 'All I Ask', artist: 'Adele', level: 2, tags: ['belt', 'range', 'control'], focus: 'Massive range. Control the belt. Do not push.', ref: 'YouTube: search "All I Ask Adele vocal analysis"' },
+  { id: 'sg9', title: 'I Will Always Love You', artist: 'Whitney Houston', level: 3, tags: ['belt', 'mix', 'runs', 'dynamics'], focus: 'The ultimate test. Belt, mix, runs, and emotional dynamics.', ref: 'YouTube: search "I Will Always Love You vocal analysis"' },
+  { id: 'sg10', title: 'Listen', artist: 'Beyonce', level: 3, tags: ['belt', 'runs', 'power', 'control'], focus: 'Power with precision. Every run must be clean.', ref: 'YouTube: search "Listen Beyonce vocal tutorial"' },
+  { id: 'sg11', title: 'Gravity', artist: 'John Mayer', level: 3, tags: ['style', 'runs', 'soul', 'improvisation'], focus: 'Soul singing. Runs, improvisation, style. Make it yours.', ref: 'YouTube: search "Gravity John Mayer vocal cover"' },
+  { id: 'sg12', title: 'Jealous', artist: 'Labrinth', level: 3, tags: ['mix', 'emotion', 'breaks', 'control'], focus: 'Emotional breaks. Mix voice control. Raw and vulnerable.', ref: 'YouTube: search "Jealous Labrinth vocal analysis"' },
+  { id: 'sg13', title: "Runnin' (Lose It All)", artist: 'Naughty Boy ft. Beyonce', level: 3, tags: ['belt', 'breath', 'power', 'Afro-fusion'], focus: 'Breath control at speed. Belt over Afro beat.', ref: 'YouTube: search "Runnin vocal tutorial"' },
+  { id: 'sg14', title: 'Love on the Brain', artist: 'Rihanna', level: 3, tags: ['Doo-wop', 'style', 'runs', 'retro'], focus: 'Retro style. Doo-wop runs. Vibrato control.', ref: 'YouTube: search "Love on the Brain vocal analysis"' }
+];
+
+// ============================================================
+// MILLIONAIRE QUIZ
+// ============================================================
+var QUIZ_QUESTIONS = [
+  { q: 'What is the term for the space between two notes?', options: ['Interval', 'Chord', 'Scale', 'Octave'], answer: 0, prize: 100 },
+  { q: 'How many beats does a whole note get in 4/4 time?', options: ['1', '2', '3', '4'], answer: 3, prize: 200 },
+  { q: 'What does "forte" (f) mean in music?', options: ['Soft', 'Loud', 'Fast', 'Slow'], answer: 1, prize: 300 },
+  { q: 'What is the home key of a song called?', options: ['Dominant', 'Tonic', 'Subdominant', 'Modulation'], answer: 1, prize: 500 },
+  { q: 'What is the relative minor of C major?', options: ['A minor', 'E minor', 'G minor', 'D minor'], answer: 0, prize: 1000 },
+  { q: 'Which vocal register is the lowest for most singers?', options: ['Falsetto', 'Chest voice', 'Head voice', 'Whistle'], answer: 1, prize: 2000 },
+  { q: 'What is a "glottal stop"?', options: ['A type of breath', 'A vocal fold closure', 'A resonance technique', 'A singing style'], answer: 1, prize: 5000 },
+  { q: 'What does "appoggio" mean in singing?', options: ['Breath support', 'Vowel placement', 'Larynx control', 'Resonance'], answer: 0, prize: 10000 },
+  { q: 'What is the interval between C and G?', options: ['Major 3rd', 'Perfect 4th', 'Perfect 5th', 'Major 6th'], answer: 2, prize: 25000 },
+  { q: 'In solfege, what syllable represents the 5th scale degree?', options: ['Mi', 'Fa', 'Sol', 'La'], answer: 2, prize: 50000 },
+  { q: 'What is the term for singing multiple notes on one syllable?', options: ['Vibrato', 'Melisma', 'Staccato', 'Legato'], answer: 1, prize: 75000 },
+  { q: "What is the 'passaggio' in singing?", options: ['A song section', 'A register break', 'A breathing technique', 'A style'], answer: 1, prize: 100000 },
+  { q: 'What is the harmonic series?', options: ['A chord progression', 'Overtones above a fundamental', 'A scale pattern', 'A rhythm pattern'], answer: 1, prize: 250000 },
+  { q: 'Which form is AABA most associated with?', options: ['Sonata', '32-bar song form', 'Rondo', 'Theme and variations'], answer: 1, prize: 500000 },
+  { q: 'What is "formant tuning" in classical singing?', options: ['Matching resonance to vowel', 'Tuning the larynx', 'Adjusting breath pressure', 'Changing pitch'], answer: 0, prize: 750000 },
+  { q: 'Who is considered the father of modern vocal pedagogy?', options: ['Manuel Garcia II', 'Lamperti', 'Lilli Lehmann', 'Enrico Caruso'], answer: 0, prize: 1000000 }
+];
+
+var PRIZE_LADDER = [100, 200, 300, 500, 1000, 2000, 5000, 10000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000];
+var SAFE_MILESTONES = [3, 7, 11];
+
+// ============================================================
+// AUTH SCREEN
+// ============================================================
+function renderAuth() {
+  var c = document.getElementById('s-auth');
+  if (!c) return;
+  var h = '';
+  h += '<div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:var(--s6);max-width:400px;margin:0 auto">';
+  h += '<div style="text-align:center;margin-bottom:var(--s7)">';
+  h += '<div style="font-size:3rem;margin-bottom:var(--s3)">🎤</div>';
+  h += '<h1 style="font-size:var(--2xl);font-weight:900;margin-bottom:var(--s2)">Singer OS</h1>';
+  h += '<p class="text-muted">Your complete vocal training system. Free forever.</p></div>';
+
+  h += '<div class="c"><label>Your Name</label><input class="input" id="auth-name" placeholder="What should we call you?"></div>';
+  h += '<div class="c"><label>Email Address</label><input class="input" id="auth-email" type="email" placeholder="your@email.com"></div>';
+  h += '<div class="c"><label>WhatsApp Number</label><input class="input" id="auth-wa" type="tel" placeholder="e.g. 2348012345678"></div>';
+
+  h += '<button class="btn btn-p" style="margin-top:var(--s4)" onclick="doAuth()">Start Training</button>';
+
+  h += '<p class="text-xs text-muted text-center mt-4">Your email and WhatsApp are your ticket. No password needed. You can access your progress from any device using your unique link.</p>';
+  h += '</div>';
+  c.innerHTML = h;
+}
+
+function doAuth() {
+  var name = document.getElementById('auth-name').value.trim();
+  var email = document.getElementById('auth-email').value.trim();
+  var wa = document.getElementById('auth-wa').value.trim();
+
+  if (!name) { toast('Enter your name', 'err'); return; }
+
+  if (AUTH.register(email, wa, name)) {
+    U.name = name;
+    U.email = email;
+    GAME.init();
     SRS.init();
-    return { earned: earned, mult: mult, total: U.xp, level: U.level };
-  },
-  
-  // Get leaderboard (local — would be server-based in production)
-  getLeaderboard: function() {
-    var board = [];
-    try {
-      var stored = localStorage.getItem('singerOS_leaderboard');
-      if (stored) board = JSON.parse(stored);
-    } catch(e) {}
-    // Add current user
-    board.push({ name: U.name, xp: U.xp, level: U.level, streak: U.streak });
-    board.sort(function(a, b) { return b.xp - a.xp; });
-    return board.slice(0, 10);
+    save();
+    toast('Welcome, ' + name + '!', 'ok');
+    go('home');
   }
-};
+}
 
-
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
 function renderHome() {
   var c = document.getElementById('h-c');
   document.getElementById('h-xp').textContent = U.xp + ' XP';
@@ -2093,7 +2220,8 @@ var PitchEngine = {
   isRunning: false,
   targetNote: null,
   
-  // Note frequencies (A4 = 440Hz standard tuning),
+  // Note frequencies (A4 = 440Hz standard tuning)
+  noteFreqs: {},
   noteNames: ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'],
   
   init: function() {
@@ -2309,7 +2437,6 @@ var GAME = {
   }
 };
 
-
 function renderSongs() {
   var c = document.getElementById('g-c');
   var h = '';
@@ -2331,55 +2458,6 @@ function renderSongs() {
         h += '<span class="tag tag-p" style="font-size:0.55rem;padding:1px 6px">' + s.tags[t] + '</span>';
       }
       h += '</div></div></div>';
-    }
-    h += '</div>';
-  }
-  c.innerHTML = h;
-}
-
-function renderInstruments() {
-  var c = document.getElementById('i-c');
-  var h = '';
-  h += '<div class="hero"><h1>Learn Any Instrument</h1><p>Visual diagrams that teach you the universal language of music.</p></div>';
-
-  var stages = [
-    { id: 3, title: 'Stage 3: Connection', subtitle: 'Staff, Piano, Intervals' },
-    { id: 4, title: 'Stage 4: Control', subtitle: 'Scales & Chords on Any Instrument' }
-  ];
-
-  for (var si = 0; si < stages.length; si++) {
-    var stage = stages[si];
-    var stageModules = [];
-    var sec = CURRICULUM.instruments;
-    if (!sec || !sec.modules) continue;
-    for (var i = 0; i < sec.modules.length; i++) {
-      if (sec.modules[i].stage === stage.id) {
-        stageModules.push({ module: sec.modules[i], index: i });
-      }
-    }
-    if (stageModules.length === 0) continue;
-
-    var doneCount = 0;
-    for (var m = 0; m < stageModules.length; m++) {
-      if (U.completed.indexOf(stageModules[m].module.id) !== -1) doneCount++;
-    }
-    var pct = Math.round(doneCount / stageModules.length * 100);
-
-    h += '<div class="sec">';
-    h += '<div class="sec-h"><span class="sec-t">' + stage.title + '</span>';
-    h += '<span class="text-xs text-muted">' + doneCount + '/' + stageModules.length + ' (' + pct + '%)</span></div>';
-    h += '<p class="text-xs text-muted mb-3">' + stage.subtitle + '</p>';
-    h += '<div class="pr mb-3"><div class="pr-f" style="width:' + pct + '%"></div></div>';
-
-    for (var m2 = 0; m2 < stageModules.length; m2++) {
-      var item = stageModules[m2];
-      var mod = item.module;
-      var done = U.completed.indexOf(mod.id) !== -1;
-      h += '<div class="li" onclick="openModule(\'instruments\',' + item.index + ')">';
-      h += '<div class="li-ic" style="background:' + (done ? 'oklch(0.72 0.18 145 / 0.15)' : '') + ';color:' + (done ? 'var(--ok)' : '') + '">' + (done ? 'T' : 'I') + '</div>';
-      h += '<div class="li-b"><div class="li-t">' + mod.outcome + '</div>';
-      h += '<div class="li-sub">' + mod.title + '</div></div>';
-      h += '<span class="li-r">+' + mod.xp + '</span></div>';
     }
     h += '</div>';
   }
@@ -2833,27 +2911,6 @@ function practiceSong(id) {
 // ============================================================
 // MILLIONAIRE QUIZ
 // ============================================================
-var QUIZ_QUESTIONS = [
-  { q: 'What is the term for the space between two notes?', options: ['Interval', 'Chord', 'Scale', 'Octave'], answer: 0, prize: 100 },
-  { q: 'How many beats does a whole note get in 4/4 time?', options: ['1', '2', '3', '4'], answer: 3, prize: 200 },
-  { q: 'What does "forte" (f) mean in music?', options: ['Soft', 'Loud', 'Fast', 'Slow'], answer: 1, prize: 300 },
-  { q: 'What is the home key of a song called?', options: ['Dominant', 'Tonic', 'Subdominant', 'Modulation'], answer: 1, prize: 500 },
-  { q: 'What is the relative minor of C major?', options: ['A minor', 'E minor', 'G minor', 'D minor'], answer: 0, prize: 1000 },
-  { q: 'Which vocal register is the lowest for most singers?', options: ['Falsetto', 'Chest voice', 'Head voice', 'Whistle'], answer: 1, prize: 2000 },
-  { q: 'What is a "glottal stop"?', options: ['A type of breath', 'A vocal fold closure', 'A resonance technique', 'A singing style'], answer: 1, prize: 5000 },
-  { q: 'What does "appoggio" mean in singing?', options: ['Breath support', 'Vowel placement', 'Larynx control', 'Resonance'], answer: 0, prize: 10000 },
-  { q: 'What is the interval between C and G?', options: ['Major 3rd', 'Perfect 4th', 'Perfect 5th', 'Major 6th'], answer: 2, prize: 25000 },
-  { q: 'In solfege, what syllable represents the 5th scale degree?', options: ['Mi', 'Fa', 'Sol', 'La'], answer: 2, prize: 50000 },
-  { q: 'What is the term for singing multiple notes on one syllable?', options: ['Vibrato', 'Melisma', 'Staccato', 'Legato'], answer: 1, prize: 75000 },
-  { q: "What is the 'passaggio' in singing?", options: ['A song section', 'A register break', 'A breathing technique', 'A style'], answer: 1, prize: 100000 },
-  { q: 'What is the harmonic series?', options: ['A chord progression', 'Overtones above a fundamental', 'A scale pattern', 'A rhythm pattern'], answer: 1, prize: 250000 },
-  { q: 'Which form is AABA most associated with?', options: ['Sonata', '32-bar song form', 'Rondo', 'Theme and variations'], answer: 1, prize: 500000 },
-  { q: 'What is "formant tuning" in classical singing?', options: ['Matching resonance to vowel', 'Tuning the larynx', 'Adjusting breath pressure', 'Changing pitch'], answer: 0, prize: 750000 },
-  { q: 'Who is considered the father of modern vocal pedagogy?', options: ['Manuel Garcia II', 'Lamperti', 'Lilli Lehmann', 'Enrico Caruso'], answer: 0, prize: 1000000 }
-];
-
-var PRIZE_LADDER = [100, 200, 300, 500, 1000, 2000, 5000, 10000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000];
-
 var quizState = { q: 0, score: 0, lifelines: { fifty: true, skip: true, double: true }, over: false };
 
 function startMillionaire() {
@@ -2979,6 +3036,165 @@ function resetAll() {
   go('home');
 }
 
+
+// ============================================================
+// INTERACTIVE INSTRUMENTS - Sight Reading, Intervals, Chords
+// ============================================================
+
+// Audio engine
+var _audioCtx = null;
+function _getAC(){if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext);return _audioCtx;}
+function _playNote(midi,delay){
+  try{
+    var c=_getAC();var f=440*Math.pow(2,(midi-69)/12);
+    var o=c.createOscillator();var g=c.createGain();
+    o.type='sine';o.frequency.value=f;
+    g.gain.value=0.3;
+    g.gain.exponentialRampToValueAtTime(0.01,c.currentTime+0.6+(delay||0)/1000);
+    o.connect(g);g.connect(c.destination);
+    o.start(c.currentTime+(delay||0)/1000);
+    o.stop(c.currentTime+0.7+(delay||0)/1000);
+  }catch(e){}
+}
+function _noteToMidi(name){
+  var m={'C':0,'C#':1,'D':2,'D#':3,'E':4,'F':5,'F#':6,'G':7,'G#':8,'A':9,'A#':10,'B':11};
+  return 12+parseInt(name.replace(/\D/g,''))*12+m[name.replace(/\d/,'')];
+}
+
+// Sight Reading - 8 incremental levels
+var _sr={lvl:1,ok:0,stk:0,tot:0};
+var _srl=[
+  {n:['C4','E4','G4'],name:'Level 1: C, E, G (3 notes)'},
+  {n:['C4','D4','E4','F4','G4'],name:'Level 2: C to G (5 notes)'},
+  {n:['C4','D4','E4','F4','G4','A4','B4'],name:'Level 3: C to B (7 notes)'},
+  {n:['C4','D4','E4','F4','G4','A4','B4','C5','D5'],name:'Level 4: add high C,D (9 notes)'},
+  {n:['B3','C4','D4','E4','F4','G4','A4','B4','C5','D5'],name:'Level 5: add low B (10 notes)'},
+  {n:['A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5'],name:'Level 6: add low A, high E (12 notes)'},
+  {n:['G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','G5'],name:'Level 7: add low G, high G (14 notes)'},
+  {n:['E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','G5','C6'],name:'Level 8: Full staff (17 notes)'}
+];
+var _sp={'E3':4.5,'F3':4,'G3':3.5,'A3':3,'B3':2.5,'C4':2,'D4':1.5,'E4':1,'F4':0.5,'G4':0,'A4':-0.5,'B4':-1,'C5':-1.5,'D5':-2,'E5':-2.5,'G5':-3.5,'C6':-5};
+
+function startSightReading(){_sr={lvl:1,ok:0,stk:0,tot:0};_drawSR();}
+
+function _drawSR(){
+  var c=document.getElementById('sr-staff-container');
+  var fb=document.getElementById('sr-feedback');
+  var sc=document.getElementById('sr-score');
+  var ld=document.getElementById('sr-level');
+  if(!c)return;
+  var lv=_srl[_sr.lvl-1];
+  if(ld)ld.textContent=lv.name;
+  var tgt=lv.n[Math.floor(Math.random()*lv.n.length)];
+  _sr.tgt=tgt;
+  var pos=_sp[tgt];var y=70+(4-pos)*6;
+  var s='<svg viewBox="0 0 300 110" style="max-width:100%;height:auto">';
+  for(var i=0;i<5;i++)s+='<line x1="20" y1="'+(30+i*12)+'" x2="280" y2="'+(30+i*12)+'" stroke="var(--border)" stroke-width="1"/>';
+  s+='<text x="25" y="65" fill="var(--pri)" font-size="32">G</text>';
+  s+='<ellipse cx="150" cy="'+y+'" rx="9" ry="6" fill="var(--pri)"/>';
+  s+='<ellipse cx="150" cy="'+y+'" rx="13" ry="9" fill="none" stroke="var(--gold)" stroke-width="2"/>';
+  if(pos>4){for(var l=5;l<=pos;l+=1){var ly=70+(4-l)*6;s+='<line x1="135" y1="'+ly+'" x2="165" y2="'+ly+'" stroke="var(--border)" stroke-width="1"/>';}}
+  else if(pos<-1){for(var l=-2;l>=pos;l-=1){var ly=70+(4-l)*6;s+='<line x1="135" y1="'+ly+'" x2="165" y2="'+ly+'" stroke="var(--border)" stroke-width="1"/>';}}
+  s+='</svg>';
+  var b='<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px">';
+  for(var i=0;i<lv.n.length;i++){var n=lv.n[i];b+='<button class="btn btn-w" style="min-width:36px;padding:5px 8px;font-size:0.8rem" onclick="checkSR(\''+n.replace(/'/g,"\\'")+'\')">'+n.replace(/\d/,'')+'<sub style="font-size:0.55rem">'+n.replace(/\D/g,'')+'</sub></button>';}
+  b+='</div>';
+  c.innerHTML=s+b;
+  if(fb){fb.textContent='What note is highlighted?';fb.style.color='var(--tx)';}
+  if(sc)sc.textContent='Score: '+_sr.ok+'/'+_sr.tot+' | Streak: '+_sr.stk;
+}
+
+function checkSR(g){
+  var fb=document.getElementById('sr-feedback');
+  _sr.tot++;
+  var tn=_sr.tgt.replace(/\d/,'');
+  if(g===_sr.tgt){
+    _sr.ok++;_sr.stk++;
+    if(fb){fb.textContent='Correct! '+tn;fb.style.color='var(--ok)';}
+    if(_sr.ok>=10&&_sr.lvl<_srl.length){_sr.lvl++;_sr.ok=0;if(fb)fb.textContent+=' Level Up!';}
+  }else{_sr.stk=0;if(fb){fb.textContent='Wrong. It was '+tn+'.';fb.style.color='var(--err)';}}
+  _playNote(_noteToMidi(_sr.tgt),0);
+  setTimeout(function(){_drawSR();},1200);
+}
+
+// Interval Trainer
+var _int={ok:0,stk:0,tot:0,cur:null};
+var _inm=['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Octave'];
+var _ism=[1,2,3,4,5,6,7,12];
+
+function playInterval(){
+  var root=60+Math.floor(Math.random()*12);
+  var idx=Math.floor(Math.random()*_ism.length);
+  _int.cur=idx;
+  _playNote(root,0);
+  setTimeout(function(){_playNote(root+_ism[idx],400);},500);
+  var fb=document.getElementById('int-feedback');
+  if(fb){fb.textContent='Listen... What interval?';fb.style.color='var(--tx)';}
+}
+
+function guessInterval(idx){
+  var fb=document.getElementById('int-feedback');
+  _int.tot++;
+  if(idx===_int.cur){_int.ok++;_int.stk++;if(fb){fb.textContent='Correct! '+_inm[idx];fb.style.color='var(--ok)';}}
+  else{_int.stk=0;if(fb){fb.textContent='Wrong. It was '+_inm[_int.cur];fb.style.color='var(--err)';}}
+  document.getElementById('int-score').textContent=_int.ok;
+  document.getElementById('int-streak').textContent=_int.stk;
+  document.getElementById('int-acc').textContent=Math.round(_int.ok/_int.tot*100)+'%';
+}
+
+// Chord Builder
+var _ch=[];
+function renderChordBuilder(){
+  var c=document.getElementById('chord-piano-container');
+  if(!c)return;
+  var s='<svg viewBox="0 0 280 80" style="max-width:100%;height:auto">';
+  var wk=[0,2,4,5,7,9,11,12,14,16,17,19,21,23];
+  var bk=[1,3,6,8,10,13,15,18,20,22];
+  for(var i=0;i<14;i++){var m=48+wk[i];var sel=_ch.indexOf(m)!==-1;s+='<rect x="'+(i*20)+'" y="0" width="19" height="75" rx="2" fill="'+(sel?'oklch(0.65 0.20 270 / 0.3)':'var(--card2)')+'" stroke="var(--border)" stroke-width="1" onclick="toggleChordNote('+m+')"/>';}
+  for(var i=0;i<9;i++){var m=48+bk[i];var sel=_ch.indexOf(m)!==-1;var xp=(i<2)?(i*20+14):(i<5)?(i*20+24):(i*20+34);s+='<rect x="'+xp+'" y="0" width="13" height="45" rx="2" fill="'+(sel?'var(--pri)':'var(--bg)')+'" stroke="var(--border)" stroke-width="1" onclick="toggleChordNote('+m+')"/>';}
+  s+='</svg>';c.innerHTML=s;_updChord();
+}
+function toggleChordNote(m){var i=_ch.indexOf(m);if(i===-1)_ch.push(m);else _ch.splice(i,1);_ch.sort(function(a,b){return a-b;});renderChordBuilder();}
+function _updChord(){
+  var ne=document.getElementById('chord-name');if(!ne)return;
+  if(_ch.length===0){ne.textContent='\u2014';return;}
+  var ints=[];var root=_ch[0];
+  for(var i=0;i<_ch.length;i++)ints.push((_ch[i]-root)%12);
+  ints.sort(function(a,b){return a-b;});
+  var fm={'0,4,7':'Major','0,3,7':'Minor','0,3,6':'Dim','0,4,8':'Aug','0,4,7,10':'Dom7','0,3,7,10':'m7','0,4,7,11':'Maj7'};
+  ne.textContent=fm[ints.join(',')]||'Unknown';
+}
+function playChord(){for(var i=0;i<_ch.length;i++)_playNote(_ch[i],i*50);}
+function clearChord(){_ch=[];renderChordBuilder();}
+
+// Render Instruments page
+function renderInstruments(){
+  var c=document.getElementById('i-c');
+  var h='';
+  h+='<div class="hero"><h1>Learn Any Instrument</h1><p>Interactive tools: sight reading, interval ear training, chord building. No phobia.</p></div>';
+  var stages=[{id:3,title:'Stage 3: Connection',sub:'Sight Reading & Intervals'},{id:4,title:'Stage 4: Control',sub:'Chord Building'}];
+  for(var si=0;si<stages.length;si++){
+    var stage=stages[si];var mods=[];
+    var sec=CURRICULUM.instruments;
+    if(sec&&sec.modules){for(var i=0;i<sec.modules.length;i++){if(sec.modules[i].stage===stage.id)mods.push({m:sec.modules[i],idx:i});}}
+    if(mods.length===0)continue;
+    var done=0;for(var m=0;m<mods.length;m++){if(U.completed.indexOf(mods[m].m.id)!==-1)done++;}
+    var pct=Math.round(done/mods.length*100);
+    h+='<div class="sec"><div class="sec-h"><span class="sec-t">'+stage.title+'</span><span class="text-xs text-muted">'+done+'/'+mods.length+' ('+pct+'%)</span></div>';
+    h+='<p class="text-xs text-muted mb-3">'+stage.sub+'</p>';
+    h+='<div class="pr mb-3"><div class="pr-f" style="width:'+pct+'%"></div></div>';
+    for(var m2=0;m2<mods.length;m2++){
+      var mod=mods[m2].m;var done2=U.completed.indexOf(mod.id)!==-1;
+      h+='<div class="li" onclick="openModule(\''+'instruments'+'\','+mods[m2].idx+')">';
+      h+='<div class="li-ic" style="background:'+(done2?'oklch(0.72 0.18 145 / 0.15)':'')+';color:'+(done2?'var(--ok)':'')+'">'+(done2?'\u2713':'I')+'</div>';
+      h+='<div class="li-b"><div class="li-t">'+mod.outcome+'</div><div class="li-sub">'+mod.title+'</div></div>';
+      h+='<span class="li-r">+'+mod.xp+'</span></div>';
+    }
+    h+='</div>';
+  }
+  c.innerHTML=h;
+}
+
 // ============================================================
 // INIT
 // ============================================================
@@ -3011,6 +3227,12 @@ if (!AUTH.init()) {
 <div class="sc" id="s-songs">
   <div class="tb"><div class="tb-t">Songs</div></div>
   <div class="sp" id="g-c"></div>
+</div>
+
+<!-- THEORY -->
+<div class="sc" id="s-theory">
+  <div class="tb"><div class="tb-t">Music Theory</div></div>
+  <div class="sp" id="t-c"></div>
 </div>
 
 <!-- QUIZ -->
@@ -3059,12 +3281,16 @@ if (!AUTH.init()) {
       Practice
     </button>
     <button class="bn-i" id="n-instruments" onclick="go('instruments')">
-      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
       Instruments
     </button>
     <button class="bn-i" id="n-songs" onclick="go('songs')">
       <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
       Songs
+    </button>
+    <button class="bn-i" id="n-theory" onclick="go('theory')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+      Theory
     </button>
     <button class="bn-i" id="n-quiz" onclick="go('quiz')">
       <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
