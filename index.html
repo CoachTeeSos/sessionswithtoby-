@@ -1,41 +1,2235 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Singer OS</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Singer OS</title>
 <style>
-:root{--bg:#080808;--card:#181818;--bd:#282828;--pri:#6366f1;--ok:#22c55e;--gold:#eab308;--tx:#f0f0f0;--tx2:#a0a0a0;--tx3:#6a6a6a;--r:12px;--rl:16px}
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:80px;font-size:15px}
-.sc{display:none;min-height:calc(100vh - 80px)}.sc.active{display:block}.sp{padding:20px 16px 40px}
-.tb{position:sticky;top:0;background:rgba(8,8,8,.95);border-bottom:1px solid var(--bd);padding:12px 16px;display:flex;justify-content:space-between}.tb-t{font-size:1rem;font-weight:700}.tb-r{font-size:.8rem;color:var(--gold)}
-.bn{position:fixed;bottom:0;left:0;right:0;background:rgba(17,17,17,.97);border-top:1px solid var(--bd);height:68px}.bn-in{display:flex;justify-content:space-around;height:100%;max-width:500px;margin:0 auto}
-.bn-i{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;color:var(--tx3);min-width:52px;font-size:.6rem;font-weight:600}.bn-i.on{color:var(--pri)}.bn-ic{font-size:1.2rem}
-.c{background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:18px;margin-bottom:10px}.c-a{border-color:rgba(99,102,241,.3)}.c-g{border-color:rgba(234,179,8,.3)}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:var(--r);font-weight:600;font-size:.9rem;width:100%;margin-bottom:8px}.btn-p{background:var(--pri);color:#fff}.btn-g{background:transparent;color:var(--tx2)}.btn-s{background:var(--ok);color:#000}
-.tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.6rem;font-weight:700;text-transform:uppercase}.tag-p{background:rgba(99,102,241,.1);color:var(--pri)}.tag-s{background:rgba(34,197,94,.1);color:var(--ok)}
-.pr{height:5px;background:var(--bd);border-radius:3px;overflow:hidden}.pr-f{height:100%;background:var(--pri);transition:width .5s}
-.li{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:6px;cursor:pointer}.li-ic{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;background:rgba(99,102,241,.08)}
-.li-b{flex:1}.li-t{font-weight:600;font-size:.9rem}.li-sub{font-size:.7rem;color:var(--tx3)}.sec{margin-bottom:20px}.sec-h{display:flex;justify-content:space-between;margin-bottom:10px}.sec-t{font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--tx3)}
-.hero{padding:16px 0}.hero h1{font-size:1.4rem;font-weight:800;margin-bottom:4px}
-.qo{display:flex;align-items:center;gap:10px;padding:14px;border:2px solid var(--bd);border-radius:var(--r);margin-bottom:6px;cursor:pointer}.qo.sel{border-color:var(--pri)}.qo.ok{border-color:var(--ok)}.qr{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd)}.qo.sel .qr{background:var(--pri);border-color:var(--pri)}
-.es{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)}.esn{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;background:rgba(99,102,241,.1);color:var(--pri)}.est p{font-size:.8rem;color:var(--tx3)}
-.ft{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-150%);background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px 18px;z-index:9999;transition:transform .3s}.ft.show{transform:translateX(-50%) translateY(0)}
-.sc.active{animation:fi .2s ease both}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-</style></head><body><div class="active" id="s-home"><div class="tb"><div class="tb-t">Singer OS</div><div class="tb-r" id="h-xp">0 XP</div></div><div class="sp" id="h-c"></div></div><div id="s-learn"><div class="tb"><div class="tb-t">Learn</div></div><div class="sp" id="l-c"></div></div><div id="s-practice"><div class="tb"><div class="tb-t">Practice</div></div><div class="sp" id="p-c"></div></div><div id="s-songs"><div class="tb"><div class="tb-t">Songs</div></div><div class="sp" id="g-c"></div></div><div id="s-progress"><div class="tb"><div class="tb-t">Progress</div></div><div class="sp" id="r-c"></div></div><div id="s-session"><div class="sp" id="v-c"></div></div><div id="s-profile"><div class="tb"><div class="tb-t">Profile</div></div><div class="sp" id="f-c"></div></div><nav class="bn"><div class="bn-in"><a class="bn-i on" id="n-home" href="#" onclick="go('home')"><span class="bn-ic">H</span></a><a class="bn-i" id="n-learn" href="#" onclick="go('learn')"><span class="bn-ic">L</span></a><a class="bn-i" id="n-practice" href="#" onclick="go('practice')"><span class="bn-ic">P</span></a><a class="bn-i" id="n-songs" href="#" onclick="go('songs')"><span class="bn-ic">S</span></a><a class="bn-i" id="n-progress" href="#" onclick="go('progress')"><span class="bn-ic">R</span></a><a class="bn-i" id="n-profile" href="#" onclick="go('profile')"><span class="bn-ic">M</span></a></div></nav><div class="ft" id="ft"></div><script>var U={name:'Singer',email:'',xp:0,sessions:0,skills:{airflow:0,source:0,resonance:0,articulation:0,ear:0,mix:0},completed:[],completedSongs:[]};
-try{var d=localStorage.getItem('singerOS');if(d){var p=JSON.parse(d);if(p&&p.skills){for(var k in p)U[k]=p[k];}}}catch(e){}
-function save(){try{localStorage.setItem('singerOS',JSON.stringify(U))}catch(e){}}
-function toast(m){var t=document.getElementById('ft');t.textContent=m;t.className='ft show';setTimeout(function(){t.className='ft';},2500);}
-function go(id){var ss=document.querySelectorAll('.sc');for(var i=0;i<ss.length;i++)ss[i].classList.remove('active');document.getElementById('s-'+id).classList.add('active');var items=document.querySelectorAll('.bn-i');for(var j=0;j<items.length;j++)items[j].classList.remove('on');document.getElementById('n-'+id).classList.add('on');if(id==='home')renderHome();if(id==='learn')renderLearn();if(id==='practice')renderPractice();if(id==='songs')renderSongs();if(id==='progress')renderProgress();if(id==='profile')renderProfile();}
-function renderHome(){var c=document.getElementById('h-c');document.getElementById('h-xp').textContent=U.xp+' XP';var h='';h+='<div class="hero"><h1>Welcome, '+U.name+'</h1><p>Your vocal training starts now.</p></div>';h+='<div class="sec"><div class="sec-h"><span class="sec-t">Quick Practice</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';var dp=[{n:'Breath',s:'airflow'},{n:'Onset',s:'source'},{n:'Words',s:'articulation'},{n:'Place',s:'resonance'}];for(var i=0;i<dp.length;i++){var d=dp[i];h+='<div class="c" style="text-align:center;padding:14px;cursor:pointer" onclick="quickDrill(&#39;'+d.s+'&#39;)"><div style="font-size:1.5rem;margin-bottom:4px">'+d.n.substring(0,1)+'</div><div style="font-size:.75rem;font-weight:600">'+d.n+'</div></div>';}h+='</div></div>';h+='<div class="sec"><a class="li" href="#" onclick="go(&#39;learn&#39;)"><div class="li-ic">L</div><div class="li-b"><div class="li-t">Full Curriculum</div><div class="li-sub">12+ lessons</div></div></a></div>';h+='<div class="sec"><a class="li" href="#" onclick="go(&#39;songs&#39;)"><div class="li-ic">S</div><div class="li-b"><div class="li-t">Song Library</div><div class="li-sub">8 songs</div></div></a></div>';h+='<div class="sec"><a class="li" href="#" onclick="startDiag()"><div class="li-ic">D</div><div class="li-b"><div class="li-t">Voice Check</div><div class="li-sub">Get a targeted exercise</div></div></a></div>';c.innerHTML=h;}
-function renderLearn(){var c=document.getElementById('l-c');var h='<h2>Curriculum</h2><p style="color:var(--tx3);margin-bottom:14px">Complete lessons to level up.</p>';var lessons=[{id:'vm1',title:'How Your Voice Works',xp:10},{id:'vm2',title:'Breath Appoggio',xp:15},{id:'vm3',title:'Vocal Fold Closure',xp:15},{id:'vm4',title:'Resonance',xp:15},{id:'vm5',title:'Articulation',xp:15},{id:'vm6',title:'Mix Voice',xp:20},{id:'et1',title:'Pitch Matching',xp:10},{id:'vl1',title:'Vocal Load',xp:10}];for(var i=0;i<lessons.length;i++){var ls=lessons[i];h+='<div class="li" onclick="openLesson(&#39;'+ls.id+'&#39;)"><div class="esn">'+(i+1)+'</div><div class="li-b"><div class="li-t">'+ls.title+'</div><div class="li-sub">+'+ls.xp+' XP</div></div></div>';}c.innerHTML=h;}
-function renderPractice(){var c=document.getElementById('p-c');var h='<h2>Practice</h2><p style="color:var(--tx3);margin-bottom:14px">Repetition builds mastery.</p>';var drills=[{n:'Breath',s:'airflow'},{n:'Onset',s:'source'},{n:'Diction',s:'articulation'},{n:'Hum',s:'resonance'}];for(var i=0;i<drills.length;i++){var d=drills[i];h+='<div class="li" onclick="quickDrill(&#39;'+d.s+'&#39;)"><div class="li-b"><div class="li-t">'+d.n+'</div></div><span class="li-r">+10</span></div>';}h+='<div class="c c-a" onclick="startDiag()"><b>Voice Diagnostic</b><br><span style="font-size:.75rem;color:var(--tx3)">Get prescribed exercise</span></div>';c.innerHTML=h;}
-function renderSongs(){var c=document.getElementById('g-c');var h='<h2>Songs</h2><p style="color:var(--tx3);margin-bottom:14px">Apply your training.</p>';var songs=[{id:'s1',title:'Breathe On Me',artist:'Worship'},{id:'s2',title:'Great Are You Lord',artist:'Worship'},{id:'s3',title:'Hallelujah',artist:'Buckley'},{id:'s4',title:'Essence',artist:'Wizkid'},{id:'s5',title:'Someone Like You',artist:'Adele'},{id:'s6',title:'Thinking Out Loud',artist:'Sheeran'}];for(var i=0;i<songs.length;i++){var s=songs[i];h+='<div class="li" onclick="openSong(&#39;'+s.id+'&#39;)"><div class="li-b"><div class="li-t">'+s.title+'</div><div class="li-sub">'+s.artist+'</div></div></div>';}c.innerHTML=h;}
-function renderProgress(){var c=document.getElementById('r-c');var h='<h2>Progress</h2><div class="c c-g text-center" style="padding:24px;margin-bottom:16px"><h2>'+U.xp+' XP</h2><p style="color:var(--tx3);font-size:.8rem">'+U.sessions+' sessions</p></div>';var sys=['airflow','source','resonance','articulation','mix','ear'];for(var s=0;s<sys.length;s++){var sk=sys[s],lvl=U.skills[sk]||0,pct=lvl*10;h+='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.8rem">'+sk+'</span><span style="font-size:.7rem;color:var(--tx3)">'+lvl+'/10</span></div><div class="pr"><div class="pr-f" style="width:'+pct+'%"></div></div></div>';}h+='<button class="btn btn-g" style="margin-top:16px" onclick="resetAll()">Reset All</button>';c.innerHTML=h;}
-function renderProfile(){var c=document.getElementById('f-c');var h='<h2>Profile</h2><div class="c"><label style="font-size:.75rem;color:var(--tx3)">Name</label><input type="text" value="'+U.name+'" style="width:100%;padding:8px 0;border-bottom:1px solid var(--bd)" onchange="U.name=this.value;save();"></div><div class="c"><label style="font-size:.75rem;color:var(--tx3)">Email</label><input type="email" value="'+U.email+'" placeholder="your@email.com" style="width:100%;padding:8px 0;border-bottom:1px solid var(--bd)" onchange="U.email=this.value;save();"></div><div class="c">XP: <strong>'+U.xp+'</strong> | Sessions: <strong>'+U.sessions+'</strong></div>';c.innerHTML=h;}
-function openLesson(id){var c=document.getElementById('v-c');var L={vm1:{t:'How Your Voice Works',b:'Four systems: Airflow, Source, Resonance, Articulation. Train each separately then coordinate.',e:'Hum on m for 5 sec. Open to ah keeping the feeling. Repeat 5x.',x:10},vm2:{t:'Breath Appoggio',b:'Control the cage: abs, intercostals, lower back. Expand ribs on inhale, maintain while singing.',e:'Hands on ribs. Breathe in -- ribs push out. Hiss sss holding ribs. Goal: 20 sec.',x:15},vm3:{t:'Vocal Fold Closure',b:'Three states: Breathy (leaky), Strained (squeezed), Balanced (clean). Target: balanced.',e:'Say ah -- find clean onset. Hum 5 sec first.',x:15},vm4:{t:'Resonance',b:'Forward placement (buzz in lips/cheekbones) = clear, projecting. About WHERE vibration is felt.',e:'Hum m, feel buzz. Open to mah -- buzz stays forward.',x:15},vm5:{t:'Articulation',b:'Singing is sustained speech. Let lips and tongue work, jaw stays relaxed.',e:'Speak ma-me-mi-mo-mu. Sing it on one pitch.',x:15},vm6:{t:'Mix Voice',b:'Voice is a continuous gradient. Mix = TA + CT both engaged. Break = unlearned coordination.',e:'Find break. Sing on ng. Slide through zone.',x:20},et1:{t:'Pitch Matching',b:'Listen BEFORE you sing. Trainable skill.',e:'Think of a note. Sing it. Imagine higher. Sing that.',x:10},vl1:{t:'Vocal Load',b:'Vocal fold muscles fatigue. If it hurts, stop.',e:'Track practice time. Notice when tired.',x:10}};var ls=L[id];if(!ls)return;var h='<button class="btn btn-g btn-sm" onclick="go(&#39;learn&#39;)">Back</button><h1 style="font-size:1.2rem;margin:12px 0">'+ls.t+'</h1><div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rl);padding:16px;margin-bottom:12px;line-height:1.7">'+ls.b+'</div><div style="background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);border-radius:var(--rl);padding:14px;margin-bottom:12px"><h3 style="margin-bottom:6px">Exercise <span class="tag tag-g">+'+ls.xp+' XP</span></h3>'+ls.e+'</div><button class="btn btn-s" onclick="finishLesson(&#39;'+id+'&#39;,'+ls.xp+')">I Completed This</button>';c.innerHTML=h;go('session');}
-function finishLesson(id,xp){U.xp+=xp;U.sessions++;if(U.completed.indexOf(id)===-1)U.completed.push(id);save();toast('Complete! +'+xp+' XP');go('learn');}
-function quickDrill(skill){var c=document.getElementById('v-c');c.innerHTML='<button class="btn btn-g btn-sm" onclick="go(&#39;home&#39;)">Back</button><div class="c c-a text-center" style="padding:28px;margin:12px 0"><h2>'+skill+' Drill</h2><p style="color:var(--tx3)">Do this now. Tap when done.</p></div><button class="btn btn-s" onclick="finishQD(&#39;'+skill+'&#39;)">I Did It</button>';go('session');}
-function finishQD(skill){U.xp+=10;U.skills[skill]=Math.min(10,U.skills[skill]+1);U.sessions++;save();toast('Done! +10 XP');go('home');}
-function openSong(id){var S={s1:{t:'Breathe On Me',a:'Worship',n:'Sing each phrase on one breath.'},s2:{t:'Great Are You Lord',a:'Worship',n:'Steady airflow on sustained notes.'},s3:{t:'Hallelujah',a:'Buckley',n:'Work jumps on ng first.'},s4:{t:'Essence',a:'Wizkid',n:'Speak lyrics fast first.'},s5:{t:'Someone Like You',a:'Adele',n:'Intimate verses, powerful chorus.'},s6:{t:'Thinking Out Loud',a:'Sheeran',n:'Soft and clear.'}};var s=S[id];if(!s)return;var c=document.getElementById('v-c');c.innerHTML='<button class="btn btn-g btn-sm" onclick="go(&#39;songs&#39;)">Back</button><h1 style="font-size:1.2rem;margin:12px 0 4px">'+s.t+'</h1><p style="color:var(--tx3);margin-bottom:16px">'+s.a+'</p><div class="c"><h3 style="margin-bottom:8px">Focus</h3><p>'+s.n+'</p></div><button class="btn btn-p" onclick="practiceSong(&#39;'+id+'&#39;)">I Sang It</button>';go('session');}
-function practiceSong(id){U.xp+=50;U.sessions++;if(U.completedSongs.indexOf(id)===-1)U.completedSongs.push(id);save();document.getElementById('v-c').innerHTML='<div class="c c-g text-center" style="padding:28px"><h2>Complete!</h2><p style="color:var(--tx3)">+50 XP</p></div><button class="btn btn-p" onclick="go(&#39;songs&#39;)">Back</button>';}
-function startDiag(){var syms=[{id:'pitch',l:'Pitch wavers'},{id:'strain',l:'Voice tight'},{id:'breathy',l:'Breathy'},{id:'power',l:'Low volume'},{id:'crack',l:'Cracks'}];var c=document.getElementById('v-c');var h='<button class="btn btn-g btn-sm" onclick="go(&#39;practice&#39;)">Back</button><h1 style="font-size:1.2rem;margin:12px 0 6px">Voice Check</h1><p style="color:var(--tx3);margin-bottom:16px">Select all that apply.</p>';for(var i=0;i<syms.length;i++){h+='<div class="qo" onclick="togDiag(&#39;'+syms[i].id+'&#39;)" style="cursor:pointer"><div class="qr"></div><span>'+syms[i].l+'</span></div>';}h+='<button class="btn btn-p" style="margin-top:16px" onclick="subDiag()">Get Exercise</button>';c.innerHTML=h;go('session');}var diagSel=[];function togDiag(id){var i=diagSel.indexOf(id);if(i===-1)diagSel.push(id);else diagSel.splice(i,1);}
-function subDiag(){if(diagSel.length===0){toast('Select one');return;}var p='source',mx=0;var sc={airflow:0,source:0,resonance:0};var map={pitch:['source','airflow'],strain:['source'],breathy:['source','airflow'],power:['airflow'],crack:['source']};for(var i=0;i<diagSel.length;i++){var s=map[diagSel[i]];if(s)for(var j=0;j<s.length;j++)sc[s[j]]++;}for(var k in sc)if(sc[k]>mx){mx=sc[k];p=k;}var e={airflow:['Hands on ribs','Breathe in -- ribs push','Hiss sss, hold ribs','Sing phrase -- ribs stay'],source:['Hum m 5 sec','Say ah -- no breathy h','Find clean ah','Scale -- balanced'],resonance:['Hum m -- lip buzz','Open to mah -- forward','Slide on mee','Phrase -- stays forward'],articulation:['Speak ma-me-mi-mo-mu','Fast -- keep clarity','Sing on one pitch','Lyric -- every word']};var steps=e[p]||e.source;var c=document.getElementById('v-c');var h='<button class="btn btn-g btn-sm" onclick="go(&#39;practice&#39;)">Back</button><h1 style="font-size:1.2rem;margin:12px 0 6px">Exercise</h1><p style="color:var(--tx3);margin-bottom:16px">Based on your answers.</p>';for(var i=0;i<steps.length;i++){h+='<div class="es"><div class="esn">'+(i+1)+'</div><div class="est"><p>'+steps[i]+'</p></div></div>';}h+='<button class="btn btn-s" onclick="finishDiag(&#39;'+p+'&#39;,20)">I Completed This</button>';c.innerHTML=h;diagSel=[];} 
-function finishDiag(skill,xp){U.xp+=xp;U.skills[skill]=Math.min(10,U.skills[skill]+1);U.sessions++;save();toast('Complete! +'+xp+' XP');go('practice');}
-function resetAll(){U={name:'Singer',email:'',xp:0,sessions:0,skills:{airflow:0,source:0,resonance:0,articulation:0,ear:0,mix:0},completed:[],completedSongs:[]};save();toast('Reset');go('home');}
-go('home');</script></body></html>
+:root {
+  /* OKLCH Color System - perceptually uniform */
+  --bg: oklch(0.10 0.01 260);
+  --bg2: oklch(0.13 0.01 260);
+  --card: oklch(0.17 0.01 260);
+  --card2: oklch(0.20 0.01 260);
+  --border: oklch(0.28 0.01 260);
+  --border-hi: oklch(0.35 0.02 260);
+  
+  /* Primary - Indigo */
+  --pri: oklch(0.65 0.20 270);
+  --pri-hi: oklch(0.72 0.18 270);
+  --pri-dim: oklch(0.55 0.22 270);
+  --pri-glow: oklch(0.65 0.20 270 / 0.15);
+  --pri-glow-hi: oklch(0.65 0.20 270 / 0.30);
+  
+  /* Semantic */
+  --ok: oklch(0.72 0.18 145);
+  --ok-dim: oklch(0.60 0.20 145);
+  --warn: oklch(0.78 0.16 60);
+  --err: oklch(0.65 0.20 25);
+  --gold: oklch(0.82 0.16 95);
+  
+  /* Text */
+  --tx: oklch(0.95 0.01 260);
+  --tx2: oklch(0.70 0.01 260);
+  --tx3: oklch(0.48 0.01 260);
+  
+  /* Typography Scale */
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --xs: 0.6875rem;
+  --sm: 0.8125rem;
+  --base: 0.9375rem;
+  --md: 1.0625rem;
+  --lg: 1.25rem;
+  --xl: 1.5rem;
+  --2xl: 1.875rem;
+  --3xl: 2.25rem;
+  
+  /* Spacing Scale */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s7: 32px;
+  --s8: 40px;
+  --s9: 48px;
+  
+  /* Radius */
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-full: 9999px;
+  
+  /* Elevation */
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.3);
+  --shadow: 0 4px 12px oklch(0 0 0 / 0.4);
+  --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.5);
+  --shadow-glow: 0 0 20px var(--pri-glow);
+  
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-slow: 400ms;
+}
+
+/* Font Loading */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  color-scheme: dark;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--tx);
+  font-size: var(--base);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 88px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--r-full); }
+
+/* Screen System */
+.sc { display: none; min-height: calc(100vh - 88px); }
+.sc.active { display: block; animation: fadeIn var(--dur) var(--ease-out) both; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px var(--pri-glow); }
+  50% { box-shadow: 0 0 20px var(--pri-glow-hi); }
+}
+
+@keyframes confetti {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+/* Top Bar */
+.tb {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: oklch(0.10 0.01 260 / 0.92);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  padding: var(--s4) var(--s5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tb-t {
+  font-size: var(--md);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.tb-r {
+  font-size: var(--sm);
+  color: var(--gold);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+/* Screen Padding */
+.sp { padding: var(--s5) var(--s4) var(--s9); max-width: 540px; margin: 0 auto; }
+
+/* Bottom Navigation */
+.bn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: oklch(0.12 0.01 260 / 0.95);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  border-top: 1px solid var(--border);
+  height: 72px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.bn-in {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 var(--s2);
+}
+.bn-i {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: var(--s2) var(--s3);
+  color: var(--tx3);
+  font-size: var(--xs);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--r-sm);
+  transition: color var(--dur-fast), background var(--dur-fast);
+  min-width: 48px;
+  min-height: 48px;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font);
+}
+.bn-i:hover { color: var(--tx2); background: oklch(0.20 0.01 260 / 0.5); }
+.bn-i.on { color: var(--pri); }
+.bn-i.on:hover { background: var(--pri-glow); }
+.bn-ic {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1px;
+}
+.bn-ic svg { width: 22px; height: 22px; stroke-width: 1.8; }
+
+/* Cards */
+.c {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s5);
+  margin-bottom: var(--s3);
+  transition: border-color var(--dur), box-shadow var(--dur), transform var(--dur-fast);
+}
+.c:hover {
+  border-color: var(--border-hi);
+  box-shadow: var(--shadow-sm);
+}
+.c:active { transform: scale(0.98); }
+.c-a { border-color: oklch(0.65 0.20 270 / 0.25); background: linear-gradient(135deg, var(--card), oklch(0.65 0.20 270 / 0.04)); }
+.c-a:hover { border-color: oklch(0.65 0.20 270 / 0.4); box-shadow: var(--shadow-glow); }
+.c-g { border-color: oklch(0.82 0.16 95 / 0.2); }
+.c-g:hover { border-color: oklch(0.82 0.16 95 / 0.35); }
+.c-ok { border-color: oklch(0.72 0.18 145 / 0.25); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s5);
+  border-radius: var(--r);
+  font-weight: 700;
+  font-size: var(--sm);
+  font-family: var(--font);
+  width: 100%;
+  margin-bottom: var(--s2);
+  cursor: pointer;
+  border: none;
+  transition: all var(--dur-fast) var(--ease-out);
+  min-height: 48px;
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.08), transparent);
+  pointer-events: none;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(0.98); }
+.btn:disabled { opacity: 0.4; pointer-events: none; }
+
+.btn-p {
+  background: linear-gradient(135deg, var(--pri), var(--pri-dim));
+  color: #fff;
+  box-shadow: 0 2px 8px var(--pri-glow);
+}
+.btn-p:hover { box-shadow: 0 4px 16px var(--pri-glow-hi); }
+
+.btn-s {
+  background: linear-gradient(135deg, var(--ok), var(--ok-dim));
+  color: oklch(0.15 0.01 260);
+  box-shadow: 0 2px 8px oklch(0.72 0.18 145 / 0.2);
+}
+.btn-s:hover { box-shadow: 0 4px 16px oklch(0.72 0.18 145 / 0.3); }
+
+.btn-g {
+  background: transparent;
+  color: var(--tx2);
+  border: 1px solid var(--border);
+}
+.btn-g:hover { background: var(--card2); color: var(--tx); border-color: var(--border-hi); }
+
+.btn-w {
+  background: transparent;
+  color: var(--tx3);
+  border: 1px solid var(--border);
+  font-weight: 500;
+}
+.btn-w:hover { color: var(--tx2); }
+
+/* Tags */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-size: var(--xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.tag-p { background: var(--pri-glow); color: var(--pri-hi); }
+.tag-s { background: oklch(0.72 0.18 145 / 0.1); color: var(--ok); }
+.tag-g { background: oklch(0.82 0.16 95 / 0.1); color: var(--gold); }
+.tag-w { background: oklch(0.78 0.16 60 / 0.1); color: var(--warn); }
+
+/* Progress Bars */
+.pr {
+  height: 8px;
+  background: var(--border);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  position: relative;
+}
+.pr-f {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pri-dim), var(--pri));
+  border-radius: var(--r-full);
+  transition: width var(--dur-slow) var(--ease-out);
+  position: relative;
+}
+.pr-f::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.15));
+  border-radius: var(--r-full);
+}
+.pr-ok .pr-f { background: linear-gradient(90deg, var(--ok-dim), var(--ok)); }
+.pr-g .pr-f { background: linear-gradient(90deg, oklch(0.70 0.14 95), var(--gold)); }
+
+/* List Items */
+.li {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s4);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  margin-bottom: var(--s2);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+  min-height: 56px;
+}
+.li:hover {
+  border-color: var(--border-hi);
+  background: var(--card2);
+  transform: translateX(2px);
+}
+.li:active { transform: scale(0.98); }
+.li-ic {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pri-glow);
+  color: var(--pri);
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: var(--sm);
+}
+.li-ic svg { width: 20px; height: 20px; stroke-width: 1.8; }
+.li-b { flex: 1; min-width: 0; }
+.li-t { font-weight: 700; font-size: var(--sm); letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.li-sub { font-size: var(--xs); color: var(--tx3); margin-top: 1px; }
+.li-r { font-size: var(--xs); color: var(--gold); font-weight: 700; font-family: var(--font-mono); flex-shrink: 0; }
+
+/* Sections */
+.sec { margin-bottom: var(--s6); }
+.sec-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--s3);
+}
+.sec-t {
+  font-size: var(--xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tx3);
+}
+
+/* Hero */
+.hero { padding: var(--s5) 0 var(--s6); }
+.hero h1 {
+  font-size: var(--2xl);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: var(--s2);
+}
+.hero p { color: var(--tx2); font-size: var(--sm); }
+
+/* Quiz Options */
+.qo {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s4);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  margin-bottom: var(--s2);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+  min-height: 52px;
+}
+.qo:hover { border-color: var(--border-hi); background: var(--card); }
+.qo.sel { border-color: var(--pri); background: var(--pri-glow); }
+.qo.ok { border-color: var(--ok); background: oklch(0.72 0.18 145 / 0.08); }
+.qo.err { border-color: var(--err); background: oklch(0.65 0.20 25 / 0.08); }
+.qo.dis { pointer-events: none; opacity: 0.6; }
+.qr {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  transition: all var(--dur-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qo.sel .qr { background: var(--pri); border-color: var(--pri); }
+.qo.ok .qr { background: var(--ok); border-color: var(--ok); }
+.qo.err .qr { background: var(--err); border-color: var(--err); }
+.qr::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  transition: opacity var(--dur-fast);
+}
+.qo.sel .qr::after, .qo.ok .qr::after, .qo.err .qr::after { opacity: 1; }
+
+/* Exercise Steps */
+.es {
+  display: flex;
+  gap: var(--s3);
+  padding: var(--s4) 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.es:last-child { border-bottom: none; }
+.esn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--xs);
+  font-weight: 800;
+  background: var(--pri-glow);
+  color: var(--pri);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.est { flex: 1; }
+.est p { font-size: var(--sm); color: var(--tx2); line-height: 1.5; }
+
+/* Toast / Feedback */
+.ft {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-200%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: var(--s3) var(--s5);
+  z-index: 9999;
+  font-size: var(--sm);
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--dur) var(--ease-spring);
+  max-width: 90vw;
+  text-align: center;
+}
+.ft.show { transform: translateX(-50%) translateY(0); }
+.ft-ok { border-color: var(--ok); color: var(--ok); }
+.ft-err { border-color: var(--err); color: var(--err); }
+.ft-info { border-color: var(--pri); color: var(--pri); }
+
+/* Grid helpers */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s2); }
+
+/* Text helpers */
+.text-center { text-align: center; }
+.text-sm { font-size: var(--sm); }
+.text-xs { font-size: var(--xs); }
+.text-muted { color: var(--tx3); }
+.text-pri { color: var(--pri); }
+.text-ok { color: var(--ok); }
+.text-gold { color: var(--gold); }
+.text-warn { color: var(--warn); }
+.text-err { color: var(--err); }
+.text-bold { font-weight: 700; }
+.text-mono { font-family: var(--font-mono); }
+.mb-1 { margin-bottom: var(--s1); }
+.mb-2 { margin-bottom: var(--s2); }
+.mb-3 { margin-bottom: var(--s3); }
+.mb-4 { margin-bottom: var(--s4); }
+.mt-2 { margin-top: var(--s2); }
+.mt-4 { margin-top: var(--s4); }
+.gap-2 { gap: var(--s2); }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.w-full { width: 100%; }
+
+/* Input */
+.input {
+  width: 100%;
+  padding: var(--s3) 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--tx);
+  font-family: var(--font);
+  font-size: var(--base);
+  transition: border-color var(--dur-fast);
+  outline: none;
+}
+.input:focus { border-color: var(--pri); }
+.input::placeholder { color: var(--tx3); }
+label {
+  display: block;
+  font-size: var(--xs);
+  color: var(--tx3);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--s1);
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  padding: var(--s1) var(--s3);
+  border-radius: var(--r-full);
+  font-size: var(--xs);
+  font-weight: 700;
+  background: var(--card2);
+  border: 1px solid var(--border);
+}
+
+/* Level indicator */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pri), var(--pri-dim));
+  color: #fff;
+  font-weight: 900;
+  font-size: var(--sm);
+  box-shadow: 0 2px 8px var(--pri-glow);
+}
+
+/* Streak flame */
+.streak { display: inline-flex; align-items: center; gap: var(--s1); }
+
+/* Achievement popup */
+.achieve {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: oklch(0 0 0 / 0.7);
+  backdrop-filter: blur(4px);
+}
+.achieve.show { display: flex; }
+.achieve-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: var(--s7);
+  text-align: center;
+  max-width: 320px;
+  animation: confetti 0.5s var(--ease-spring) both;
+}
+.achieve-icon { font-size: 3rem; margin-bottom: var(--s3); }
+.achieve-title { font-size: var(--lg); font-weight: 800; margin-bottom: var(--s2); }
+.achieve-desc { color: var(--tx2); font-size: var(--sm); margin-bottom: var(--s5); }
+
+/* Vocal load bar */
+.vocal-load {
+  height: 6px;
+  background: var(--border);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  margin: var(--s2) 0;
+}
+.vocal-load-f {
+  height: 100%;
+  border-radius: var(--r-full);
+  transition: width var(--dur-slow) var(--ease-out), background var(--dur);
+}
+.vocal-load-f.ok { background: var(--ok); }
+.vocal-load-f.warn { background: var(--warn); }
+.vocal-load-f.danger { background: var(--err); }
+
+/* Divider */
+.hr { height: 1px; background: var(--border); margin: var(--s4) 0; }
+
+/* Reference box */
+.ref-box {
+  background: oklch(0.65 0.20 270 / 0.06);
+  border: 1px solid oklch(0.65 0.20 270 / 0.15);
+  border-radius: var(--r);
+  padding: var(--s4);
+  margin: var(--s3) 0;
+}
+.ref-box-title {
+  font-size: var(--xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pri);
+  margin-bottom: var(--s2);
+}
+
+/* Song card */
+.song-card {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s4);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  margin-bottom: var(--s2);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+.song-card:hover { border-color: var(--border-hi); background: var(--card2); }
+.song-art {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(135deg, var(--pri-glow), var(--card2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: var(--lg);
+}
+.song-info { flex: 1; min-width: 0; }
+.song-title { font-weight: 700; font-size: var(--sm); }
+.song-artist { font-size: var(--xs); color: var(--tx3); }
+.song-tags { display: flex; gap: var(--s1); margin-top: var(--s1); flex-wrap: wrap; }
+
+/* Difficulty dots */
+.dots { display: flex; gap: 3px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+.dot.filled { background: var(--pri); }
+.dot.ok { background: var(--ok); }
+
+/* Coach message */
+.coach-msg {
+  background: linear-gradient(135deg, oklch(0.65 0.20 270 / 0.08), oklch(0.65 0.20 270 / 0.02));
+  border: 1px solid oklch(0.65 0.20 270 / 0.15);
+  border-radius: var(--r-lg);
+  padding: var(--s4) var(--s5);
+  margin: var(--s4) 0;
+  position: relative;
+}
+.coach-msg::before {
+  content: 'COACH';
+  position: absolute;
+  top: -8px;
+  left: var(--s4);
+  background: var(--pri);
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: var(--r-full);
+  letter-spacing: 0.06em;
+}
+.coach-msg p { font-size: var(--sm); color: var(--tx); line-height: 1.5; }
+
+/* WhatsApp CTA */
+.wa-cta {
+  background: linear-gradient(135deg, oklch(0.55 0.14 160), oklch(0.50 0.12 160));
+  border: 1px solid oklch(0.60 0.15 160 / 0.3);
+  border-radius: var(--r-lg);
+  padding: var(--s5);
+  text-align: center;
+  margin: var(--s4) 0;
+}
+.wa-cta-title { font-weight: 800; font-size: var(--md); margin-bottom: var(--s1); }
+.wa-cta-sub { font-size: var(--sm); color: var(--tx2); margin-bottom: var(--s4); }
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s5);
+  background: oklch(0.95 0.01 260);
+  color: oklch(0.15 0.01 260);
+  border-radius: var(--r);
+  font-weight: 800;
+  font-size: var(--sm);
+  text-decoration: none;
+  transition: transform var(--dur-fast);
+}
+.wa-btn:hover { transform: scale(1.02); }
+
+/* Millionaire quiz specific */
+.millionaire-q {
+  background: linear-gradient(180deg, oklch(0.15 0.02 260), oklch(0.12 0.01 260));
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s6);
+  margin-bottom: var(--s4);
+}
+.millionaire-q-num {
+  font-size: var(--xs);
+  color: var(--gold);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--s2);
+}
+.millionaire-q-text {
+  font-size: var(--md);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: var(--s5);
+}
+.millionaire-lifeline {
+  display: flex;
+  gap: var(--s2);
+  margin-bottom: var(--s4);
+}
+.lifeline-btn {
+  flex: 1;
+  padding: var(--s2);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: var(--xs);
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+.lifeline-btn:hover { border-color: var(--pri); background: var(--pri-glow); }
+.lifeline-btn.used { opacity: 0.3; pointer-events: none; }
+
+/* Money ladder */
+.money-ladder {
+  position: fixed;
+  right: var(--s3);
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--xs);
+  font-family: var(--font-mono);
+}
+.money-ladder.show { display: flex; }
+.money-step {
+  padding: 2px 6px;
+  border-radius: var(--r-sm);
+  text-align: center;
+  color: var(--tx3);
+}
+.money-step.safe { color: var(--gold); font-weight: 700; }
+.money-step.current { background: var(--pri-glow); color: var(--pri); font-weight: 700; }
+.money-step.done { color: var(--ok); }
+
+/* Responsive */
+@media (min-width: 600px) {
+  .sp { padding: var(--s6) var(--s5) var(--s9); }
+  .bn-in { max-width: 540px; }
+}
+</style>
+</head>
+<body>
+<!-- SCREENS -->
+<!-- HOME -->
+<div class="sc active" id="s-home">
+  <div class="tb">
+    <div class="tb-t">Singer OS</div>
+    <div class="tb-r" id="h-xp">0 XP</div>
+  </div>
+  <div class="sp" id="h-c"></div>
+</div>
+
+<!-- LEARN -->
+<div class="sc" id="s-learn">
+  <div class="tb">
+    <div class="tb-t">Learn</div>
+  </div>
+  <div class="sp" id="l-c"></div>
+</div>
+
+<!-- PRACTICE -->
+<div class="sc" id="s-practice">
+  <div class="tb">
+    <div class="tb-t">Practice</div>
+  </div>
+  <div class="sp" id="p-c"></div>
+</div>
+
+<!-- SONGS -->
+<div class="sc" id="s-songs">
+  <div class="tb">
+    <div class="tb-t">Songs</div>
+  </div>
+  <div class="sp" id="g-c"></div>
+</div>
+
+<!-- THEORY -->
+<div class="sc" id="s-theory">
+  <div class="tb">
+    <div class="tb-t">Music Theory</div>
+  </div>
+  <div class="sp" id="t-c"></div>
+</div>
+
+<!-- QUIZ (Millionaire) -->
+<div class="sc" id="s-quiz">
+  <div class="tb">
+    <div class="tb-t">Musician Quiz</div>
+  </div>
+  <div class="sp" id="q-c"></div>
+</div>
+
+<!-- PROGRESS -->
+<div class="sc" id="s-progress">
+  <div class="tb">
+    <div class="tb-t">Progress</div>
+  </div>
+  <div class="sp" id="r-c"></div>
+</div>
+
+<!-- SESSION (Lesson/Exercise/Diagnostic viewer) -->
+<div class="sc" id="s-session">
+  <div class="sp" id="v-c"></div>
+</div>
+
+<!-- PROFILE -->
+<div class="sc" id="s-profile">
+  <div class="tb">
+    <div class="tb-t">Profile</div>
+  </div>
+  <div class="sp" id="f-c"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bn">
+  <div class="bn-in">
+    <button class="bn-i on" id="n-home" onclick="go('home')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+      Home
+    </button>
+    <button class="bn-i" id="n-learn" onclick="go('learn')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
+      Learn
+    </button>
+    <button class="bn-i" id="n-practice" onclick="go('practice')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+      Practice
+    </button>
+    <button class="bn-i" id="n-songs" onclick="go('songs')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+      Songs
+    </button>
+    <button class="bn-i" id="n-theory" onclick="go('theory')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+      Theory
+    </button>
+    <button class="bn-i" id="n-quiz" onclick="go('quiz')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+      Quiz
+    </button>
+    <button class="bn-i" id="n-progress" onclick="go('progress')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+      Progress
+    </button>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="ft" id="ft"></div>
+
+<!-- ACHIEVEMENT POPUP -->
+<div class="achieve" id="achieve">
+  <div class="achieve-box">
+    <div class="achieve-icon" id="achieve-icon"></div>
+    <div class="achieve-title" id="achieve-title"></div>
+    <div class="achieve-desc" id="achieve-desc"></div>
+    <button class="btn btn-p" onclick="closeAchieve()">Continue</button>
+  </div>
+</div>
+<script>
+// ============================================================
+// STATE
+// ============================================================
+var U = {
+  name: 'Singer',
+  email: '',
+  xp: 0,
+  level: 1,
+  sessions: 0,
+  streak: 0,
+  lastPractice: null,
+  skills: {
+    airflow: 0, source: 0, resonance: 0, articulation: 0,
+    ear: 0, mix: 0, performance: 0, theory: 0,
+    sight: 0, style: 0
+  },
+  completed: [],
+  completedSongs: [],
+  completedQuizzes: [],
+  badges: [],
+  vocalLoad: 0,
+  maxLoad: 100,
+  weaknessHistory: [],
+  diagnosticResults: [],
+  quizHighScore: 0,
+  millionaireLevel: 0
+};
+
+try {
+  var d = localStorage.getItem('singerOS');
+  if (d) {
+    var p = JSON.parse(d);
+    if (p && p.skills) {
+      for (var k in p) U[k] = p[k];
+    }
+  }
+} catch(e) {}
+
+function save() {
+  try { localStorage.setItem('singerOS', JSON.stringify(U)); } catch(e) {}
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function toast(m, type) {
+  var t = document.getElementById('ft');
+  t.textContent = m;
+  t.className = 'ft show' + (type ? ' ft-' + type : '');
+  setTimeout(function() { t.className = 'ft'; }, 2500);
+}
+
+function showAchieve(icon, title, desc) {
+  document.getElementById('achieve-icon').textContent = icon;
+  document.getElementById('achieve-title').textContent = title;
+  document.getElementById('achieve-desc').textContent = desc;
+  document.getElementById('achieve').classList.add('show');
+}
+
+function closeAchieve() {
+  document.getElementById('achieve').classList.remove('show');
+}
+
+function go(id) {
+  var ss = document.querySelectorAll('.sc');
+  for (var i = 0; i < ss.length; i++) ss[i].classList.remove('active');
+  document.getElementById('s-' + id).classList.add('active');
+  var items = document.querySelectorAll('.bn-i');
+  for (var j = 0; j < items.length; j++) items[j].classList.remove('on');
+  var nav = document.getElementById('n-' + id);
+  if (nav) nav.classList.add('on');
+
+  if (id === 'home') renderHome();
+  if (id === 'learn') renderLearn();
+  if (id === 'practice') renderPractice();
+  if (id === 'songs') renderSongs();
+  if (id === 'theory') renderTheory();
+  if (id === 'quiz') renderQuiz();
+  if (id === 'progress') renderProgress();
+  if (id === 'profile') renderProfile();
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+}
+
+// ============================================================
+// COACH PERSONALITY
+// ============================================================
+var COACH = {
+  greetings: [
+    'Hey {name}. Let us get to work.',
+    'Good to see {name} ready to train.',
+    '{name}, your voice is waiting. Let us go.'
+  ],
+  encouragement: [
+    'That is the sound I have been waiting to hear.',
+    'You just proved you can do this. Remember that feeling.',
+    'That is real progress. Not luck. Skill.',
+    'Your voice just did something it could not do yesterday.',
+    'That is what training sounds like. Keep going.'
+  ],
+  corrections: [
+    'Okay, stop. I hear what is happening. {issue}. Here is the fix: {fix}',
+    'I need you to catch that. {issue}. Try this instead: {fix}',
+    'Almost. But I hear {issue}. The fix is simple: {fix}'
+  ],
+  plateaus: [
+    '{name}, you have been working on {skill} for a while. This is exactly where a coach saves you months. Let me help.',
+    'You are stuck on {name}. That is not failure. That is the edge of your current ability. Time to level up with a coach.'
+  ],
+  breakthroughs: [
+    '{name}, you just broke through on {skill}. This is the moment everything changes. Do not stop now.',
+    'That is it. That is the breakthrough. {skill} just clicked. Lock this in.'
+  ],
+  pick: function(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  },
+  say: function(type, data) {
+    var msg = this.pick(this[type] || this.encouragement);
+    if (data) {
+      for (var k in data) {
+        msg = msg.replace('{' + k + '}', data[k]);
+      }
+    }
+    return msg;
+  },
+  whatsapp: function(reason, skill) {
+    var msg = encodeURIComponent('Hi Coach Toby! I just ' + reason + ' on ' + skill + ' in Singer OS. I need help taking this to the next level.');
+    return 'https://wa.me/2348012345678?text=' + msg;
+  }
+};
+
+// ============================================================
+// OUTCOME-BASED CURRICULUM
+// ============================================================
+// Every module is written as "Be able to..." — outcome first
+// ============================================================
+
+var CURRICULUM = {
+
+  // ===== VOCAL MECHANICS =====
+  mechanics: {
+    title: 'Vocal Mechanics',
+    icon: 'M',
+    color: 'pri',
+    modules: [
+      {
+        id: 'm1',
+        outcome: 'Be able to sustain a steady note for 20 seconds without running out of air',
+        title: 'Breath That Carries You',
+        xp: 15,
+        content: '<p>Most singers run out of air because they push air out too fast. The trick is not more air — it is <b>controlled escape</b>.</p><p>Your ribs expand on the inhale. While singing, they should stay expanded as long as possible. Think: <b>inflate and hold</b>.</p>',
+        exercise: {
+          name: 'Rib Cage Hold',
+          steps: [
+            'Place both hands on your lower ribs (sides of your chest)',
+            'Breathe in through your nose — feel ribs push your hands out',
+            'Hiss "sss" while keeping ribs pushed out',
+            'Goal: 15 seconds without ribs collapsing',
+            'Once you hit 15 sec, try 20. Then 25.'
+          ],
+          skill: 'airflow',
+          xp: 15
+        }
+      },
+      {
+        id: 'm2',
+        outcome: 'Be able to start every note cleanly — no breathy "ha" or hard glottal stop',
+        title: 'Clean Note Onset',
+        xp: 15,
+        content: '<p>Every note starts one of three ways: <b>breathy</b> (air before sound), <b>glottal</b> (hard stop), or <b>clean</b> (instant balanced sound). You want clean.</p><p>The feeling: imagine the note is already vibrating before you "release" it. Like turning on a light switch — instant, no warm-up.</p>',
+        exercise: {
+          name: 'Light Switch Onset',
+          steps: [
+            'Hum on "mmm" for 3 seconds — feel the buzz',
+            'Now say "ah" with the SAME instant feeling — no "h" before it',
+            'If you hear "hah", that is breathy. Try again.',
+            'Practice: hum 5 sec → open to "ah" keeping the buzz',
+            'Do this 10 times. Every note should feel like it was already there.'
+          ],
+          skill: 'source',
+          xp: 15
+        }
+      },
+      {
+        id: 'm3',
+        outcome: 'Be able to sing with a clear, ringing tone that projects without shouting',
+        title: 'Forward Resonance',
+        xp: 20,
+        content: '<p>Your voice resonates in different places. <b>Forward</b> (lips, cheekbones, nose bridge) = clear and projecting. <b>Throat</b> = dark but swallowed. You want forward.</p><p>The test: hum and touch your lips. Feel the buzz? That is forward resonance. Now keep that buzz while you open to a vowel.</p>',
+        exercise: {
+          name: 'Buzz Carrier',
+          steps: [
+            'Hum on "mmm" — feel buzz on lips and nose',
+            'Open to "mah" — the buzz should STAY on your lips',
+            'If the buzz drops to your throat, start over',
+            'Practice sliding: "mmm" → "mah" → "mmm" → "mah"',
+            'Do 10 reps. Every "mah" should feel like it is vibrating in your face.'
+          ],
+          skill: 'resonance',
+          xp: 20
+        }
+      },
+      {
+        id: 'm4',
+        outcome: 'Be able to sing lyrics so every word is clear — even on fast songs',
+        title: 'Crisp Articulation',
+        xp: 15,
+        content: '<p>Singing is sustained speech. Your lips and tongue must work. Your jaw must stay relaxed. Most singers either mumble (lazy lips) or clamp (tense jaw). You want: <b>active lips, relaxed jaw</b>.</p>',
+        exercise: {
+          name: 'Lip Gymnastics',
+          steps: [
+            'Speak "ma-me-mi-mo-mu" — exaggerate every consonant',
+            'Now sing it on one pitch — same exaggeration',
+            'Try "la-le-li-lo-lu" — feel your tongue working',
+            'Now try a fast lyric from a song you know',
+            'If any word is unclear, slow it down and exaggerate, then speed up.'
+          ],
+          skill: 'articulation',
+          xp: 15
+        }
+      },
+      {
+        id: 'm5',
+        outcome: 'Be able to sing high notes without straining — using mix voice',
+        title: 'Mix Voice: No More Breaking',
+        xp: 25,
+        content: '<p>Your voice has a "break" — a spot where chest voice stops and head voice begins. Most singers either flip (yodel) or push (strain). <b>Mix voice</b> bridges the gap.</p><p>The secret: start in head voice (light, floaty) and add weight. Not the other way around.</p>',
+        exercise: {
+          name: 'Ng Slide',
+          steps: [
+            'Say "ng" (like the end of "sing") — feel the buzz in your nose',
+            'Slide from low to high on "ng" — no break, just a smooth glide',
+            'Now try "nah" in the same range — keep the same light feeling',
+            'If you feel a crack, go back to "ng" and try again',
+            'Practice daily. The break zone gets smoother every week.'
+          ],
+          skill: 'mix',
+          xp: 25
+        }
+      },
+      {
+        id: 'm6',
+        outcome: 'Be able to belt safely — powerful high notes without damage',
+        title: 'Safe Belt Technique',
+        xp: 30,
+        content: '<p>Belting is not yelling. It is <b>chest-dominant mix with twang</b>. The larynx is slightly high. The sound is forward and brassy. If your throat hurts, you are doing it wrong.</p><p>Start low. Build up. Never force.</p>',
+        exercise: {
+          name: 'Brassy "Nay"',
+          steps: [
+            'Say "nay" like a bratty kid — feel the twang?',
+            'Sing "nay" on a comfortable mid-range note — keep that bratty quality',
+            'Slide up slowly — the twang should stay, the throat should stay relaxed',
+            'If you feel strain, stop. Go lower. Try again.',
+            'Goal: belt one octave above your speaking voice without throat tension.'
+          ],
+          skill: 'mix',
+          xp: 30
+        }
+      }
+    ]
+  },
+
+  // ===== EAR TRAINING =====
+  ear: {
+    title: 'Ear Training',
+    icon: 'E',
+    color: 'ok',
+    modules: [
+      {
+        id: 'e1',
+        outcome: 'Be able to hear when you are sharp or flat — and correct it instantly',
+        title: 'Pitch Awareness',
+        xp: 15,
+        content: '<p>Most singers who "cannot sing" actually have untrained ears. Pitch is a skill. You can learn to hear it.</p><p><b>Sharp</b> = above the note (tense). <b>Flat</b> = below the note (lazy). <b>In tune</b> = locked in.</p>',
+        exercise: {
+          name: 'Mirror Pitch',
+          steps: [
+            'Play a note on a piano app or YouTube',
+            'Sing it back. Listen: are you above, below, or on?',
+            'If sharp, relax and drop slightly. If flat, add a tiny bit of energy.',
+            'Try 5 different notes. Score yourself: how many were in tune?',
+            'Repeat daily. Your accuracy will improve fast.'
+          ],
+          skill: 'ear',
+          xp: 15
+        }
+      },
+      {
+        id: 'e2',
+        outcome: 'Be able to sing intervals — 3rds, 5ths, octaves — on demand',
+        title: 'Interval Recognition',
+        xp: 20,
+        content: '<p>Intervals are the distance between two notes. If you can hear and sing intervals, you can learn any song by ear.</p><p>Start with the easy ones: <b>octave</b> (same note, higher), <b>5th</b> (twinkle twinkle), <b>3rd</b> (first two notes of "When the Saints").</p>',
+        exercise: {
+          name: 'Interval Flashcards',
+          steps: [
+            'Play a root note. Then play a 5th above. Sing both.',
+            'Play a root note. Then a 3rd above. Sing both.',
+            'Play a root note. Then an octave above. Sing both.',
+            'Now try without the piano: sing a note, then sing a 5th above from memory.',
+            'Do 10 reps of each interval. Use solfege: do-sol (5th), do-mi (3rd), do-do (octave).'
+          ],
+          skill: 'ear',
+          xp: 20
+        }
+      },
+      {
+        id: 'e3',
+        outcome: 'Be able to hear a chord and identify if it is major, minor, or dominant',
+        title: 'Chord Quality',
+        xp: 25,
+        content: '<p>Chords have colors. <b>Major</b> = happy/bright. <b>Minor</b> = sad/dark. <b>Dominant</b> = tense/wants to resolve. Hearing these is essential for playing by ear and understanding music.</p>',
+        exercise: {
+          name: 'Chord Color Sort',
+          steps: [
+            'Play a major chord. Listen. Say "bright."',
+            'Play a minor chord. Listen. Say "dark."',
+            'Play a dominant 7th. Listen. Say "tense."',
+            'Now have someone play random chords. Call out major/minor/dominant.',
+            'Goal: 80% accuracy on 20 random chords.'
+          ],
+          skill: 'ear',
+          xp: 25
+        }
+      }
+    ]
+  },
+
+  // ===== MUSIC THEORY =====
+  theory: {
+    title: 'Music Theory',
+    icon: 'T',
+    color: 'gold',
+    modules: [
+      {
+        id: 't1',
+        outcome: 'Be able to read sheet music — notes, rhythms, and time signatures',
+        title: 'Read the Page',
+        xp: 20,
+        content: '<p>Sheet music is a map. Notes tell you <b>what</b> to play. Rhythm tells you <b>when</b>. Time signature tells you <b>how to count</b>.</p><p>Treble clef lines: <b>E</b>very <b>G</b>ood <b>B</b>oy <b>D</b>oes <b>F</b>ine. Spaces: <b>F</b>ACE.</p>',
+        exercise: {
+          name: 'Note Flash',
+          steps: [
+            'Write out the treble clef: lines E-G-B-D-F, spaces F-A-C-E',
+            'Quiz yourself: point to a random line/space, name the note in 2 seconds',
+            'Now add bass clef: lines G-B-D-F-A, spaces A-C-E-G',
+            'Practice reading a simple melody from sheet music',
+            'Goal: read 20 notes in 60 seconds without mistakes.'
+          ],
+          skill: 'theory',
+          xp: 20
+        }
+      },
+      {
+        id: 't2',
+        outcome: 'Be able to build any major or minor scale from any starting note',
+        title: 'Scale Builder',
+        xp: 20,
+        content: '<p>Scales are patterns. Major scale pattern: <b>whole-whole-half-whole-whole-whole-half</b> (WWHWWWH). Minor scale: <b>whole-half-whole-whole-half-whole-whole</b>.</p><p>Start on any note. Apply the pattern. You have a scale.</p>',
+        exercise: {
+          name: 'Scale Construction',
+          steps: [
+            'Pick a starting note (e.g., C). Apply WWHWWWH. You get C major.',
+            'Pick G. Apply the pattern. You get G major (notice the F#).',
+            'Pick A. Apply WHWWHWW. You get A minor.',
+            'Build 5 major scales and 5 minor scales from random starting notes.',
+            'Goal: build any major scale in under 30 seconds.'
+          ],
+          skill: 'theory',
+          xp: 20
+        }
+      },
+      {
+        id: 't3',
+        outcome: 'Be able to identify key signatures — how many sharps or flats',
+        title: 'Key Signature Decoder',
+        xp: 20,
+        content: '<p>Key signatures tell you which notes are sharp or flat throughout a piece. <b>Circle of fifths</b> is your cheat sheet.</p><p>Sharps order: <b>F</b>ather <b>C</b>harles <b>G</b>oes <b>D</b>own <b>A</b>nd <b>E</b>nds <b>B</b>attle. Flats: reverse.</p>',
+        exercise: {
+          name: 'Key Signature Speed',
+          steps: [
+            'Memorize: 1 sharp = G major, 2 sharps = D major, 3 = A major',
+            'Memorize: 1 flat = F major, 2 flats = Bb major, 3 = Eb major',
+            'Look at a key signature. Name the key in 5 seconds.',
+            'Do 20 key signatures. Time yourself.',
+            'Goal: identify any key signature in under 3 seconds.'
+          ],
+          skill: 'theory',
+          xp: 20
+        }
+      },
+      {
+        id: 't4',
+        outcome: 'Be able to build and identify triads — major, minor, diminished, augmented',
+        title: 'Triad Architect',
+        xp: 25,
+        content: '<p>Triads are 3-note chords. <b>Major</b> = root + major 3rd + perfect 5th. <b>Minor</b> = root + minor 3rd + perfect 5th. <b>Diminished</b> = root + minor 3rd + diminished 5th. <b>Augmented</b> = root + major 3rd + augmented 5th.</p>',
+        exercise: {
+          name: 'Triad Factory',
+          steps: [
+            'Build C major: C + E + G. Play or sing it.',
+            'Build C minor: C + Eb + G. Hear the difference?',
+            'Build C diminished: C + Eb + Gb. Sounds tense.',
+            'Build C augmented: C + E + G#. Sounds dreamy.',
+            'Now build all 4 types starting on F, G, and Bb.'
+          ],
+          skill: 'theory',
+          xp: 25
+        }
+      },
+      {
+        id: 't5',
+        outcome: 'Be able to sight-sing a simple melody you have never seen before',
+        title: 'Sight-Singing',
+        xp: 30,
+        content: '<p>Sight-singing = reading music and singing it instantly. It is the ultimate test of musicianship. If you can do this, you can learn any song from sheet music.</p><p>Use solfege: Do-Re-Mi-Fa-Sol-La-Ti-Do. Each syllable = one scale degree.</p>',
+        exercise: {
+          name: 'First Sight',
+          steps: [
+            'Pick a simple melody in C major (no accidentals)',
+            'Identify the key and starting note',
+            'Sing the scale: Do-Re-Mi-Fa-Sol-La-Ti-Do',
+            'Now read the melody note by note, singing each one',
+            'Start slow. Speed comes with practice. Do one new melody daily.'
+          ],
+          skill: 'sight',
+          xp: 30
+        }
+      }
+    ]
+  },
+
+  // ===== PERFORMANCE =====
+  performance: {
+    title: 'Performance',
+    icon: 'P',
+        color: 'warn',
+    modules: [
+      {
+        id: 'p1',
+        outcome: 'Be able to perform a song with emotional connection — not just correct notes',
+        title: 'Sing With Meaning',
+        xp: 20,
+        content: '<p>Anyone can hit the notes. But <b>performance</b> is about making the audience feel something. The secret: <b>know what you are singing about</b>.</p><p>Before you sing a song, answer: What is this song about? What am I trying to say? Who am I saying it to?</p>',
+        exercise: {
+          name: 'Emotion Map',
+          steps: [
+            'Pick a song you know well',
+            'Write down the emotion of each section (verse 1, chorus, verse 2, bridge)',
+            'Sing it again — this time, focus ONLY on the emotion, not the technique',
+            'Record yourself. Listen: can you hear the story?',
+            'If it sounds flat, go deeper into the lyrics. What would YOU feel in that moment?'
+          ],
+          skill: 'performance',
+          xp: 20
+        }
+      },
+      {
+        id: 'p2',
+        outcome: 'Be able to manage stage fright and perform under pressure',
+        title: 'Own the Stage',
+        xp: 20,
+        content: '<p>Stage fright is your body preparing for danger. The trick: <b>redirect the energy</b>. Nervous energy and excited energy feel the same. Tell yourself "I am excited" instead of "I am scared."</p>',
+        exercise: {
+          name: 'Pressure Training',
+          steps: [
+            'Sing your song alone. Notice how it feels.',
+            'Now sing it for one person you trust. Notice the difference.',
+            'Sing it for 3 people. Then 5. Then 10.',
+            'Record yourself on video. Watch it. Get used to being seen.',
+            'The goal is not to eliminate nerves. It is to perform well DESPITE them.'
+          ],
+          skill: 'performance',
+          xp: 20
+        }
+      }
+    ]
+  },
+
+  // ===== STYLE & GENRE =====
+  style: {
+    title: 'Style Mastery',
+    icon: 'S',
+    color: 'pri',
+    modules: [
+      {
+        id: 's1',
+        outcome: 'Be able to switch between 5 vocal styles — worship, pop, R&B, Afro, ballad',
+        title: 'Style Chameleon',
+        xp: 25,
+        content: '<p>Style is not a different voice. It is the <b>same voice with different settings</b>. Larynx height, resonance placement, vowel shape, and dynamics create style.</p><p>Worship: open, bright, sustained. Pop: forward, conversational. R&B: smooth, runs, dynamics. Afro: rhythmic, percussive. Ballad: intimate, breathy, emotional.</p>',
+        exercise: {
+          name: 'Style Swap',
+          steps: [
+            'Pick one phrase (e.g., "I will sing unto the Lord")',
+            'Sing it in worship style: open, bright, sustained',
+            'Sing it in pop style: forward, conversational, rhythmic',
+            'Sing it in R&B style: smooth, add a run, dynamics',
+            'Sing it in Afro style: rhythmic, percussive, syncopated',
+            'Sing it in ballad style: soft, intimate, breathy',
+            'If you can do all 5, you are a versatile singer.'
+          ],
+          skill: 'style',
+          xp: 25
+        }
+      }
+    ]
+  },
+
+  // ===== CAREER & MONETIZATION =====
+  career: {
+    title: 'Music Career',
+        icon: 'C',
+    color: 'ok',
+    modules: [
+      {
+        id: 'c1',
+        outcome: 'Be able to set up a basic music brand — name, image, and online presence',
+        title: 'Build Your Brand',
+        xp: 15,
+        content: '<p>Your brand is <b>who you are as an artist</b>. It is not just a logo. It is your sound, your story, your look, your values.</p><p>Ask yourself: What makes me different? What do I stand for? Who is my audience?</p>',
+        exercise: {
+          name: 'Brand Blueprint',
+          steps: [
+            'Write your artist statement in 3 sentences: Who are you? What do you sing? Why?',
+            'Choose 3 adjectives that describe your sound (e.g., "soulful, powerful, authentic")',
+            'Pick a color palette (3 colors) that represents your brand',
+            'Set up or optimize your Instagram/Bio to reflect your brand',
+            'Post one piece of content this week that aligns with your brand.'
+          ],
+          skill: 'theory',
+          xp: 15
+        }
+      },
+      {
+        id: 'c2',
+        outcome: 'Be able to monetize your voice — at least 3 income streams for singers',
+        title: 'Get Paid to Sing',
+        xp: 20,
+        content: '<p>Singers have more income streams than ever: <b>live performances</b>, <b>session vocals</b>, <b>teaching</b>, <b>content creation</b>, <b>licensing</b>, <b>coaching</b>.</p><p>The key: start with what you have now. Build from there.</p>',
+        exercise: {
+          name: 'Income Map',
+          steps: [
+            'List every way you currently earn (or could earn) from your voice',
+            'Rate each: how realistic is it in the next 3 months? (1-5)',
+            'Pick the top 3. Write one action step for each.',
+            'Example: "Session vocals → create a demo reel → post on SoundBetter"',
+            'Take one action this week. Revenue starts with movement.'
+          ],
+          skill: 'theory',
+          xp: 20
+        }
+      }
+    ]
+  }
+};
+
+// ============================================================
+// SONG LIBRARY — with practical YouTube reference examples
+// ============================================================
+var SONGS = [
+  // BEGINNER
+  { id: 'sg1', title: 'Breathe On Me', artist: 'Worship', level: 1, tags: ['breath control', 'sustained notes'], focus: 'Sing each phrase on one breath. Feel the rib expansion.', ref: 'Search YouTube: "Breathe On Me worship tutorial"' },
+  { id: 'sg2', title: 'Great Are You Lord', artist: 'Worship', level: 1, tags: ['steady airflow', 'dynamics'], focus: 'Steady airflow on sustained notes. No pushing.', ref: 'Search YouTube: "Great Are You Lord vocal tutorial"' },
+  { id: 'sg3', title: 'Amazing Grace', artist: 'Traditional', level: 1, tags: ['pitch', 'simplicity'], focus: 'Every note in tune. Simple melody, pure tone.', ref: 'Search YouTube: "Amazing Grace singing lesson"' },
+
+  // INTERMEDIATE
+  { id: 'sg4', title: 'Hallelujah', artist: 'Leonard Cohen', level: 2, tags: ['emotion', 'dynamics', 'storytelling'], focus: 'Tell the story. Soft verses, powerful chorus. Dynamics tell the tale.', ref: 'Search YouTube: "Hallelujah vocal analysis"' },
+  { id: 'sg5', title: 'Someone Like You', artist: 'Adele', level: 2, tags: ['belt', 'emotion', 'mix voice'], focus: 'Intimate verses, powerful chorus. Mix voice on the high notes.', ref: 'Search YouTube: "Someone Like You vocal technique"' },
+  { id: 'sg6', title: 'Essence', artist: 'Wizkid ft. Tems', level: 2, tags: ['Afro', 'rhythm', 'style'], focus: 'Rhythmic precision. Speak the lyrics first, then sing them.', ref: 'Search YouTube: "Essence vocal cover tutorial"' },
+  { id: 'sg7', title: 'Thinking Out Loud', artist: 'Ed Sheeran', level: 2, tags: ['soft tone', 'clarity', 'intimacy'], focus: 'Soft and clear. Every word matters. No shouting.', ref: 'Search YouTube: "Thinking Out Loud singing tips"' },
+  { id: 'sg8', title: 'All I Ask', artist: 'Adele', level: 2, tags: ['belt', 'range', 'control'], focus: 'Massive range. Control the belt. Do not push.', ref: 'Search YouTube: "All I Ask Adele vocal analysis"' },
+
+  // ADVANCED
+  { id: 'sg9', title: 'I Will Always Love You', artist: 'Whitney Houston', level: 3, tags: ['belt', 'mix', 'runs', 'dynamics'], focus: 'The ultimate test. Belt, mix, runs, and emotional dynamics. All in one song.', ref: 'Search YouTube: "I Will Always Love You vocal analysis"' },
+  { id: 'sg10', title: 'Listen', artist: 'Beyonce', level: 3, tags: ['belt', 'runs', 'power', 'control'], focus: 'Power with precision. Every run must be clean. Every belt must be safe.', ref: 'Search YouTube: "Listen Beyonce vocal tutorial"' },
+  { id: 'sg11', title: 'Gravity', artist: 'John Mayer', level: 3, tags: ['style', 'runs', 'soul', 'improvisation'], focus: 'Soul singing. Runs, improvisation, style. Make it yours.', ref: 'Search YouTube: "Gravity John Mayer vocal cover"' },
+  { id: 'sg12', title: 'Jealous', artist: 'Labrinth', level: 3, tags: ['mix', 'emotion', 'breaks', 'control'], focus: 'Emotional breaks. Mix voice control. Raw and vulnerable.', ref: 'Search YouTube: "Jealous Labrinth vocal analysis"' },
+  { id: 'sg13', title: 'Runnin\' (Lose It All)', artist: 'Naughty Boy ft. Beyonce', level: 3, tags: ['belt', 'breath', 'power', 'Afro-fusion'], focus: 'Breath control at speed. Belt over Afro beat. Power + precision.', ref: 'Search YouTube: "Runnin vocal tutorial"' },
+  { id: 'sg14', title: 'Love on the Brain', artist: 'Rihanna', level: 3, tags: ['Doo-wop', 'style', 'runs', 'retro'], focus: 'Retro style. Doo-wop runs. Vibrato control. Style shift.', ref: 'Search YouTube: "Love on the Brain vocal analysis"' }
+];
+
+// ============================================================
+// MILLIONAIRE QUIZ QUESTIONS
+// ============================================================
+var QUIZ_QUESTIONS = [
+  // Level 1 - Easy (100-500)
+  { q: 'What is the term for the space between two notes?', options: ['Interval', 'Chord', 'Scale', 'Octave'], answer: 0, prize: 100 },
+  { q: 'How many beats does a whole note get in 4/4 time?', options: ['1', '2', '3', '4'], answer: 3, prize: 200 },
+  { q: 'What does "forte" (f) mean in music?', options: ['Soft', 'Loud', 'Fast', 'Slow'], answer: 1, prize: 300 },
+  { q: 'What is the home key of a song called?', options: ['Dominant', 'Tonic', 'Subdominant', 'Modulation'], answer: 1, prize: 500 },
+  // Level 2 - Medium (1K-5K)
+  { q: 'What is the relative minor of C major?', options: ['A minor', 'E minor', 'G minor', 'D minor'], answer: 0, prize: 1000 },
+  { q: 'Which vocal register is the lowest for most singers?', options: ['Falsetto', 'Chest voice', 'Head voice', 'Whistle'], answer: 1, prize: 2000 },
+  { q: 'What is a "glottal stop"?', options: ['A type of breath', 'A vocal fold closure', 'A resonance technique', 'A singing style'], answer: 1, prize: 5000 },
+  { q: 'What does "appoggio" mean in singing?', options: ['Breath support', 'Vowel placement', 'Larynx control', 'Resonance'], answer: 0, prize: 10000 },
+  // Level 3 - Hard (25K-100K)
+  { q: 'What is the interval between C and G?', options: ['Major 3rd', 'Perfect 4th', 'Perfect 5th', 'Major 6th'], answer: 2, prize: 25000 },
+  { q: 'In solfege, what syllable represents the 5th scale degree?', options: ['Mi', 'Fa', 'Sol', 'La'], answer: 2, prize: 50000 },
+  { q: 'What is the term for singing multiple notes on one syllable?', options: ['Vibrato', 'Melisma', 'Staccato', 'Legato'], answer: 1, prize: 75000 },
+  { q: "What is the 'passaggio' in singing?", options: ['A song section', 'A register break', 'A breathing technique', 'A style'], answer: 1, prize: 100000 },
+  // Level 4 - Expert (250K-1M)
+  { q: 'What is the harmonic series?', options: ['A chord progression', 'Overtones above a fundamental', 'A scale pattern', 'A rhythm pattern'], answer: 1, prize: 250000 },
+  { q: 'Which form is AABA most associated with?', options: ['Sonata', '32-bar song form', 'Rondo', 'Theme and variations'], answer: 1, prize: 500000 },
+  { q: 'What is "formant tuning" in classical singing?', options: ['Matching resonance to vowel', 'Tuning the larynx', 'Adjusting breath pressure', 'Changing pitch'], answer: 0, prize: 750000 },
+  { q: 'Who is considered the father of modern vocal pedagogy?', options: ['Manuel Garcia II', 'Lamperti', 'Lilli Lehmann', 'Enrico Caruso'], answer: 0, prize: 1000000 }
+];
+
+var PRIZE_LADDER = [100, 200, 300, 500, 1000, 2000, 5000, 10000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000];
+var SAFE_MILESTONES = [3, 7, 11]; // indices for 500, 10000, 100000
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+function renderHome() {
+  var c = document.getElementById('h-c');
+  document.getElementById('h-xp').textContent = U.xp + ' XP';
+  var h = '';
+  h += '<div class="hero"><h1>Welcome, ' + esc(U.name) + '</h1><p>' + COACH.say('greetings', {name: U.name}) + '</p></div>';
+
+  // Vocal load
+  var loadPct = Math.round((U.vocalLoad / U.maxLoad) * 100);
+  var loadClass = loadPct > 80 ? 'danger' : loadPct > 50 ? 'warn' : 'ok';
+  h += '<div class="sec"><div class="sec-h"><span class="sec-t">Vocal Load Today</span><span class="text-xs text-muted">' + loadPct + '%</span></div>';
+  h += '<div class="vocal-load"><div class="vocal-load-f ' + loadClass + '" style="width:' + loadPct + '%"></div></div>';
+  if (loadPct > 80) h += '<p class="text-xs text-err mt-2">Your voice needs rest. Do light exercises only.</p>';
+  h += '</div>';
+
+  // Quick practice grid
+  h += '<div class="sec"><div class="sec-h"><span class="sec-t">Quick Practice</span></div>';
+  h += '<div class="grid-2">';
+  var dp = [
+    {n: 'Breath', s: 'airflow', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M12 16V8"/><path d="M8 12l4-4 4 4"/></svg>'},
+    {n: 'Onset', s: 'source', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>'},
+    {n: 'Resonance', s: 'resonance', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4m14 0h-4m-7 7v-4m0-6V5"/></svg>'},
+    {n: 'Mix', s: 'mix', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 12h18"/><path d="M5.6 5.6l12.8 12.8"/><path d="M18.4 5.6L5.6 18.4"/></svg>'}
+  ];
+  for (var i = 0; i < dp.length; i++) {
+    var d = dp[i];
+    h += '<div class="c text-center" style="padding:var(--s4);cursor:pointer" onclick="quickDrill(\'' + d.s + '\')">';
+    h += '<div style="width:32px;height:32px;margin:0 auto var(--s2);color:var(--pri);display:flex;align-items:center;justify-content:center">' + d.icon + '</div>';
+    h += '<div class="text-sm text-bold">' + d.n + '</div></div>';
+  }
+  h += '</div></div>';
+
+  // Continue learning
+  h += '<div class="sec"><div class="sec-h"><span class="sec-t">Continue Learning</span></div>';
+  h += '<div class="li" onclick="go(\'learn\')"><div class="li-ic">L</div><div class="li-b"><div class="li-t">Full Curriculum</div><div class="li-sub">6 outcome-based modules</div></div><span class="li-r">Go</span></div>';
+  h += '<div class="li" onclick="go(\'theory\')"><div class="li-ic">T</div><div class="li-b"><div class="li-t">Music Theory</div><div class="li-sub">5 theory modules</div></div><span class="li-r">Go</span></div>';
+  h += '</div>';
+
+  // Quiz CTA
+  h += '<div class="sec"><div class="sec-h"><span class="sec-t">Test Yourself</span></div>';
+  h += '<div class="c c-g" onclick="go(\'quiz\')" style="cursor:pointer">';
+  h += '<div style="display:flex;justify-content:space-between;align-items:center">';
+  h += '<div><div class="text-bold">Who Wants to Be a Musician?</div><div class="text-xs text-muted">16 questions. Can you win ₦1,000,000?</div></div>';
+  h += '<span class="tag tag-g">HIGH SCORE: ' + U.quizHighScore + '</span></div>';
+  h += '</div></div>';
+
+  c.innerHTML = h;
+}
+
+function renderLearn() {
+  var c = document.getElementById('l-c');
+  var h = '';
+  h += '<div class="hero"><h1>Learn</h1><p>Every module ends with a skill you can use immediately.</p></div>';
+
+  var sections = ['mechanics', 'ear', 'performance', 'style'];
+  var sectionTitles = {mechanics: 'Vocal Mechanics', ear: 'Ear Training', performance: 'Performance', style: 'Style Mastery'};
+
+  for (var s = 0; s < sections.length; s++) {
+    var sec = CURRICULUM[sections[s]];
+    if (!sec) continue;
+    h += '<div class="sec"><div class="sec-h"><span class="sec-t">' + sec.title + '</span></div>';
+    for (var i = 0; i < sec.modules.length; i++) {
+      var m = sec.modules[i];
+      var done = U.completed.indexOf(m.id) !== -1;
+      h += '<div class="li" onclick="openModule(\'' + sections[s] + '\',' + i + ')">';
+      h += '<div class="li-ic" style="background:' + (done ? 'oklch(0.72 0.18 145 / 0.15)' : '') + ';color:' + (done ? 'var(--ok)' : '') + '">' + (done ? '✓' : sec.icon) + '</div>';
+      h += '<div class="li-b"><div class="li-t">' + m.outcome + '</div>';
+      h += '<div class="li-sub">' + m.title + '</div></div>';
+      h += '<span class="li-r">+' + m.xp + '</span></div>';
+    }
+    h += '</div>';
+  }
+
+  c.innerHTML = h;
+}
+
+function renderTheory() {
+  var c = document.getElementById('t-c');
+  var h = '';
+  h += '<div class="hero"><h1>Music Theory</h1><p>Know the rules. Then break them with intention.</p></div>';
+
+  var sec = CURRICULUM.theory;
+  for (var i = 0; i < sec.modules.length; i++) {
+    var m = sec.modules[i];
+    var done = U.completed.indexOf(m.id) !== -1;
+    h += '<div class="li" onclick="openModule(\'theory\',' + i + ')">';
+    h += '<div class="li-ic" style="background:' + (done ? 'oklch(0.72 0.18 145 / 0.15)' : '') + ';color:' + (done ? 'var(--ok)' : '') + '">' + (done ? '✓' : sec.icon) + '</div>';
+    h += '<div class="li-b"><div class="li-t">' + m.outcome + '</div>';
+    h += '<div class="li-sub">' + m.title + '</div></div>';
+    h += '<span class="li-r">+' + m.xp + '</span></div>';
+  }
+
+  // Career section
+  h += '<div class="sec" style="margin-top:var(--s6)"><div class="sec-h"><span class="sec-t">Music Career</span></div>';
+  var csec = CURRICULUM.career;
+  for (var j = 0; j < csec.modules.length; j++) {
+    var cm = csec.modules[j];
+    var cdone = U.completed.indexOf(cm.id) !== -1;
+    h += '<div class="li" onclick="openModule(\'career\',' + j + ')">';
+    h += '<div class="li-ic" style="background:' + (cdone ? 'oklch(0.72 0.18 145 / 0.15)' : '') + ';color:' + (cdone ? 'var(--ok)' : '') + '">' + (cdone ? '✓' : csec.icon) + '</div>';
+    h += '<div class="li-b"><div class="li-t">' + cm.outcome + '</div>';
+    h += '<div class="li-sub">' + cm.title + '</div></div>';
+    h += '<span class="li-r">+' + cm.xp + '</span></div>';
+  }
+  h += '</div>';
+
+  c.innerHTML = h;
+}
+
+function renderPractice() {
+  var c = document.getElementById('p-c');
+  var h = '';
+  h += '<div class="hero"><h1>Practice</h1><p>Repetition builds mastery. Do it daily.</p></div>';
+
+  var drills = [
+    {n: 'Breath Hold', s: 'airflow', desc: '20 sec hiss, ribs out'},
+    {n: 'Clean Onset', s: 'source', desc: 'Hum to vowel, no breathy h'},
+    {n: 'Forward Hum', s: 'resonance', desc: 'Buzz on lips, carry to vowel'},
+    {n: 'Lip Gymnastics', s: 'articulation', desc: 'Ma-me-mi-mo-mu on pitch'},
+    {n: 'Ng Slide', s: 'mix', desc: 'Smooth slide through break zone'},
+    {n: 'Pitch Match', s: 'ear', desc: 'Play note, sing it back'}
+  ];
+
+  for (var i = 0; i < drills.length; i++) {
+    var d = drills[i];
+    h += '<div class="li" onclick="quickDrill(\'' + d.s + '\')">';
+    h += '<div class="li-b"><div class="li-t">' + d.n + '</div>';
+    h += '<div class="li-sub">' + d.desc + '</div></div>';
+    h += '<span class="li-r">+10</span></div>';
+  }
+
+  h += '<div class="c c-a" onclick="startDiag()" style="cursor:pointer">';
+  h += '<div class="text-bold">Voice Diagnostic</div>';
+  h += '<div class="text-xs text-muted">Tell us what you are struggling with. We will prescribe the right exercise.</div></div>';
+
+  c.innerHTML = h;
+}
+
+function renderSongs() {
+  var c = document.getElementById('g-c');
+  var h = '';
+  h += '<div class="hero"><h1>Songs</h1><p>Apply your training to real songs. Each one targets specific skills.</p></div>';
+
+  var levels = ['Beginner', 'Intermediate', 'Advanced'];
+  var levelColors = ['ok', 'pri', 'gold'];
+
+  for (var lv = 0; lv < 3; lv++) {
+    h += '<div class="sec"><div class="sec-h"><span class="sec-t">' + levels[lv] + '</span></div>';
+    for (var i = 0; i < SONGS.length; i++) {
+      var s = SONGS[i];
+      if (s.level !== lv + 1) continue;
+      var done = U.completedSongs.indexOf(s.id) !== -1;
+      h += '<div class="song-card" onclick="openSong(\'' + s.id + '\')">';
+      h += '<div class="song-art">' + (done ? '✓' : (lv + 1)) + '</div>';
+      h += '<div class="song-info"><div class="song-title">' + s.title + '</div>';
+      h += '<div class="song-artist">' + s.artist + '</div>';
+      h += '<div class="song-tags">';
+      for (var t = 0; t < s.tags.length; t++) {
+        h += '<span class="tag tag-p" style="font-size:0.55rem;padding:1px 6px">' + s.tags[t] + '</span>';
+      }
+      h += '</div></div></div>';
+    }
+    h += '</div>';
+  }
+
+  c.innerHTML = h;
+}
+
+function renderQuiz() {
+  var c = document.getElementById('q-c');
+  var h = '';
+  h += '<div class="hero"><h1>Who Wants to Be a Musician?</h1><p>16 questions. 4 lifelines. Can you win ₦1,000,000?</p></div>';
+
+  h += '<div class="c c-g text-center" style="padding:var(--s6);margin-bottom:var(--s5)">';
+  h += '<div style="font-size:2.5rem;font-weight:900;color:var(--gold)">₦' + U.quizHighScore.toLocaleString() + '</div>';
+  h += '<div class="text-xs text-muted">Your highest score</div></div>';
+
+  h += '<button class="btn btn-p" onclick="startMillionaire()">Start Game</button>';
+  h += '<button class="btn btn-g" onclick="go(\'home\')">Back to Home</button>';
+
+  c.innerHTML = h;
+}
+
+function renderProgress() {
+  var c = document.getElementById('r-c');
+  var h = '';
+  h += '<div class="hero"><h1>Your Progress</h1><p>Track your growth as a musician.</p></div>';
+
+  // Stats
+  h += '<div class="grid-2 mb-4">';
+  h += '<div class="c text-center"><div style="font-size:1.5rem;font-weight:900;color:var(--pri)">' + U.xp + '</div><div class="text-xs text-muted">Total XP</div></div>';
+  h += '<div class="c text-center"><div style="font-size:1.5rem;font-weight:900;color:var(--gold)">' + U.sessions + '</div><div class="text-xs text-muted">Sessions</div></div>';
+  h += '<div class="c text-center"><div style="font-size:1.5rem;font-weight:900;color:var(--ok)">' + U.completed.length + '</div><div class="text-xs text-muted">Modules Done</div></div>';
+  h += '<div class="c text-center"><div style="font-size:1.5rem;font-weight:900">' + U.completedSongs.length + '</div><div class="text-xs text-muted">Songs Practiced</div></div>';
+  h += '</div>';
+
+  // Skills
+  h += '<div class="sec"><div class="sec-h"><span class="sec-t">Skill Levels</span></div>';
+  var skillNames = {airflow: 'Breath', source: 'Onset', resonance: 'Resonance', articulation: 'Articulation', ear: 'Ear', mix: 'Mix Voice', performance: 'Performance', theory: 'Theory', sight: 'Sight-Singing', style: 'Style'};
+  var skillKeys = Object.keys(skillNames);
+  for (var s = 0; s < skillKeys.length; s++) {
+    var sk = skillKeys[s];
+    var lvl = U.skills[sk] || 0;
+    var pct = lvl * 10;
+    var barClass = lvl >= 7 ? 'pr-ok' : lvl >= 4 ? '' : 'pr-g';
+    h += '<div style="margin-bottom:var(--s3)"><div style="display:flex;justify-content:space-between;margin-bottom:var(--s1)">';
+    h += '<span class="text-sm text-bold">' + skillNames[sk] + '</span>';
+    h += '<span class="text-xs text-muted">' + lvl + '/10</span></div>';
+    h += '<div class="pr ' + barClass + '"><div class="pr-f" style="width:' + pct + '%"></div></div></div>';
+  }
+  h += '</div>';
+
+  // Badges
+  if (U.badges.length > 0) {
+    h += '<div class="sec"><div class="sec-h"><span class="sec-t">Badges</span></div>';
+    h += '<div style="display:flex;flex-wrap:wrap;gap:var(--s2)">';
+    for (var b = 0; b < U.badges.length; b++) {
+      h += '<span class="badge">' + U.badges[b] + '</span>';
+    }
+    h += '</div></div>';
+  }
+
+  h += '<button class="btn btn-w" style="margin-top:var(--s5)" onclick="resetAll()">Reset All Progress</button>';
+
+  c.innerHTML = h;
+}
+
+function renderProfile() {
+  var c = document.getElementById('f-c');
+  var h = '';
+  h += '<div class="hero"><h1>Profile</h1><p>Your musician identity.</p></div>';
+
+  h += '<div class="c"><label>Name</label><input class="input" value="' + esc(U.name) + '" onchange="U.name=this.value;save();"></div>';
+  h += '<div class="c"><label>Email</label><input class="input" type="email" value="' + esc(U.email) + '" placeholder="your@email.com" onchange="U.email=this.value;save();"></div>';
+
+  h += '<div class="c"><div style="display:flex;justify-content:space-between;margin-bottom:var(--s2)"><span class="text-sm">Level</span><span class="level-badge">' + U.level + '</span></div>';
+  h += '<div class="text-xs text-muted">XP: ' + U.xp + ' | Sessions: ' + U.sessions + '</div></div>';
+
+  // WhatsApp CTA
+  h += '<div class="wa-cta">';
+  h += '<div class="wa-cta-title">Want a Personal Coach?</div>';
+  h += '<div class="wa-cta-sub">Get 1-on-1 vocal coaching with Coach Toby</div>';
+  h += '<a class="wa-btn" href="https://wa.me/2348012345678?text=' + encodeURIComponent('Hi Coach Toby! I am using Singer OS and want to level up my voice. Can we work together?') + '" target="_blank">💬 Chat on WhatsApp</a>';
+  h += '</div>';
+
+  c.innerHTML = h;
+}
+
+// ============================================================
+// MODULE / LESSON VIEWER
+// ============================================================
+function openModule(sectionIdx, moduleIdx) {
+  var sections = ['mechanics', 'ear', 'theory', 'performance', 'style', 'career'];
+  var sec = CURRICULUM[sections[sectionIdx]];
+  if (!sec || !sec.modules[moduleIdx]) return;
+  var m = sec.modules[moduleIdx];
+  var c = document.getElementById('v-c');
+  var done = U.completed.indexOf(m.id) !== -1;
+
+  var h = '';
+  h += '<button class="btn btn-w" style="width:auto;padding:var(--s2) var(--s4);min-height:36px;font-size:var(--xs)" onclick="go(\'' + (sections[sectionIdx] === 'theory' || sections[sectionIdx] === 'career' ? 'theory' : 'learn') + '\')">← Back</button>';
+
+  h += '<div style="margin-top:var(--s4)">';
+  h += '<span class="tag tag-p mb-2">' + sec.title + '</span>';
+  h += '<h1 style="font-size:var(--xl);font-weight:900;letter-spacing:-0.02em;margin:var(--s2) 0">' + m.outcome + '</h1>';
+  h += '<p class="text-muted text-sm mb-4">' + m.title + '</p></div>';
+
+  // Coach message
+  h += '<div class="coach-msg"><p>' + COACH.say('encouragement', {name: U.name}) + '</p></div>';
+
+  // Content
+  h += '<div class="c"><h3 style="font-size:var(--sm);font-weight:800;margin-bottom:var(--s3)">What You Will Learn</h3>' + m.content + '</div>';
+
+  // Exercise
+  if (m.exercise) {
+    h += '<div class="c c-a"><h3 style="font-size:var(--sm);font-weight:800;margin-bottom:var(--s3)">Exercise: ' + m.exercise.name + '</h3>';
+    for (var i = 0; i < m.exercise.steps.length; i++) {
+      h += '<div class="es"><div class="esn">' + (i + 1) + '</div><div class="est"><p>' + m.exercise.steps[i] + '</p></div></div>';
+    }
+    h += '</div>';
+  }
+
+  // Complete button
+  if (done) {
+    h += '<div class="c c-ok text-center"><div style="font-size:1.5rem">✓</div><div class="text-bold">Module Complete</div><div class="text-xs text-muted">+' + m.xp + ' XP earned</div></div>';
+  } else {
+    h += '<button class="btn btn-s" onclick="finishModule(\'' + m.id + '\',' + m.xp + ',\'' + (m.exercise ? m.exercise.skill : '') + '\')">I Did It — Mark Complete (+' + m.xp + ' XP)</button>';
+  }
+
+  c.innerHTML = h;
+  go('session');
+}
+
+function finishModule(id, xp, skill) {
+  U.xp += xp;
+  U.sessions++;
+  if (skill && U.skills[skill] !== undefined) {
+    U.skills[skill] = Math.min(10, U.skills[skill] + 1);
+  }
+  if (U.completed.indexOf(id) === -1) U.completed.push(id);
+  save();
+  showAchieve('🎯', 'Module Complete!', '+' + xp + ' XP earned. ' + COACH.say('encouragement', {name: U.name}));
+  go('learn');
+}
+
+// ============================================================
+// QUICK DRILL
+// ============================================================
+function quickDrill(skill) {
+  var c = document.getElementById('v-c');
+  var drills = {
+    airflow: {name: 'Breath Hold', steps: ['Place hands on ribs', 'Breathe in — ribs expand', 'Hiss "sss" — hold ribs out', 'Goal: 15 seconds', 'Rest. Repeat 3 times.']},
+    source: {name: 'Clean Onset', steps: ['Hum "mmm" for 3 seconds', 'Open to "ah" — no "h" sound', 'If breathy, try again', 'Practice 10 reps', 'Every note should start clean']},
+    resonance: {name: 'Forward Hum', steps: ['Hum "mmm" — feel lip buzz', 'Open to "mah" — buzz stays on lips', 'If buzz drops, start over', 'Slide: mmm → mah → mmm → mah', '10 reps']},
+    articulation: {name: 'Lip Gymnastics', steps: ['Speak: ma-me-mi-mo-mu', 'Sing it on one pitch', 'Exaggerate every consonant', 'Try a fast lyric', 'Every word must be clear']},
+    mix: {name: 'Ng Slide', steps: ['Say "ng" — feel nose buzz', 'Slide low to high on "ng"', 'Try "nah" — same light feeling', 'If you crack, go back to "ng"', '10 smooth slides']},
+    ear: {name: 'Pitch Match', steps: ['Play a note (piano/YouTube)', 'Sing it back', 'Listen: sharp, flat, or in tune?', 'Adjust and try again', '5 notes. How many in tune?']}
+  };
+  var d = drills[skill] || drills.airflow;
+
+  var h = '';
+  h += '<button class="btn btn-w" style="width:auto;padding:var(--s2) var(--s4);min-height:36px;font-size:var(--xs)" onclick="go(\'practice\')">← Back</button>';
+  h += '<h1 style="font-size:var(--lg);font-weight:900;margin:var(--s4) 0 var(--s2)">' + d.name + '</h1>';
+  h += '<p class="text-muted text-sm mb-4">Do this now. Tap when done.</p>';
+
+  h += '<div class="c c-a">';
+  for (var i = 0; i < d.steps.length; i++) {
+    h += '<div class="es"><div class="esn">' + (i + 1) + '</div><div class="est"><p>' + d.steps[i] + '</p></div></div>';
+  }
+  h += '</div>';
+
+  h += '<button class="btn btn-s" onclick="finishQD(\'' + skill + '\')">I Did It (+10 XP)</button>';
+
+  c.innerHTML = h;
+  go('session');
+}
+
+function finishQD(skill) {
+  U.xp += 10;
+  U.vocalLoad = Math.min(U.maxLoad, U.vocalLoad + 5);
+  if (U.skills[skill] !== undefined) {
+    U.skills[skill] = Math.min(10, U.skills[skill] + 1);
+  }
+  U.sessions++;
+  save();
+  toast('Done! +10 XP', 'ok');
+  go('home');
+}
+
+// ============================================================
+// DIAGNOSTIC
+// ============================================================
+var diagSel = [];
+
+function startDiag() {
+  diagSel = [];
+  var syms = [
+    {id: 'pitch', l: 'Pitch wavers or goes flat/sharp'},
+    {id: 'strain', l: 'Voice feels tight or strained'},
+    {id: 'breathy', l: 'Voice sounds breathy or airy'},
+    {id: 'power', l: 'Low volume, no projection'},
+    {id: 'crack', l: 'Voice cracks or breaks'},
+    {id: 'range', l: 'Cannot hit high notes'}
+  ];
+  var c = document.getElementById('v-c');
+  var h = '';
+  h += '<button class="btn btn-w" style="width:auto;padding:var(--s2) var(--s4);min-height:36px;font-size:var(--xs)" onclick="go(\'practice\')">← Back</button>';
+  h += '<h1 style="font-size:var(--lg);font-weight:900;margin:var(--s4) 0 var(--s2)">Voice Check</h1>';
+  h += '<p class="text-muted text-sm mb-4">Select all that apply to your singing right now.</p>';
+
+  for (var i = 0; i < syms.length; i++) {
+    h += '<div class="qo" onclick="togDiag(\'' + syms[i].id + '\',this)"><div class="qr"></div><span>' + syms[i].l + '</span></div>';
+  }
+
+  h += '<button class="btn btn-p" style="margin-top:var(--s4)" onclick="subDiag()">Get My Exercise</button>';
+  c.innerHTML = h;
+  go('session');
+}
+
+function togDiag(id, el) {
+  var idx = diagSel.indexOf(id);
+  if (idx === -1) {
+    diagSel.push(id);
+    el.classList.add('sel');
+  } else {
+    diagSel.splice(idx, 1);
+    el.classList.remove('sel');
+  }
+}
+
+function subDiag() {
+  if (diagSel.length === 0) { toast('Select at least one', 'err'); return; }
+
+  var sc = {airflow: 0, source: 0, resonance: 0, mix: 0};
+  var map = {
+    pitch: ['source', 'airflow'],
+    strain: ['source', 'mix'],
+    breathy: ['source', 'airflow'],
+    power: ['airflow', 'resonance'],
+    crack: ['source', 'mix'],
+    range: ['mix', 'source']
+  };
+  for (var i = 0; i < diagSel.length; i++) {
+    var s = map[diagSel[i]];
+    if (s) for (var j = 0; j < s.length; j++) sc[s[j]]++;
+  }
+  var p = 'source', mx = 0;
+  for (var k in sc) if (sc[k] > mx) { mx = sc[k]; p = k; }
+
+  var exercises = {
+    airflow: {
+      name: 'Rib Cage Hold',
+      steps: ['Place hands on lower ribs', 'Breathe in — ribs push out', 'Hiss "sss" — hold ribs out', 'Goal: 15 seconds', 'Rest. Repeat 3 times.'],
+      fix: 'You are pushing too much air. Control the escape rate.'
+    },
+    source: {
+      name: 'Clean Onset Drill',
+      steps: ['Hum "mmm" for 3 seconds', 'Open to "ah" — no "h" sound', 'If breathy, try again', 'Practice 10 reps', 'Every note should start clean'],
+      fix: 'Your vocal folds are not closing fully. Hum first, then open.'
+    },
+    resonance: {
+      name: 'Forward Placement',
+      steps: ['Hum "mmm" — feel lip buzz', 'Open to "mah" — buzz stays on lips', 'If buzz drops, start over', 'Slide: mmm → mah → mmm → mah', '10 reps'],
+      fix: 'Your sound is falling back into your throat. Keep it forward.'
+    },
+    mix: {
+      name: 'Ng Slide',
+      steps: ['Say "ng" — feel nose buzz', 'Slide low to high on "ng"', 'Try "nah" — same light feeling', 'If you crack, go back to "ng"', '10 smooth slides'],
+      fix: 'You are pushing chest voice too high. Lighten up and slide through the break.'
+    }
+  };
+
+  var ex = exercises[p] || exercises.source;
+  var c = document.getElementById('v-c');
+  var h = '';
+  h += '<button class="btn btn-w" style="width:auto;padding:var(--s2) var(--s4);min-height:36px;font-size:var(--xs)" onclick="go(\'practice\')">← Back</button>';
+
+  h += '<div class="coach-msg"><p>' + COACH.say('corrections', {issue: ex.fix, fix: ex.name}) + '</p></div>';
+
+  h += '<h1 style="font-size:var(--lg);font-weight:900;margin:var(--s4) 0 var(--s2)">Your Prescribed Exercise</h1>';
+  h += '<p class="text-muted text-sm mb-4">' + ex.name + '</p>';
+
+  h += '<div class="c c-a">';
+  for (var i = 0; i < ex.steps.length; i++) {
+    h += '<div class="es"><div class="esn">' + (i + 1) + '</div><div class="est"><p>' + ex.steps[i] + '</p></div></div>';
+  }
+  h += '</div>';
+
+  h += '<button class="btn btn-s" onclick="finishDiag(\'' + p + '\')">I Did It (+15 XP)</button>';
+  c.innerHTML = h;
+}
+
+function finishDiag(skill) {
+  U.xp += 15;
+  U.vocalLoad = Math.min(U.maxLoad, U.vocalLoad + 10);
+  if (U.skills[skill] !== undefined) {
+    U.skills[skill] = Math.min(10, U.skills[skill] + 1);
+  }
+  U.sessions++;
+  U.diagnosticResults.push({skill: skill, date: new Date().toISOString()});
+  save();
+  showAchieve('💪', 'Exercise Complete!', '+15 XP. ' + COACH.say('encouragement', {name: U.name}));
+  go('practice');
+}
+
+// ============================================================
+// SONG VIEWER
+// ============================================================
+function openSong(id) {
+  var s = null;
+  for (var i = 0; i < SONGS.length; i++) {
+    if (SONGS[i].id === id) { s = SONGS[i]; break; }
+  }
+  if (!s) return;
+  var done = U.completedSongs.indexOf(id) !== -1;
+  var c = document.getElementById('v-c');
+
+  var h = '';
+  h += '<button class="btn btn-w" style="width:auto;padding:var(--s2) var(--s4);min-height:36px;font-size:var(--xs)" onclick="go(\'songs\')">← Back</button>';
+
+  h += '<div style="margin-top:var(--s4)">';
+  h += '<span class="tag tag-g mb-2">Level ' + s.level + '</span>';
+  h += '<h1 style="font-size:var(--xl);font-weight:900;letter-spacing:-0.02em;margin:var(--s2) 0">' + s.title + '</h1>';
+  h += '<p class="text-muted text-sm mb-4">' + s.artist + '</p></div>';
+
+  // Tags
+  h += '<div style="display:flex;gap:var(--s1);flex-wrap:wrap;margin-bottom:var(--s4)">';
+  for (var t = 0; t < s.tags.length; t++) {
+    h += '<span class="tag tag-p" style="font-size:0.6rem">' + s.tags[t] + '</span>';
+  }
+  h += '</div>';
+
+  // Focus
+  h += '<div class="c c-a"><h3 style="font-size:var(--sm);font-weight:800;margin-bottom:var(--s2)">Your Focus</h3>';
+  h += '<p class="text-sm">' + s.focus + '</p></div>';
+
+  // YouTube reference
+  h += '<div class="ref-box"><div class="ref-box-title">Reference</div>';
+  h += '<p class="text-sm text-muted">' + s.ref + '</p></div>';
+
+  if (done) {
+    h += '<div class="c c-ok text-center"><div style="font-size:1.5rem">✓</div><div class="text-bold">Song Practiced</div></div>';
+  } else {
+    h += '<button class="btn btn-p" onclick="practiceSong(\'' + id + '\')">I Sang It (+50 XP)</button>';
+  }
+
+  c.innerHTML = h;
+  go('session');
+}
+
+function practiceSong(id) {
+  U.xp += 50;
+  U.vocalLoad = Math.min(U.maxLoad, U.vocalLoad + 15);
+  U.sessions++;
+  if (U.completedSongs.indexOf(id) === -1) U.completedSongs.push(id);
+  save();
+  showAchieve('🎵', 'Song Complete!', '+50 XP. ' + COACH.say('encouragement', {name: U.name}));
+  go('songs');
+}
+
+// ============================================================
+// MILLIONAIRE QUIZ
+// ============================================================
+var quizState = { q: 0, score: 0, lifelines: { fifty: true, skip: true, double: true }, over: false };
+
+function startMillionaire() {
+  quizState = { q: 0, score: 0, lifelines: { fifty: true, skip: true, double: true }, over: false };
+  showQuizQuestion();
+}
+
+function showQuizQuestion() {
+  var qs = QUIZ_QUESTIONS;
+  var qi = quizState.q;
+
+  if (qi >= qs.length) {
+    quizWin();
+    return;
+  }
+
+  var q = qs[qi];
+  var c = document.getElementById('q-c');
+  var h = '';
+
+  h += '<button class="btn btn-w" style="width:auto;padding:var(--s2) var(--s4);min-height:36px;font-size:var(--xs)" onclick="go(\'quiz\')">← Quit</button>';
+
+  // Prize ladder indicator
+  h += '<div style="display:flex;justify-content:space-between;align-items:center;margin:var(--s4) 0">';
+  h += '<span class="text-xs text-muted">Question ' + (qi + 1) + ' of ' + qs.length + '</span>';
+  h += '<span class="text-xs text-gold text-bold">₦' + PRIZE_LADDER[qi].toLocaleString() + '</span></div>';
+
+  // Progress bar
+  h += '<div class="pr mb-4"><div class="pr-f" style="width:' + ((qi + 1) / qs.length * 100) + '%"></div></div>';
+
+  // Question
+  h += '<div class="millionaire-q">';
+  h += '<div class="millionaire-q-num">Question ' + (qi + 1) + '</div>';
+  h += '<div class="millionaire-q-text">' + q.q + '</div>';
+
+  // Options
+  for (var i = 0; i < q.options.length; i++) {
+    h += '<div class="qo" id="qo-' + i + '" onclick="answerQuiz(' + i + ')"><div class="qr"></div><span>' + String.fromCharCode(65 + i) + '. ' + q.options[i] + '</span></div>';
+  }
+  h += '</div>';
+
+  // Lifelines
+  h += '<div class="millionaire-lifelines">';
+  h += '<div class="lifeline-btn ' + (quizState.lifelines.fifty ? '' : 'used') + '" onclick="useLifeline(\'fifty\')">50:50</div>';
+  h += '<div class="lifeline-btn ' + (quizState.lifelines.skip ? '' : 'used') + '" onclick="useLifeline(\'skip\')">Skip</div>';
+  h += '<div class="lifeline-btn ' + (quizState.lifelines.double ? '' : 'used') + '" onclick="useLifeline(\'double\')">Double</div>';
+  h += '</div>';
+
+  c.innerHTML = h;
+}
+
+function answerQuiz(idx) {
+  if (quizState.over) return;
+  var q = QUIZ_QUESTIONS[quizState.q];
+  var correct = idx === q.answer;
+
+  // Show result
+  for (var i = 0; i < 4; i++) {
+    var el = document.getElementById('qo-' + i);
+    if (i === q.answer) el.classList.add('ok');
+    else if (i === idx && !correct) el.classList.add('err');
+    el.classList.add('dis');
+  }
+
+  if (correct) {
+    quizState.score = q.prize;
+    toast('Correct! ₦' + q.prize.toLocaleString(), 'ok');
+    setTimeout(function() {
+      quizState.q++;
+      showQuizQuestion();
+    }, 1500);
+  } else {
+    quizState.over = true;
+    toast('Wrong! Game over.', 'err');
+    setTimeout(function() {
+      var safeScore = 0;
+      for (var m = 0; m < SAFE_MILESTONES.length; m++) {
+        if (quizState.q > SAFE_MILESTONES[m]) safeScore = PRIZE_LADDER[SAFE_MILESTONES[m]];
+      }
+      if (safeScore > U.quizHighScore) U.quizHighScore = safeScore;
+      save();
+      showQuizResult(safeScore);
+    }, 1500);
+  }
+}
+
+function useLifeline(type) {
+  if (!quizState.lifelines[type] || quizState.over) return;
+  var q = QUIZ_QUESTIONS[quizState.q];
+
+  if (type === 'fifty') {
+    // Remove 2 wrong answers
+    var removed = 0;
+    for (var i = 0; i < 4 && removed < 2; i++) {
+      if (i !== q.answer) {
+        var el = document.getElementById('qo-' + i);
+        if (el) { el.style.opacity = '0.2'; el.style.pointerEvents = 'none'; removed++; }
+      }
+    }
+  } else if (type === 'skip') {
+    quizState.q++;
+    showQuizQuestion();
+  } else if (type === 'double') {
+    // Double the prize for this question
+    q.prize = q.prize * 2;
+  }
+
+  quizState.lifelines[type] = false;
+  // Update lifeline buttons
+  var btns = document.querySelectorAll('.lifeline-btn');
+  if (type === 'fifty') btns[0].classList.add('used');
+  if (type === 'skip') btns[1].classList.add('used');
+  if (type === 'double') btns[2].classList.add('used');
+}
+
+function quizWin() {
+  var finalPrize = PRIZE_LADDER[PRIZE_LADDER.length - 1];
+  if (finalPrize > U.quizHighScore) U.quizHighScore = finalPrize;
+  save();
+  showQuizResult(finalPrize);
+}
+
+function showQuizResult(score) {
+  var c = document.getElementById('q-c');
+  var h = '';
+  h += '<div class="text-center" style="padding:var(--s7) 0">';
+  h += '<div style="font-size:3rem;margin-bottom:var(--s3)">' + (score >= 1000000 ? '🏆' : score >= 10000 ? '🎉' : '💪') + '</div>';
+  h += '<h1 style="font-size:var(--2xl);font-weight:900;margin-bottom:var(--s2)">₦' + score.toLocaleString() + '</h1>';
+  h += '<p class="text-muted mb-4">' + (score >= 1000000 ? 'You are a music genius!' : score >= 10000 ? 'Great job! Keep studying.' : 'Keep learning. You will get there.') + '</p>';
+  h += '<button class="btn btn-p" onclick="startMillionaire()">Play Again</button>';
+  h += '<button class="btn btn-g" onclick="go(\'quiz\')">Back</button></div>';
+  c.innerHTML = h;
+}
+
+// ============================================================
+// RESET
+// ============================================================
+function resetAll() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  U = {
+    name: 'Singer', email: '', xp: 0, level: 1, sessions: 0, streak: 0,
+    lastPractice: null,
+    skills: {airflow: 0, source: 0, resonance: 0, articulation: 0, ear: 0, mix: 0, performance: 0, theory: 0, sight: 0, style: 0},
+    completed: [], completedSongs: [], completedQuizzes: [], badges: [],
+    vocalLoad: 0, maxLoad: 100, weaknessHistory: [], diagnosticResults: [],
+    quizHighScore: 0, millionaireLevel: 0
+  };
+  save();
+  toast('Progress reset', 'info');
+  go('home');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+go('home');
+</script>
+</body>
+</html>
