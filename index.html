@@ -835,6 +835,71 @@ label {
 .srch-res-item .srch-meta{font-size:.72rem;color:var(--tx3);margin-top:2px}
 .srch-res-item .srch-hi{color:var(--pri);font-weight:700}
 .srch-no{padding:20px;text-align:center;color:var(--tx3);font-size:.82rem}
+
+/* TOP SEARCH ICON (fixed on all pages) */
+.tb-search {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg2); border: 1px solid var(--border);
+  color: var(--tx3); cursor: pointer; flex-shrink: 0;
+  transition: all .15s; margin-left: 8px;
+}
+.tb-search:hover { color: var(--tx); border-color: var(--pri); background: var(--pri-glow); }
+.tb-search svg { width: 18px; height: 18px; stroke-width: 1.8; }
+
+/* SEARCH OVERLAY (full screen) */
+.srch-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200;
+  background: oklch(0.10 0.01 260 / 0.95);
+  backdrop-filter: blur(8px);
+  display: none; flex-direction: column;
+}
+.srch-overlay.on { display: flex; }
+.srch-top {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.srch-top input {
+  flex: 1; background: var(--bg2); border: 1px solid var(--border);
+  color: var(--tx); padding: 10px 14px; border-radius: var(--r);
+  font-size: 0.9rem; outline: none; font-family: inherit;
+}
+.srch-top input::placeholder { color: var(--tx3); }
+.srch-top input:focus { border-color: var(--pri); }
+.srch-top .srch-cls {
+  background: none; border: none; color: var(--tx3); cursor: pointer;
+  font-size: 1.4rem; padding: 4px 8px; line-height: 1; flex-shrink: 0;
+}
+.srch-results {
+  flex: 1; overflow-y: auto; padding: 8px 0;
+}
+.srch-res-item {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  cursor: pointer; display: flex; align-items: center; gap: 12px;
+  font-size: 0.85rem;
+}
+.srch-res-item:hover { background: var(--bg2); }
+.srch-res-item .srch-ic {
+  width: 32px; height: 32px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+}
+.srch-res-item .srch-ic.mod { background: var(--pri-glow); color: var(--pri); }
+.srch-res-item .srch-ic.song { background: oklch(0.30 0.02 200 / 0.3); color: var(--ok); }
+.srch-res-item .srch-info { flex: 1; min-width: 0; }
+.srch-res-item .srch-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.srch-res-item .srch-meta { font-size: 0.75rem; color: var(--tx3); margin-top: 2px; }
+.srch-res-item .srch-hi { color: var(--pri); font-weight: 700; }
+.srch-no { padding: 30px 20px; text-align: center; color: var(--tx3); font-size: 0.85rem; }
+
+/* COMPACT BOTTOM NAV */
+.bn { height: 56px; }
+.bn-in { justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.bn-in::-webkit-scrollbar { display: none; }
+.bn-i { min-width: 52px; min-height: 44px; padding: 4px 8px; gap: 2px; font-size: 0.65rem; }
+.bn-ic { width: 20px; height: 20px; margin-bottom: 0; }
+.bn-ic svg { width: 18px; height: 18px; stroke-width: 1.6; }
 </style>
 </head>
 <body>
@@ -842,7 +907,7 @@ label {
 <!-- HOME -->
 <div class="sc active" id="s-home">
   <div class="tb">
-    <div class="tb-t">Singer OS</div>
+    <div class="tb-t">Singer OS</div><button class="tb-search" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
     <div class="tb-r" id="h-xp">0 XP</div>
   </div>
   <div class="sp" id="h-c"></div>
@@ -851,7 +916,7 @@ label {
 <!-- LEARN -->
 <div class="sc" id="s-learn">
   <div class="tb">
-    <div class="tb-t">Learn</div>
+    <div class="tb-t">Learn</div><button class="tb-search" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
   </div>
   <div class="sp" id="l-c"></div>
 </div>
@@ -859,7 +924,7 @@ label {
 <!-- PRACTICE -->
 <div class="sc" id="s-practice">
   <div class="tb">
-    <div class="tb-t">Practice</div>
+    <div class="tb-t">Practice</div><button class="tb-search" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
   </div>
   <div class="sp" id="p-c"></div>
 </div>
@@ -1099,6 +1164,7 @@ function go(id) {
   if (id === 'learn') renderLearn();
   if (id === 'practice') renderPractice();
   if (id === 'songs') renderSongs();
+  if (id === 'repertoire') renderRepertoire();
   if (id === 'instruments') renderInstruments();
   if (id === 'theory') renderTheory();
   if (id === 'quiz') renderQuiz();
@@ -1837,6 +1903,13 @@ var CURRICULUM = {
     title: 'Song Selection',
     icon: 'G',
     modules: [      {
+        id: 'se1b', stage: 3,
+        outcome: 'Be able to pick apart ANY song — gospel, R&B, pop, afrobeats, ballad, worship — and understand exactly WHY it works, note by note, breath by breath',
+        title: 'Song Analysis — Break Down Any Song',
+        xp: 55,
+        content: '<p>Most singers learn songs by <b>copying</b>. They hear it, they mimic it, they hope it sounds right. This is slow, shallow, and limiting. A real singer can look at any song — gospel, R&B, pop, afrobeats, ballad, worship — and <b>understand</b> it. Not just the notes. The WHY.</p><p>This module teaches you a <b>universal song analysis framework</b> that works for ANY genre. You will learn to break down a song the way a producer breaks down a track — structure, harmony, melody, lyrics, vocal choices, breath architecture. Then you will apply it to real songs across 6 genres.</p><h3 style="margin:12px 0 8px;font-size:1rem">The NYVC 7-Layer Song Analysis Framework</h3><p>Every song has 7 layers. Strip them one at a time and you will understand more about that song than 99% of singers who just "learn the melody."</p><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:0.72rem;margin:8px 0"><div style="background:var(--bg);padding:8px;border-radius:var(--r);border:1px solid var(--border)"><b>Layer 1: Structure</b><br>Verse, chorus, bridge, pre-chorus, outro. Where does the song go? What changes at each section? Map it like a blueprint.</div><div style="background:var(--bg);padding:8px;border-radius:var(--r);border:1px solid var(--border)"><b>Layer 2: Chord Progression</b><br>What chords are underneath? Major, minor, dominant? Where does the harmony shift? This tells you WHERE the tension and release live.</div><div style="background:var(--bg);padding:8px;border-radius:var(--r);border:1px solid var(--border)"><b>Layer 3: Melody Architecture</b><b>How does the melody sit on the chords? Does it hit chord tones or pass between them? Where does it climb? Where does it fall? This is the emotional skeleton.</b></div><div style="background:var(--bg);padding:8px;border-radius:var(--r);border:1px solid var(--border)"><b>Layer 4: Lyric Analysis</b><br>What is the song ACTUALLY saying? Not the surface — the subtext. What is the emotional arc? Which words carry the weight?</div><div style="background:var(--bg);padding:8px;border-radius:var(--r);border:1px solid var(--border)"><b>Layer 5: Vocal Choices</b><br>What does the singer DO with their voice? Chest, mix, head, fry, flip? Where do they add runs? Where do they strip it bare? WHY?</div><div style="background:var(--bg);padding:8px;border-radius:var(--r);border:1px solid var(--border)"><b>Layer 6: Breath Architecture</b><br>Where does the singer breathe? How do they manage air across long phrases? Where do they use breath as a tool (audible breaths, gasps, pauses)?</div><div style="background:var(--bg);padding:8px;border-radius:var(--r);border:1px solid var(--border)"><b>Layer 7: Production & Arrangement</b><br>What is the band doing? When do instruments enter? When does it strip down? How does the arrangement serve the vocal?</div></div><h3 style="margin:16px 0 8px;font-size:1rem">How to Use the Framework — The 5-Step Process</h3><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin:8px 0;font-size:0.78rem"><b>Step 1: Listen 10 Times (No Singing)</b><br>Just listen. First time: feel it. Second time: hum along. Third time: focus on the lyrics. Fourth time: focus on the chords. Fifth time: focus on the vocal. By listen 10, you should be able to hum the bass line.<br><br><b>Step 2: Map the Structure</b><br>Write it out. V1 → Pre → C → V2 → Pre → C → Br → C → Outro. Label every section. Note where the energy shifts.<br><br><b>Step 3: Strip the Melody</b><br>Sing the melody with NO runs, no style, no riffs. Just the plain notes. If you cannot sing it plain, you do not know it yet.<br><br><b>Step 4: Analyze the Vocal Choices</b><br>Now listen to the original again. Mark every vocal decision: chest voice here, mix there, run here, breath there, dynamic shift here. Write it on the lyrics.<br><br><b>Step 5: Rebuild It Your Way</b><br>Now sing it with your OWN choices. You understand the blueprint. Now make it yours. Add YOUR runs. YOUR dynamics. YOUR breath points.</div><h3 style="margin:16px 0 8px;font-size:1rem">Case Scenarios — 6 Genres, 6 Different Mountains</h3><p>Here is how the 7-Layer Framework applies to different genres. Each genre has different priorities. A gospel song lives in the ad-libs. An R&B song lives in the runs. An afrobeats song lives in the rhythm. You need to know what to listen FOR.</p><h3 style="margin:12px 0 6px;font-size:0.95rem">CASE 1: Gospel — "Encourage Yourself" (Donald Lawrence)</h3><div style="background:var(--bg);border-left:3px solid var(--pri);padding:10px 12px;margin:6px 0;font-size:0.75rem"><b>Layer 1 (Structure):</b> Call-and-response format. The choir is not backup — they are a CHARACTER in the song. The verse is conversational (almost spoken). The chorus is declarative. The bridge is where the ad-libs explode.<br><br><b>Layer 2 (Chords):</b> Simple progression — mostly I, IV, V. But the RHYTHMIC feel is complex. The gospel swing is not straight — it is a shuffle. If you sing it straight, it sounds dead.<br><br><b>Layer 3 (Melody):</b> The verse melody sits LOW — almost spoken. The chorus melody JUMPS to the octave. This is intentional: the low verse draws you in, the high chorus lifts you up.<br><br><b>Layer 4 (Lyrics):</b> "Encourage yourself in the Lord" — this is self-talk as worship. The lyric is a COMMAND to your own soul. Sing it like you are preaching to yourself.<br><br><b>Layer 5 (Vocal):</b> Lawrence uses a full chest belt on "encourage" — the word needs WEIGHT. The chromatic run on "en-cour-AGE" (Pattern 6) creates urgency. The ad-libs in the outro cycle through all 7 run patterns.<br><br><b>Layer 6 (Breath):</b> The phrases are LONG — 12-16 seconds. Lawrence breathes at the END of phrases, never in the middle of a word. Mark your breath points: after "yourself," after "Lord," after "you."<br><br><b>Layer 7 (Arrangement):</b> The choir enters at the chorus. The band builds through the bridge. The outro is ALL ad-libs — the arrangement gets out of the way and lets the voice lead.</div><h3 style="margin:12px 0 6px;font-size:0.95rem">CASE 2: R&B — "Almost Doesnt Count" (Brandy)</h3><div style="background:var(--bg);border-left:3px solid var(--pri);padding:10px 12px;margin:6px 0;font-size:0.75rem"><b>Layer 1 (Structure):</b> Classic R&B — V1 → C → V2 → C → Br → C. But Brandy adds a PRE-CHORUS that builds tension before the chorus drops. The pre-chorus is where the vocal gets intricate.<br><br><b>Layer 2 (Chords):</b> Minor key with chromatic movement. The chords slide between major and minor — this is what gives R&B its "bittersweet" quality. Listen for the bVI chord — that is the "sad lift."<br><br><b>Layer 3 (Melody):</b> Brandy\'s verse melody is CONVERSATIONAL — she speaks more than she sings. The chorus melody opens up and goes higher. The bridge melody is the most emotional — it sits in the mix voice and aches.<br><br><b>Layer 4 (Lyrics):</b> "Almost doesnt count" — the word "almost" is the whole song. It is about being SO close to love but not quite there. Every line circles back to this ache.<br><br><b>Layer 5 (Vocal):</b> This is where Brandy is a MASTER. The verse runs are 16th-note patterns at tempo (Pattern 6 + 7 + 12 combined). Her mix voice is flawless — notes in the 5th octave with NO strain. She uses vocal fry on the low notes for texture.<br><br><b>Layer 6 (Breath):</b> Brandy breathes WITH the beat. Her breath points are rhythmic — she breathes on the "and" of beat 4, which keeps the groove moving. Never on the downbeat.<br><br><b>Layer 7 (Arrangement):</b> Sparse. The production leaves SPACE for the vocal. When Brandy runs, the instruments pull back. When she belts, the kick drum enters. The arrangement serves the voice.</div><h3 style="margin:12px 0 6px;font-size:0.95rem">CASE 3: Pop — "Someone Like You" (Adele)</h3><div style="background:var(--bg);border-left:3px solid var(--pri);padding:10px 12px;margin:6px 0;font-size:0.75rem"><b>Layer 1 (Structure):</b> Ballad structure — V1 → V2 → C → V3 → C. No pre-chorus. No bridge. Just verses and chorus. The SIMPLICITY is the power. The song builds through VOCAL intensity, not structural complexity.<br><br><b>Layer 2 (Chords):</b> I → V → vi → IV. The most common pop progression in history. But Adele makes it feel fresh because her MELODY is unusual — she does not sit on the root. She floats between the 3rd and 5th.<br><br><b>Layer 3 (Melody):</b> The verse melody is LOW and intimate — almost a whisper. The chorus melody JUMPS up a 5th on "never mind" — that interval is the emotional hook. The final chorus goes up ANOTHER half-step (key change) for the climax.<br><br><b>Layer 4 (Lyrics):</b> "Never mind, I will find someone like you" — she is saying goodbye but also saying "you will regret this." The lyric is a farewell AND a threat. Sing it with that duality.<br><br><b>Layer 5 (Vocal):</b> Adele uses almost NO runs. Her power is in DYNAMICS — she goes from whisper to full belt in one phrase. The word "someone" in the chorus is a BELT note that most singers cannot sustain. She uses vibrato ONLY at the end of phrases — not on every note.<br><br><b>Layer 6 (Breath):</b> Adele breathes DEEPLY — her phrases are supported from the bottom. She takes a full breath before "never mind" and sustains through "I will find someone like you" without breaking. The breath is the power behind the belt.<br><br><b>Layer 7 (Arrangement):</b> Piano only for the first verse. Strings enter at the second verse. Full band at the final chorus. The arrangement mirrors the vocal arc — intimate to massive.</div><h3 style="margin:12px 0 6px;font-size:0.95rem">CASE 4: Afrobeats — "Essence" (Wizkid ft. Tems)</h3><div style="background:var(--bg);border-left:3px solid var(--pri);padding:10px 12px;margin:6px 0;font-size:0.75rem"><b>Layer 1 (Structure):</b> Afro structure is DIFFERENT from Western pop. It is HOOK-driven: Hook → V1 → Hook → V2 → Bridge → Hook. The hook comes FIRST — it is the identity of the song. Verses are almost secondary.<br><br><b>Layer 2 (Chords):</b> Simple — often just 2-3 chords looped. The complexity is in the RHYTHM, not the harmony. The chords are minor and the groove is syncopated. If you try to analyze this like a gospel song, you will miss the point.<br><br><b>Layer 3 (Melody):</b> The melody is RHYTHMIC first, melodic second. Tems does not sing long sustained notes — she RAPS-sings. The melody follows the speech pattern of the language. The pitch is less important than the RHYTHMIC PLACEMENT.<br><br><b>Layer 4 (Lyrics):</b> "You dont need no other body" — the lyric is simple but the DELIVERY is everything. Tems sings it like a conversation, not a performance. The intimacy is the point.<br><br><b>Layer 5 (Vocal):</b> Tems uses a BREATHY, half-voice quality throughout. She does not belt. She does not run. Her power is in the TEXTURE of her voice — airy, intimate, like she is singing directly to one person. The ad-libs are WHISPERS, not shouts.<br><br><b>Layer 6 (Breath):</b> Breathing is RHYTHMIC. Tems breathes WITH the percussion — her breath points align with the kick and snare. This is what makes it feel "groovy" instead of "sung."<br><br><b>Layer 7 (Arrangement):</b> The production is KING in afrobeats. The vocal sits IN the mix, not on top of it. The 808 bass, the shaker pattern, the synth pads — the vocal is one element in a TEXTURE, not the focal point.</div><h3 style="margin:12px 0 6px;font-size:0.95rem">CASE 5: Worship — "Great Are You Lord" (All Sons & Daughters)</h3><div style="background:var(--bg);border-left:3px solid var(--pri);padding:10px 12px;margin:6px 0;font-size:0.75rem"><b>Layer 1 (Structure):</b> Worship songs have a UNIQUE structure: they are designed to be REPEATED. V1 → C → V2 → C → (repeat C 4x). The repetition is not boring — it is the point. Each repetition should go DEEPER.<br><br><b>Layer 2 (Chords):</b> I → IV → V → vi. The "worship progression." But what makes it work is the SUSTAINED CHORDS — the pads hold each chord for 2-4 bars, creating a "wash" of sound. The vocal floats on top.<br><br><b>Layer 3 (Melody):</b> Worship melodies are designed to be SINGABLE by a congregation. The range is usually within an octave. The intervals are mostly steps and 3rds — no big jumps. But the LEAD singer adds embellishments that the congregation does not.<br><br><b>Layer 4 (Lyrics):</b> Worship lyrics are directed at GOD, not about God. "Great are You the Lord" — second person, direct address. Sing it like you are talking to someone standing in front of you. Not performing. PRAYING.<br><br><b>Layer 5 (Vocal):</b> The worship voice is OPEN and BRIGHT — not dark, not edgy. The larynx is slightly raised (think "ng" sound). Vibrato is used SPARINGLY — only on sustained notes. Runs are MINIMAL — worship is about the lyric, not the vocal.<br><br><b>Layer 6 (Breath):</b> Worship breathing is DEEP and SLOW. You are leading a congregation — if you run out of air, they run out of air. Plan your breath points so the congregation can breathe with you.<br><br><b>Layer 7 (Arrangement):</b> The arrangement builds SLOWLY. Start with piano or acoustic. Add pads at the second verse. Add drums at the final chorus. The build should feel like a wave — not a wall.</div><h3 style="margin:12px 0 6px;font-size:0.95rem">CASE 6: Fusion — "Blessed" (Gospel + R&B + Pop)</h3><div style="background:var(--bg);border-left:3px solid var(--pri);padding:10px 12px;margin:6px 0;font-size:0.75rem">Now here is where it gets REAL. Most songs are NOT one genre. "Blessed" by Donald Lawrence has a GOSPEL message, an R&B GROOVE, and a POP structure. "Essence" is afrobeats with R&B vocal styling. "Someone Like You" is pop with gospel-influenced vocal power.<br><br><b>The Fusion Analysis Method:</b><br>1. Identify the DOMINANT genre (the foundation)<br>2. Identify the SECONDARY genre (the flavor)<br>3. Identify where the genres COLLIDE (the magic moments)<br>4. Analyze each layer through BOTH genre lenses<br><br><b>Example: "Blessed" — Gospel foundation + R&B flavor</b><br>- Structure: Gospel (call-and-response) but with R&B pre-chorus build<br>- Chords: Gospel (I-IV-V) but with R&B chromatic passing chords<br>- Melody: Gospel (wide range, declarative) but with R&B conversational verses<br>- Vocal: Gospel (belt, power) but with R&B (runs, mix voice, breath texture)<br>- The FUSION is what makes it cross over. A gospel-only analysis misses the R&B groove. An R&B-only analysis misses the gospel power. You need BOTH.<br><br><b>This is why most singers fail at fusion songs.</b> They analyze it through ONE lens. They sing "Blessed" like a pure gospel song and it sounds stiff. Or they sing it like pure R&B and it loses the anointing. The analysis must be DUAL.</div><div class="ref-box"><div class="ref-box-title">The 5 Deadly Sins of Song Analysis</div><p><b>1. Analyzing only the melody:</b> The melody is ONE layer. If you only learn the melody, you know maybe 20% of the song. The chords, the lyrics, the breath, the arrangement — these are where the meaning lives.</p><p><b>2. Copying instead of understanding:</b> If you can sing the song but cannot explain WHY the singer made each choice, you have not analyzed it. You have memorized it. There is a difference.</p><p><b>3. Ignoring the genre:</b> Every genre has different priorities. Gospel lives in the ad-lib. R&B lives in the run. Afrobeats lives in the rhythm. Pop lives in the dynamic. Worship lives in the lyric. Analyze through the RIGHT lens.</p><p><b>4. Skipping the lyrics:</b> The lyrics are not decoration. They are the REASON the song exists. If you do not know what the song is about — really about — you cannot sing it with truth.</p><p><b>5. Not marking your score:</b> Print the lyrics. Mark your breath points. Mark your vocal choices. Mark the dynamic shifts. Mark where the chords change. Your marked-up lyric sheet is your MAP. Without it, you are guessing.</p></div>',
+        exercise: { name: 'Song Analysis Deep Dive', steps: ['Pick ONE song from any genre', 'Apply all 7 layers of the framework — write notes for each layer', 'Mark your lyric sheet: breath points, vocal choices, dynamic shifts', 'Sing the song plain (no style) — then sing it with YOUR analysis-informed choices', 'Record both versions. Compare. The second should have INTENTION behind every note.'], skill: 'theory', xp: 55 }
+      },      {
         id: 'se2', stage: 3,
         outcome: 'Be able to perform classic gospel songs that young singers run from — and understand WHY they are non-negotiable',
         title: 'Classic Gospel Every Singer Must Know',
@@ -2022,7 +2095,6 @@ function renderAuth() {
   h += '<div class="c"><label>WhatsApp Number</label><input class="input" id="auth-wa" type="tel" placeholder="e.g. 2348012345678"></div>';
 
   h += '<button class="btn btn-p" style="margin-top:var(--s4)" onclick="doAuth()">Start Training</button>';
-  h += '<button class="btn btn-s" style="margin-top:var(--s3);width:auto;padding:var(--s2) var(--s4);min-height:36px" onclick="openSearch()">&#128269; Search Modules &amp; Songs</button>';
 
   h += '<p class="text-xs text-muted text-center mt-4">Your email and WhatsApp are your ticket. No password needed. You can access your progress from any device using your unique link.</p>';
   h += '</div>';
@@ -2082,6 +2154,7 @@ function renderHome() {
   h += '<div class="sec"><div class="sec-h"><span class="sec-t">Continue Learning</span></div>';
   h += '<div class="li" onclick="go(\'learn\')"><div class="li-ic">L</div><div class="li-b"><div class="li-t">Full Curriculum</div><div class="li-sub">17 modules across 6 categories</div></div><span class="li-r">Go</span></div>';
   h += '<div class="li" onclick="go(\'theory\')"><div class="li-ic">T</div><div class="li-b"><div class="li-t">Music Theory</div><div class="li-sub">5 theory + 2 career modules</div></div><span class="li-r">Go</span></div>';
+  h += '<div class="li" onclick="go(\'repertoire\')"><div class="li-ic">R</div><div class="li-b"><div class="li-t">Repertoire</div><div class="li-sub">Memorize lyrics + master syncopation</div></div><span class="li-r">Go</span></div>';
   h += '</div>';
 
   h += '<div class="sec"><div class="sec-h"><span class="sec-t">Test Yourself</span></div>';
@@ -2473,6 +2546,14 @@ var GAME = {
     return board.slice(0, 10);
   }
 };
+
+function renderRepertoire() {
+  var h = '';
+  h += '<div class="hero"><h1>Repertoire</h1><p>Memorize lyrics permanently. Master syncopation. Own every song you sing.</p></div>';
+  h += renderSection('repertoire');
+  document.getElementById('r-c').innerHTML = h;
+  updateNav('repertoire');
+}
 
 function renderSongs() {
   var c = document.getElementById('g-c');
@@ -3278,6 +3359,136 @@ if (!AUTH.init()) {
 // SEARCH
 // ============================================================
 function openSearch() {
+  var overlay = document.getElementById('srchOverlay');
+  overlay.classList.add('on');
+  setTimeout(function(){ document.getElementById('srchInput').focus(); }, 100);
+  doSearch();
+}
+
+function closeSearch() {
+  var overlay = document.getElementById('srchOverlay');
+  overlay.classList.remove('on');
+  document.getElementById('srchInput').value = '';
+  document.getElementById('srchResults').innerHTML = '';
+}
+
+function doSearch() {
+  var q = document.getElementById('srchInput').value.trim().toLowerCase();
+  var res = document.getElementById('srchResults');
+  if (!q) { res.innerHTML = '<div class="srch-no">Type to search modules and songs</div>'; return; }
+
+  var results = [];
+
+  // Search CURRICULUM modules
+  for (var s in CURRICULUM) {
+    var section = CURRICULUM[s];
+    if (!section.modules) continue;
+    for (var i = 0; i < section.modules.length; i++) {
+      var m = section.modules[i];
+      var title = (m.title || '').toLowerCase();
+      var outcome = (m.outcome || '').toLowerCase();
+      var text = (m.content || '').replace(/<[^>]*>/g, '').toLowerCase();
+      if (title.indexOf(q) >= 0 || outcome.indexOf(q) >= 0 || text.indexOf(q) >= 0) {
+        var snippet = '';
+        var idx = text.indexOf(q);
+        if (idx >= 0) {
+          var start = Math.max(0, idx - 40);
+          var end = Math.min(text.length, idx + q.length + 50);
+          snippet = (start > 0 ? '...' : '') + text.substring(start, end) + (end < text.length ? '...' : '');
+        } else {
+          snippet = outcome.substring(0, 100);
+        }
+        results.push({
+          type: 'module', section: section.title, sectionId: s,
+          stage: m.stage, title: highlightMatch(m.title, q),
+          snippet: snippet, xp: m.xp
+        });
+      }
+    }
+  }
+
+  // Search SONGS
+  if (typeof SONGS !== 'undefined') {
+    for (var si = 0; si < SONGS.length; si++) {
+      var song = SONGS[si];
+      var title = (song.title || '').toLowerCase();
+      var artist = (song.artist || '').toLowerCase();
+      var tags = (song.tags || []).join(' ').toLowerCase();
+      var focus = (song.focus || '').toLowerCase();
+      if (title.indexOf(q) >= 0 || artist.indexOf(q) >= 0 || tags.indexOf(q) >= 0 || focus.indexOf(q) >= 0) {
+        results.push({
+          type: 'song', title: highlightMatch(song.title, q),
+          artist: highlightMatch(song.artist, q),
+          level: song.level, tags: song.tags || [],
+          focus: (song.focus || '').substring(0, 100), index: si
+        });
+      }
+    }
+  }
+
+  // Render
+  if (results.length === 0) {
+    res.innerHTML = '<div class="srch-no">No results for "' + esc(q) + '"</div>';
+  } else {
+    var h = '';
+    for (var r of results.slice(0, 20)) {
+      if (r.type === 'module') {
+        h += '<div class="srch-res-item" onclick="goModule(\'' + r.sectionId + '\')">';
+        h += '<span class="srch-ic mod">' + r.stage + '</span>';
+        h += '<div class="srch-info">';
+        h += '<div class="srch-title">' + r.title + '</div>';
+        h += '<div class="srch-meta">' + r.section + ' · Stage ' + r.stage + ' · ' + r.xp + ' XP</div>';
+        h += '<div class="srch-meta">' + esc(r.snippet) + '</div>';
+        h += '</div></div>';
+      } else {
+        h += '<div class="srch-res-item" onclick="goSong(' + r.index + ')">';
+        h += '<span class="srch-ic song">' + (r.level === 1 ? 'B' : r.level === 2 ? 'I' : 'A') + '</span>';
+        h += '<div class="srch-info">';
+        h += '<div class="srch-title">' + r.title + ' — ' + r.artist + '</div>';
+        h += '<div class="srch-meta">Level ' + r.level + ' · ' + (r.tags || []).join(', ') + '</div>';
+        h += '<div class="srch-meta">' + esc(r.focus) + '</div>';
+        h += '</div></div>';
+      }
+    }
+    if (results.length > 20) {
+      h += '<div class="srch-no">Showing 20 of ' + results.length + ' results</div>';
+    }
+    res.innerHTML = h;
+  }
+}
+
+function highlightMatch(text, q) {
+  if (!q) return esc(text);
+  var lower = text.toLowerCase();
+  var idx = lower.indexOf(q);
+  if (idx < 0) return esc(text);
+  var before = text.substring(0, idx);
+  var match = text.substring(idx, idx + q.length);
+  var after = text.substring(idx + q.length);
+  return esc(before) + '<span class="srch-hi">' + esc(match) + '</span>' + esc(after);
+}
+
+function goModule(sectionId) {
+  closeSearch();
+  go(sectionId);
+}
+
+function goSong(index) {
+  closeSearch();
+  go('songs');
+}
+
+function goFirstResult() {
+  var items = document.querySelectorAll('.srch-res-item');
+  if (items.length > 0) items[0].click();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeSearch();
+});
+
+// ============================================================
+function openSearch() {
   var bar = document.getElementById('srchBar');
   bar.classList.add('on');
   document.getElementById('srchInput').focus();
@@ -3469,19 +3680,8 @@ document.addEventListener('keydown', function(e) {
 
 
 <!-- BOTTOM NAV -->
-<!-- SEARCH BAR -->
-<div class="srch-bar" id="srchBar">
-  <button class="srch-cls" onclick="closeSearch()">&times;</button>
-  <input type="text" id="srchInput" placeholder="Search modules, songs, lessons..." oninput="doSearch()" onkeydown="if(event.key==='Enter')goFirstResult()">
-</div>
-<div class="srch-res" id="srchRes"></div>
-
 <nav class="bn">
   <div class="bn-in">
-    <button class="bn-i" id="n-search" onclick="openSearch()">
-      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
-      Search
-    </button>
     <button class="bn-i on" id="n-home" onclick="go('home')">
       <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
       Home
@@ -3505,17 +3705,21 @@ document.addEventListener('keydown', function(e) {
     <button class="bn-i" id="n-theory" onclick="go('theory')">
       <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
       Theory
-    </button>
-    <button class="bn-i" id="n-quiz" onclick="go('quiz')">
-      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-      Quiz
-    </button>
-    <button class="bn-i" id="n-progress" onclick="go('progress')">
-      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-      Progress
+    </button>    <button class="bn-i" id="n-repertoire" onclick="go('repertoire')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></span>
+      Repertoire
     </button>
   </div>
 </nav>
+
+<!-- REPERTOIRE -->
+<div class="sc" id="s-repertoire">
+  <div class="tb">
+    <div class="tb-t">Repertoire</div>
+    <button class="tb-search" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+  </div>
+  <div class="sp" id="r-c"></div>
+</div>
 
 <!-- TOAST -->
 <div class="ft" id="ft"></div>
@@ -3530,5 +3734,14 @@ document.addEventListener('keydown', function(e) {
   </div>
 </div>
 
+
+<!-- SEARCH OVERLAY -->
+<div class="srch-overlay" id="srchOverlay">
+  <div class="srch-top">
+    <input type="text" id="srchInput" placeholder="Search modules, songs, lessons..." oninput="doSearch()" onkeydown="if(event.key==='Enter')goFirstResult()">
+    <button class="srch-cls" onclick="closeSearch()">&times;</button>
+  </div>
+  <div class="srch-results" id="srchResults"></div>
+</div>
 </body>
 </html>
