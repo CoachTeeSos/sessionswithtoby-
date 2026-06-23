@@ -1170,8 +1170,6 @@ function go(id) {
   if (id === 'progress') renderProgress();
   if (id === 'leaderboard') renderLeaderboard();
   if (id === 'profile') renderProfile();
-  if (id === 'auth') renderAuth();
-  if (id === 'session') showSession();
 }
 
 // ============================================================
@@ -3547,7 +3545,7 @@ function renderInstruments(){
 // INIT
 // ============================================================
 // No auth gate — go straight to home
-// (init moved to end of script after all functions defined)
+go('home');
 
 // ═══════════════════════════════════════════════════════════
 // VOICE LAB — Fingerprint, Analysis & Tailored Coaching
@@ -3828,10 +3826,6 @@ function vlResults(){
   h+='<button class="btn btn-g" onclick="go(\'practice\')">Back to Practice</button>';
   c.innerHTML=h;
 }
-
-
-// Init — show home screen on load
-go('home');
 </script>
 
 <!-- AUTH SCREEN -->
