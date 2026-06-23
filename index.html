@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>Singer OS</title>
 <style>
+
 :root {
   /* OKLCH Color System - perceptually uniform */
   --bg: oklch(0.10 0.01 260);
@@ -826,36 +827,12 @@ label {
   .sp { padding: var(--s6) var(--s5) var(--s9); }
   .bn-in { max-width: 540px; }
 }
+
 </style>
 </head>
 <body>
-<!-- SCREENS -->
-<!-- HOME -->
-<div class="sc active" id="s-home">
-  <div class="tb">
-    <div class="tb-t">Singer OS</div>
-    <div class="tb-r" id="h-xp">0 XP</div>
-  </div>
-  <div class="sp" id="h-c"></div>
-</div>
-
-<!-- LEARN -->
-<div class="sc" id="s-learn">
-  <div class="tb">
-    <div class="tb-t">Learn</div>
-  </div>
-  <div class="sp" id="l-c"></div>
-</div>
-
-<!-- PRACTICE -->
-<div class="sc" id="s-practice">
-  <div class="tb">
-    <div class="tb-t">Practice</div>
-  </div>
-  <div class="sp" id="p-c"></div>
-</div>
-
 <script>
+
 
 
 
@@ -3335,7 +3312,6 @@ function renderInstruments(){
 // INIT
 // ============================================================
 // No auth gate — go straight to home
-go('home');
 
 // ═══════════════════════════════════════════════════════════
 // VOICE LAB — Fingerprint, Analysis & Tailored Coaching
@@ -3617,67 +3593,47 @@ function vlResults(){
   c.innerHTML=h;
 }
 
-
-
-
-
+// Init — show home screen on load
+go('home');
 </script>
 
-      <h1 style="font-size:var(--2xl);font-weight:900;margin-bottom:var(--s2)">Singer OS</h1>
-      <p class="text-muted">Your complete vocal training system. Free forever.</p>
-    </div>
-    <div class="c"><label>Your Name</label><input class="input" id="auth-name" placeholder="What should we call you?"></div>
-    <div class="c"><label>Email Address</label><input class="input" id="auth-email" type="email" placeholder="your@email.com"></div>
-    <div class="c"><label>WhatsApp Number</label><input class="input" id="auth-wa" type="tel" placeholder="e.g. 2348012345678"></div>
-    <button class="btn btn-p" style="margin-top:var(--s4)" onclick="go('home')">Start Training</button>
-    <p class="text-xs text-muted text-center mt-4">Your email and WhatsApp are your ticket. No password needed. You will get a unique link to access your progress from any device.</p>
-  </div>
-</div>
+<div class="sc active" id="s-home">
+  <div class="tb">
+    <div class="tb-t">Singer OS</div>
 
+<div class="sc" id="s-learn">
+  <div class="tb">
+    <div class="tb-t">Learn</div>
 
-<!-- SONGS -->
+<div class="sc" id="s-practice">
+  <div class="tb">
+    <div class="tb-t">Practice</div>
+
 <div class="sc" id="s-songs">
-  <div class="tb"><div class="tb-t">Songs</div></div>
-  <div class="sp" id="g-c"></div>
-</div>
+  <div class="tb"><div class="tb-t">Songs</div>
 
-<!-- THEORY -->
 <div class="sc" id="s-theory">
-  <div class="tb"><div class="tb-t">Music Theory</div></div>
-  <div class="sp" id="t-c"></div>
-</div>
+  <div class="tb"><div class="tb-t">Music Theory</div>
 
-<!-- QUIZ -->
 <div class="sc" id="s-quiz">
-  <div class="tb"><div class="tb-t">Musician Quiz</div></div>
-  <div class="sp" id="q-c"></div>
-</div>
+  <div class="tb"><div class="tb-t">Musician Quiz</div>
 
-<!-- PROGRESS -->
 <div class="sc" id="s-progress">
-  <div class="tb"><div class="tb-t">Progress</div></div>
-  <div class="sp" id="r-c"></div>
-</div>
+  <div class="tb"><div class="tb-t">Progress</div>
 
-<!-- INSTRUMENTS -->
 <div class="sc" id="s-instruments">
-  <div class="tb"><div class="tb-t">Learn Any Instrument</div></div>
-  <div class="sp" id="i-c"></div>
-</div>
+  <div class="tb"><div class="tb-t">Learn Any Instrument</div>
 
-<!-- SESSION (Lesson/Exercise viewer) -->
 <div class="sc" id="s-session">
   <div class="sp" id="v-c"></div>
-</div>
 
-<!-- PROFILE -->
 <div class="sc" id="s-profile">
-  <div class="tb"><div class="tb-t">Profile</div></div>
-  <div class="sp" id="f-c"></div>
-</div>
+  <div class="tb"><div class="tb-t">Profile</div>
+
+<div class="sc" id="s-leaderboard">
+  <div class="tb"><div class="tb-t">🏆 Leaderboard</div>
 
 
-<!-- BOTTOM NAV -->
 <nav class="bn">
   <div class="bn-in">
     <button class="bn-i on" id="n-home" onclick="go('home')">
@@ -3720,23 +3676,12 @@ function vlResults(){
 </nav>
 
 <!-- TOAST -->
-<div class="ft" id="ft"></div>
+<div class="ft" id="ft">
 
 <!-- ACHIEVEMENT POPUP -->
 <div class="achieve" id="achieve">
   <div class="achieve-box">
     <div class="achieve-icon" id="achieve-icon"></div>
-    <div class="achieve-title" id="achieve-title"></div>
-    <div class="achieve-desc" id="achieve-desc"></div>
-    <button class="btn btn-p" onclick="closeAchieve()">Continue</button>
-  </div>
-</div>
-
-<!-- LEADERBOARD -->
-<div class="sc" id="s-leaderboard">
-  <div class="tb"><div class="tb-t">🏆 Leaderboard</div></div>
-  <div class="sp" id="lb-c"></div>
-</div>
 
 </body>
 </html>
