@@ -1040,6 +1040,9 @@ svg[max-width] { max-width: 100% !important; height: auto !important; }
 </div>
 
 <script>
+
+
+
 // ============================================================
 // AUTH GATE — Email + WhatsApp collection before access
 // ============================================================
@@ -1280,7 +1283,9 @@ function go(id) {
   if (id === 'quiz') renderQuiz();
   if (id === 'progress') renderProgress();
   if (id === 'profile') renderProfile();
-  if (id === 'auth') renderAuth();
+    if (id === 'session') showSession();
+if (id === 'auth') renderAuth();
+  if (id === 'leaderboard') renderLeaderboard();
 }
 
 // ============================================================
@@ -2895,45 +2900,6 @@ function copyLink() {
 // ============================================================
 // MODULE VIEWER — FIXED: accepts section name string directly
 // ============================================================
-function openModule(sectionName, moduleIdx) {
-  var sec = CURRICULUM[sectionName];
-  if (!sec || !sec.modules[moduleIdx]) return;
-  var m = sec.modules[moduleIdx];
-  var c = document.getElementById('v-c');
-  var done = U.completed.indexOf(m.id) !== -1;
-
-  var h = '';
-  var backScreen = (sectionName === 'theory' || sectionName === 'career') ? 'theory' : 'learn';
-  h += '<button class="btn btn-w" style="width:auto;padding:var(--s2) var(--s4);min-height:36px;font-size:var(--xs)" onclick="go(\'' + backScreen + '\')">← Back</button>';
-
-  h += '<div style="margin-top:var(--s4)">';
-  h += '<span class="tag tag-p mb-2">' + sec.title + '</span>';
-  h += '<h1 style="font-size:var(--xl);font-weight:900;letter-spacing:-0.02em;margin:var(--s2) 0">' + m.outcome + '</h1>';
-  h += '<p class="text-muted text-sm mb-4">' + m.title + '</p></div>';
-
-  h += '<div class="coach-msg"><p>' + COACH.say('encouragement', {name: U.name}) + '</p></div>';
-
-  h += '<div class="c"><h3 style="font-size:var(--sm);font-weight:800;margin-bottom:var(--s3)">What You Will Learn</h3>' + m.content + '</div>';
-
-  if (m.exercise) {
-    h += '<div class="c c-a"><h3 style="font-size:var(--sm);font-weight:800;margin-bottom:var(--s3)">Exercise: ' + m.exercise.name + '</h3>';
-    for (var i = 0; i < m.exercise.steps.length; i++) {
-      h += '<div class="es"><div class="esn">' + (i + 1) + '</div><div class="est"><p>' + m.exercise.steps[i] + '</p></div></div>';
-    }
-    h += '</div>';
-  }
-
-  if (done) {
-    h += '<div class="c c-ok text-center"><div style="font-size:1.5rem">✓</div><div class="text-bold">Module Complete</div><div class="text-xs text-muted">+' + m.xp + ' XP earned</div></div>';
-  } else {
-    h += '<button class="btn btn-s" onclick="finishModule(\'' + m.id + '\',' + m.xp + ',\'' + (m.exercise ? m.exercise.skill : '') + '\')">I Did It — Mark Complete (+' + m.xp + ' XP)</button>';
-  }
-
-  c.innerHTML = h;
-  go('session');
-  // Render interactive piano if chord builder module is open
-  setTimeout(function(){ renderChordBuilder(); }, 50);
-}
 
 function finishModule(id, xp, skill) {
   U.xp += xp;
@@ -3683,6 +3649,430 @@ document.addEventListener('keydown', function(e) {
 });
 
 
+
+function updateXP() {
+  var el;
+  el = document.getElementById('xp-val');   if (el) el.textContent = U.xp;
+  el = document.getElementById('lvl-val');  if (el) el.textContent = U.level;
+  el = document.getElementById('xp-bar');   if (el) el.style.width = Math.min(100, Math.round((U.xp % 1000) / 10)) + '%';
+}
+
+function saveUser() {
+  try { localStorage.setItem('singerOS', JSON.stringify(U)); } catch(e) {}
+  updateXP();
+}
+
+
+// === MERGED FROM DEPLOYED: Leaderboard + Voice Lab + Time Signature ===
+
+function fetchLeaderboard(period) {
+  var list = document.getElementById('lb-list');
+  if (!list) return;
+  
+  // Try server first
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:3000/leaderboard', true);
+  xhr.timeout = 3000;
+  xhr.onload = function() {
+    try {
+      var data = JSON.parse(xhr.responseText);
+      var entries = data[period] || [];
+      if (entries.length > 0) {
+        renderLBEntries(entries);
+        return;
+      }
+    } catch(e) {}
+    // Fall back to local
+    showLocalLB(list, period);
+  };
+  xhr.onerror = function() { showLocalLB(list, period); };
+  xhr.ontimeout = function() { showLocalLB(list, period); };
+  xhr.send();
+}
+
+function renderLeaderboard() {
+  var c = document.getElementById('lb-c');
+  if (!c) return;
+  
+  var h = '';
+  h += '<div style="text-align:center;padding:var(--s6) 0">';
+  h += '<div style="font-size:3rem;margin-bottom:var(--s3)">🏆</div>';
+  h += '<h2>Leaderboard</h2>';
+  h += '<p class="text-muted" style="margin-bottom:var(--s4)">Top 10 singers by XP</p>';
+  
+  // Period tabs
+  h += '<div style="display:flex;gap:6px;justify-content:center;margin-bottom:var(--s4)">';
+  h += '<button class="btn btn-p" onclick="showLBDay()">Today</button>';
+  h += '<button class="btn btn-w" onclick="showLBWeek()">This Week</button>';
+  h += '<button class="btn btn-w" onclick="showLBMonth()">This Month</button>';
+  h += '</div>';
+  
+  h += '<div id="lb-list"></div>';
+  h += '</div>';
+  
+  c.innerHTML = h;
+  
+  // Try to fetch from server, fall back to local
+  showLBDay();
+}
+
+function renderLBEntries(entries) {
+  var list = document.getElementById('lb-list');
+  if (!list) return;
+  
+  var h = '';
+  for (var i = 0; i < entries.length; i++) {
+    var e = entries[i];
+    var rank = i + 1;
+    var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '#' + rank;
+    var isYou = e.isYou ? 'border:2px solid var(--pri);' : '';
+    h += '<div class="c" style="margin-bottom:6px;' + isYou + '">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center">';
+    h += '<div><span style="font-size:1.2rem;margin-right:var(--s2)">' + medal + '</span>';
+    h += '<span class="text-bold">' + (e.name || 'Anonymous') + '</span></div>';
+    h += '<div><span class="tag tag-g">' + (e.xp || 0) + ' XP</span></div>';
+    h += '</div></div>';
+  }
+  list.innerHTML = h;
+}
+
+function showLBDay() { fetchLeaderboard('daily'); }
+
+function showLBMonth() { fetchLeaderboard('monthly'); }
+
+function showLBWeek() { fetchLeaderboard('weekly'); }
+
+function showLocalLB(list, period) {
+  // Build leaderboard from localStorage data
+  var entries = [];
+  try {
+    var keys = Object.keys(localStorage);
+    for (var i = 0; i < keys.length; i++) {
+      if (keys[i].indexOf('singerOS_lb_') === 0) {
+        var entry = JSON.parse(localStorage.getItem(keys[i]));
+        if (entry && entry.period === period) {
+          entries.push(entry);
+        }
+      }
+    }
+  } catch(e) {}
+  
+  // Also add current user
+  if (U && U.name) {
+    entries.push({name: U.name, xp: U.xp || 0, sessions: U.sessions || 0, isYou: true});
+  }
+  
+  // Sort by XP
+  entries.sort(function(a, b) { return (b.xp || 0) - (a.xp || 0); });
+  entries = entries.slice(0, 10);
+  
+  if (entries.length === 0) {
+    list.innerHTML = '<p class="text-muted" style="padding:var(--s4)">No scores yet. Complete an exercise to appear on the leaderboard!</p>';
+    return;
+  }
+  
+  renderLBEntries(entries);
+}
+
+function showSession(){
+  var ss=document.querySelectorAll('.sc');
+  for(var i=0;i<ss.length;i++)ss[i].classList.remove('active');
+  document.getElementById('s-session').classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+function startVoiceLab(){
+  VL={step:0,running:false,stream:null,ctx:null,analyser:null,raf:null,
+      results:{f0:[],f1:[],f2:[],h1h2:[],lowF0:999,hiF0:0,slide:[],loudRMS:0,softRMS:999}};
+  var c=document.getElementById('v-c');
+  var h='';
+  h+='<div><button class="btn btn-g btn-sm" onclick="go(\'practice\')">Back</button></div>';
+  h+='<div class="hero"><h1>🔬 Voice Fingerprint</h1><p>5-minute assessment. Range, passaggio, formants, artist match.</p></div>';
+  h+='<div id="vl-ui"></div>';
+  c.innerHTML=h;showSession();
+  vlStep(1);
+}
+
+function vlPitch(){
+  var buf=new Float32Array(VL.analyser.fftSize);
+  VL.analyser.getFloatTimeDomainData(buf);
+  return vlAutocorrelate(buf,VL.ctx.sampleRate);
+}
+
+function vlRMS(){
+  var buf=new Float32Array(VL.analyser.fftSize);
+  VL.analyser.getFloatTimeDomainData(buf);
+  var sum=0;
+  for(var i=0;i<buf.length;i++)sum+=buf[i]*buf[i];
+  return Math.sqrt(sum/buf.length);
+}
+
+function vlInitMic(){
+  return new Promise(function(resolve,reject){
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      VL.stream=stream;
+      VL.ctx=new(window.AudioContext||window.webkitAudioContext)();
+      var src=VL.ctx.createMediaStreamSource(stream);
+      VL.analyser=VL.ctx.createAnalyser();
+      VL.analyser.fftSize=4096;
+      VL.analyser.smoothingTimeConstant=0.7;
+      src.connect(VL.analyser);
+      resolve();
+    }).catch(reject);
+  });
+}
+
+function vlResults(){
+  var s=VL.results,c=document.getElementById('vl-ui'),h='';
+  h+='<div class="hero" style="text-align:center"><div style="font-size:3rem;margin-bottom:var(--s3)">🔬</div><h2>Your Voice Fingerprint</h2></div>';
+  
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Profile</span></div>';
+  h+='<div class="c"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Gender</span><strong>'+(s.gender==="male"?"Male":"Female")+' ('+s.gConf+'% confidence)</strong></div>';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Range</span><strong>'+vlNote(s.lowF0)+' – '+vlNote(s.hiF0)+'</strong></div>';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Passaggio</span><strong>'+(s.passaggio||"—")+'</strong></div>';
+  h+='<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>F1 (vowel color)</span><strong>'+s.avgF1+' Hz</strong></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>F2 (brightness)</span><strong>'+s.avgF2+' Hz</strong></div></div></div>';
+  
+  if(s.artist){
+    var a=s.artist;
+    h+='<div class="sec"><div class="sec-h"><span class="sec-t">Artist Match</span></div>';
+    h+='<div class="c c-g" style="text-align:center"><div style="font-size:2rem;margin-bottom:var(--s2)">🎤</div><h3>'+a.name+'</h3><p class="text-xs text-muted" style="line-height:1.6">'+a.character+'</p><p class="text-xs text-muted" style="margin-top:var(--s2)">Tessitura: '+a.tessitura[0]+' – '+a.tessitura[1]+'</p></div></div>';
+  }
+  
+  h+='<div class="sec"><div class="sec-h"><span class="sec-t">Tailored Exercises</span></div>';
+  h+='<p class="text-xs text-muted" style="margin-bottom:var(--s3)">Based on your measurements. Each targets a specific gap.</p>';
+  for(var i=0;i<s.ex.length;i++){
+    var e=s.ex[i];
+    h+='<div class="c" style="margin-bottom:6px"><div class="text-bold" style="margin-bottom:2px">'+(i+1)+'. '+e.name+'</div><div class="text-xs text-muted" style="margin-bottom:4px">'+e.why+'</div><div style="font-size:var(--xs);margin-bottom:4px"><b>How:</b> '+e.how+'</div><div style="font-size:10px;color:var(--tx3);font-style:italic">📚 '+e.ref+'</div></div>';
+  }
+  h+='</div>';
+  h+='<button class="btn btn-p" onclick="startVoiceLab()">Re-Assess</button>';
+  h+='<button class="btn btn-g" onclick="go(\'practice\')">Back to Practice</button>';
+  c.innerHTML=h;
+}
+
+function vlAutocorrelate(buf,sr){
+  var n=buf.length,rms=0;
+  for(var i=0;i<n;i++)rms+=buf[i]*buf[i];
+  rms=Math.sqrt(rms/n);
+  if(rms<0.01)return -1;
+  var maxOff=Math.floor(sr/50),minOff=Math.floor(sr/500),bestOff=-1,bestCor=-1;
+  for(var off=minOff;off<maxOff;off++){
+    var cor=0;
+    for(var i=0;i<n-off;i++)cor+=Math.abs(buf[i]-buf[i+off]);
+    cor=1-cor/(n-off);
+    if(cor>bestCor){bestCor=cor;bestOff=off;}
+  }
+  if(bestCor<0.5)return -1;
+  return sr/bestOff;
+}
+
+function vlDynamic(){
+  VL.results.loudRMS=0;VL.results.softRMS=999;VL.running=true;
+  document.getElementById('vl-ui').innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:2rem;margin-bottom:var(--s3)">💪 LOUD then soft...</div><div id="vl-disp" style="font-size:1.2rem;font-weight:700;color:var(--pri)">Sing loud!</div></div>';
+  var t0=Date.now(),phase="loud";
+  (function loop(){
+    if(!VL.running)return;
+    var r=vlRMS();
+    if(r>0.005){
+      if(phase==="loud"&&r>VL.results.loudRMS)VL.results.loudRMS=r;
+      if(phase==="soft"&&r<VL.results.softRMS&&r>0.003)VL.results.softRMS=r;
+    }
+    var e=Date.now()-t0;
+    if(e>2500&&phase==="loud"){phase="soft";document.getElementById('vl-disp').textContent="Now soft...";}
+    if(e>=5000){VL.running=false;vlFinish();return;}
+    VL.raf=requestAnimationFrame(loop);
+  })();
+}
+
+function vlExercises(){
+  var s=VL.results,g=s.gender,ex=[];
+  if(g==="male"){
+    ex.push({name:"Lip Trill Sirens",why:"SOVT — strengthens CT muscles, improves head-voice coordination",how:"Buzz lips. Slide from chest through passaggio ("+s.passaggio+") and back. Keep buzz going. 3×5.",ref:"SOVTE increases reactive inertance (Journal of Voice 2025)"});
+    ex.push({name:"'NG' Through Passaggio",why:"Keeps folds connected through transition — avoids the flip",how:"Sing 'ng' below passaggio. Slide up through "+s.passaggio+". Keep nasal resonance. 5 reps.",ref:"Vowel modification reduces laryngeal strain (Roubeau et al. 2008)"});
+    ex.push({name:"Light 'Mee' Descending",why:"Descending from head voice teaches gradual weight addition — builds mix",how:"Start head voice high. Sing 'mee' descending. Keep light, connected feeling. 5 reps."});
+  }else{
+    ex.push({name:"Straw Phonation",why:"SOVT — back-pressure strengthens head-voice fold closure",how:"Straw in water. Blow bubbles singing 'oo' from passaggio ("+s.passaggio+") up. Steady bubbles. 3×5.",ref:"SOVTE improves fold closure efficiency (Journal of Voice 2025)"});
+    ex.push({name:"'Oo' Through Break",why:"'Oo' lowers F1, eases chest-to-head transition",how:"Sing 'oo' below passaggio. Slide up through "+s.passaggio+". Keep round, dark. 5 reps.",ref:"Lip rounding lowers F1, easing register transition (J-STAGE 2023)"});
+    ex.push({name:"Descending 'Mee'",why:"Teaches cord connection adding weight — builds female mix",how:"Head voice. Sing 'mee' descending through passaggio. Stay connected — no breathy flip. 5 reps."});
+  }
+  if(s.avgF2>2000) ex.push({name:"Darken Your Sound",why:"F2 is high — voice is naturally bright. Learn to darken for versatility",how:"Sing 'oo'. Round lips. Feel resonance drop from cheekbones to throat. Alternate 'ee'/'oo'.",ref:"F2-F3 decrease with lip rounding — J-STAGE 2023"});
+  else ex.push({name:"Brighten Your Sound",why:"F2 is low — voice leans dark. Learn brightness for cutting power",how:"Sing 'ee'. Spread lips. Feel buzz forward to lips/cheekbones. Alternate 'oo'/'ee'.",ref:"Lip spreading raises F2-F3 — J-STAGE 2023"});
+  return ex;
+}
+
+function vlFinish(){
+  if(VL.stream){VL.stream.getTracks().forEach(function(t){t.stop();});VL.stream=null;}
+  var s=VL.results;
+  // Process results
+  if(s.f0.length>0){s.lowF0=Math.min.apply(null,s.f0);s.hiF0=Math.max.apply(null,s.f0);}
+  if(s.f1.length>0){s.avgF1=Math.round(s.f1.reduce(function(a,b){return a+b;},0)/s.f1.length);s.avgF2=Math.round(s.f2.reduce(function(a,b){return a+b;},0)/s.f2.length);s.avgH1H2=Math.round(s.h1h2.reduce(function(a,b){return a+b;},0)/s.h1h2.length);s.avgF0=Math.round(s.f0.reduce(function(a,b){return a+b;},0)/s.f0.length);}
+  // Gender: F0 + F1 + F2 + H1-H2 combined scoring
+  var m=0,f=0;
+  if(s.avgF0<165)f+=2;else if(s.avgF0>180)m+=2;else{m++;f++;}
+  if(s.avgF1<400)m+=2;else if(s.avgF1>550)f+=2;else{m++;f++;}
+  if(s.avgF2<1500)m+=1;else if(s.avgF2>2000)f+=1;
+  if(s.avgH1H2<8)m+=1;else if(s.avgH1H2>12)f+=1;
+  s.gender=m>=f?"male":"female";
+  s.gConf=Math.round(Math.abs(m-f)/(m+f)*100);
+  // Passaggio from slide
+  var maxJ=0,pp=0;
+  for(var i=1;i<s.slide.length;i++){var j=Math.abs(1200*Math.log2(s.slide[i].f/s.slide[i-1].f));if(j>maxJ){maxJ=j;pp=69+12*Math.log2(s.slide[i].f/440);}}
+  if(pp>0){var nn=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];s.passaggio=nn[Math.round(pp)%12]+Math.floor(Math.round(pp)/12)-1;}
+  // Artist match
+  var best=null,bs=999;
+  for(var i=0;i<ARTIST_PROFILES.length;i++){
+    var a=ARTIST_PROFILES[i];if(a.gender!==s.gender)continue;
+    var sc=Math.abs(s.avgF1-a.f1)/100+Math.abs(s.avgF2-a.f2)/200+Math.abs(s.avgH1H2-a.h1h2)/5;
+    if(sc<bs){bs=sc;best=a;}
+  }
+  s.artist=best;
+  // Exercises
+  s.ex=vlExercises();
+  vlStep(6);
+}
+
+function vlFormants(){
+  var sp=new Float32Array(VL.analyser.frequencyBinCount);
+  VL.analyser.getFloatFrequencyData(sp);
+  var bw=VL.ctx.sampleRate/VL.analyser.fftSize;
+  var f1m=Math.floor(200/bw),f1x=Math.floor(900/bw),f2m=Math.floor(800/bw),f2x=Math.floor(2800/bw);
+  var p1=f1m,v1=-999,p2=f2m,v2=-999;
+  for(var i=f1m;i<f1x;i++){if(sp[i]>v1){v1=sp[i];p1=i;}}
+  for(var i=f2m;i<f2x;i++){if(sp[i]>v2){v2=sp[i];p2=i;}}
+  return {f1:p1*bw,f2:p2*bw};
+}
+
+function vlH1H2(f0){
+  var sp=new Float32Array(VL.analyser.frequencyBinCount);
+  VL.analyser.getFloatFrequencyData(sp);
+  var bw=VL.ctx.sampleRate/VL.analyser.fftSize;
+  return (sp[Math.round(f0/bw)]||-100)-(sp[Math.round(2*f0/bw)]||-100);
+}
+
+function vlHigh(){
+  VL.results.f0=[];VL.running=true;
+  document.getElementById('vl-ui').innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:2rem;margin-bottom:var(--s3)">🎵 Sing highest note...</div><div id="vl-disp" style="font-size:2rem;font-weight:800;color:var(--pri)">—</div></div>';
+  var t0=Date.now();
+  (function loop(){
+    if(!VL.running)return;
+    var f=vlPitch(),r=vlRMS();
+    if(f>100&&f<1200&&r>0.01){VL.results.f0.push(f);document.getElementById('vl-disp').textContent=vlNote(f)+" ("+Math.round(f)+" Hz)";}
+    if(Date.now()-t0>=4000){VL.running=false;vlStep(3);return;}
+    VL.raf=requestAnimationFrame(loop);
+  })();
+}
+
+function vlLow(){
+  vlInitMic().then(function(){
+    VL.results.f0=[];VL.running=true;
+    document.getElementById('vl-ui').innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:2rem;margin-bottom:var(--s3)">🎤 Sing lowest note...</div><div id="vl-disp" style="font-size:2rem;font-weight:800;color:var(--pri)">—</div><div class="text-muted" style="margin-top:var(--s3)">Hold steady...</div></div>';
+    var t0=Date.now();
+    (function loop(){
+      if(!VL.running)return;
+      var f=vlPitch(),r=vlRMS();
+      if(f>50&&f<500&&r>0.01){VL.results.f0.push(f);document.getElementById('vl-disp').textContent=vlNote(f)+" ("+Math.round(f)+" Hz)";}
+      if(Date.now()-t0>=4000){VL.running=false;vlStep(2);return;}
+      VL.raf=requestAnimationFrame(loop);
+    })();
+  }).catch(function(){toast("Microphone needed","err");});
+}
+
+function vlMid(){
+  VL.results.f0=[];VL.results.f1=[];VL.results.f2=[];VL.results.h1h2=[];VL.running=true;
+  document.getElementById('vl-ui').innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:2rem;margin-bottom:var(--s3)">🗣️ Sing "ahhh"...</div><div id="vl-disp" style="font-size:1.5rem;font-weight:800;color:var(--pri)">—</div><div id="vl-f" class="text-xs text-muted" style="margin-top:var(--s2)"></div></div>';
+  var t0=Date.now();
+  (function loop(){
+    if(!VL.running)return;
+    var f=vlPitch(),r=vlRMS();
+    if(f>80&&f<600&&r>0.01){
+      VL.results.f0.push(f);
+      var fm=vlFormants();
+      VL.results.f1.push(fm.f1);VL.results.f2.push(fm.f2);
+      VL.results.h1h2.push(vlH1H2(f));
+      document.getElementById('vl-disp').textContent=vlNote(f);
+      document.getElementById('vl-f').textContent="F1:"+Math.round(fm.f1)+" F2:"+Math.round(fm.f2);
+    }
+    if(Date.now()-t0>=5000){VL.running=false;vlStep(4);return;}
+    VL.raf=requestAnimationFrame(loop);
+  })();
+}
+
+function vlNote(f){
+  var nn=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+  var m=69+12*Math.log2(f/440);
+  return nn[Math.round(m)%12]+Math.floor(Math.round(m)/12)-1;
+}
+
+function vlSlide(){
+  VL.results.slide=[];VL.running=true;
+  document.getElementById('vl-ui').innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:2rem;margin-bottom:var(--s3)">🔄 Slide up...</div><div id="vl-disp" style="font-size:1.5rem;font-weight:800;color:var(--pri)">—</div></div>';
+  var t0=Date.now();
+  (function loop(){
+    if(!VL.running)return;
+    var f=vlPitch(),r=vlRMS();
+    if(f>80&&f<1000&&r>0.01){VL.results.slide.push({f:f,t:Date.now()-t0});document.getElementById('vl-disp').textContent=vlNote(f);}
+    if(Date.now()-t0>=7000){VL.running=false;vlStep(5);return;}
+    VL.raf=requestAnimationFrame(loop);
+  })();
+}
+
+function vlStep(n){
+  VL.step=n;VL.running=false;
+  if(VL.raf)cancelAnimationFrame(VL.raf);
+  var ui=document.getElementById('vl-ui');
+  var btns='<div style="display:flex;gap:8px;justify-content:center;margin-top:16px">';
+  if(n<5) btns+='<button class="btn btn-p" onclick="vlStep('+(n+1)+')">Skip</button>';
+  btns+='</div>';
+  
+  if(n===1) ui.innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:3rem;margin-bottom:var(--s3)">🎤</div><h3>Lowest Note</h3><p class="text-muted" style="margin:var(--s3) 0 var(--s5)">Sing the lowest comfortable note. Hold 3 seconds. Clear tone — no vocal fry.</p><button class="btn btn-p" onclick="vlLow()">Start</button></div>';
+  else if(n===2) ui.innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:3rem;margin-bottom:var(--s3)">🎵</div><h3>Highest Note</h3><p class="text-muted" style="margin:var(--s3) 0 var(--s5)">Sing the highest note — any register. Hold 3 seconds. Don\'t strain.</p><button class="btn btn-p" onclick="vlHigh()">Start</button></div>';
+  else if(n===3) ui.innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:3rem;margin-bottom:var(--s3)">🗣️</div><h3>Comfortable Note</h3><p class="text-muted" style="margin:var(--s3) 0 var(--s5)">Sing where you feel most natural. Hold "ahhh" 4 seconds. Measures your formants.</p><button class="btn btn-p" onclick="vlMid()">Start</button></div>';
+  else if(n===4) ui.innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:3rem;margin-bottom:var(--s3)">🔄</div><h3>Range Slide</h3><p class="text-muted" style="margin:var(--s3) 0 var(--s5)">Slide from lowest to highest. Takes 5-6 seconds. Finds your passaggio.</p><button class="btn btn-p" onclick="vlSlide()">Start</button></div>';
+  else if(n===5) ui.innerHTML='<div style="text-align:center;padding:var(--s6)"><div style="font-size:3rem;margin-bottom:var(--s3)">💪</div><h3>Loud → Soft</h3><p class="text-muted" style="margin:var(--s3) 0 var(--s5)">Sing loud 2 seconds, then immediately soft 2 seconds. Measures dynamic range.</p><button class="btn btn-p" onclick="vlDynamic()">Start</button></div>';
+  else if(n===6) vlResults();
+}
+
+function openTimeSig(level){TS.level=level;TS.step=0;var c=document.getElementById('v-c');var h='';h+='<div><button class="btn btn-g btn-sm" onclick="go(\'theory\')">← Back to Theory</button></div>';var lbls={beginner:'Beginner — Feel the Beat',intermediate:'Intermediate — Compound & Odd',advanced:'Advanced — Hack Any Meter'};h+='<div class="hero"><h1>⏱ Time Signature Mastery</h1><p>'+(lbls[level]||'')+'</p></div>';h+='<div style="display:flex;gap:6px;margin-bottom:var(--s4)">';['beginner','intermediate','advanced'].forEach(function(l){h+='<button class="btn '+(l===level?'btn-p':'btn-w')" onclick="openTimeSig(\''+l+'\')">'+l.charAt(0).toUpperCase()+l.slice(1)+'</button>';});h+='</div>';var exercises=TimeSigMastery.levels[level].exercises;var icons={lesson:'📖',interactive:'🎯',quiz:'❓',calculator:'🔢',performance:'🎤'};for(var i=0;i<exercises.length;i++){var ex=exercises[i];h+='<div class="li" onclick="runTSExercise(\''+level+'\','+i+')">';h+='<div class="li-ic">'+(icons[ex.type]||'📝')+'</div>';h+='<div class="li-b"><div class="li-t">'+ex.name+'</div><div class="li-sub">'+ex.desc+'</div></div>';h+='<span class="li-r">→</span></div>';}c.innerHTML=h;go('session');}
+
+function renderTSLesson(container,id){var L={ts_lesson_1:{title:'What Do the Numbers Mean?',body:'<p>A time signature has <b>two numbers</b>, stacked.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><div style="font-size:2.5rem;font-weight:900;color:var(--pri)">4</div><div style="font-size:2.5rem;font-weight:900;color:var(--tx2)">4</div><div style="border-top:2px solid var(--border);margin:var(--s2) 0"></div><div style="font-size:var(--sm)"><b>Top</b> = how many | <b>Bottom</b> = what note value</div></div><p><b>4/4</b> = 4 quarter notes per bar. <b>3/4</b> = 3 quarter notes. <b>6/8</b> = 6 eighth notes.</p><div style="background:oklch(0.72 0.18 145/0.08);border:1px solid var(--ok);border-radius:var(--r);padding:var(--s3);margin-top:var(--s3)"><b>💡 The Rule:</b> Top = how many. Bottom = what note. Everything else follows.</div>'},ts_lesson_2:{title:'Simple vs Compound',body:'<p>The real difference is how the <b>beat divides</b>.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin:var(--s3) 0"><div style="background:var(--bg);border:1px solid var(--ok);border-radius:var(--r);padding:var(--s3);text-align:center"><div style="font-weight:800;color:var(--ok)">SIMPLE</div><div style="font-size:var(--sm)">Beat divides into <b>2</b></div><div style="font-size:0.7rem;color:var(--tx3)">4/4, 3/4, 2/4</div></div><div style="background:var(--bg);border:1px solid var(--gold);border-radius:var(--r);padding:var(--s3);text-align:center"><div style="font-weight:800;color:var(--gold)">COMPOUND</div><div style="font-size:var(--sm)">Beat divides into <b>3</b></div><div style="font-size:0.7rem;color:var(--tx3)">6/8, 9/8, 12/8</div></div></div><p><b>Simple (4/4):</b> Count <b>1</b> and <b>2</b> and <b>3</b> and <b>4</b> and.</p><p><b>Compound (6/8):</b> Count <b>1</b> 2 3 <b>4</b> 5 6. Two BIG beats.</p><div style="background:oklch(0.78 0.16 60/0.08);border:1px solid var(--warn);border-radius:var(--r);padding:var(--s3);margin-top:var(--s3)"><b>⚠️ Common mistake:</b> 3/4 ≠ 6/8. Completely different feel.</div>'},ts_lesson_3:{title:'Odd Meters: 5/4 & 7/8',body:'<p>Odd meters are <b>grouped</b> into 2s and 3s.</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s3);margin:var(--s2) 0"><b>5/4 = 3+2</b><div style="display:flex;gap:4px;justify-content:center;margin-top:var(--s2)"><span style="background:var(--pri);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">ONE</span><span style="background:var(--pri);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">two</span><span style="background:var(--pri);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">THREE</span><span style="background:var(--tx3);padding:3px 8px;border-radius:4px;font-size:0.7rem">one</span><span style="background:var(--tx3);padding:3px 8px;border-radius:4px;font-size:0.7rem">two</span></div></div><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s3);margin:var(--s2) 0"><b>7/8 = 2+2+3</b><div style="display:flex;gap:4px;justify-content:center;margin-top:var(--s2)"><span style="background:var(--pri);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">ONE</span><span style="background:var(--pri);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">two</span><span style="background:var(--tx3);padding:3px 8px;border-radius:4px;font-size:0.7rem">one</span><span style="background:var(--tx3);padding:3px 8px;border-radius:4px;font-size:0.7rem">two</span><span style="background:var(--gold);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">ONE</span><span style="background:var(--gold);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">two</span><span style="background:var(--gold);color:#fff;padding:3px 8px;border-radius:4px;font-size:0.7rem">three</span></div></div><p style="margin-top:var(--s3)"><b>Examples:</b> Brubeck "Take Five" (5/4), Pink Floyd "Money" (7/4)</p>'},ts_lesson_4:{title:'The Universal Rule',body:'<p>Two questions to hack <b>any</b> meter:</p><div style="background:var(--bg);border:2px solid var(--pri);border-radius:var(--r);padding:var(--s4);margin:var(--s3) 0;text-align:center"><div style="font-weight:900;color:var(--pri)">1. TOP = how many?</div><div style="font-weight:900;color:var(--pri)">2. BOTTOM = what note?</div><div style="border-top:2px solid var(--border);margin:var(--s3) 0"></div><div style="font-size:var(--sm)">Then: beat divides into 2 (simple) or 3 (compound)?</div></div><div style="background:oklch(0.72 0.18 145/0.08);border:1px solid var(--ok);border-radius:var(--r);padding:var(--s3);margin-top:var(--s3)"><b>🎯 The hack:</b> You don\'t memorize. You <i>calculate</i>.</div>'}};var lesson=L[id]||{title:'Lesson',body:'<p>Loading...</p>'};container.innerHTML='<h3 style="font-weight:800;margin-bottom:var(--s3)">'+lesson.title+'</h3>'+lesson.body;}
+
+function renderTSInteractive(container,id){var cfgs={ts_tap_44:{top:4,bottom:4,name:'4/4',bpm:100},ts_tap_34:{top:3,bottom:4,name:'3/4',bpm:90},ts_tap_68:{top:6,bottom:8,name:'6/8',bpm:80}};var cfg=cfgs[id]||cfgs.ts_tap_44;var a=TimeSigMastery.analyze(cfg.top,cfg.bottom);var dots='';for(var i=0;i<a.grouping.length;i++){var s=a.grouping[i]==='STRONG',m=a.grouping[i]==='MEDIUM';dots+='<div id="ts-dot-'+i+'" style="width:'+(s?'18px':'12px')+';height:'+(s?'18px':'12px')+';border-radius:50%;background:'+(s?'var(--pri)':m?'var(--gold)':'var(--tx3)')+';'+(s?'box-shadow:0 0 8px var(--pri)':'')+';transition:all 0.15s"></div>';}container.innerHTML='<div style="text-align:center;padding:var(--s4) 0"><div style="font-size:2rem;font-weight:900;color:var(--pri);margin-bottom:var(--s2)">'+a.display+'</div><div style="font-size:var(--sm);color:var(--tx2);margin-bottom:var(--s1)">'+a.feel+'</div><div id="ts-beats" style="display:flex;gap:6px;justify-content:center;margin:var(--s4) 0;min-height:48px;align-items:center">'+dots+'</div><div style="display:flex;align-items:center;justify-content:center;gap:var(--s3);margin-bottom:var(--s3)"><button class="btn btn-w" onclick="TS.tapBPM=Math.max(40,TS.tapBPM-10);var e=document.getElementById(\'ts-bpm\');if(e)e.textContent=TS.tapBPM+\' BPM\'">−</button><span id="ts-bpm" style="font-size:1.5rem;font-weight:800;min-width:80px;text-align:center">'+cfg.bpm+' BPM</span><button class="btn btn-w" onclick="TS.tapBPM=Math.min(200,TS.tapBPM+10);var e=document.getElementById(\'ts-bpm\');if(e)e.textContent=TS.tapBPM+\' BPM\'">+</button></div><button class="btn btn-p" style="width:100%;padding:var(--s4);font-size:1.2rem;font-weight:800;margin-bottom:var(--s3)" onclick="tsTap()">👆 TAP THE BEAT</button><div style="display:flex;gap:8px;justify-content:center;margin-bottom:var(--s4)"><button class="btn btn-s" onclick="tsStartMetronome()">▶ Play</button><button class="btn btn-w" onclick="tsStopMetronome()">⏹ Stop</button></div><div id="ts-tap-score" style="font-size:var(--sm);color:var(--tx3);text-align:center"></div></div>';TS.tapBPM=cfg.bpm;TS.tapScore={hit:0,miss:0};TS.tapBeat=0;TS.tapRunning=false;}
+
+function tsTap(){TS.tapScore.hit++;var beat=TS.tapBeat%8;for(var i=0;i<8;i++){var d=document.getElementById('ts-dot-'+i);if(d)d.style.transform=(i===beat?'scale(1.5)':'scale(1)');}TS.tapBeat++;var el=document.getElementById('ts-tap-score');if(el)el.textContent='Taps: '+TS.tapScore.hit;}
+
+function tsStartMetronome(){if(TS.metronomeInterval)clearInterval(TS.metronomeInterval);try{TS.metronomeCtx=new(window.AudioContext||window.webkitAudioContext)();var beatMs=60000/TS.tapBPM;TS.tapRunning=true;TS.tapBeat=0;TS.metronomeInterval=setInterval(function(){if(!TS.tapRunning)return;var osc=TS.metronomeCtx.createOscillator();var gain=TS.metronomeCtx.createGain();osc.connect(gain);gain.connect(TS.metronomeCtx.destination);var strong=(TS.tapBeat%4===0);osc.frequency.value=strong?1000:700;gain.gain.value=0.15;osc.start();gain.gain.exponentialRampToValueAtTime(0.001,TS.metronomeCtx.currentTime+0.08);osc.stop(TS.metronomeCtx.currentTime+0.1);var total=0;for(var i=0;i<32;i++){if(document.getElementById('ts-dot-'+i))total++;}for(var i=0;i<total;i++){var d=document.getElementById('ts-dot-'+i);if(d)d.style.transform=(i===TS.tapBeat%total?'scale(1.5)':'scale(1)');}TS.tapBeat++;},beatMs);}catch(e){toast('Audio not available','err');}}
+
+function tsStopMetronome(){TS.tapRunning=false;if(TS.metronomeInterval){clearInterval(TS.metronomeInterval);TS.metronomeInterval=null;}if(TS.metronomeCtx){TS.metronomeCtx.close();TS.metronomeCtx=null;}}
+
+function startTSQuiz(container,level){TS.quizActive=true;TS.quizIndex=0;TS.quizScore=0;TS.quizQuestions=TimeSigMastery.generateQuiz(level,5);showTSQuizQuestion(container);}
+
+function showTSQuizQuestion(container){if(TS.quizIndex>=TS.quizQuestions.length){var pct=Math.round(TS.quizScore/TS.quizQuestions.length*100);container.innerHTML='<div style="text-align:center;padding:var(--s6) 0"><div style="font-size:3rem;margin-bottom:var(--s3)">'+(pct>=80?'🏆':pct>=60?'💪':'📚')+'</div><h2>Quiz Complete!</h2><div style="font-size:2rem;font-weight:900;color:'+(pct>=80?'var(--ok)':pct>=60?'var(--gold)':'var(--err)')+'">'+pct+'%</div><button class="btn btn-p" style="margin-top:var(--s3)" onclick="openTimeSig(\''+TS.level+'\')">Back</button></div>';TS.quizActive=false;return;}var q=TS.quizQuestions[TS.quizIndex];var h='<div style="margin-bottom:var(--s3)"><span class="tag tag-p">Question '+(TS.quizIndex+1)+'/'+TS.quizQuestions.length+'</span></div><h3 style="font-weight:800;margin-bottom:var(--s4)">'+q.question+'</h3>';if(q.type==='mc'){for(var i=0;i<q.options.length;i++){var opt=q.options[i].replace(/'/g,"\\'");var cor=q.correct.replace(/'/g,"\\'");var exp=q.explanation.replace(/'/g,"\\'");h+='<div class="c c-a" style="margin-bottom:6px;cursor:pointer" onclick="tsAnswerQuiz(this,\''+opt+'\',\''+cor+'\',\''+exp+'\')">'+q.options[i]+'</div>';}}else if(q.type==='num'){h+='<input id="ts-quiz-input" type="number" style="background:var(--bg2);color:var(--tx);border:1px solid var(--border);border-radius:var(--r);padding:var(--s3);font-size:1.5rem;width:100%;text-align:center;margin-bottom:var(--s3)" placeholder="Enter number"><button class="btn btn-p" onclick="tsSubmitNumber('+q.correct+',\''+q.explanation.replace(/'/g,"\\'")+'\')">Submit</button>';}container.innerHTML=h;}
+
+function tsAnswerQuiz(el,answer,correct,explanation){var isCorrect=answer===correct;if(isCorrect){TS.quizScore++;el.style.border='2px solid var(--ok)';el.style.background='oklch(0.72 0.18 145/0.1)';}else{el.style.border='2px solid var(--err)';el.style.background='oklch(0.65 0.20 25/0.1)';}var div=document.createElement('div');div.style.cssText='font-size:var(--sm);color:'+(isCorrect?'var(--ok)':'var(--err)')+';margin-top:var(--s2);padding:var(--s2);background:var(--bg);border-radius:var(--r)';div.innerHTML=(isCorrect?'✔ Correct! ':'✗ Not quite. ')+explanation;el.parentNode.insertBefore(div,el.nextSibling);setTimeout(function(){TS.quizIndex++;showTSQuizQuestion(document.getElementById('ts-content'));},2500);}
+
+function tsSubmitNumber(correct,explanation){var val=parseInt(document.getElementById('ts-quiz-input').value);var isCorrect=val===correct;if(isCorrect)TS.quizScore++;var div=document.createElement('div');div.style.cssText='font-size:var(--sm);color:'+(isCorrect?'var(--ok)':'var(--err)')+';margin-top:var(--s2);padding:var(--s2);background:var(--bg);border-radius:var(--r)';div.innerHTML=(isCorrect?'✔ Correct! ':'✗ The answer is '+correct+'. ')+explanation;document.getElementById('ts-content').appendChild(div);setTimeout(function(){TS.quizIndex++;showTSQuizQuestion(document.getElementById('ts-content'));},2500);}
+
+function renderTSCalculator(container){container.innerHTML='<p class="text-muted" style="margin-bottom:var(--s3)">Enter any time signature. See what it means.</p><div style="display:flex;gap:var(--s3);align-items:center;justify-content:center;margin-bottom:var(--s4)"><input id="ts-calc-top" type="number" min="1" max="32" value="4" style="background:var(--bg2);color:var(--tx);border:1px solid var(--border);border-radius:var(--r);padding:var(--s3);font-size:2rem;width:80px;text-align:center"><div style="font-size:2rem;font-weight:900">/</div><select id="ts-calc-bottom" style="background:var(--bg2);color:var(--tx);border:1px solid var(--border);border-radius:var(--r);padding:var(--s3);font-size:2rem"><option value="2">half</option><option value="4" selected>quarter</option><option value="8">eighth</option></select><button class="btn btn-p" onclick="tsCalculate()">Calculate</button></div><div id="ts-calc-result"></div>';tsCalculate();}
+
+function tsCalculate(){var top=parseInt(document.getElementById('ts-calc-top').value)||4;var bottom=parseInt(document.getElementById('ts-calc-bottom').value)||4;var a=TimeSigMastery.analyze(top,bottom);var dots='';for(var i=0;i<a.grouping.length;i++){var s=a.grouping[i]==='STRONG',m=a.grouping[i]==='MEDIUM';dots+='<div style="width:'+(s?'16px':'10px')+';height:'+(s?'16px':'10px')+';border-radius:50%;background:'+(s?'var(--pri)':m?'var(--gold)':'var(--tx3)')+';'+(s?'box-shadow:0 0 6px var(--pri)':'')+'"></div>';}var html='<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:var(--s4);margin-top:var(--s3)"><div style="font-size:2rem;font-weight:900;color:var(--pri);margin-bottom:var(--s2)">'+a.display+'</div><div style="display:flex;gap:4px;margin-bottom:var(--s3)">'+dots+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);font-size:var(--sm)"><div><b>Type:</b> '+(a.isSimple?'Simple':a.isCompound?'Compound':'Odd')+'</div><div><b>Beats/bar:</b> '+a.beatsPerBar+'</div><div><b>Beat unit:</b> '+TimeSigMastery.noteName(a.beatUnit)+'</div><div><b>Divisions:</b> '+a.divisionsPerBar+'</div></div><div style="margin-top:var(--s3);padding:var(--s3);background:var(--bg2);border-radius:var(--r);font-size:var(--sm)">'+a.feel+'</div><div style="margin-top:var(--s2);font-size:0.75rem;color:var(--tx3)"><b>Examples:</b> '+a.examples.join(' • ')+'</div></div>';document.getElementById('ts-calc-result').innerHTML=html;}
+
+function renderTSPerformance(container){container.innerHTML='<div style="text-align:center;padding:var(--s4) 0"><h3 style="font-weight:800;margin-bottom:var(--s3)">🎤 Real-Time Performance</h3><p class="text-muted" style="margin-bottom:var(--s4)">Sing or clap. Identify the time signature.</p><div style="display:flex;gap:8px;justify-content:center;margin-bottom:var(--s4)"><select id="ts-perf-ts" style="background:var(--bg2);color:var(--tx);border:1px solid var(--border);border-radius:var(--r);padding:var(--s2);font-size:1rem"><option value="4/4">4/4</option><option value="3/4">3/4</option><option value="6/8">6/8</option><option value="5/4">5/4</option><option value="7/8">7/8</option></select><button class="btn btn-s" onclick="tsStartPerf()">Start</button><button class="btn btn-w" onclick="tsStopPerf()">Stop</button></div><div id="ts-perf-display" style="font-size:1.5rem;font-weight:800;color:var(--pri);min-height:40px"></div><div id="ts-perf-score" style="font-size:var(--sm);color:var(--tx3);margin-top:var(--s2)"></div></div>';}
+
+function tsStartPerf(){perfTaps=[];var d=document.getElementById('ts-perf-display');if(d)d.textContent='Tap or clap the beat...';document.addEventListener('keydown',tsPerfKey);document.addEventListener('click',tsPerfClick);perfTimeout=setTimeout(function(){tsStopPerf();},10000);}
+
+function tsStopPerf(){document.removeEventListener('keydown',tsPerfKey);document.removeEventListener('click',tsPerfClick);if(perfTimeout)clearTimeout(perfTimeout);if(perfTaps.length<4){var d=document.getElementById('ts-perf-display');if(d)d.textContent='Need more taps. Try again.';return;}var intervals=[];for(var i=1;i<perfTaps.length;i++)intervals.push(perfTaps[i]-perfTaps[i-1]);var avg=intervals.reduce(function(a,b){return a+b;},0)/intervals.length;var variance=intervals.reduce(function(s,v){return s+Math.pow(v-avg,2);},0)/intervals.length;var consistency=Math.max(0,100-Math.sqrt(variance)/avg*100);var sel=document.getElementById('ts-perf-ts').value;var d2=document.getElementById('ts-perf-display');var s2=document.getElementById('ts-perf-score');if(d2)d2.textContent='Detected: '+sel;if(s2)s2.textContent='Consistency: '+Math.round(consistency)+'% | Taps: '+perfTaps.length;}
+
+function tsPerfKey(e){if(e.code==='Space'){e.preventDefault();perfTaps.push(Date.now());tsPerfVisual();}}
+
+function tsPerfClick(e){perfTaps.push(Date.now());tsPerfVisual();}
+
+function tsPerfVisual(){var d=document.getElementById('ts-perf-display');if(d)d.textContent='● '.repeat(Math.min(perfTaps.length,16));}
+
+function runTSExercise(level,idx){var ex=TimeSigMastery.levels[level].exercises[idx];var c=document.getElementById('v-c');var h='';h+='<div><button class="btn btn-g btn-sm" onclick="openTimeSig(\''+level+'\')">← Back</button></div>';h+='<div style="margin:var(--s3) 0"><span class="tag tag-p">'+level.toUpperCase()+'</span></div>';h+='<h2 style="font-size:var(--lg);font-weight:900;margin-bottom:var(--s2)">'+ex.name+'</h2>';h+='<p class="text-muted" style="margin-bottom:var(--s4)">'+ex.desc+'</p>';h+='<div id="ts-content"></div>';c.innerHTML=h;go('session');var content=document.getElementById('ts-content');if(ex.type==='lesson')renderTSLesson(content,ex.content);else if(ex.type==='interactive')renderTSInteractive(content,ex.content);else if(ex.type==='quiz')startTSQuiz(content,level);else if(ex.type==='calculator')renderTSCalculator(content);else if(ex.type==='performance')renderTSPerformance(content);}
+
+
+
 </script>
 
 <!-- AUTH SCREEN -->
@@ -3733,6 +4123,11 @@ document.addEventListener('keydown', function(e) {
 </div>
 
 <!-- SESSION (Lesson/Exercise viewer) -->
+<div class="sc" id="s-leaderboard">
+  <div class="tb"><div class="tb-t">🏆 Leaderboard</div></div>
+  <div class="sp" id="lb-c"></div>
+</div>
+
 <div class="sc" id="s-session">
   <div class="sp" id="v-c"></div>
 </div>
@@ -3770,7 +4165,20 @@ document.addEventListener('keydown', function(e) {
     <button class="bn-i" id="n-theory" onclick="go('theory')">
       <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
       Theory
-    </button>    <button class="bn-i" id="n-repertoire" onclick="go('repertoire')">
+    </button>
+    <button class="bn-i" id="n-quiz" onclick="go('quiz')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+      Quiz
+    </button>
+    <button class="bn-i" id="n-progress" onclick="go('progress')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+      Progress
+    </button>
+    <button class="bn-i" id="n-leaderboard" onclick="go('leaderboard')">
+      <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg></span>
+      Scores
+    </button>
+    <button class="bn-i" id="n-repertoire" onclick="go('repertoire')">
       <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></span>
       Repertoire
     </button>
