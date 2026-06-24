@@ -674,7 +674,6 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     <p class="section-desc" style="color:var(--gray-400);margin:0 auto var(--space-5)">Dashboard, lessons, practice tools, AI mentor, community — all in one place.</p>
     <div style="max-width:400px;margin:0 auto">
       <div class="form-group text-left"><label class="form-label" style="color:var(--gray-300)">Email</label><input type="email" class="form-input" id="lmsEmail" placeholder="you@example.com"></div>
-      <div class="form-group text-left"><label class="form-label" style="color:var(--gray-300)">Password</label><input type="password" class="form-input" id="lmsPass" placeholder="••••••••"></div>
       <button class="btn btn-gold btn-lg" style="width:100%;margin-top:var(--space-2)" onclick="app.lmsLogin()">Enter Dashboard →</button>
       <p style="margin-top:var(--space-2);font-size:0.8125rem;color:var(--gray-500)">New? <a href="#" onclick="app.lmsSignup();return false;" style="color:var(--gold)">Create free account</a></p>
     </div>
@@ -1093,7 +1092,6 @@ const app = {
   // ─── LMS LOGIN ───
   lmsLogin() {
     const email = document.getElementById('lmsEmail').value;
-    const pass = document.getElementById('lmsPass').value;
     if (!email) { toast('Enter your email'); return; }
     S.user = { email, name: email.split('@')[0], joined: new Date().toISOString() };
     localStorage.setItem('swt_user', JSON.stringify(S.user));
