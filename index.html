@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Singer OS — Vocal Mastery Academy</title>
+<script src="https://cdn.tailwindcss.com">
+function renderOnboarding(){
+  var c=document.getElementById("ob-c");
+  c.innerHTML='<div class="hero"><h1>Welcome to Singer OS</h1><p>Your vocal mastery journey starts here. Let's set up your profile.</p></div>'+
+    '<div class="c"><label>Your Name</label><input class="input" id="ob-name" placeholder="What should we call you?"></div>'+
+    '<div class="c"><label>Your Level</label><div class="flex gap-2" style="margin-top:8px">'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'beginner')">Beginner</button>'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'intermediate')">Intermediate</button>'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'advanced')">Advanced</button></div></div>'+
+    '<button class="btn btn-p" onclick="completeOnboarding()">Start Learning</button>';
+}
+function selectLevel(el,level){
+  var btns=el.parentNode.querySelectorAll(".btn");
+  for(var i=0;i<btns.length;i++)btns[i].className="btn btn-sm btn-g";
+  el.className="btn btn-sm btn-p";
+  U._selectedLevel=level;
+}
+function completeOnboarding(){
+  var name=document.getElementById("ob-name").value;
+  if(name)U.name=name;
+  U.onboardingDone=true;
+  if(U._selectedLevel){
+    // Unlock first 5 modules based on level
+    var modules=getModulesForLevel(U._selectedLevel);
+    for(var i=0;i<Math.min(5,modules.length);i++)modules[i].free=true;
+  }
+  save();
+  // Show email modal after onboarding
+  setTimeout(function(){openModal("email-modal")},2000);
+  go("home");
+}
+</script>
+<style>
+
+:root{--bg:#0a0b14;--bg2:#111320;--card:#161929;--card2:#1c2036;--border:#2a2d3f;--border-hi:#3a3f55;--pri:#7c5cfc;--pri-hi:#9d85fd;--pri-dim:#5a3fd4;--pri-glow:rgba(124,92,252,.15);--pri-glow-hi:rgba(124,92,252,.3);--neon:#00e5a0;--ok:#34d399;--warn:#fbbf24;--err:#f87171;--gold:#f59e0b;--tx:#f1f5f9;--tx2:#94a3b8;--tx3:#64748b;--r-sm:8px;--r:14px;--r-lg:20px;--r-full:9999px;--xs:.625rem;--sm:.75rem;--base:.875rem;--md:1rem;--lg:1.125rem;--xl:1.25rem;--2xl:1.5rem;--3xl:2rem;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s7:32px;--s8:48px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:dark;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--tx);font-size:var(--base);line-height:1.6;min-height:100vh;padding-bottom:88px;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 50% 0%,rgba(124,92,252,.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(0,229,160,.05) 0%,transparent 50%)}
+.sc{display:none;min-height:calc(100vh - 88px);position:relative;z-index:1}
+.sc.active{display:block;animation:fadeIn .3s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes floatXP{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-50px) scale(1.4)}}
+.tb{position:sticky;top:0;z-index:100;background:rgba(10,11,20,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:var(--s4) var(--s5);display:flex;justify-content:space-between;align-items:center}
+.tb-t{font-size:var(--lg);font-weight:800;letter-spacing:-.02em}
+.tb-r{font-size:var(--sm);color:var(--gold);font-weight:700}
+.sp{padding:var(--s5) var(--s4) var(--s9);max-width:540px;margin:0 auto}
+.bn{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(10,11,20,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);height:72px;padding-bottom:env(safe-area-inset-bottom,0)}
+.bn-in{display:flex;justify-content:space-around;align-items:center;height:100%;max-width:500px;margin:0 auto}
+.bn-ic{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 8px;color:var(--tx3);font-size:var(--xs);font-weight:600;text-decoration:none;border-radius:var(--r-sm);transition:all .15s;cursor:pointer;border:none;background:none;font-family:inherit;min-width:44px}
+.bn-ic:hover{color:var(--tx2);background:rgba(255,255,255,.05)}
+.bn-ic.on{color:var(--pri)}
+.bn-ic svg{width:20px;height:20px;stroke-width:1.8}
+.c{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s3);transition:border-color .2s}
+.c:hover{border-color:var(--border-hi)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);padding:var(--s3) var(--s5);border-radius:var(--r);font-weight:700;font-size:var(--sm);font-family:inherit;width:100%;cursor:pointer;border:none;transition:all .15s;min-height:48px;color:#fff}
+.btn:active{transform:scale(.98)}
+.btn-p{background:linear-gradient(135deg,var(--pri),var(--pri-dim));box-shadow:0 2px 8px var(--pri-glow)}
+.btn-s{background:linear-gradient(135deg,var(--ok),#059669)}
+.btn-g{background:var(--card2);color:var(--tx2);border:1px solid var(--border)}
+.btn-w{background:rgba(255,255,255,.05);color:var(--tx3);border:1px solid var(--border)}
+.btn-neon{background:linear-gradient(135deg,var(--neon),#00b887);color:#000;font-weight:800}
+.btn-sm{min-height:36px;padding:var(--s2) var(--s4);font-size:var(--xs);width:auto}
+.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--r-full);font-size:var(--xs);font-weight:700}
+.tag-p{background:var(--pri-glow);color:var(--pri-hi)}
+.tag-s{background:rgba(52,211,153,.1);color:var(--ok)}
+.tag-g{background:rgba(245,158,11,.1);color:var(--gold)}
+.level-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--pri-dim));color:#fff;font-weight:900;font-size:var(--sm)}
+.xp-bar{height:6px;background:var(--border);border-radius:var(--r-full);overflow:hidden;margin:4px 0}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--pri-dim),var(--pri),var(--neon));border-radius:var(--r-full);transition:width .5s}
+.pr-bar{height:8px;background:var(--border);border-radius:var(--r-full);overflow:hidden}
+.pr-fill{height:100%;background:var(--pri);border-radius:var(--r-full);transition:width .3s}
+.module-card{display:flex;align-items:center;justify-content:space-between;padding:var(--s4);background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:var(--s2);cursor:pointer;transition:all .15s}
+.module-card:hover{border-color:var(--border-hi);background:var(--card2);transform:translateX(2px)}
+.module-card.locked{opacity:.5;pointer-events:none}
+.module-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-weight:900;background:var(--pri-glow);color:var(--pri);flex-shrink:0}
+.module-info{flex:1;margin-left:var(--s3);min-width:0}
+.module-title{font-weight:700;font-size:var(--sm)}
+.module-sub{font-size:var(--xs);color:var(--tx3);margin-top:1px}
+.modal-overlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.8);backdrop-filter:blur(8px)}
+.modal-overlay.hidden{display:none}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s7);max-width:360px;width:90%;text-align:center}
+.modal-icon{font-size:3rem;margin-bottom:var(--s3)}
+.modal-title{font-size:var(--xl);font-weight:800;margin-bottom:var(--s2)}
+.modal-desc{color:var(--tx2);font-size:var(--sm);margin-bottom:var(--s5);line-height:1.5}
+.input{width:100%;padding:var(--s3) var(--s4);background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);color:var(--tx);font-family:inherit;font-size:var(--md);margin-bottom:var(--s2);outline:none}
+.input:focus{border-color:var(--pri)}
+.input::placeholder{color:var(--tx3)}
+.tabs{display:flex;gap:var(--s2);margin-bottom:var(--s5);overflow-x:auto}
+.tab{padding:var(--s2) var(--s4);border-radius:var(--r-full);font-size:var(--sm);font-weight:600;cursor:pointer;border:1px solid transparent;color:var(--tx3);transition:all .15s;white-space:nowrap;background:none}
+.tab.active{background:var(--pri-glow);color:var(--pri-hi);border-color:var(--pri)}
+.spectrum{width:100%;height:60px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:flex-end;gap:1px;padding:4px;overflow:hidden;margin:12px 0}
+.spectrum-bar{flex:1;background:var(--pri);border-radius:2px 2px 0 0;min-height:2px;transition:height .05s;opacity:.7}
+.bc-circle{width:180px;height:180px;border-radius:50%;margin:20px auto;display:flex;align-items:center;justify-content:center;transition:transform 4s ease-in-out;border:3px solid var(--border)}
+.bc-phase{font-size:1rem;color:var(--tx2);text-transform:uppercase;font-weight:700}
+.bc-count{font-size:2rem;font-weight:900;color:var(--pri)}
+.qo{display:flex;align-items:center;gap:var(--s3);padding:var(--s4);border:2px solid var(--border);border-radius:var(--r);margin-bottom:var(--s2);cursor:pointer;transition:all .15s;min-height:52px}
+.qo:hover{border-color:var(--border-hi)}
+.qo.sel{border-color:var(--pri);background:var(--pri-glow)}
+.qo.ok{border-color:var(--ok);background:rgba(52,211,153,.08)}
+.qo.err{border-color:var(--err);background:rgba(248,113,113,.08)}
+.qo.dis{pointer-events:none;opacity:.6}
+.qr{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.qo.sel .qr{background:var(--pri);border-color:var(--pri)}
+.qo.ok .qr{background:var(--ok);border-color:var(--ok)}
+.qo.err .qr{background:var(--err);border-color:var(--err)}
+.qr::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff;opacity:0}
+.qo.sel .qr::after,.qo.ok .qr::after,.qo.err .qr::after{opacity:1}
+.ft{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-200%);background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:var(--s3) var(--s5);z-index:9998;font-size:var(--sm);font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.5);transition:transform .3s cubic-bezier(.34,1.56,.64,1);max-width:90vw;text-align:center}
+.ft.show{transform:translateX(-50%) translateY(0)}
+.ft-ok{border-color:var(--ok);color:var(--ok)}
+.ft-err{border-color:var(--err);color:var(--err)}
+.hidden{display:none!important}
+.text-center{text-align:center}
+.text-sm{font-size:var(--sm)}
+.text-muted{color:var(--tx3)}
+.text-pri{color:var(--pri)}
+.text-ok{color:var(--ok)}
+.text-gold{color:var(--gold)}
+.flex{display:flex}
+.justify-between{justify-content:space-between}
+.justify-center{justify-content:center}
+.items-center{align-items:center}
+.gap-2{gap:var(--s2)}
+.gap-3{gap:var(--s3)}
+.w-full{width:100%}
+</style>
+</head>
+<body>
+
+<script>
+var U={name:"Singer",email:"",xp:0,level:1,streak:0,lastPractice:null,completed:[],badges:[],currentTier:"free",trialStart:null,onboardingDone:false,settings:{notifications:true}};
+try{var _d=localStorage.getItem("singerOS_v2");if(_d){var _p=JSON.parse(_d);if(_p){for(var _k in _p)U[_k]=_p[_k]}}}catch(e){}
+function save(){try{localStorage.setItem("singerOS_v2",JSON.stringify(U))}catch(e){}}
+function addXP(amt){var old=U.level;U.xp+=amt;U.level=Math.floor(U.xp/100)+1;save();showXPSplash(amt);if(U.level>old)showAchieve("Level Up!","You reached Level "+U.level+"!","🎉")}
+function showXPSplash(amt){var _e=document.createElement("div");_e.className="xp-splash";_e.textContent="+"+amt+" XP";_e.style.left=(Math.random()*40+30)+"%";_e.style.top="40%";document.body.appendChild(_e);setTimeout(function(){_e.remove()},1000)}
+function updateStreak(){var t=new Date().toDateString();if(U.lastPractice!==t){var y=new Date(Date.now()-86400000).toDateString();U.streak=(U.lastPractice===y)?U.streak+1:1;U.lastPractice=t;save()}}
+function esc(s){if(!s)return"";return String(s).replace(/'/g,"&#39;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function shuffleArr(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+var COACH={greetings:["Hey {name}. Let's get to work.","Good to see {name} ready to train."],encouragement:["That is real progress. Not luck. Skill.","Your voice just did something it could not do yesterday."],pick:function(a){return a[Math.floor(Math.random()*a.length)]},say:function(t,d){var m=this.pick(this[t]||this.encouragement);if(d){for(var k in d)m=m.replace("{"+k+"}",d[k])}return m}};
+function toast(m,t){var _t=document.getElementById("ft");if(!t)return;_t.textContent=m;_t.className="ft show"+(t?" ft-"+t:"");setTimeout(function(){_t.className="ft"},2500)}
+function showAchieve(title,desc,icon){document.getElementById("achieve-icon").textContent=icon||"🏆";document.getElementById("achieve-title").textContent=title;document.getElementById("achieve-desc").textContent=desc;document.getElementById("achieve").classList.add("show")}
+function closeAchieve(){document.getElementById("achieve").classList.remove("hidden");document.getElementById("achieve").classList.remove("show")}
+function openModal(id){document.getElementById(id).classList.remove("hidden")}
+function closeModal(id){document.getElementById(id).classList.add("hidden")}
+var NOTE_NAMES=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+function freqToNote(freq){if(freq<=0)return{name:"-",octave:0,cents:0,midi:0};var m=69+12*Math.log2(freq/440),mr=Math.round(m),c=(m-mr)*100,n=((mr%12)+12)%12,o=Math.floor(mr/12)-1;return{name:NOTE_NAMES[n],octave:o,cents:c,midi:mr}}
+function autocorrelate(buf,sr){var len=buf.length,rms=0;for(var i=0;i<len;i++)rms+=buf[i]*buf[i];rms=Math.sqrt(rms/len);if(rms<.01)return-1;var maxO=Math.min(Math.floor(sr/50),len),minO=Math.floor(sr/800),bestC=0,bestO=-1;for(var off=minO;off<maxO;off++){var c=0;for(var j=0;j<len-off;j++)c+=Math.abs(buf[j]*buf[j+off]);c/=(len-off);if(c>bestC){bestC=c;bestO=off}}return bestO===-1?-1:sr/bestO}
+function go(id){var ss=document.querySelectorAll(".sc");for(var i=0;i<ss.length;i++)ss[i].classList.remove("active");var s=document.getElementById("s-"+id);if(s)s.classList.add("active");var items=document.querySelectorAll(".bn-ic");for(var j=0;j<items.length;j++)items[j].classList.remove("on");var n=document.getElementById("n-"+id);if(n)n.classList.add("on");if(id==="home")renderHome();if(id==="learn")renderLearn();if(id==="practice")renderPractice();if(id==="pitch")renderPitch();if(id==="ear")renderEar();if(id==="breath")renderBreath();if(id==="range")renderRange();if(id==="songs")renderSongs();if(id==="theory")renderTheory();if(id==="quiz")renderQuiz();if(id==="progress")renderProgress();if(id==="challenge")renderChallenge();if(id==="leaderboard")renderLeaderboard();if(id==="profile")renderProfile();if(id==="pricing")renderPricing();if(id==="onboarding")renderOnboarding();updateStreak();save()}
+var PitchModule={running:false,ctx:null,analyser:null,data:null,stream:null,render:function(){return'<div style="text-align:center;padding:20px 0"><div style="font-size:3rem;font-weight:900;color:var(--pri)" id="pd-freq">—</div><div style="font-size:1.5rem;font-weight:700;margin:8px 0" id="pd-note">-</div><div class="xp-bar" style="margin:12px 0"><div class="xp-fill" id="pd-bar" style="width:0%"></div></div><div class="spectrum" id="pd-spec">'+Array(32).fill('<div class="spectrum-bar"></div>').join("")+'</div><div style="display:flex;gap:8px;justify-content:center;margin:12px 0"><button class="btn btn-p" id="pd-start" onclick="PitchModule.init()">🎤 Start</button><button class="btn btn-g" id="pd-stop" style="display:none" onclick="PitchModule.destroy()">⏹ Stop</button></div></div>'},init:function(){if(this.running)return;try{this.ctx=new(window.AudioContext||window.webkitAudioContext)();this.analyser=this.ctx.createAnalyser();this.analyser.fftSize=2048;this.data=new Float32Array(this.analyser.fftSize);var self=this;navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}}).then(function(stream){self.stream=stream;self.ctx.createMediaStreamSource(stream).connect(self.analyser);self.running=true;document.getElementById("pd-start").style.display="none";document.getElementById("pd-stop").style.display="";self.loop()}).catch(function(){toast("Mic denied","err")})}catch(e){toast("Audio not supported","err")}},loop:function(){if(!this.running)return;var self=this;this.analyser.getFloatTimeDomainData(this.data);var f=autocorrelate(this.data,this.ctx.sampleRate);if(f>0){var n=freqToNote(f);document.getElementById("pd-freq").textContent=Math.round(f)+" Hz";document.getElementById("pd-note").textContent=n.name+n.octave;var pct=Math.min(100,Math.max(0,(f-80)/720*100));document.getElementById("pd-bar").style.width=pct+"%";this.updateSpectrum()}requestAnimationFrame(function(){self.loop()})},updateSpectrum:function(){if(!this.analyser)return;var d=new Uint8Array(this.analyser.frequencyBinCount);this.analyser.getByteFrequencyData(d);var bars=document.querySelectorAll("#pd-spec .spectrum-bar");var step=Math.floor(d.length/bars.length);for(var i=0;i<bars.length;i++)bars[i].style.height=Math.max(2,(d[i*step]/255)*100)+"%"},destroy:function(){this.running=false;if(this.stream){this.stream.getTracks().forEach(function(t){t.stop()});this.stream=null}if(this.ctx){this.ctx.close();this.ctx=null}document.getElementById("pd-start").style.display="";document.getElementById("pd-stop").style.display="none";document.getElementById("pd-freq").textContent="—"}};
+var EarModule={active:false,ctx:null,intervals:[{name:"Minor 2nd",st:1},{name:"Major 2nd",st:2},{name:"Minor 3rd",st:3},{name:"Major 3rd",st:4},{name:"Perfect 4th",st:5},{name:"Tritone",st:6},{name:"Perfect 5th",st:7},{name:"Minor 6th",st:8},{name:"Major 6th",st:9},{name:"Minor 7th",st:10},{name:"Major 7th",st:11},{name:"Octave",st:12}],chords:[{name:"Major",notes:[0,4,7]},{name:"Minor",notes:[0,3,7]},{name:"Dim",notes:[0,3,6]},{name:"Aug",notes:[0,4,8]},{name:"Dom7",notes:[0,4,7,10]},{name:"Maj7",notes:[0,4,7,11]},{name:"Min7",notes:[0,3,7,10]}],q:null,score:0,total:0,render:function(){var h='<div class="hero"><h1>👂 Ear Training</h1><p>+5 XP per correct answer</p></div><div style="display:flex;justify-content:center;gap:12px;margin:16px 0"><button class="btn btn-p" onclick="EarModule.start(\'interval\')">Intervals</button><button class="btn btn-s" onclick="EarModule.start(\'chord\')">Chords</button></div><div style="display:flex;justify-content:center;gap:8px;margin:12px 0"><span class="tag tag-g">Streak: '+U.earStreak+'</span><span class="tag tag-s">Best: '+U.earBestStreak+'</span></div><div id="et-content" style="margin-top:16px"></div>';return h},initCtx:function(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)()},playInterval:function(iv,cb){this.initCtx();var base=261.63,f2=base*Math.pow(2,iv.st/12),now=this.ctx.currentTime;var o1=this.ctx.createOscillator(),g1=this.ctx.createGain();o1.type="sine";o1.frequency.value=base;g1.gain.setValueAtTime(0,now);g1.gain.linearRampToValueAtTime(.3,now+.05);g1.gain.linearRampToValueAtTime(.001,now+.6);o1.connect(g1);g1.connect(this.ctx.destination);o1.start(now);o1.stop(now+.65);var o2=this.ctx.createOscillator(),g2=this.ctx.createGain();o2.type="sine";o2.frequency.value=f2;var t2=now+.7;g2.gain.setValueAtTime(0,t2);g2.gain.linearRampToValueAtTime(.3,t2+.05);g2.gain.linearRampToValueAtTime(.001,t2+.8);o2.connect(g2);g2.connect(this.ctx.destination);o2.start(t2);o2.stop(t2+.85);if(cb)setTimeout(cb,1600)},playChord:function(ch,cb){this.initCtx();var base=261.63,now=this.ctx.currentTime;for(var i=0;i<ch.notes.length;i++){var f=base*Math.pow(2,ch.notes[i]/12);var o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type="sine";o.frequency.value=f;g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(.25,now+.05);g.gain.linearRampToValueAtTime(.001,now+1.2);o.connect(g);g.connect(this.ctx.destination);o.start(now);o.stop(now+1.25)}if(cb)setTimeout(cb,1400)},start:function(type){this.active=true;this.score=0;this.total=0;this.type=type;document.getElementById("et-content").innerHTML='<div class="text-center text-muted">Loading...</div>';this.next()},next:function(){if(this.total>=10){this.showResults();return}var pool=this.type==="interval"?this.intervals:this.chords;var idx=Math.floor(Math.random()*pool.length);this.q={type:this.type,data:pool[idx]};if(this.type==="interval")this.playInterval(this.q.data);else this.playChord(this.q.data);this.renderQ(pool)},renderQ:function(pool){var c=document.getElementById("et-content");if(!c)return;var q=this.q;var h='<div style="text-align:center;margin:12px 0"><div class="text-sm text-muted">Question '+(this.total+1)+'/10</div><button class="btn btn-g btn-sm" onclick="EarModule.replay()" style="margin:8px 0">🔊 Replay</button></div><div style="font-weight:700;margin:12px 0">';if(q.type==="interval")h+="What interval did you hear?";else h+="What chord quality did you hear?";h+="</div>";var correct=q.data.name;var opts=shuffleArr(pool.slice()).slice(0,4);if(!opts.find(function(o){return o.name===correct}))opts[0]=q.data;opts=shuffleArr(opts);for(var i=0;i<opts.length;i++){var label=q.type==="interval"?opts[i].name:opts[i].name+(opts[i].feel?" — "+opts[i].feel:"");h+='<div class="qo" onclick="EarModule.answer(this,\''+opts[i].name+'\',\''+correct+'\')"><span class="qr"></span>'+label+'</div>'}h+='<button class="btn btn-w" onclick="EarModule.end()">End</button>';c.innerHTML=h},replay:function(){if(this.q){if(this.q.type==="interval")this.playInterval(this.q.data);else this.playChord(this.q.data)}},answer:function(el,ans,correct){var ok=ans===correct;this.total++;if(ok){this.score++;U.earStreak++;if(U.earStreak>U.earBestStreak)U.earBestStreak=U.earStreak;addXP(5);el.classList.add("ok")}else{U.earStreak=0;el.classList.add("bad");var all=el.parentNode.querySelectorAll(".qo");for(var i=0;i<all.length;i++)if(all[i].textContent.indexOf(correct)!==-1)all[i].classList.add("ok")}save();var self=this;setTimeout(function(){self.next()},1500)},showResults:function(){this.active=false;var pct=Math.round(this.score/this.total*100);var c=document.getElementById("et-content");c.innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:3rem">'+(pct>=80?"🏆":pct>=60?"💪":"📚")+'</div><h2>Complete!</h2><div style="font-size:2rem;font-weight:900;color:'+(pct>=80?"var(--ok)":"var(--gold)")+'">'+this.score+'/'+this.total+' ('+pct+'%)</div><div class="text-sm text-muted">Best streak: '+U.earBestStreak+'</div><button class="btn btn-p" style="margin-top:12px" onclick="go(\'ear\')">Back</button><button class="btn btn-s" onclick="EarModule.start(\''+this.type+'\')">Again</button></div>'},end:function(){this.active=false;go("ear")}};
+var BreathModule={active:false,ctx:null,timer:null,phase:"ready",count:0,pat:{inhale:4,hold1:4,exhale:4,hold2:4},render:function(){return'<div style="text-align:center"><div class="hero"><h1>🫁 Breath Coach</h1><p>Box breathing. Train appoggio.</p></div><div class="bc-circle" id="bc-circle"><div><div class="bc-phase" id="bc-phase">Ready</div><div class="bc-count" id="bc-count">4</div></div></div><div style="display:flex;gap:8px;justify-content:center;margin:16px 0"><button class="btn btn-p" onclick="BreathModule.init()">▶ Start</button><button class="btn btn-g" onclick="BreathModule.destroy()">⏹ End</button></div></div>'},init:function(){if(this.active)return;if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();this.active=true;this.phase="inhale";this.count=this.pat.inhale;this.updateDisplay();var self=this;this.timer=setInterval(function(){self.count--;if(self.count<=0)self.advance();self.updateDisplay()},1000)},advance:function(){if(this.phase==="inhale"){this.phase="hold1";this.count=this.pat.hold1}else if(this.phase==="hold1"){this.phase="exhale";this.count=this.pat.exhale}else if(this.phase==="exhale"){this.phase="hold2";this.count=this.pat.hold2}else{this.phase="inhale";this.count=this.pat.inhale}},updateDisplay:function(){var p=document.getElementById("bc-phase"),c=document.getElementById("bc-count"),el=document.getElementById("bc-circle");if(p)p.textContent=this.phase==="inhale"?"Breathe In":this.phase==="exhale"?"Breathe Out":"Hold";if(c)c.textContent=this.count;if(el)el.style.transform="scale("+(this.phase==="inhale"?"1.08":this.phase==="exhale"?".94":"1")+")"},destroy:function(){this.active=false;if(this.timer){clearInterval(this.timer);this.timer=null}if(this.ctx){this.ctx.close();this.ctx=null}U.breathSessions++;addXP(10);showAchieve("Breath Complete!","+10 XP","🫁");go("breath")}};
+var RangeModule={active:false,ctx:null,analyser:null,data:null,stream:null,low:null,high:null,lowNote:"-",highNote:"-",render:function(){return'<div style="text-align:center"><div class="hero"><h1>📏 Range Finder</h1><p>Sing low and high to find your range.</p></div><div style="font-size:3rem;font-weight:900;color:var(--pri);padding:20px 0" id="rf-current">Sing...</div><div class="xp-bar" style="margin:16px 0"><div class="xp-fill" id="rf-fill" style="width:0%"></div></div><div style="display:flex;justify-content:center;gap:12px;margin:16px 0"><div style="text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--ok)" id="rf-low">—</div><div class="text-xs text-muted">Lowest</div></div><div style="text-align:center"><div style="font-size:1.2rem;font-weight:900" id="rf-semi">0</div><div class="text-xs text-muted">Semitones</div></div><div style="text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--gold)" id="rf-high">—</div><div class="text-xs text-muted">Highest</div></div></div><button class="btn btn-p" id="rf-start" onclick="RangeModule.init()">🎤 Start</button><button class="btn btn-g" id="rf-stop" style="display:none" onclick="RangeModule.destroy()">⏹ Stop</button><div class="hero"><h3>Saved Range</h3>'+(U.rangeLow?'<div style="font-weight:700">'+U.rangeLow+' → '+U.rangeHigh+'</div>':'<div class="text-sm text-muted">No range saved yet.</div>')+'</div></div>'},init:function(){if(this.active)return;try{this.ctx=new(window.AudioContext||window.webkitAudioContext)();this.analyser=this.ctx.createAnalyser();this.analyser.fftSize=2048;this.data=new Float32Array(this.analyser.fftSize);var self=this;navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}}).then(function(stream){self.stream=stream;self.ctx.createMediaStreamSource(stream).connect(self.analyser);self.active=true;document.getElementById("rf-start").style.display="none";document.getElementById("rf-stop").style.display="";self.loop()}).catch(function(){toast("Mic denied","err")})}catch(e){toast("Audio not supported","err")}},loop:function(){if(!this.active)return;var self=this;this.analyser.getFloatTimeDomainData(this.data);var f=autocorrelate(this.data,this.ctx.sampleRate);if(f>50&&f<2000){var note=freqToNote(f),ns=note.name+note.octave;document.getElementById("rf-current").textContent=ns+" ("+Math.round(f)+" Hz)";if(note.midi>0){if(!this.low||note.midi<this.low.midi){this.low=note;this.lowNote=ns;document.getElementById("rf-low").textContent=ns}if(!this.high||note.midi>this.high.midi){this.high=note;this.highNote=ns;document.getElementById("rf-high").textContent=ns}if(this.low&&this.high){var semi=this.high.midi-this.low.midi;document.getElementById("rf-semi").textContent=semi}}}requestAnimationFrame(function(){self.loop()})},destroy:function(){this.active=false;if(this.stream){this.stream.getTracks().forEach(function(t){t.stop()});this.stream=null}if(this.ctx){this.ctx.close();this.ctx=null}document.getElementById("rf-start").style.display="";document.getElementById("rf-stop").style.display="none";if(this.low&&this.high){U.rangeLow=this.lowNote;U.rangeHigh=this.highNote;U.rangeLowFreq=this.low.midi;U.rangeHighFreq=this.high.midi;save();toast("Saved: "+this.lowNote+" to "+this.highNote,"ok");addXP(15)}}};
+function renderHome(){var c=document.getElementById("h-c");var pct=U.xp%100;var h='';h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:var(--s4)"><span class="streak-fire">🔥</span> <b>'+U.streak+' day streak</b> <span class="text-sm text-muted">Keep it going!</span></div>';h+='<div style="margin-bottom:var(--s4)"><div class="flex justify-between text-sm margin:4px 0"><span class="text-muted">Level '+U.level+'</span><span class="text-muted">'+U.xp+' XP</span></div><div class="xp-bar"><div class="xp-fill" style="width:'+pct+'%"></div></div></div>';h+='<div class="c" style="margin-bottom:var(--s4)"><div class="text-xs text-muted mb-2" style="font-weight:700;text-transform:uppercase;letter-spacing:.08em">Quick Practice</div><div class="flex gap-2"><button class="btn btn-sm btn-p" onclick="go(\'breath\')">🫁 Breathe</button><button class="btn btn-sm btn-s" onclick="go(\'pitch\')">🎤 Pitch</button><button class="btn btn-sm btn-g" onclick="go(\'ear\')">👂 Ear</button></div></div>';h+='<div class="c" style="margin-bottom:var(--s4)"><div class="text-xs text-muted mb-2" style="font-weight:700;text-transform:uppercase;letter-spacing:.08em">Learning Path</div><div class="flex justify-between items-center margin:8px 0"><span class="text-sm">Beginner</span><span class="text-xs text-muted">Modules 1-12</span></div><div class="pr-bar"><div class="pr-fill" style="width:'+Math.min(100,U.completed.length/35*100)+'%"></div></div>';if(U.completed.length>0){var nextMod=null;for(var i=1;i<=35;i++){if(U.completed.indexOf("m"+i)===-1){nextMod="m"+i;break}}if(nextMod){var data=getModuleData(nextMod);var isFree=isModuleFree(nextMod);h+='<div class="module-card" style="margin-top:12px" onclick="'+(isFree?'go(\'learn\')':'openModal(\'paywall\')')+'"><div class="module-icon">'+data.icon+'</div><div class="module-info"><div class="module-title">'+data.title+'</div><div class="module-sub">'+data.subtitle+'</div></div><span class="'+(isFree?'tag tag-s':'tag tag-g')">'+(isFree?'FREE':'🔒 PRO')+'</span></div>'}else{h+='<div class="text-center text-ok margin:12px 0">🎉 All modules complete!</div>'}}else{h+='<button class="btn btn-p" onclick="go(\'learn\')">Start Learning</button>'}h+='</div>';h+='<div class="flex gap-2"><div class="c text-center flex-1"><div class="text-gold" style="font-size:1.5rem;font-weight:900">'+U.completed.length+'</div><div class="text-xs text-muted">Done</div></div><div class="c text-center flex-1"><div class="text-pri" style="font-size:1.5rem;font-weight:900">'+U.badges.length+'</div><div class="text-xs text-muted">Badges</div></div><div class="c text-center flex-1"><div class="text-ok" style="font-size:1.5rem;font-weight:900">'+(U.earBestStreak||0)+'</div><div class="text-xs text-muted">Ear Best</div></div></div>';c.innerHTML=h}
+function renderLearn(){var c=document.getElementById("l-c");var h='<div class="hero"><h1>📚 Learn</h1><p>35 modules. Progressive path.</p></div>';h+='<div class="tabs">';var levels=[{id:"beginner",name:"Beginner",count:12},{id:"intermediate",name:"Intermediate",count:12},{id:"advanced",name:"Advanced",count:11}];for(var i=0;i<levels.length;i++)h+='<button class="tab'+(i===0?" active":"")+'" onclick="switchLearnTab(\''+levels[i].id+'\',this)">'+levels[i].name+' ('+levels[i].count+')</button>';h+='</div>';var modules=getModulesForLevel("beginner");for(var i=0;i<modules.length;i++){var m=modules[i];var completed=U.completed.indexOf(m.id)!==-1;var locked=!isModuleFree(m.id)&&U.currentTier==="free";var cls="module-card"+(completed?" done":"")+(locked?" locked":"");var click=completed?"go('learn')":(locked?"openModal('paywall')":"go('learn')");h+='<div class="'+cls+'" onclick="'+click+'"><div class="module-icon"'+(completed?' style="background:rgba(52,211,153,.1);color:var(--ok)"':'">')+m.icon+'</div><div class="module-info"><div class="module-title">'+m.title+'</div><div class="module-sub">'+m.subtitle+'</div></div><span class="tag '+(completed?"tag-s":locked?"tag-w":"tag-p")+'">'+(completed?"✓":locked?"🔒":"→")+'</span></div>'}c.innerHTML=h}
+function switchLearnTab(level,el){var tabs=document.querySelectorAll(".tab");for(var i=0;i<tabs.length;i++)tabs[i].classList.remove("active");el.classList.add("active");var c=document.getElementById("l-c");var h='<div class="hero"><h1>📚 Learn</h1></div><div class="tabs">';var levels=[{id:"beginner",name:"Beginner",count:12},{id:"intermediate",name:"Intermediate",count:12},{id:"advanced",name:"Advanced",count:11}];for(var i=0;i<levels.length;i++)h+='<button class="tab'+(levels[i].id===level?" active":"")+'" onclick="switchLearnTab(\''+levels[i].id+'\',this)">'+levels[i].name+'</button>';h+='</div>';var modules=getModulesForLevel(level);for(var i=0;i<modules.length;i++){var m=modules[i];var completed=U.completed.indexOf(m.id)!==-1;var locked=!isModuleFree(m.id)&&U.currentTier==="free";var cls="module-card"+(completed?" done":"")+(locked?" locked":"");h+='<div class="'+cls+'" onclick="'+(completed?"go('learn')":(locked?"openModal('paywall')":"go('learn')"))+'"><div class="module-icon"'+(completed?' style="background:rgba(52,211,153,.1);color:var(--ok)"':'">')+m.icon+'</div><div class="module-info"><div class="module-title">'+m.title+'</div><div class="module-sub">'+m.subtitle+'</div></div><span class="tag '+(completed?"tag-s":locked?"tag-w":"tag-p")+'">'+(completed?"✓":locked?"🔒":"→")+'</span></div>'}c.innerHTML=h}
+function renderPractice(){var c=document.getElementById("pr-c");c.innerHTML='<div class="hero"><h1>🎯 Practice Tools</h1></div><div class="module-card" onclick="go(\'pitch\')"><div class="module-icon">🎤</div><div class="module-info"><div class="module-title">Voice Lab</div><div class="module-sub">Real-time pitch detection</div></div><span class="tag tag-p">→</span></div><div class="module-card" onclick="go(\'ear\')"><div class="module-icon">👂</div><div class="module-info"><div class="module-title">Ear Training</div><div class="module-sub">Intervals & chords</div></div><span class="tag tag-p">→</span></div><div class="module-card" onclick="go(\'breath\')"><div class="module-icon">🫁</div><div class="module-info"><div class="module-title">Breath Coach</div><div class="module-sub">Box breathing</div></div><span class="tag tag-p">→</span></div><div class="module-card" onclick="go(\'range\')"><div class="module-icon">📏</div><div class="module-info"><div class="module-title">Range Finder</div><div class="module-sub">Find your vocal range</div></div><span class="tag tag-p">→</span></div>'}
+function renderPitch(){var c=document.getElementById("pd-c");if(c)c.innerHTML=PitchModule.render()}
+function renderEar(){var c=document.getElementById("et-c");if(c)c.innerHTML=EarModule.render()}
+function renderBreath(){var c=document.getElementById("bc-c");if(c)c.innerHTML=BreathModule.render()}
+function renderRange(){var c=document.getElementById("rf-c");if(c)c.innerHTML=RangeModule.render()}
+function renderSongs(){var c=document.getElementById("so-c");c.innerHTML='<div class="hero"><h1>🎵 Songs</h1><p>Practice with real songs.</p></div><div class="text-muted text-center">Coming soon!</div>'}
+function renderTheory(){var c=document.getElementById("th-c");c.innerHTML='<div class="hero"><h1>📖 Music Theory</h1></div><div class="text-muted text-center">Available in Learn → Advanced.</div>'}
+function renderQuiz(){var c=document.getElementById("q-c");c.innerHTML='<div class="hero"><h1>❓ Musician Quiz</h1></div><div class="text-center"><button class="btn btn-p" onclick="startQuiz()">Start Quiz</button></div>'}
+function renderProgress(){var c=document.getElementById("p-c");var pct=Math.round(U.completed.length/35*100);c.innerHTML='<div class="hero"><h1>📊 Progress</h1></div><div style="text-align:center;margin:16px 0"><div style="font-size:3rem;font-weight:900;color:var(--pri)">'+U.xp+' XP</div><div class="text-sm text-muted">Level '+U.level+'</div></div><div class="xp-bar" style="margin:16px 0"><div class="xp-fill" style="width:'+(U.xp%100)+'%"></div></div><div class="text-sm text-muted text-center">'+U.completed.length+'/35 modules ('+pct+'%)</div><div class="flex justify-center gap:12px;margin:16px 0"><div class="text-center"><div class="text-gold font-bold">🔥 '+U.streak+'</div><div class="text-xs text-muted">Streak</div></div><div class="text-center"><div class="text-ok font-bold">'+U.badges.length+'</div><div class="text-xs text-muted">Badges</div></div></div>'}
+function renderChallenge(){var c=document.getElementById("ch-c");c.innerHTML='<div class="hero"><h1>🏆 Challenges</h1></div><div class="text-muted text-center">Coming soon!</div>'}
+function renderLeaderboard(){var c=document.getElementById("lb-c");var h='<div class="hero"><h1>🏅 Leaderboard</h1></div>';var board=generateLeaderboard();for(var i=0;i<board.length;i++){var e=board[i];h+='<div class="module-card"><div class="level-badge" style="margin-right:var(--s3)">'+(i+1)+'</div><div class="module-info"><div class="module-title">'+e.name+'</div><div class="module-sub">Level '+e.level+' | '+e.xp+' XP</div></div><span class="tag '+(i<3?'tag-p':'tag-s')+'">'+(i<3?['🥇','🥈','🥉'][i]:'+'+e.xp)+' XP</span></div>'}c.innerHTML=h}
+function renderProfile(){var c=document.getElementById("prf-c");if(!U.onboardingDone&&!U.email){go("onboarding");return}c.innerHTML='<div class="hero"><h1>👤 Profile</h1></div><div style="text-align:center;margin:16px 0"><div class="level-badge" style="width:64px;height:64px;font-size:1.5rem;margin:0 auto">'+U.level+'</div><div style="font-size:var(--2xl);font-weight:800;margin:8px 0">'+esc(U.name)+'</div><div class="text-sm text-muted">'+U.xp+' XP | Level '+U.level+' | '+U.streak+' day streak</div></div><div class="c text-center margin-bottom:var(--s4)"><div class="text-sm text-muted">Current Plan</div><div style="font-weight:800;font-size:var(--lg);color:'+(U.currentTier==='free'?'var(--tx3)':'var(--pri)')+'">'+U.currentTier.toUpperCase()+'</div><button class="btn btn-p" style="margin-top:12px" onclick="go('pricing')">'+ (U.currentTier==='free'?'Upgrade Plan':'Manage Plan') +'</button></div><button class="btn btn-w" onclick="if(confirm('Reset all progress?')){localStorage.removeItem('singerOS_v2');location.reload()}">Reset Progress</button>'}
+function renderPricing(){var c=document.getElementById("pz-c");var h='<div class="hero"><h1>💎 Pricing</h1><p>Invest in your voice.</p></div>';h+='<div class="c'+(U.currentTier==='free'?'':' price-card featured')+' margin-bottom:var(--s4)"><div class="flex justify-between items-center"><div><div style="font-size:var(--2xl);font-weight:900">Free</div></div><div style="text-align:right"><div style="font-size:var(--2xl);font-weight:900;color:var(--ok)">$0</div></div></div><ul class="text-sm" style="margin:12px 0;line-height:2"><li>✓ 5 free lessons per module</li><li>✓ Voice Lab basics</li><li>✗ All modules unlocked</li></ul><button class="btn '+(U.currentTier==='free'?'btn-g':'btn-p')+'" onclick="upgradeTier(\'free\')">'+(U.currentTier==='free'?'Current':'Select')+'</button></div>';h+='<div class="c price-card featured margin-bottom:var(--s4)"><div class="price-badge tag tag-g">BEST VALUE</div><div class="flex justify-between items-center"><div><div style="font-size:var(--2xl);font-weight:900">PRO</div></div><div style="text-align:right"><div style="font-size:var(--2xl);font-weight:900;color:var(--gold)">$19<span style="font-size:var(--sm);color:var(--tx3)">/mo</span></div></div></div><ul class="text-sm" style="margin:12px 0;line-height:2"><li>✓ All 35 modules unlocked</li><li>✓ All practice tools</li><li>✓ PRO badge</li></ul><button class="btn '+(U.currentTier==='pro'?'btn-g':'btn-neon')+'" onclick="selectTier(\'pro\')">'+(U.currentTier==='pro'?'Current':'Upgrade — $19/mo')+'</button></div>';h+='<div class="c price-card margin-bottom:var(--s4)"><div class="flex justify-between items-center"><div><div style="font-size:var(--2xl);font-weight:900">Master</div></div><div style="text-align:right"><div style="font-size:var(--2xl);font-weight:900;color:var(--pri)">$99<span style="font-size:var(--sm);color:var(--tx3)">/mo</span></div></div></div><ul class="text-sm" style="margin:12px 0;line-height:2"><li>✓ Everything in PRO</li><li>✓ 1-on-1 vocal coaching</li><li>✓ Live masterclasses</li></ul><button class="btn '+(U.currentTier==='master'?'btn-g':'btn-p')+'" onclick="selectTier(\'master\')">'+(U.currentTier==='master'?'Current':'Go Master — $99/mo')+'</button></div>';c.innerHTML=h}
+function startQuiz(){var c=document.getElementById("q-c");var qi=0,score=0;var questions=[{q:"What controls pitch?",o:["Vocal fold vibration","Air volume","Tongue position"],a:0},{q:"What is appoggio?",o:["A singing style","Breathing technique","A song"],a:1},{q:"Semitones in an octave?",o:["6","8","10","12"],a:3},{q:"Highest comfortable note?",o:["Range ceiling","Falsetto","Head voice"],a:0}];function showQ(){if(qi>=questions.length){showResult();return}var qq=questions[qi];var h='<div style="text-align:center;margin:12px 0"><span class="tag tag-p">Question '+(qi+1)+'/'+questions.length+'</span></div><h3 style="font-weight:700;margin:12px 0">'+qq.q+'</h3>';for(var i=0;i<qq.o.length;i++)h+='<div class="qo" onclick="answerQuiz(this,'+i+','+qq.a+')"><span class="qr"></span>'+qq.o[i]+'</div>';c.innerHTML=h}function answerQuiz(el,sel,correct){if(sel===correct){el.classList.add("ok");score++}else{el.classList.add("bad");var all=el.parentNode.querySelectorAll(".qo");for(var i=0;i<all.length;i++){all[i].classList.add("dis")}all[correct].classList.add("ok")}qi++;setTimeout(showQ,800)}function showResult(){var pct=Math.round(score/questions.length*100);var xp=score*10;addXP(xp);c.innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:3rem">'+(pct>=80?"🏆":"💪")+'</div><h2>Complete!</h2><div style="font-size:2rem;font-weight:900;color:'+(pct>=80?"var(--ok)":"var(--gold)")+'">'+score+'/'+questions.length+' ('+pct+'%)</div><div class="text-sm text-muted">+'+xp+' XP</div><button class="btn btn-p" style="margin-top:12px" onclick="go(\'quiz\')">Try Again</button>'}showQ()}
+function getModulesForLevel(level){var all=[{id:"m1",title:"Your Voice Instrument",subtitle:"How the voice works",icon:"🫁",level:"beginner",free:true},{id:"m2",title:"Breath That Carries You",subtitle:"Controlled air escape",icon:"💨",level:"beginner",free:true},{id:"m3",title:"Clean Note Onset",subtitle:"No breathy 'ha'",icon:"✨",level:"beginner",free:true},{id:"m4",title:"Forward Resonance",subtitle:"Buzz in your face",icon:"🎯",level:"beginner",free:true},{id:"m5",title:"Crisp Articulation",subtitle:"Active lips, relaxed jaw",icon:"👄",level:"beginner",free:true},{id:"m6",title:"Pitch Awareness",subtitle:"Hear sharp or flat",icon:"🎵",level:"beginner",free:true},{id:"m7",title:"Interval Recognition",subtitle:"3rds, 5ths, octaves",icon:"👂",level:"beginner",free:true},{id:"m8",title:"Note Reading",subtitle:"Treble & bass clef",icon:"📖",level:"beginner",free:true},{id:"m9",title:"Major Scales",subtitle:"WWHWWWH pattern",icon:"🎹",level:"beginner",free:true},{id:"m10",title:"Rhythm Basics",subtitle:"4/4, 3/4 time",icon:"⏱",level:"beginner",free:true},{id:"m11",title:"Your First Song",subtitle:"Apply technique",icon:"🎤",level:"beginner",free:false},{id:"m12",title:"Your First Recording",subtitle:"Hear yourself",icon:"🎧",level:"beginner",free:false},{id:"m13",title:"Mix Voice",subtitle:"No more breaking",icon:"🔀",level:"intermediate",free:false},{id:"m14",title:"Safe Belt Technique",subtitle:"Power without damage",icon:"💪",level:"intermediate",free:false},{id:"m15",title:"Brightness Control",subtitle:"Larynx height",icon:"💡",level:"intermediate",free:false},{id:"m16",title:"Harmonics & Formants",subtitle:"Shape your tone",icon:"🌊",level:"intermediate",free:false},{id:"m17",title:"Chord Quality",subtitle:"Major, minor, dom7",icon:"🎹",level:"intermediate",free:false},{id:"m18",title:"Advanced Ear Training",subtitle:"Intervals & chords",icon:"👂",level:"intermediate",free:false},{id:"m19",title:"Improvisation",subtitle:"Create vocal runs",icon:"🎷",level:"intermediate",free:false},{id:"m20",title:"Song Interpretation",subtitle:"Tell a story",icon:"📝",level:"intermediate",free:false},{id:"m21",title:"Performance Prep",subtitle:"Stage presence",icon:"🎭",level:"intermediate",free:false},{id:"m22",title:"Range Expansion",subtitle:"Grow your range",icon:"📏",level:"intermediate",free:false},{id:"m23",title:"Style Mastery",subtitle:"Pop, R&B, Worship",icon:"🎶",level:"intermediate",free:false},{id:"m24",title:"Music Theory Applied",subtitle:"Practical theory",icon:"📚",level:"intermediate",free:false},{id:"m25",title:"Master Technique",subtitle:"Complete coordination",icon:"🔮",level:"advanced",free:false},{id:"m26",title:"Advanced Belt",subtitle:"High notes with power",icon:"⚡",level:"advanced",free:false},{id:"m27",title:"Formant Tuning",subtitle:"Singer's formant",icon:"🏛",level:"advanced",free:false},{id:"m28",title:"Professional Performance",subtitle:"Gig-ready",icon:"🌟",level:"advanced",free:false},{id:"m29",title:"Vocal Health",subtitle:"Prevention & recovery",icon:"🏥",level:"advanced",free:false},{id:"m30",title:"Pedagogy",subtitle:"Teach others",icon:"👩‍🏫",level:"advanced",free:false},{id:"m31",title:"Composition",subtitle:"Write songs",icon:"✍",level:"advanced",free:false},{id:"m32",title:"Production Vocals",subtitle:"Studio technique",icon:"🎙",level:"advanced",free:false},{id:"m33",title:"Music Career",subtitle:"Monetize your voice",icon:"💼",level:"advanced",free:false},{id:"m34",title:"Final Project",subtitle:"Record a song",icon:"🎼",level:"advanced",free:false},{id:"m35",title:"Certification",subtitle:"Graduate",icon:"🎓",level:"advanced",free:false}];return all.filter(function(m){return m.level===level})}
+function getModuleData(id){var all=getModulesForLevel("beginner").concat(getModulesForLevel("intermediate")).concat(getModulesForLevel("advanced"));for(var i=0;i<all.length;i++)if(all[i].id===id)return all[i];return{title:"Module",subtitle:"Coming soon",icon:"📖"}}
+function isModuleFree(id){var m=getModuleData(id);return m.free===true}
+function generateLeaderboard(){var names=["Tobi","Ade","Chioma","Emeka","Ngozi","Amina","Chidi","Adaeze","Obioma","Zainab"];var board=[];for(var i=0;i<names.length;i++){board.push({name:names[i],xp:Math.floor(Math.random()*5000)+500,level:Math.floor(Math.random()*10)+1})}board.push({name:U.name||"You",xp:U.xp,level:U.level});board.sort(function(a,b){return b.xp-a.xp});return board.slice(0,10)}
+function selectTier(tier){openModal("paywall")}
+function upgradeTier(tier){U.currentTier=tier;save();go("pricing")}
+
+
+function renderOnboarding(){
+  var c=document.getElementById("ob-c");
+  c.innerHTML='<div class="hero"><h1>Welcome to Singer OS</h1><p>Your vocal mastery journey starts here. Let's set up your profile.</p></div>'+
+    '<div class="c"><label>Your Name</label><input class="input" id="ob-name" placeholder="What should we call you?"></div>'+
+    '<div class="c"><label>Your Level</label><div class="flex gap-2" style="margin-top:8px">'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'beginner')">Beginner</button>'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'intermediate')">Intermediate</button>'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'advanced')">Advanced</button></div></div>'+
+    '<button class="btn btn-p" onclick="completeOnboarding()">Start Learning</button>';
+}
+function selectLevel(el,level){
+  var btns=el.parentNode.querySelectorAll(".btn");
+  for(var i=0;i<btns.length;i++)btns[i].className="btn btn-sm btn-g";
+  el.className="btn btn-sm btn-p";
+  U._selectedLevel=level;
+}
+function completeOnboarding(){
+  var name=document.getElementById("ob-name").value;
+  if(name)U.name=name;
+  U.onboardingDone=true;
+  if(U._selectedLevel){
+    // Unlock first 5 modules based on level
+    var modules=getModulesForLevel(U._selectedLevel);
+    for(var i=0;i<Math.min(5,modules.length);i++)modules[i].free=true;
+  }
+  save();
+  // Show email modal after onboarding
+  setTimeout(function(){openModal("email-modal")},2000);
+  go("home");
+}
+</script>
+
+<div class="sc active" id="s-home">
+  <div class="tb"><div class="tb-t">Singer OS</div><div class="tb-r" id="h-xp">0 XP</div></div>
+  <div class="sp" id="h-c"></div>
+</div>
+
+<div class="sc" id="s-learn">
+  <div class="tb"><div class="tb-t">Learn</div></div>
+  <div class="sp" id="l-c"></div>
+</div>
+
+<div class="sc" id="s-practice">
+  <div class="tb"><div class="tb-t">Practice</div></div>
+  <div class="sp" id="pr-c"></div>
+</div>
+
+<div class="sc" id="s-pitch">
+  <div class="tb"><div class="tb-t">Voice Lab</div></div>
+  <div class="sp" id="pd-c"></div>
+</div>
+
+<div class="sc" id="s-ear">
+  <div class="tb"><div class="tb-t">Ear Training</div></div>
+  <div class="sp" id="et-c"></div>
+</div>
+
+<div class="sc" id="s-breath">
+  <div class="tb"><div class="tb-t">Breath Coach</div></div>
+  <div class="sp" id="bc-c"></div>
+</div>
+
+<div class="sc" id="s-range">
+  <div class="tb"><div class="tb-t">Range Finder</div></div>
+  <div class="sp" id="rf-c"></div>
+</div>
+
+<div class="sc" id="s-songs">
+  <div class="tb"><div class="tb-t">Songs</div></div>
+  <div class="sp" id="so-c"></div>
+</div>
+
+<div class="sc" id="s-theory">
+  <div class="tb"><div class="tb-t">Music Theory</div></div>
+  <div class="sp" id="th-c"></div>
+</div>
+
+<div class="sc" id="s-quiz">
+  <div class="tb"><div class="tb-t">Quiz</div></div>
+  <div class="sp" id="q-c"></div>
+</div>
+
+<div class="sc" id="s-progress">
+  <div class="tb"><div class="tb-t">Progress</div></div>
+  <div class="sp" id="p-c"></div>
+</div>
+
+<div class="sc" id="s-challenge">
+  <div class="tb"><div class="tb-t">Challenges</div></div>
+  <div class="sp" id="ch-c"></div>
+</div>
+
+<div class="sc" id="s-leaderboard">
+  <div class="tb"><div class="tb-t">Leaderboard</div></div>
+  <div class="sp" id="lb-c"></div>
+</div>
+
+<div class="sc" id="s-profile">
+  <div class="tb"><div class="tb-t">Profile</div></div>
+  <div class="sp" id="prf-c"></div>
+</div>
+
+<div class="sc" id="s-pricing">
+  <div class="tb"><div class="tb-t">Pricing</div></div>
+  <div class="sp" id="pz-c"></div>
+</div>
+
+<div class="sc" id="s-onboarding">
+  <div class="tb"><div class="tb-t">Welcome</div></div>
+  <div class="sp" id="ob-c"></div>
+</div>
+
+<div class="sc" id="s-session">
+  <div class="sp" id="v-c"></div>
+</div>
+
+<nav class="bn">
+  <div class="bn-in">
+    <button class="bn-ic on" id="n-home" onclick="go('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </button>
+    <button class="bn-ic" id="n-learn" onclick="go('learn')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>Learn
+    </button>
+    <button class="bn-ic" id="n-practice" onclick="go('practice')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Practice
+    </button>
+    <button class="bn-ic" id="n-ear" onclick="go('ear')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Ear
+    </button>
+    <button class="bn-ic" id="n-pitch" onclick="go('pitch')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>Voice
+    </button>
+    <button class="bn-ic" id="n-progress" onclick="go('progress')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Stats
+    </button>
+  </div>
+</nav>
+
+<div class="modal-overlay hidden" id="paywall">
+  <div class="modal">
+    <div class="modal-icon">🔒</div>
+    <div class="modal-title">Unlock PRO</div>
+    <div class="modal-desc">You've used your 5 free lessons! Upgrade to PRO for unlimited access to all 35 modules, advanced tools, and certification.</div>
+    <button class="btn btn-neon" onclick="go('pricing');closeModal('paywall')">See Plans — $19/mo</button>
+    <button class="btn btn-w" onclick="closeModal('paywall')">Maybe Later</button>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="email-modal">
+  <div class="modal">
+    <div class="modal-icon">📧</div>
+    <div class="modal-title">Save Your Progress!</div>
+    <div class="modal-desc">Enter your email to save your XP, badges, and streak. Plus get a free vocal warm-up guide!</div>
+    <input class="input" type="email" id="email-input" placeholder="your@email.com">
+    <button class="btn btn-p" onclick="saveEmail()">Get Free Guide</button>
+    <button class="btn btn-w" onclick="closeModal('email-modal')">Skip</button>
+  </div>
+</div>
+
+<script>
+function saveEmail(){
+  var email=document.getElementById('email-input').value;
+  if(email&&email.indexOf('@')>-1){U.email=email;save();closeModal('email-modal');toast('Email saved! Check your inbox.','ok')}
+  else toast('Enter a valid email','err')}
+document.addEventListener('DOMContentLoaded',function(){
+  if(!U.onboardingDone&&!U.email){setTimeout(function(){openModal('email-modal')},30000)}
+  go('home');
+});
+
+function renderOnboarding(){
+  var c=document.getElementById("ob-c");
+  c.innerHTML='<div class="hero"><h1>Welcome to Singer OS</h1><p>Your vocal mastery journey starts here. Let's set up your profile.</p></div>'+
+    '<div class="c"><label>Your Name</label><input class="input" id="ob-name" placeholder="What should we call you?"></div>'+
+    '<div class="c"><label>Your Level</label><div class="flex gap-2" style="margin-top:8px">'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'beginner')">Beginner</button>'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'intermediate')">Intermediate</button>'+
+    '<button class="btn btn-sm btn-g" onclick="selectLevel(this,'advanced')">Advanced</button></div></div>'+
+    '<button class="btn btn-p" onclick="completeOnboarding()">Start Learning</button>';
+}
+function selectLevel(el,level){
+  var btns=el.parentNode.querySelectorAll(".btn");
+  for(var i=0;i<btns.length;i++)btns[i].className="btn btn-sm btn-g";
+  el.className="btn btn-sm btn-p";
+  U._selectedLevel=level;
+}
+function completeOnboarding(){
+  var name=document.getElementById("ob-name").value;
+  if(name)U.name=name;
+  U.onboardingDone=true;
+  if(U._selectedLevel){
+    // Unlock first 5 modules based on level
+    var modules=getModulesForLevel(U._selectedLevel);
+    for(var i=0;i<Math.min(5,modules.length);i++)modules[i].free=true;
+  }
+  save();
+  // Show email modal after onboarding
+  setTimeout(function(){openModal("email-modal")},2000);
+  go("home");
+}
+</script>
+
+<div class="ft" id="ft"></div>
+<div class="achieve" id="achieve"><div class="achieve-box"><div class="achieve-icon" id="achieve-icon"></div><div class="achieve-title" id="achieve-title"></div><div class="achieve-desc" id="achieve-desc"></div><button class="btn btn-p" onclick="closeAchieve()">Continue</button></div></div>
+</body></html>
