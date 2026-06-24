@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /thank-you.html
-Disallow: /google3cba4f0713525b29.html
-
-Sitemap: https://coachteesos.github.io/sessionswithtoby-/sitemap.xml
