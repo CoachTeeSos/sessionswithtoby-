@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SessionswithToby — Artist Operating System</title>
 <meta name="description" content="Personalized digital music conservatory, artist incubator, and AI vocal mentor.">
+<style>
 /* ============================================================
    SESSIONSWITHTOBY — DESIGN SYSTEM
    Apple-level Artist Operating System
@@ -543,6 +544,8 @@ textarea.form-input { min-height: 120px; resize: vertical; }
   transition: all 0.4s var(--ease);
 }
 .toast.show { transform: translateY(0); opacity: 1; }
+
+</style>
 </head>
 <body>
 <!-- PUBLIC WEBSITE -->
@@ -768,6 +771,8 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 <div class="modal-overlay" id="modal">
   <div class="modal" id="modalContent"></div>
 </div>
+
+<script>
 /* ============================================================
    SESSIONSWITHTOBY — COMPLETE APPLICATION
    ============================================================ */
@@ -1948,5 +1953,7 @@ const app = {
 
 // ─── INIT ───
 document.addEventListener('DOMContentLoaded', () => app.init());
+
+</script>
 
 </body></html>
