@@ -3990,43 +3990,60 @@ function renderRangeFinder(){var c=document.getElementById('rf-c');if(c)c.innerH
 // Init — show home screen on load (wait for DOM)
 document.addEventListener('DOMContentLoaded', function() { go('home'); });
 </script>
-
 <div class="sc active" id="s-home">
-  <div class="tb">
-    <div class="tb-t">Singer OS</div>
+  <div class="tb"><div class="tb-t">Singer OS</div><div class="tb-r" id="h-xp">0 XP</div></div>
+  <div class="sp" id="h-c"></div>
+</div>
 
 <div class="sc" id="s-learn">
-  <div class="tb">
-    <div class="tb-t">Learn</div>
+  <div class="tb"><div class="tb-t">Learn</div></div>
+  <div class="sp" id="l-c"></div>
+</div>
 
 <div class="sc" id="s-practice">
-  <div class="tb">
-    <div class="tb-t">Practice</div>
+  <div class="tb"><div class="tb-t">Practice</div></div>
+  <div class="sp" id="pr-c"></div>
+</div>
 
 <div class="sc" id="s-songs">
-  <div class="tb"><div class="tb-t">Songs</div>
+  <div class="tb"><div class="tb-t">Songs</div></div>
+  <div class="sp" id="so-c"></div>
+</div>
 
 <div class="sc" id="s-theory">
-  <div class="tb"><div class="tb-t">Music Theory</div>
+  <div class="tb"><div class="tb-t">Music Theory</div></div>
+  <div class="sp" id="th-c"></div>
+</div>
 
 <div class="sc" id="s-quiz">
-  <div class="tb"><div class="tb-t">Musician Quiz</div>
+  <div class="tb"><div class="tb-t">Musician Quiz</div></div>
+  <div class="sp" id="q-c"></div>
+</div>
 
 <div class="sc" id="s-progress">
-  <div class="tb"><div class="tb-t">Progress</div>
+  <div class="tb"><div class="tb-t">Progress</div></div>
+  <div class="sp" id="p-c"></div>
+</div>
 
 <div class="sc" id="s-instruments">
-  <div class="tb"><div class="tb-t">Learn Any Instrument</div>
+  <div class="tb"><div class="tb-t">Learn Any Instrument</div></div>
+  <div class="sp" id="i-c"></div>
+</div>
 
 <div class="sc" id="s-session">
+  <div class="tb"><div class="tb-t">Session</div></div>
   <div class="sp" id="v-c"></div>
+</div>
 
 <div class="sc" id="s-profile">
-  <div class="tb"><div class="tb-t">Profile</div>
+  <div class="tb"><div class="tb-t">Profile</div></div>
+  <div class="sp" id="prf-c"></div>
+</div>
 
 <div class="sc" id="s-leaderboard">
-  <div class="tb"><div class="tb-t">🏆 Leaderboard</div>
-
+  <div class="tb"><div class="tb-t">Leaderboard</div></div>
+  <div class="sp" id="lb-c"></div>
+</div>
 
 <div class="sc" id="s-pitch">
   <div class="tb"><div class="tb-t">Voice Lab</div></div>
@@ -4047,6 +4064,7 @@ document.addEventListener('DOMContentLoaded', function() { go('home'); });
   <div class="tb"><div class="tb-t">Range Finder</div></div>
   <div class="sp" id="rf-c"></div>
 </div>
+
 
 <nav class="bn">
   <div class="bn-in">
