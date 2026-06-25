@@ -1217,6 +1217,11 @@ textarea.form-input { min-height: 100px; resize: vertical; }
    SESSIONSWITHTOBY — COMPLETE APPLICATION
    ============================================================ */
 
+// Clear stale data from previous versions (one-time reset)
+if (!localStorage.getItem('swt_v3_migrated')) {
+  ['swt_lessons','swt_xp','swt_streak','swt_badges','swt_voice','swt_mentor','swt_leadScore','swt_funnel','swt_emails','swt_geo','swt_pages','swt_user','swt_email_captured','swt_survey','swt_feedback','swt_lessons_v2'].forEach(k => localStorage.removeItem(k));
+  localStorage.setItem('swt_v3_migrated', 'true');
+}
 const S = {
   user: JSON.parse(localStorage.getItem('swt_user') || 'null'),
   currentPage: 'home',
@@ -1224,7 +1229,7 @@ const S = {
   xp: parseInt(localStorage.getItem('swt_xp') || '0'),
   streak: parseInt(localStorage.getItem('swt_streak') || '0'),
   lastVisit: localStorage.getItem('swt_lastVisit'),
-  lessonsCompleted: JSON.parse(localStorage.getItem('swt_lessons_v2') || '[]'),
+  lessonsCompleted: JSON.parse(localStorage.getItem('swt_lessons') || '[]'),
   badges: JSON.parse(localStorage.getItem('swt_badges') || '[]'),
   voiceProfile: JSON.parse(localStorage.getItem('swt_voice') || 'null'),
   mentorHistory: JSON.parse(localStorage.getItem('swt_mentor') || '[]'),
