@@ -1251,7 +1251,7 @@ if (!localStorage.getItem('swt_v3_migrated')) {
   ['swt_lessons','swt_xp','swt_streak','swt_badges','swt_voice','swt_mentor','swt_leadScore','swt_funnel','swt_emails','swt_geo','swt_pages','swt_user','swt_email_captured','swt_survey','swt_feedback','swt_lessons_v2'].forEach(k => localStorage.removeItem(k));
   localStorage.setItem('swt_v3_migrated', 'true');
 }
-const S = {
+var S = {
   user: JSON.parse(localStorage.getItem('swt_user') || 'null'),
   currentPage: 'home',
   lmsPage: 'dashboard',
@@ -1272,7 +1272,7 @@ const S = {
   sessionStart: Date.now(),
 };
 
-const DATA = {
+var DATA = {
   courseOrder: ['Technique','Theory','Performance','Ear Training','Style-Specific','Mindset','Business'],
   courseMeta: {
     Technique:    { icon:'🔧', color:'#4F46E5', desc:'Build your vocal foundation — the mechanics of great singing', unlockThreshold:0 },
@@ -1884,7 +1884,7 @@ const DATA = {
 };
 
 // ─── ANALYTICS ───
-const Analytics = {
+var Analytics = {
   init() {
     this.track('page_view', { path: location.hash || 'home' });
     this.geo();
@@ -1943,7 +1943,7 @@ const Analytics = {
 };
 
 // ─── CRM ───
-const CRM = {
+var CRM = {
   capture(data) {
     const leads = JSON.parse(localStorage.getItem('swt_leads') || '[]');
     leads.push({ ...data, ts: Date.now(), score: S.leadScore });
@@ -1981,7 +1981,7 @@ const CRM = {
 };
 
 // ─── EMAIL CAPTURE ENGINE ───
-const EmailCapture = {
+var EmailCapture = {
   shown: false,
   init() {
     setTimeout(() => {
@@ -2051,7 +2051,7 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('section').forEach(s => { s.classList.add('fade-in'); observer.observe(s); });
 
 // ─── MAIN APP ───
-const app = {
+var app = {
   init() {
     Analytics.init();
     EmailTriggers.init();
@@ -2403,7 +2403,7 @@ const app = {
       const locked = !unlocked;
 
       return `
-        <div class="course-card ${locked ? 'course-locked' : ''}" onclick="${locked ? '' : `app.lmsCourse('${course}')`}" style="cursor:${locked ? 'not-allowed' : 'pointer'};border:1px solid ${locked ? 'var(--gray-200)' : 'rgba(0,0,0,0.08)'};border-radius:16px;padding:24px;background:${locked ? 'var(--gray-50)' : '#fff'};margin-bottom:var(--space-3);transition:all .2s;position:relative;overflow:hidden;">
+        <div class="course-card ${locked ? 'course-locked' : ''}" onclick="${locked ? '' : "app.lmsCourse('" + course + "')"}" style="cursor:${locked ? 'not-allowed' : 'pointer'};border:1px solid ${locked ? 'var(--gray-200)' : 'rgba(0,0,0,0.08)'};border-radius:16px;padding:24px;background:${locked ? 'var(--gray-50)' : '#fff'};margin-bottom:var(--space-3);transition:all .2s;position:relative;overflow:hidden;">
           ${locked ? '<div style="position:absolute;top:12px;right:16px;font-size:1.2rem">🔒</div>' : ''}
           ${pct === 100 && !locked ? '<div style="position:absolute;top:12px;right:16px;font-size:1.2rem">✅</div>' : ''}
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
@@ -2449,6 +2449,7 @@ const app = {
     const cm = DATA.courseMeta[courseName] || { icon:'📘', color:'#6B7280', desc:'' };
     const done = lessons.filter(l => S.lessonsCompleted.includes(l.id)).length;
     const pct = lessons.length > 0 ? Math.round((done / lessons.length) * 100) : 0;
+    S.lmsCourse = courseName;
 
     const lessonList = lessons.map((l, i) => {
       const completed = S.lessonsCompleted.includes(l.id);
@@ -2465,7 +2466,7 @@ const app = {
         </div>`;
     }).join('');
 
-    return `
+    const html = `
       <div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:var(--space-4)">
           <button class="btn btn-sm btn-secondary" onclick="app.lmsNav('learn')">← Back</button>
@@ -2487,6 +2488,7 @@ const app = {
         ${lessonList}
       </div>
     `;
+    document.getElementById('lmsContent').innerHTML = html;
   },
 
   startLesson(id) {
