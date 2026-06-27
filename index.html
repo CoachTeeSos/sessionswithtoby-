@@ -642,6 +642,13 @@ input, textarea, select { font-family: inherit; }
 .practice-card h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(0.85rem, 1.5vw, 0.95rem); margin-bottom: 4px; }
 .practice-card p { font-size: clamp(0.75rem, 1.2vw, 0.85rem); color: var(--gray-500); line-height: 1.5; }
 
+/* Course Cards */
+.course-card { transition: all .2s; }
+.course-card:hover { box-shadow: var(--shadow-md); }
+.course-locked { opacity: 0.55; }
+.lesson-item:hover { background: var(--gray-50) !important; transform: translateX(2px); }
+.lesson-item:active { transform: scale(0.99); }
+
 /* Audio Visualizer */
 .visualizer-container {
   position: relative; height: clamp(80px, 15vh, 110px); background: var(--gray-900);
@@ -1266,6 +1273,16 @@ const S = {
 };
 
 const DATA = {
+  courseOrder: ['Technique','Theory','Performance','Ear Training','Style-Specific','Mindset','Business'],
+  courseMeta: {
+    Technique:    { icon:'🔧', color:'#4F46E5', desc:'Build your vocal foundation — the mechanics of great singing', unlockThreshold:0 },
+    Theory:       { icon:'📐', color:'#10B981', desc:'Understand the music language — notes, scales, rhythm', unlockThreshold:0.7 },
+    Performance:  { icon:'🔥', color:'#EF4444', desc:'Command the stage and connect with your audience', unlockThreshold:0.7 },
+    'Ear Training':{ icon:'👂', color:'#F59E0B', desc:'Train your ear to hear pitch, intervals, harmony', unlockThreshold:0.5 },
+    'Style-Specific':{ icon:'🎭', color:'#8B5CF6', desc:'Develop your unique vocal identity and genre mastery', unlockThreshold:0.5 },
+    Mindset:      { icon:'🧠', color:'#EC4899', desc:'Master the psychology of a successful singer', unlockThreshold:0.3 },
+    Business:     { icon:'📈', color:'#14B8A6', desc:'Monetize your voice — brand, market, earn', unlockThreshold:0.5 }
+  },
   courses: [
     { id:1, title:'Foundations of Voice', desc:'Build your vocal foundation from scratch', level:'Beginner', lessons:8, duration:'4 weeks', icon:'🎤', color:'#4F46E5' },
     { id:2, title:'Pitch & Tone Mastery', desc:'Hit every note with confidence', level:'Beginner', lessons:6, duration:'3 weeks', icon:'🎯', color:'#10B981' },
@@ -2284,6 +2301,7 @@ const app = {
       case 'funnel': c.innerHTML = this.lmsFunnel(); break;
       case 'analytics': c.innerHTML = this.lmsAnalytics(); break;
       case 'email': c.innerHTML = this.lmsEmail(); break;
+      case 'learn': c.innerHTML = this.lmsLearn(); break;
     }
   },
 
@@ -2309,14 +2327,20 @@ const app = {
     dailyRec+
     `'<div class="grid grid-4" style="margin-bottom:var(--space-5)"><div class="stat-card"><div class="stat-card-value">${S.xp}</div><div class="stat-card-label">Total XP</div></div><div class="stat-card"><div class="stat-card-value">${S.streak}</div><div class="stat-card-label">Day Streak</div></div><div class="stat-card"><div class="stat-card-value">${S.lessonsCompleted.length}</div><div class="stat-card-label">Lessons Done</div></div><div class="stat-card"><div class="stat-card-value">${level}</div><div class="stat-card-label">Level</div></div></div>'+
     (${S.voiceProfile ? `<div class="voice-avatar-card" style="margin-bottom:var(--space-5)"><div class="voice-avatar-inner"><div class="voice-avatar-icon">🎤</div><div class="voice-avatar-archetype">'+(S.voiceProfile.archetype||'The Rising Star')+'</div><div class="voice-avatar-range">'+(S.voiceProfile.genre||'Multi-genre')+' · '+(S.voiceProfile.experience||'Growing')+'</div><div class="voice-avatar-tags">'+(S.voiceProfile.strengths||[]).map(s => '<span class="voice-tag voice-tag-strength">✓ '+s+'</span>').join('')+(S.voiceProfile.weaknesses||[]).map(w => '<span class="voice-tag voice-tag-weakness">⚡ '+w+'</span>').join('')+'</div></div></div>` : ''})
-      <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">Progress Galaxy</h3>
-      <div class="progress-galaxy" id="galaxy">
-        ${['Pitch','Breath','Theory','Performance','Branding'].map((p, i) => {
-          const unlocked = i < Math.floor(S.lessonsCompleted.length / 3);
-          const size = 50 + Math.random() * 30;
-          const x = 10 + (i * 18) + Math.random() * 5;
-          const y = 20 + Math.random() * 50;
-          return `<div class="planet ${unlocked ? '' : 'planet-locked'}" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;background:${unlocked ? ['#4F46E5','#10B981','#F59E0B','#EF4444','#8B5CF6'][i] : '#9CA3AF'};font-size:0.7rem">${p[0]}</div>`;
+      <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">Your Courses</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--space-5)">
+        ${DATA.courseOrder.map(course => {
+          const lessons = (DATA.lessons || []).filter(l => l.course === course);
+          const total = lessons.length;
+          const done = lessons.filter(l => S.lessonsCompleted.includes(l.id)).length;
+          const pct = total > 0 ? Math.round((done/total)*100) : 0;
+          const cm = (DATA.courseMeta || {})[course] || { icon:'📘', color:'#6B7280' };
+          return `<div style="flex:1;min-width:120px;background:${cm.color}10;border:1px solid ${cm.color}30;border-radius:10px;padding:12px;cursor:pointer" onclick="app.lmsCourse('${course}');app.lmsNav('learn')">
+            <div style="font-size:1.2rem;margin-bottom:4px">${cm.icon}</div>
+            <div style="font-size:0.75rem;font-weight:600;margin-bottom:4px">${course}</div>
+            <div style="height:4px;background:var(--gray-200);border-radius:99px;overflow:hidden;margin-bottom:4px"><div style="height:4px;background:${cm.color};border-radius:99px;width:${pct}%"></div></div>
+            <div style="font-size:0.65rem;color:var(--gray-500)">${done}/${total} · ${pct}%</div>
+          </div>`;
         }).join('')}
       </div>
       <div style="margin-top:var(--space-5)">
@@ -2354,33 +2378,114 @@ const app = {
     `;
   },
 
-  // ─── LEARN ───
+  // ─── LEARN (Course Map) ───
   lmsLearn() {
+    const totalLessons = DATA.lessons.length;
+    const completed = S.lessonsCompleted.length;
+    const overallPct = Math.round((completed / totalLessons) * 100);
+    const courseOrder = DATA.courseOrder;
+    const meta = DATA.courseMeta;
     const grouped = {};
     DATA.lessons.forEach(l => { if (!grouped[l.course]) grouped[l.course] = []; grouped[l.course].push(l); });
+
+    // Calculate per-course progress and unlock status
+    let prevCompleted = true;
+    const courseCards = courseOrder.map((course, idx) => {
+      const lessons = grouped[course] || [];
+      const total = lessons.length;
+      const done = lessons.filter(l => S.lessonsCompleted.includes(l.id)).length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      const threshold = meta[course]?.unlockThreshold || 0;
+      // Unlocked if: first course, or previous course met threshold
+      const unlocked = idx === 0 || prevCompleted;
+      prevCompleted = pct / 100 >= threshold;
+      const cm = meta[course] || { icon:'📘', color:'#6B7280', desc:'', unlockThreshold:0 };
+      const locked = !unlocked;
+
+      return `
+        <div class="course-card ${locked ? 'course-locked' : ''}" onclick="${locked ? '' : `app.lmsCourse('${course}')`}" style="cursor:${locked ? 'not-allowed' : 'pointer'};border:1px solid ${locked ? 'var(--gray-200)' : 'rgba(0,0,0,0.08)'};border-radius:16px;padding:24px;background:${locked ? 'var(--gray-50)' : '#fff'};margin-bottom:var(--space-3);transition:all .2s;position:relative;overflow:hidden;">
+          ${locked ? '<div style="position:absolute;top:12px;right:16px;font-size:1.2rem">🔒</div>' : ''}
+          ${pct === 100 && !locked ? '<div style="position:absolute;top:12px;right:16px;font-size:1.2rem">✅</div>' : ''}
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div style="width:48px;height:48px;border-radius:12px;background:${locked ? 'var(--gray-200)' : cm.color + '15'};display:flex;align-items:center;justify-content:center;font-size:1.5rem">${cm.icon}</div>
+            <div style="flex:1">
+              <div style="font-family:var(--font-display);font-weight:600;font-size:1.1rem;opacity:${locked ? 0.4 : 1}">${course}</div>
+              <div style="font-size:0.8rem;color:var(--gray-500);opacity:${locked ? 0.4 : 1}">${cm.desc}</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:700;font-size:1.1rem;opacity:${locked ? 0.4 : 1}">${done}/${total}</div>
+              <div style="font-size:0.7rem;color:var(--gray-500)">lessons</div>
+            </div>
+          </div>
+          <div style="height:6px;background:var(--gray-200);border-radius:99px;overflow:hidden">
+            <div style="height:6px;background:${locked ? 'var(--gray-300)' : cm.color};border-radius:99px;width:${pct}%;transition:width 0.5s"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <span style="font-size:0.7rem;color:var(--gray-500)">${pct}% complete</span>
+            ${!locked && pct < 100 ? `<span style="font-size:0.7rem;color:${cm.color};font-weight:600">Continue →</span>` : ''}
+            ${!locked && pct === 100 ? `<span style="font-size:0.7rem;color:var(--success);font-weight:600">Mastered!</span>` : ''}
+            ${locked ? `<span style="font-size:0.7rem;color:var(--gray-400)">Complete ${Math.round(threshold*100)}% of previous</span>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+
     return `
-      <div class="dash-header"><h1>Learn</h1><p>100 lessons across 7 categories. Complete lessons to earn XP and unlock your voice.</p></div>
-      ${Object.entries(grouped).map(([course, lessons]) => `
-        <div style="margin-bottom:var(--space-5)">
-          <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">${course}</h3>
-          <div class="grid grid-2">
-            ${lessons.map(l => {
-              const done = S.lessonsCompleted.includes(l.id);
-              return `<div class="card" style="${done ? 'border-color:var(--success);background:rgba(16,185,129,0.03)' : ''}">
-                <div style="display:flex;justify-content:space-between;align-items:start">
-                  <div>
-                    <div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">${l.duration} · ${l.course}</div>
-                    <h4 style="font-weight:600;margin-bottom:var(--space-1)">${l.title}</h4>
-                  </div>
-                  ${done ? '<span style="color:var(--success);font-weight:700">✓</span>' : ''}
-                </div>
-                <p style="font-size:0.875rem;color:var(--gray-500);margin:var(--space-2) 0">${l.content.substring(0, 80)}...</p>
-                <button class="btn ${done ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="app.startLesson(${l.id})">${done ? 'Review' : 'Start Lesson'}</button>
-              </div>`;
-            }).join('')}
+      <div class="dash-header">
+        <h1>Learn</h1>
+        <p>7 courses · ${totalLessons} lessons · ${completed} completed · ${overallPct}% overall</p>
+        <div style="height:8px;background:var(--gray-200);border-radius:99px;max-width:400px;margin-top:12px;overflow:hidden">
+          <div style="height:8px;background:linear-gradient(90deg,var(--indigo),var(--gold));border-radius:99px;width:${overallPct}%;transition:width 0.5s"></div>
+        </div>
+      </div>
+      <div style="margin-top:var(--space-5)">
+        ${courseCards}
+      </div>
+    `;
+  },
+
+  // ─── COURSE DETAIL ───
+  lmsCourse(courseName) {
+    const lessons = DATA.lessons.filter(l => l.course === courseName);
+    const cm = DATA.courseMeta[courseName] || { icon:'📘', color:'#6B7280', desc:'' };
+    const done = lessons.filter(l => S.lessonsCompleted.includes(l.id)).length;
+    const pct = lessons.length > 0 ? Math.round((done / lessons.length) * 100) : 0;
+
+    const lessonList = lessons.map((l, i) => {
+      const completed = S.lessonsCompleted.includes(l.id);
+      return `
+        <div class="lesson-item" onclick="app.startLesson(${l.id})" style="display:flex;align-items:center;gap:16px;padding:16px;border:1px solid ${completed ? 'rgba(16,185,129,0.3)' : 'var(--gray-200)'};border-radius:12px;margin-bottom:8px;cursor:pointer;transition:all .2s;background:${completed ? 'rgba(16,185,129,0.03)' : '#fff'};">
+          <div style="width:36px;height:36px;border-radius:50%;background:${completed ? 'var(--success)' : 'var(--gray-100)'};display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0">
+            ${completed ? '✓' : `<span style="font-size:0.7rem;color:var(--gray-500)">${i+1}</span>`}
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:0.95rem">${l.title}</div>
+            <div style="font-size:0.75rem;color:var(--gray-500);margin-top:2px">${l.duration} · ${l.steps?.length || 0} steps</div>
+          </div>
+          <div style="font-size:0.8rem;color:${completed ? 'var(--success)' : 'var(--gray-400)'};font-weight:500">${completed ? 'Review' : 'Start'}</div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:var(--space-4)">
+          <button class="btn btn-sm btn-secondary" onclick="app.lmsNav('learn')">← Back</button>
+          <div>
+            <div style="font-size:0.75rem;color:var(--gray-500)">${cm.icon} Course</div>
+            <h2 style="font-family:var(--font-display);font-weight:700">${courseName}</h2>
           </div>
         </div>
-      `).join('')}
+        <div style="background:var(--gray-50);border-radius:12px;padding:16px;margin-bottom:var(--space-4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:0.85rem;font-weight:600">${done}/${lessons.length} lessons</span>
+            <span style="font-size:0.85rem;color:${cm.color};font-weight:600">${pct}%</span>
+          </div>
+          <div style="height:6px;background:var(--gray-200);border-radius:99px;overflow:hidden">
+            <div style="height:6px;background:${cm.color};border-radius:99px;width:${pct}%;transition:width 0.5s"></div>
+          </div>
+        </div>
+        <div style="font-size:0.8rem;color:var(--gray-500);margin-bottom:var(--space-2);font-weight:500">Lessons in order — complete sequentially for best results</div>
+        ${lessonList}
+      </div>
     `;
   },
 
@@ -2418,16 +2523,46 @@ const app = {
   completeLesson(id) {
     if (!S.lessonsCompleted.includes(id)) {
       S.lessonsCompleted.push(id);
-      S.xp += 15;
+      let xpEarned = 15;
+
+      // Course completion bonus
+      const lesson = DATA.lessons.find(l => l.id === id);
+      const courseLessons = DATA.lessons.filter(l => l.course === lesson?.course);
+      const courseDone = courseLessons.filter(l => S.lessonsCompleted.includes(l.id)).length;
+      const courseJustCompleted = courseDone === courseLessons.length;
+
+      if (courseJustCompleted) {
+        xpEarned += 50; // 50 XP bonus for completing a course
+        S.badges.push(`🏆 ${lesson.course} Master`);
+        localStorage.setItem('swt_badges', JSON.stringify(S.badges));
+      }
+
+      // Milestone bonuses
+      if (S.lessonsCompleted.length === 1) { xpEarned += 10; S.badges.push('🌱 First Step'); }
+      if (S.lessonsCompleted.length === 10) { xpEarned += 25; S.badges.push('🔟 First Ten'); }
+      if (S.lessonsCompleted.length === 25) { xpEarned += 50; S.badges.push('🚀 Quarter Century'); }
+      if (S.lessonsCompleted.length === 50) { xpEarned += 100; S.badges.push('💎 Halfway Hero'); }
+      if (S.lessonsCompleted.length === 100) { xpEarned += 250; S.badges.push('👑 Voice Master'); }
+
+      S.xp += xpEarned;
       S.streak = Math.max(S.streak, 1);
       localStorage.setItem('swt_lessons_v2', JSON.stringify(S.lessonsCompleted));
       localStorage.setItem('swt_xp', S.xp);
-      Analytics.track('lesson_finished', { id });
-      if (S.lessonsCompleted.length === 1) { S.badges.push('🌱 First Step'); localStorage.setItem('swt_badges', JSON.stringify(S.badges)); }
-      if (S.xp >= 500) { S.badges.push('⭐ 500 XP'); localStorage.setItem('swt_badges', JSON.stringify(S.badges)); }
+      localStorage.setItem('swt_badges', JSON.stringify(S.badges));
+      Analytics.track('lesson_finished', { id, xp: xpEarned });
+
+      // Level-up check
+      const oldLevel = Math.floor((S.xp - xpEarned) / 100) + 1;
+      const newLevel = Math.floor(S.xp / 100) + 1;
+      if (newLevel > oldLevel) {
+        S.badges.push(`⬆️ Level ${newLevel}`);
+        localStorage.setItem('swt_badges', JSON.stringify(S.badges));
+      }
     }
     document.getElementById('modal').classList.remove('open');
-    toast('+15 XP earned!');
+    const total = S.lessonsCompleted.length;
+    const xpMsg = total % 10 === 0 ? `+15 XP! 🎉 You're at ${total} lessons!` : `+15 XP earned!`;
+    toast(xpMsg);
     this.lmsNav('learn');
   },
 
