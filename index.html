@@ -1282,12 +1282,12 @@ var DATA = {
   courseOrder: ['Technique','Theory','Performance','Ear Training','Style-Specific','Mindset','Business'],
   courseMeta: {
     Technique:    { icon:'🔧', color:'#4F46E5', desc:'Build your vocal foundation — the mechanics of great singing', unlockThreshold:0 },
-    Theory:       { icon:'📐', color:'#10B981', desc:'Understand the music language — notes, scales, rhythm', unlockThreshold:0.7 },
-    Performance:  { icon:'🔥', color:'#EF4444', desc:'Command the stage and connect with your audience', unlockThreshold:0.7 },
-    'Ear Training':{ icon:'👂', color:'#F59E0B', desc:'Train your ear to hear pitch, intervals, harmony', unlockThreshold:0.5 },
-    'Style-Specific':{ icon:'🎭', color:'#8B5CF6', desc:'Develop your unique vocal identity and genre mastery', unlockThreshold:0.5 },
-    Mindset:      { icon:'🧠', color:'#EC4899', desc:'Master the psychology of a successful singer', unlockThreshold:0.3 },
-    Business:     { icon:'📈', color:'#14B8A6', desc:'Monetize your voice — brand, market, earn', unlockThreshold:0.5 }
+    Theory:       { icon:'📐', color:'#10B981', desc:'Understand the music language — notes, scales, rhythm', unlockThreshold:0 },
+    Performance:  { icon:'🔥', color:'#EF4444', desc:'Command the stage and connect with your audience', unlockThreshold:0 },
+    'Ear Training':{ icon:'👂', color:'#F59E0B', desc:'Train your ear to hear pitch, intervals, harmony', unlockThreshold:0 },
+    'Style-Specific':{ icon:'🎭', color:'#8B5CF6', desc:'Develop your unique vocal identity and genre mastery', unlockThreshold:0 },
+    Mindset:      { icon:'🧠', color:'#EC4899', desc:'Master the psychology of a successful singer', unlockThreshold:0 },
+    Business:     { icon:'📈', color:'#14B8A6', desc:'Monetize your voice — brand, market, earn', unlockThreshold:0 }
   },
   courses: [
     { id:1, title:'Foundations of Voice', desc:'Build your vocal foundation from scratch', level:'Beginner', lessons:8, duration:'4 weeks', icon:'🎤', color:'#4F46E5' },
@@ -2293,10 +2293,10 @@ var app = {
       const pct = total > 0 ? Math.round((done / total) * 100) : 0;
       const threshold = meta[course]?.unlockThreshold || 0;
       // Unlocked if: first course, or previous course met threshold
-      const unlocked = idx === 0 || prevCompleted;
+      const unlocked = true; // All lessons accessible
       prevCompleted = pct / 100 >= threshold;
       const cm = meta[course] || { icon:'📘', color:'#6B7280', desc:'', unlockThreshold:0 };
-      const locked = !unlocked;
+      const locked = false; // All courses unlocked
 
       return `
         <div class="course-card ${locked ? 'course-locked' : ''}" onclick="${locked ? '' : "app.lmsCourse('" + course + "')"}" style="cursor:${locked ? 'not-allowed' : 'pointer'};border:1px solid ${locked ? 'var(--gray-200)' : 'rgba(0,0,0,0.08)'};border-radius:16px;padding:24px;background:${locked ? 'var(--gray-50)' : '#fff'};margin-bottom:var(--space-3);transition:all .2s;position:relative;overflow:hidden;">
