@@ -2406,10 +2406,21 @@ var CRM = {
     return { leads: JSON.parse(localStorage.getItem('swt_leads')||'[]'), events: JSON.parse(localStorage.getItem('swt_events')||'[]'), user: S.user, xp: S.xp, voice: S.voiceProfile };
   },
   pushToSheet(data) {
-    const webhook = 'http://localhost:8081/api/email';
-    fetch(webhook, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) })
-      .then(r => this.track('sheets_pushed', { ok: r.ok }))
-      .catch(e => console.warn('Sheets push failed:', e));
+    // Store locally (always works)
+    const leads = JSON.parse(localStorage.getItem('swt_leads') || '[]');
+    leads.push({ ...data, ts: Date.now() });
+    localStorage.setItem('swt_leads', JSON.stringify(leads));
+    // Sync to Brevo via proxy (key stored server-side, silent fail if not deployed)
+    fetch('https://brevo-proxy.sessionswithtoby.workers.dev/add-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: data.email,
+        name: data.name || data.email?.split('@')[0] || '',
+        source: data.trigger || 'lms',
+        type: data.type || 'lead'
+      })
+    }).catch(() => {});
     return true;
   }
 };
@@ -2643,16 +2654,12 @@ var app = {
   // ─── EMAIL GATE ───
   submitGateEmail() {
     const email = document.getElementById('gateEmail').value.trim();
-    // Always let in immediately — collect email if provided
-    if (email && email.includes('@')) {
-      S.user = { email, name: email.split('@')[0], joined: new Date().toISOString() };
-      localStorage.setItem('swt_user', JSON.stringify(S.user));
-      localStorage.setItem('swt_email_captured', 'true');
-      CRM.capture({ event:'email_captured', email, trigger:'gate' });
-      Analytics.track('email_submitted', { email, trigger:'gate' });
-      CRM.pushToSheet({ email, name: S.user.name, type:'lead', trigger:'gate', ts: Date.now() });
-    }
-    // ALWAYS show LMS — no blocking validation
+    if (!email || !email.includes('@')) { toast('Please enter your email to continue'); return; }
+    S.user = { email, name: email.split('@')[0], joined: new Date().toISOString() };
+    localStorage.setItem('swt_user', JSON.stringify(S.user));
+    localStorage.setItem('swt_email_captured', 'true');
+    CRM.capture({ event:'email_captured', email, trigger:'gate' });
+    CRM.pushToSheet({ email, name: S.user.name, type:'lead', trigger:'gate', ts: Date.now() });
     document.getElementById('emailGate').style.display = 'none';
     this.showLMS();
   },
