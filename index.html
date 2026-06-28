@@ -3245,69 +3245,103 @@ var app = {
     const result = document.getElementById('masteryResult');
     if (!btn || !live) return;
     btn.disabled = true;
-    btn.textContent = 'Listening...';
+    btn.textContent = '🎤 Listening... Sing now!';
     let scores = [];
     let lastNote = '';
-    const stream = PitchDetector.getStream ? null : null; // use existing audio infra
-    // Reuse the existing pitch detection approach
+    let silentFrames = 0;
+    let lastPitchTime = Date.now();
+    let stream = null;
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 2048;
-    navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
+    analyser.fftSize = 4096;
+    analyser.smoothingTimeConstant = 0.8;
+    const targetHz = noteToHz(targetNote);
+    const startTime = Date.now();
+    const MAX_DURATION = 10000; // 10 seconds max
+    const SILENCE_LIMIT = 3000; // stop after 3s of silence
+
+    const finish = (passed, avgScore, note) => {
+      stream?.getTracks().forEach(t => t.stop());
+      audioCtx.close();
+      if (passed) {
+        result.innerHTML = `<span style="color:var(--success)">✓ Pass! ${avgScore}% — ${note} locked in</span>`;
+        setTimeout(() => this.completeLesson(lessonId, avgScore), 1500);
+      } else {
+        result.innerHTML = `<span style="color:var(--error)">✗ ${avgScore || 0}% — try again. Target: ${targetNote} (${targetHz.toFixed(1)}Hz)</span>`;
+        btn.disabled = false;
+        btn.textContent = '🔄 Try Again';
+      }
+    };
+
+    const detect = () => {
+      if (!stream) return;
+      const buf = new Float32Array(analyser.fftSize);
+      analyser.getFloatTimeDomainData(buf);
+      let rms = 0;
+      for (let i = 0; i < buf.length; i++) rms += buf[i] * buf[i];
+      rms = Math.sqrt(rms / buf.length);
+
+      const elapsed = Date.now() - startTime;
+      if (rms < 0.01) {
+        silentFrames++;
+        if (elapsed > 2000 && Date.now() - lastPitchTime > SILENCE_LIMIT && scores.length > 0) {
+          // Been silent for 3s after singing — finish up
+          const avgScore = Math.round(scores.reduce((a,b)=>a+b)/scores.length);
+          finish(avgScore >= 70, avgScore, lastNote);
+          return;
+        }
+        if (elapsed > MAX_DURATION) {
+          const avgScore = scores.length > 0 ? Math.round(scores.reduce((a,b)=>a+b)/scores.length) : 0;
+          finish(false, avgScore, lastNote);
+          return;
+        }
+        live.textContent = elapsed < 2000 ? '🎤 Listening...' : '🤫 Quiet...';
+        requestAnimationFrame(detect);
+        return;
+      }
+
+      // Got audio — detect pitch
+      silentFrames = 0;
+      lastPitchTime = Date.now();
+      let bestOffset = -1, bestCorrelation = 0;
+      for (let offset = Math.floor(audioCtx.sampleRate/2000); offset < Math.min(buf.length >> 1, Math.floor(audioCtx.sampleRate/50)); offset++) {
+        let correlation = 0;
+        const len = Math.min(2048, buf.length - offset);
+        for (let j = 0; j < len; j++) correlation += Math.abs(buf[j] - buf[j + offset]);
+        correlation = 1 - (correlation / len);
+        if (correlation > bestCorrelation) { bestCorrelation = correlation; bestOffset = offset; }
+      }
+      const pitch = bestCorrelation > 0.3 && bestOffset > 0 ? audioCtx.sampleRate / bestOffset : -1;
+      if (pitch > 50 && pitch < 2000) {
+        const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+        const semitones = 12 * Math.log2(pitch / 440);
+        const midi = Math.round(semitones) + 69;
+        lastNote = notes[((midi % 12) + 12) % 12] + (Math.floor(midi / 12) - 1);
+        const cents = Math.round((pitch - targetHz) / targetHz * 1731);
+        const onPitch = Math.abs(cents) <= tolerance;
+        live.textContent = `${lastNote} — ${Math.round(pitch)}Hz ${cents >= 0 ? '+' : ''}${cents}¢ ${onPitch ? '✅' : '❌'}`;
+        scores.push(onPitch ? 100 : Math.max(0, 100 - Math.abs(cents) + tolerance));
+      }
+
+      // Auto-finish if we have enough good readings
+      if (scores.length >= 5) {
+        const avgScore = Math.round(scores.reduce((a,b)=>a+b)/scores.length);
+        finish(avgScore >= 70, avgScore, lastNote);
+        return;
+      }
+
+      requestAnimationFrame(detect);
+    };
+
+    navigator.mediaDevices.getUserMedia({audio:true}).then(s => {
+      stream = s;
       const source = audioCtx.createMediaStreamSource(stream);
       source.connect(analyser);
-      const buf = new Float32Array(analyser.fftSize);
-      const targetHz = noteToHz(targetNote);
-      const startTime = Date.now();
-      const detect = () => {
-        analyser.getFloatTimeDomainData(buf);
-        let bestOffset = -1, bestCorrelation = 0, rms = 0;
-        for (let i = 0; i < buf.length; i++) rms += buf[i] * buf[i];
-        rms = Math.sqrt(rms / buf.length);
-        if (rms > 0.01) {
-          for (let offset = 20; offset < 1000; offset++) {
-            let correlation = 0;
-            for (let j = 0; j < 1000; j++) correlation += Math.abs(buf[j] - buf[j + offset]);
-            correlation = 1 - correlation / 1000;
-            if (correlation > bestCorrelation) { bestCorrelation = correlation; bestOffset = offset; }
-          }
-        }
-        const pitch = bestCorrelation > 0.3 ? audioCtx.sampleRate / bestOffset : -1;
-        if (pitch > 50 && pitch < 2000) {
-          const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-          const semitones = 12 * Math.log2(pitch / 440);
-          const midi = Math.round(semitones) + 69;
-          lastNote = notes[midi % 12] + (Math.floor(midi / 12) - 1);
-          const cents = Math.round((pitch - targetHz) / targetHz * 1731);
-          live.textContent = `${lastNote} — ${Math.round(pitch)}Hz ${cents >= 0 ? '+' : ''}${cents}¢`;
-          // Check if on pitch
-          if (Math.abs(cents) <= tolerance) {
-            scores.push(100);
-          } else {
-            scores.push(Math.max(0, 100 - Math.abs(cents) + tolerance));
-          }
-        }
-        if (Date.now() - startTime < 3000 && scores.length < 5) {
-          requestAnimationFrame(detect);
-        } else {
-          // Calculate final score
-          const avgScore = scores.length > 0 ? Math.round(scores.reduce((a,b)=>a+b)/scores.length) : 0;
-          if (avgScore >= 70) {
-            result.innerHTML = `<span style="color:var(--success)">✓ Pass! ${avgScore}% — ${lastNote} locked in</span>`;
-            setTimeout(() => this.completeLesson(lessonId, avgScore), 1500);
-          } else {
-            result.innerHTML = `<span style="color:var(--error)">✗ ${avgScore}% — try again. Target: ${targetNote} (${targetHz.toFixed(1)}Hz)</span>`;
-            btn.disabled = false;
-            btn.textContent = '🔄 Try Again';
-          }
-          audioCtx.close();
-        }
-      };
       detect();
     }).catch(() => {
-      live.textContent = 'Microphone access needed. Allow mic permission and try again.';
+      live.textContent = '🎤 Microphone access needed. Allow mic permission and try again.';
       btn.disabled = false;
-      btn.textContent = '🎤 Retry';
+      btn.textContent = '🔄 Retry';
     });
   },
 
