@@ -1,0 +1,5 @@
+.git
+node_modules
+*.log
+.env
+hermes_backup.tar.gz
