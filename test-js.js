@@ -1,0 +1,1805 @@
+
+/* ============================================================
+   SESSIONSWITHTOBY — COMPLETE APPLICATION
+   ============================================================ */
+
+// Clear stale data from previous versions (one-time reset)
+if (!localStorage.getItem('swt_v3_migrated')) {
+  ['swt_lessons','swt_xp','swt_streak','swt_badges','swt_voice','swt_mentor','swt_leadScore','swt_funnel','swt_emails','swt_geo','swt_pages','swt_user','swt_email_captured','swt_survey','swt_feedback','swt_lessons_v2'].forEach(k => localStorage.removeItem(k));
+  localStorage.setItem('swt_v3_migrated', 'true');
+}
+const S = {
+  user: JSON.parse(localStorage.getItem('swt_user') || 'null'),
+  currentPage: 'home',
+  lmsPage: 'dashboard',
+  xp: parseInt(localStorage.getItem('swt_xp') || '0'),
+  streak: parseInt(localStorage.getItem('swt_streak') || '0'),
+  lastVisit: localStorage.getItem('swt_lastVisit'),
+  lessonsCompleted: JSON.parse(localStorage.getItem('swt_lessons') || '[]'),
+  badges: JSON.parse(localStorage.getItem('swt_badges') || '[]'),
+  voiceProfile: JSON.parse(localStorage.getItem('swt_voice') || 'null'),
+  mentorHistory: JSON.parse(localStorage.getItem('swt_mentor') || '[]'),
+  leadScore: parseInt(localStorage.getItem('swt_leadScore') || '0'),
+  assessmentStep: 0,
+  assessmentAnswers: [],
+  funnel: JSON.parse(localStorage.getItem('swt_funnel') || '{}'),
+  emailCaptures: JSON.parse(localStorage.getItem('swt_emails') || '[]'),
+  geoData: JSON.parse(localStorage.getItem('swt_geo') || '{}'),
+  pagesVisited: JSON.parse(localStorage.getItem('swt_pages') || '[]'),
+  sessionStart: Date.now(),
+};
+
+const DATA = {
+  courses: [
+    { id:1, title:'Foundations of Voice', desc:'Build your vocal foundation from scratch', level:'Beginner', lessons:8, duration:'4 weeks', icon:'🎤', color:'#4F46E5' },
+    { id:2, title:'Pitch & Tone Mastery', desc:'Hit every note with confidence', level:'Beginner', lessons:6, duration:'3 weeks', icon:'🎯', color:'#10B981' },
+    { id:3, title:'Breath & Support', desc:'The engine behind every great voice', level:'Beginner', lessons:7, duration:'4 weeks', icon:'🫁', color:'#F59E0B' },
+    { id:4, title:'Performance Power', desc:'Command any stage with presence', level:'Intermediate', lessons:10, duration:'5 weeks', icon:'🔥', color:'#EF4444' },
+    { id:5, title:'Worship & Ministry', desc:'Lead worship with anointed precision', level:'Intermediate', lessons:12, duration:'6 weeks', icon:'🙏', color:'#8B5CF6' },
+    { id:6, title:'Afrobeats Vocal Style', desc:'Master the sound of African music', level:'Intermediate', lessons:8, duration:'4 weeks', icon:'🥁', color:'#D4AF37' },
+    { id:7, title:'Advanced Technique', desc:'Mix, belt, rasp, and beyond', level:'Advanced', lessons:10, duration:'6 weeks', icon:'💎', color:'#06B6D4' },
+    { id:8, title:'Artist Branding', desc:'Build your identity as an artist', level:'Advanced', lessons:6, duration:'3 weeks', icon:'👑', color:'#EC4899' },
+    { id:9, title:'Music Business', desc:'Monetize your gift the right way', level:'Advanced', lessons:8, duration:'4 weeks', icon:'📈', color:'#14B8A6' },
+  ],
+  pricing: [
+    { name:'Starter', price:'$50', period:'/one-time', features:['Foundations Course','Vocal DNA Assessment','Community Access','Email Support'], cta:'Start Free', featured:false },
+    { name:'Pro Monthly', price:'$200', period:'/month', features:['All 9 Courses','AI Mentor','Practice Tools','Priority Support','Progress Tracking'], cta:'Go Pro', featured:true },
+    { name:'Group', price:'₦20K', period:'/month', features:['All Courses','Group Coaching Calls','Community','Accountability Partner','Certificate'], cta:'Join Group', featured:false },
+  ],
+  stories: [
+    { name:'Chidinma', location:'Lagos', before:'Could not hit high notes', after:'Lead worship leader', avatar:'👩🏾' },
+    { name:'Marcus', location:'London', before:'Shy, could not perform', after:'Released first EP', avatar:'👨🏾' },
+    { name:'Grace', location:'Yaoundé', before:'No vocal training', after:'Recording artist', avatar:'👩🏾' },
+    { name:'David', location:'Houston', before:'Pitch issues', after:'Youth choir director', avatar:'👨🏿' },
+    { name:'Amina', location:'Abuja', before:'Breath control', after:'Performs nationally', avatar:'👩🏾' },
+    { name:'James', location:'New York', before:'Stage fright', after:'Sold-out showcase', avatar:'👨🏿' },
+  ],
+  journal: [
+    { title:'Diaphragmatic Breathing 101', cat:'Technique', read:'5 min', icon:'🫁' },
+    { title:'Stage Fright: Science & Solutions', cat:'Performance', read:'7 min', icon:'🎭' },
+    { title:'The Mindset of a Champion', cat:'Mindset', read:'4 min', icon:'🧠' },
+    { title:'Understanding Harmony Basics', cat:'Theory', read:'6 min', icon:'🎵' },
+    { title:'Building Your Artist Brand', cat:'Branding', read:'8 min', icon:'👑' },
+    { title:'Music Business 101 for Africans', cat:'Business', read:'10 min', icon:'💼' },
+    { title:'Home Studio Setup Guide', cat:'Production', read:'6 min', icon:'🎙️' },
+    { title:'Songwriting Formula', cat:'Songwriting', read:'9 min', icon:'✍️' },
+  ],
+  news: [
+    { title:'AI in Vocal Training: 2026 Report', date:'Jun 15', cat:'Industry', featured:true, desc:'How AI-powered tools are revolutionizing vocal coaching worldwide.' },
+    { title:'Grammy Vocal Analysis: Top Performers', date:'Jun 12', cat:'Analysis', desc:'Breaking down the vocal techniques of this year\'s Grammy nominees.' },
+    { title:'Nigerian Idol Season 8 Vocal Breakdown', date:'Jun 10', cat:'Nigerian Idol', desc:'Top 5 contestants analyzed — strengths and weaknesses.' },
+    { title:'New Study: Singing & Mental Health', date:'Jun 8', cat:'Science', desc:'University of Lagos study: regular singing reduces cortisol by 40%.' },
+    { title:'Trending: Afrobeats Vocal Techniques', date:'Jun 5', cat:'Trending', desc:'The distinct vocal patterns driving the global Afrobeats movement.' },
+    { title:'American Idol Finals Review', date:'Jun 3', cat:'American Idol', desc:'Technical analysis of the finale performances.' },
+    { title:'Voice Science: How Falsetto Works', date:'Jun 1', cat:'Science', desc:'The biomechanics of falsetto explained simply.' },
+    { title:'Burna Boy Vocal Analysis', date:'May 28', cat:'Analysis', desc:'How Burna Boy blends singing techniques across genres.' },
+  ],
+  resources: [
+    { title:'Vocal Health Guide', desc:'Science-backed habits to keep your voice in peak condition', icon:'🩺' },
+    { title:'Warm-Up Library', desc:'15 proven warm-up routines for every voice type', icon:'🔥' },
+    { title:'Songbook', desc:'50+ songs with vocal exercises and sheet music', icon:'📖' },
+    { title:'Gig Finder Toolkit', desc:'Find gigs, open mics, and opportunities nearby', icon:'🎪' },
+    { title:'Pitch Reference', desc:'Interactive pitch tool — hear every note', icon:'🎹' },
+    { title:'Metronome', desc:'Visual metronome with tempo training', icon:'⏱️' },
+    { title:'Tuner Tool', desc:'Real-time chromatic tuner with cents display', icon:'🎯' },
+    { title:'Vocal Recorder', desc:'Record, compare, and track your progress', icon:'🎙️' },
+  ],
+  certifications: [
+    { level:'Bronze', xpRequired:0, color:'#CD7F32', requirements:['Complete Vocal DNA Assessment','Finish 5 Lessons','Pass Bronze Quiz'] },
+    { level:'Silver', xpRequired:200, color:'#C0C0C0', requirements:['Complete 15 Lessons','Pass Silver Quiz','Submit 1 Recording','7-Day Streak'] },
+    { level:'Gold', xpRequired:500, color:'#FFD700', requirements:['Complete 25 Lessons','Pass Gold Quiz','Submit 3 Recordings','14-Day Streak','Community Contribution'] },
+    { level:'Platinum', xpRequired:1000, color:'#E5E4E2', requirements:['Complete All 33 Lessons','Pass All Quizzes','Submit 5 Recordings','30-Day Streak','Mentor 1 Student'] },
+  ],
+  emailTemplates: [
+    { trigger:'5s_popup', subject:'Want Your Free Vocal DNA Report?', body:'Take our 2-minute assessment and get a personalized report about your voice.', delay:7000 },
+    { trigger:'exit_intent', subject:'Your Personalized Singer Roadmap', body:'Tell us your email and we will send you a step-by-step plan to transform your voice in 30 days.', delay:0 },
+    { trigger:'assessment_complete', subject:'Save Your Vocal DNA Results', body:'Your Vocal DNA is unique to you. Save your results and start your personalized path.', delay:0 },
+    { trigger:'weakness_pitch', subject:'Fix Your Pitch in 10 Minutes/Day', body:'Based on your assessment, pitch accuracy is your focus. Here is a daily exercise to transform your pitch.', delay:86400000 },
+    { trigger:'weakness_breath', subject:'Master Your Breath Support', body:'Your assessment shows breath control as key. Try this: 4-count in, 4-hold, 8-count out. Daily.', delay:86400000 },
+    { trigger:'weakness_range', subject:'Expand Your Range Safely', body:'Lip trills sliding up and down your comfortable range, one semitone per week.', delay:86400000 },
+    { trigger:'weakness_confidence', subject:'Conquer Stage Fright', body:'Record yourself daily, perform for 1 person, then 3, then 5. Build your exposure ladder.', delay:86400000 },
+    { trigger:'weakness_tone', subject:'Transform Your Tone Quality', body:'Sing "ng" on a comfortable note for 5 min daily. Feel the buzz in your mask.', delay:86400000 },
+    { trigger:'genre_afrobeats', subject:'Master Afrobeats Vocal Style', body:'Daily practice routine for authentic Afrobeats flow — rhythm, phrasing, pitch bends.', delay:86400000 },
+  ],
+  funnelStages: [
+    { name:'Traffic', count:0, color:'#6B7280', description:'Visitors landing on the site' },
+    { name:'Identity Detection', count:0, color:'#4F46E5', description:'Vocal DNA assessment completed' },
+    { name:'Behavior Tracking', count:0, color:'#10B981', description:'Lessons, practice sessions' },
+    { name:'Personalization', count:0, color:'#F59E0B', description:'Profile built, recommendations active' },
+    { name:'Lead Nurture', count:0, color:'#EC4899', description:'Email sequence engaged' },
+    { name:'Transformation', count:0, color:'#8B5CF6', description:'Visible progress, streaks building' },
+    { name:'Monetization', count:0, color:'#D4AF37', description:'Purchase or booking completed' },
+    { name:'Advocacy', count:0, color:'#EF4444', description:'Sharing, referring, reviewing' },
+  ],
+  bookingOptions: [
+    { name:'Free Discovery Call', price:'$0', period:'', features:['15-min voice evaluation','Hear your strengths','No commitment'], cta:'Book Free Call', featured:false },
+    { name:'1-on-1 Coaching', price:'$200', period:'/hour', features:['Full vocal assessment','Custom training plan','Recording feedback','WhatsApp support'], cta:'Book Session', featured:true },
+    { name:'Group Coaching', price:'₦20K', period:'/month', features:['Weekly group calls','Community access','Accountability partner','Certificate'], cta:'Join Group', featured:false },
+  ],
+  lessons: [
+    { id:1, title:'Posture & Alignment', course:'Foundations', duration:'10 min', content:'NYVC: free voice needs free body. Stacked alignment.',
+      steps:[
+        {type:'teach',title:'Stacked Alignment (NYVC)',body:'Singing is muscular - like a dart thrower. Misalignment = missed target.\n\n7-Point Check:\n1. Feet shoulder-width\n2. Knees soft not locked\n3. Hips over feet\n4. Chest tall not military\n5. Shoulders back and dropped\n6. Chin level\n7. Head tall string from crown\n\nRef: SAID Principle (PMC7156306) - your body adapts to what you demand.'},
+        {type:'exercise',title:'Wall Drill',body:'Back against wall: head shoulders hips touch. Hand behind lower back - small natural curve. Step away maintaining posture. Breathe: breath drops low without effort.'},
+        {type:'practice',title:'7-Day Ritual',body:'Every morning 7 days: Wall Drill then sing scale. Record. Day 7 vs Day 1 shows visible change.'},
+        {type:'tip',title:'Don\'t Force Chest Up',body:'Creates throat tension. Think tall spine not proud chest.'}
+      ]},
+    { id:2, title:'Breath & Solar Plexus', course:'Foundations', duration:'15 min', content:'NYVC Step 2-3: Low breathing + solar plexus anchor.',
+      steps:[
+        {type:'teach',title:'Low Breathing (NYVC)',body:'Vertical chest breathing uses accessory muscles that fatigue fast. NYVC uses low breathing: belly expands ribs open sideways.\n\nResearch: Intrinsic laryngeal muscles are Type II (fast-twitch fatigable). Low breathing uses Type I endurance fibers. Result: dramatically longer singing stamina.'},
+        {type:'exercise',title:'Solar Plexus Anchor',body:'Fingers below breastbone. Breathe in - area pushes outward. Hiss Ssss as long as you can. When push stops support dropped. Goal: 20 seconds steady.'},
+        {type:'practice',title:'Farinelli Cycle',body:'Inhale 4 Hold 4 Exhale Ssss 8. Progress: 6-6-12 then 8-8-16 then 10-10-20.'},
+        {type:'tip',title:'Shirt Test',body:'Fitted shirt: buttons pull at belly/ribs on inhale NOT shoulders.'}
+      ]},
+    { id:3, title:'Humming Warm-Ups', course:'Foundations', duration:'10 min', content:'NYVC: Never start cold. Humming wakes voice with minimal effort.',
+      steps:[
+        {type:'teach',title:'3 Reasons to Hum First (NYVC)',body:'1. Gentle cord warm-up - closed lips = less air pressure\n2. Forward placement - buzz in lips IS mask resonance\n3. Breath-voice connection - you feel support drop when buzz fades\n\nNYVC: It is okay to fail. Humming is the safest possible start.'},
+        {type:'exercise',title:'5-Minute Hum Protocol',body:'Phase 1 (1 min): Low hum Mmm on comfortable low pitch.\nPhase 2 (2 min): Sliding hum - siren low to high to low.\nPhase 3 (2 min): Hum into vowels - Mmm...Ah Mmm...Ay Mmm...Ee.'},
+        {type:'practice',title:'Non-Negotiable Daily',body:'Every time you sing - even car or shower - do at least Phase 1 (1 min).'},
+        {type:'tip',title:'Lip Pressure Warning',body:'Lips lightly touching not pressed. Air escapes through nose. If squished back off.'}
+      ]},
+    { id:4, title:'Vowel Shapes', course:'Foundations', duration:'12 min', content:'NYVC Step 6+7: Vowels shaped by jaw tongue lips.',
+      steps:[
+        {type:'teach',title:'Five Pure Vowels (NYVC)',body:'AH: jaw drops tongue low/flat\nAY: jaw medium tongue rises\nEE: jaw closed tongue arches high\nOH: jaw medium lips round\nOO: jaw small lips tight\n\nSecret: change vowels by moving jaw/tongue NOT throat space. Throat stays open.'},
+        {type:'exercise',title:'Vowel Sculpting',body:'On one pitch: AH 4 beats reshape to AY slide to EE open to OH round to OO reverse. Sound flows continuously. 5 times on 3 pitches.'},
+        {type:'practice',title:'Song Vowel Mapping',body:'Write out just vowels in a song. Sing through on just vowels.'},
+        {type:'tip',title:'Spacious Vowel Rule',body:'High notes need MORE space not less. Think dropped jaw tall vowel.'}
+      ]},
+    { id:5, title:'Range Discovery', course:'Foundations', duration:'15 min', content:'Find your range safely. No pushing no strain.',
+      steps:[
+        {type:'teach',title:'Voice Types (NYVC View)',body:'Soprano C4-C6+ Alto F3-F5 Tenor C3-C5 Baritone G2-G4 Bass E2-E4.\n\nNYVC: labels are starting points not boxes. Goal is unlocking YOUR full range.'},
+        {type:'exercise',title:'Gentle Range Map',body:'Start on comfortable speaking pitch. Slide DOWN semitones until strain = low note. Slide UP until throat tightness or voice flips = passaggio. Continue gently past bridge.'},
+        {type:'practice',title:'Weekly Tracking',body:'Map once a week. Expect 1-2 semitones/month growth.'},
+        {type:'tip',title:'Never Force Range',body:'Straining causes damage + bad habits. If tight/painful STOP.'}
+      ]},
+    { id:6, title:'Your First Song', course:'Foundations', duration:'20 min', content:'Apply everything to one song. NYVC: separate the problems.',
+      steps:[
+        {type:'teach',title:'5-Step Song Method (NYVC)',body:'1. Listen 3x without singing\n2. Speak lyrics in rhythm\n3. Hum melody on Mmm\n4. Sing on AH\n5. Add actual lyrics\n\nEach step adds ONE new thing. Much faster than doing everything at once.'},
+        {type:'exercise',title:'Learn Your Song Now',body:'1. Pick simple song in range\n2. Speak lyrics in rhythm\n3. Hum entire melody\n4. Sing through on LA\n5. Sing actual song - isolate tricky parts'},
+        {type:'practice',title:'Daily Practice',body:'Daily 5-step method. Day 7 should feel effortless.'},
+        {type:'tip',title:'Song Selection',body:'First song = SIMPLE. Limited range repetitive melody lyrics you connect with.'}
+      ]},
+    { id:7, title:'Pitch Matching', course:'Vocal Mechanics', duration:'10 min', content:'NYVC Step 5 begins with pitch.',
+      steps:[
+        {type:'teach',title:'Audiation (NYVC Term)',body:'Pitch = frequency (Hz). Most pitch problems are coordination not ear problems.\n\nAudiation = hearing music internally before producing it. Strong audiation = strong pitch accuracy.'},
+        {type:'exercise',title:'Pitch Match Drill',body:'Play note on piano app. Listen 3 seconds. Sing Ah. Am I above/below/matching? Slide to correct. When matched hold 5 sec. Repeat with 10 notes.'},
+        {type:'practice',title:'Daily 5-Minute Drill',body:'Random notes match them track accuracy. Aim for 80%+ within 2 weeks.'},
+        {type:'tip',title:'Hear Before You Sing',body:'The one habit that fixes 80% of pitch problems.'}
+      ]},
+    { id:8, title:'Intonation Control', course:'Vocal Mechanics', duration:'12 min', content:'Why you go flat/sharp and how to fix it.',
+      steps:[
+        {type:'teach',title:'Why Flat Happens (NYVC)',body:'1. Weak breath support\n2. Mouth spreading lowers pitch\n3. Fatigue (Type II fiber fatigue)\n4. Confidence (holding back)\n\nMost common: #1. If support dips slightly pitch drops.\n\nRef: Phonation relies on anaerobic metabolism (bursts <3 sec).'},
+        {type:'exercise',title:'Long Tone Hold',body:'Sing Ah 10 seconds. Watch tuner:\n- Sharp: ease off air settle into pitch\n- Flat: add energy think up and over\n- Record and listen back. Do 5 daily.'},
+        {type:'practice',title:'20-Second Hold',body:'Hold within +/-10 cents for 20 seconds.'},
+        {type:'tip',title:'Use Tuner App',body:'Download chromatic tuner. Sing into it. Visual feedback accelerates learning.'}
+      ]},
+    { id:9, title:'Larynx Awareness', course:'Vocal Mechanics', duration:'14 min', content:'NYVC Step 4: The larynx is a style changer.',
+      steps:[
+        {type:'teach',title:'Larynx = Style Control (NYVC)',body:'High: bright tight (belt pop country)\nLow: dark warm (classical jazz)\nMedium: speech-like (contemporary R&B)\n\nNYVC: larynx position is a CHOICE not a fixed trait.'},
+        {type:'exercise',title:'High/Low/Medium',body:'High: witch cackle hold position sing Ah = bright tight\nLow: yawn hold position sing Ah = dark warm\nMedium: speak normally sing Ah from here'},
+        {type:'practice',title:'Style Matching',body:'Take one phrase. Sing 3 ways: high larynx (belt) low (classical) medium (conversational).'},
+        {type:'tip',title:'No Pain',body:'If moving larynx causes pain/strain stop. Weeks of small movements.'}
+      ]},
+    { id:10, title:'Vocal Registration', course:'Vocal Mechanics', duration:'16 min', content:'NYVC Step 5: Chest head and the passaggio between.',
+      steps:[
+        {type:'teach',title:'Chest & Head Voice (NYVC)',body:'Chest voice = lower range thick cord vibration powerful\nHead voice = upper range thinner vibration lighter\nPassaggio = bridge between = where voice wants to break\n\nNYVC: break is trainable. Mix voice = smooth transition creating unified sound.'},
+        {type:'exercise',title:'Find Your Passaggio',body:'Slide up on Ah from low. Where does quality shift from thick/powerful to thin/lighter = passaggio.\nSlide down from high on Ng. Where does light shift to thick = upper passaggio.'},
+        {type:'practice',title:'Lip Trill Glides',body:'Low to high and back on lip trill. Trill naturally smooths passaggio. Daily = trains registers to blend.'},
+        {type:'tip',title:'Yodel Exercise (NYVC Signature)',body:'Yodel chest to head on octave jump. Trains registration flexibility.'}
+      ]},
+    { id:11, title:'Resonance & Space', course:'Vocal Mechanics', duration:'14 min', content:'NYVC Step 6: Resonance chambers amplify and color raw sound.',
+      steps:[
+        {type:'teach',title:'Three Chambers (NYVC)',body:'1. Chest: warmth + power on low notes\n2. Pharynx (throat): main resonator adjustable\n3. Mouth + Nasal: shapes vowels + brightness\n\nMask resonance = buzz in face (chest nose bridge upper lip). NOT nasal singing.'},
+        {type:'exercise',title:'NG Resonance Finder',body:'Say Sing hold the NG. Feel buzz in nose/chest = mask resonance.\nMaintain buzz open to Ah - Nnnnn-GAH. Ah should carry same forward buzz.'},
+        {type:'practice',title:'Pinch Test',body:'Singing sustained note pinch nose 1 sec:\n- Sound stops = too nasal\n- Barely changes = perfect\n- Dims slightly = sweet spot'},
+        {type:'tip',title:'Tall Throat on High Notes',body:'Think tall cathedral pharynx. Prevents squeezing gives high notes room to resonate.'}
+      ]},
+    { id:12, title:'Vowel Modification', course:'Vocal Mechanics', duration:'12 min', content:'NYVC Step 7 applied: on high notes vowels must narrow and round.',
+      steps:[
+        {type:'teach',title:'Why Modify Vowels (NYVC)',body:'Physics: wide open vowels on high notes = impossible. NYVC teaches vowel modification:\n- AH narrows toward AW\n- EE stays narrow relaxes\n- AY narrows toward EH\n\nNot changing word - adjusting shape to keep throat open + resonance forward.'},
+        {type:'exercise',title:'Narrow Vowel Scale',body:'5-note ascending scale on AH-AY-EE-OH-OO. Bottom notes = wide vowels. Ascending = gradually narrow. Goal: consistent tone quality bottom to top.'},
+        {type:'practice',title:'Song Modification',body:'High notes in a song = deliberately narrow vowel. Feels like saving space.'},
+        {type:'tip',title:'Smile Myth',body:'Don\'t smile for high notes - spreads vowel wide + creates tension. Think tall mouth with rounded lips.'}
+      ]},
+    { id:13, title:'Interval Recognition', course:'Ear Training', duration:'12 min', content:'NYVC ear training: hear intervals before singing them.',
+      steps:[
+        {type:'teach',title:'Intervals (Music Theory + NYVC)',body:'Interval = distance between two pitches. Semitone = smallest unit.\n\nUnison (0) Major 2nd (2) Major 3rd (4) Perfect 4th (5) Perfect 5th (7) Major 6th (9) Major 7th (11) Octave (12)\n\nTheory: intervals form building blocks of scales chords melody.'},
+        {type:'exercise',title:'Interval Singing',body:'Play note. Play each interval above. Sing both. Internalize feel:\n- 2nd: tense wants resolve\n- 3rd: happy bright\n- 4th: strong stable\n- 5th: open hollow\n- 6th: warm nostalgic\n- 7th: yearning\n- Octave: same note bigger'},
+        {type:'practice',title:'Daily Recognition',body:'5 min daily: app plays intervals name them before singing. 90% accuracy in 3 weeks.'},
+        {type:'tip',title:'Reference Songs',body:'Associate each interval with familiar song. This is how pros train ears.'}
+      ]},
+    { id:14, title:'Sustained Phonation', course:'Ear Training', duration:'14 min', content:'NYVC + Science: pitch accuracy = trainable muscle.',
+      steps:[
+        {type:'teach',title:'Science of Pitch (PMC7156306)',body:'Pitch accuracy depends on:\n1. Audiation (hear internally first)\n2. Laryngeal muscle coordination\n3. Breath pressure consistency\n\nResearch: Intrinsic laryngeal muscles = Type II (fast-twitch fatigable). NYVC: 3x5min > 1x30min.'},
+        {type:'exercise',title:'Sustained Phonation Drill',body:'Comfortable note sing Ah as long as possible on tuner:\n- First 5 sec: finding note\n- 5-15 sec: stabilize\n- 15+ sec: drift = support fading\n\nGoal: +/-10 cents for 20 sec. Rest 10 sec. Repeat 5x.'},
+        {type:'practice',title:'Glide Low-High-Low',body:'Slide lowest to highest to lowest on Ah. Pitch tracks smoothly no jumps/drops.'},
+        {type:'tip',title:'3-Second Rule',body:'Before every note: 3 seconds internal hearing. Audiation window = difference between hitting and missing.'}
+      ]},
+    { id:15, title:'Music Theory for Singers', course:'Ear Training', duration:'16 min', content:'University-level theory for singers.',
+      steps:[
+        {type:'teach',title:'Scales & Keys (Theory)',body:'Major Scale: W-W-H-W-W-W-H\nC Major: C-D-E-F-G-A-B-C\nG Major: G-A-B-C-D-E-F#-G\n\nCircle of 5ths: up 5ths adds sharp (C-G-D-A-E-B-F#) down adds flat (C-F-Bb-Eb-Ab-Db-Gb).\n\nWhy singers need this: knowing key = knowing scale likely notes trouble spots.'},
+        {type:'exercise',title:'Solfege Scales',body:'Sing C Major: Do-Re-Mi-Fa-Sol-La-Ti-Do. Then G Major. Then D Major.\n\nSolfege trains ear for SCALE DEGREES = note function within key.'},
+        {type:'practice',title:'Key Signature Drill',body:'Daily: random key sing major scale name sharps/flats. 20 keys = mastery.'},
+        {type:'tip',title:'Home Note',body:'Do (1) is home. Every note has relationship: 2 wants 1 or 3 5 is stable 7 desperately wants 1.'}
+      ]},
+    { id:16, title:'Harmony & Chords', course:'Ear Training', duration:'14 min', content:'University-level: harmony makes you better ensemble singer.',
+      steps:[
+        {type:'teach',title:'Chords & Progressions (Theory)',body:'Triads: 3 notes stacked in thirds.\nMajor: Root + Major 3rd + 5th (C-E-G)\nMinor: Root + Minor 3rd + 5th (C-Eb-G)\n\nI-IV-V covers 90% of pop/country/gospel.\n\nKnowing progression = predicting melody. Pros learn songs in minutes.'},
+        {type:'exercise',title:'Chord Tone Singing',body:'Play C major (C-E-G). Sing each note. Sing melody over chord landing on chord tones on strong beats.\nPlay F major. Sing its notes. Feel center of gravity shift.'},
+        {type:'practice',title:'Progression Singing',body:'Sing Twinkle Twinkle while playing I-IV-V-I.'},
+        {type:'tip',title:'V Chord Tension',body:'V creates tension wanting to resolve to I. This is why most songs end on I = coming home.'}
+      ]},
+    { id:17, title:'Compression Control', course:'Vocal Technique', duration:'16 min', content:'NYVC Step 8: Compression = how firmly cords close.',
+      steps:[
+        {type:'teach',title:'Compression Spectrum (NYVC)',body:'No compression: breathy whisper\nLight: soft intimate pop\nMedium: normal singing\nHeavy: belt rock powerful\n\nNYVC insight: compression INDEPENDENT of volume. Soft+heavy = intimate belt.'},
+        {type:'exercise',title:'Compression Ladder',body:'One note. Start breath only then vocal fry then light then medium then heavy. Go up/down on same note.'},
+        {type:'practice',title:'Messa di Voce (NYVC Signature)',body:'One note: soft (light compression) gradually louder (add compression) gradually softer. Pitch must not change.'},
+        {type:'tip',title:'Fatigue Management',body:'Heavy compression = Type II fibers fatigue fast. If tired switch lighter or rest.'}
+      ]},
+    { id:18, title:'Riffs & Agility', course:'Vocal Technique', duration:'14 min', content:'NYVC Step 9: Runs leaps intervals. Agility = coordination not strength.',
+      steps:[
+        {type:'teach',title:'Agility Science (NYVC + Research)',body:'Riffs require rapid precise laryngeal adjustments.\n\nResearch: PCA = Type I (endurance). Intrinsic muscles (Type II) control pitch. Agility = training Type II to fire rapidly.\n\nNYVC fool the brain: use games to bypass mental blocks.'},
+        {type:'exercise',title:'Pigeon Exercise (NYVC Signature #1)',body:'Bird-like sounds free and soaring. Imitate pigeon coo rising/falling.\n- Releases tension\n- Bypasses mental blocks\n- Trains agility\n\nDo 2 min before riff practice.'},
+        {type:'practice',title:'Pentascale Riff Training',body:'5-note scale ascending/descending. Speed up gradually. When clean at fast tempo add patterns: 1-3-5-3-1.'},
+        {type:'tip',title:'Money Notes (NYVC Signature #2)',body:'Identify 2-3 money notes per song. Practice JUST those in isolation.'}
+      ]},
+    { id:19, title:'Dynamic Control', course:'Vocal Technique', duration:'14 min', content:'NYVC Step 10: Crescendo/Decrescendo. Messa di voce = dynamic control.',
+      steps:[
+        {type:'teach',title:'Dynamics = Emotion (NYVC)',body:'pp: intimate vulnerable\nmp: conversational warm\nmf: confident present\nf: powerful declarative\nff: peak emotion\n\nNYVC: Acting while singing from day one. Dynamics are emotional tools.'},
+        {type:'exercise',title:'Messa di Voce',body:'Comfortable note: 8 sec crescendo pp to ff 8 sec decrescendo ff to pp.\nPitch must not waver. Tone consistent. Only volume changes.'},
+        {type:'practice',title:'Song Dynamic Mapping',body:'Mark every phrase pp/mp/mf/f. Sing with exact dynamics.'},
+        {type:'tip',title:'Whisper-to-Shout',body:'Phrase at volume 1-10. Where does technique break? That is your ceiling.'}
+      ]},
+    { id:20, title:'Acting While Singing', course:'Performance', duration:'14 min', content:'NYVC Step 12: Emotional connection from day one.',
+      steps:[
+        {type:'teach',title:'NYVC Acting Framework',body:'1. What are they saying? - Understand lyrics\n2. Why saying it? - Emotional need\n3. What if they DON\'T sing? - Urgency = authenticity\n4. Who to? - Direct emotion to specific person\n\nEmotion IS technique. You don\'t wait for perfect technique.'},
+        {type:'exercise',title:'Emotional Color',body:'One phrase 5 ways: joy anger sadness fear tenderness.\nNotice: breath changes compression changes larynx changes vowels change.'},
+        {type:'practice',title:'Storyteller Lens',body:'Pick song. Write 2-3 sentences about character. Sing AS that character.'},
+        {type:'tip',title:'3-Second Rule',body:'Before singing: 3 seconds feeling the emotion. Breathe into it.'}
+      ]},
+    { id:21, title:'Overcoming Stage Fright', course:'Performance', duration:'15 min', content:'NYVC: It is okay to fail. Stage fright = fear of failure.',
+      steps:[
+        {type:'teach',title:'NYVC Approach to Fear',body:'Stage fright = threat response: adrenaline cortisol shallow breath tension.\n\nNYVC reframing: I am not nervous I am excited. Same sensation different story.\n\nCure: progressive exposure. 1 person to 3 to 5 to 10.'},
+        {type:'exercise',title:'Exposure Ladder',body:'Week 1: sing for 1 person. Record.\nWeek 2: 3 people. Record.\nWeek 3: 5 people. Record.\nWeek 4: 10+ (open mic group stream).'},
+        {type:'practice',title:'Pre-Performance Protocol',body:'2h before: light meal hydrate\n30 min: arrive sound check walk stage\n10 min: warm-up\n5 min: 4 deep breaths I am ready\n1 min: scan audience find friendly face'},
+        {type:'tip',title:'Fear Reframe',body:'Say out loud: I am excited. My body is preparing me. Not positive thinking - neuroscience.'}
+      ]},
+    { id:22, title:'Style Versatility', course:'Performance', duration:'16 min', content:'NYVC Step 11: Style through larynx height embouchure registration.',
+      steps:[
+        {type:'teach',title:'NYVC Sound Palette',body:'Bright/Twangy: High larynx + nasal = Country belt pop\nDark/Warm: Low larynx + pharyngeal = Classical jazz\nBreathy: Medium + aspirate = Pop R&B\nTwang: High + epilaryngeal = Belt theatre\nOpera: Low + full pharyngeal = Classical\nSpeech-like: Neutral = Contemporary\nFry: Low + fry onset = Pop R&B\nCompressed: Medium + heavy = Belt rock\nMixed: Medium-neutral = All CCM\n\nThese are CHOICES not limitations.'},
+        {type:'exercise',title:'One Phrase Five Styles',body:'I love you in: Classical (low) Belt (high+heavy) R&B (breathy) Country (twang) Pop (conversational).'},
+        {type:'practice',title:'Genre Switching',body:'One verse switch genre mid-verse. Practice transition.'},
+        {type:'tip',title:'Larynx = Tone Knob',body:'Like guitarist\'s tone knob. You don\'t learn new voice you learn to turn the knob.'}
+      ]},
+    { id:23, title:'Chest Voice Mastery', course:'Registration', duration:'14 min', content:'Deep dive chest voice. NYVC: not pulling up - maintaining chest registration ascending.',
+      steps:[
+        {type:'teach',title:'Chest Mechanics (NYVC)',body:'Chest = thyroarytenoid dominant (short thick cord vibration). Your speaking voice extended up.\n\nChallenge: body WANTS to switch to head voice ascending. Keeping chest requires:\n1. Strong breath support\n2. Appropriate compression\n3. Vowel modification'},
+        {type:'exercise',title:'Chest Ascension',body:'Speak Hey listen to me - feel chest. Speak higher pitch keeping weight. Sing on that pitch.\nScale up: Hey each note higher. Maintain chest weight as high as possible WITHOUT strain.'},
+        {type:'practice',title:'Daily Ceiling Push',body:'Find ceiling (strain point). Back off 1 note. Sing 2 min. Over weeks push higher.'},
+        {type:'tip',title:'Pulling Warning',body:'Neck/throat strain = PULLING not belt. Stop reset less volume.'}
+      ]},
+    { id:24, title:'Head Voice & Falsetto', course:'Registration', duration:'14 min', content:'NYVC: head voice not weak chest. Different coordination.',
+      steps:[
+        {type:'teach',title:'Head Voice vs Falsetto (NYVC)',body:'Falsetto: breathy thin minimal cord closure\nHead voice: full cord closure upper register rich resonant\n\nMost untrained only have falsetto. NYVC trains head voice as BRIDGE to mix.\n\nSensation: head resonates in head/face chest resonates in chest.'},
+        {type:'exercise',title:'Octave Slide to Head',body:'Low note chest. Slide up octave on Oo. Past passaggio let voice flip to head. Don\'t fight.\nSlide back down. Note transition = passaggio. Do 5x daily.'},
+        {type:'practice',title:'Head Voice Strength',body:'Scales entirely in head voice (passaggio up). Weak at first like new muscle.'},
+        {type:'tip',title:'Ng Entry',body:'Sing Ng on high note. Tongue position naturally engages head voice.'}
+      ]},
+    { id:25, title:'Mix Voice', course:'Registration', duration:'16 min', content:'NYVC crown jewel: blend chest + head. Power + range without strain.',
+      steps:[
+        {type:'teach',title:'What Is Mix (NYVC)',body:'Mix = simultaneous thyroarytenoid (chest) + cricothyroid (head) engagement.\n\nChest-dominant: powerful belt-like on high notes\nHead-dominant: light floaty with substance\nBalanced: unified voice\n\nNYVC: mix is COORDINATION between two. Adjustable ratio.'},
+        {type:'exercise',title:'Yodel Octave (NYVC Signature #3)',body:'Yodel chest to head on octave: Yoo-HOO. Slow at first. Gradually smoother.\nMoment between chest and head IS mix.'},
+        {type:'practice',title:'Siren on Ng',body:'Slide lowest chest to highest head on Ng. Let transition happen naturally. 10x daily.'},
+        {type:'tip',title:'Cry Exercise',body:'Gentle cry Waaaah naturally engages mix (chest weight + head resonance).'}
+      ]},
+    { id:26, title:'Safe Belting', course:'Registration', duration:'16 min', content:'NYVC: chest-dominant mix. Belt without damage.',
+      steps:[
+        {type:'teach',title:'What Belt IS and IS NOT (NYVC)',body:'NOT: yelling pulling chest past limit throat squeeze\nIS: chest-dominant mix + heavy compression + forward resonance + strong support + modified vowels\n\nSafety rule: throat strain = not belt = yelling. True belt feels like chest not throat.'},
+        {type:'exercise',title:'Safe Belt Builder',body:'1. Mid-range Nay bratty forward\n2. Slide up 5-note on Nay light forward\n3. Higher = narrow vowel Nay to Neh\n4. Support FIRM throat OPEN\n5. Throat squeeze = STOP go back down'},
+        {type:'practice',title:'Belt Safety Check',body:'After belting speak normally. Hoarse/raspy/lower = pushed too hard. Rest day.'},
+        {type:'tip',title:'Forward Placement',body:'Belt without damage = forward resonance. Sound lives in face = safe.'}
+      ]},
+    { id:27, title:'Vocal Fry & Glottal Control', course:'Advanced Technique', duration:'12 min', content:'NYVC: glottal = tool not enemy. Fry = lowest register.',
+      steps:[
+        {type:'teach',title:'Vocal Fry (NYVC)',body:'Fry = lowest register minimal air + loose cord closure. Creaky door sound.\n\nNYVC: NOT bad - it is a tool:\n1. Rehabilitation: gentle closure for damaged voices\n2. Style: pop/R&B texture\n3. Range: fry + air = lowest notes\n\nRef: Glottal exercises VLTTW Ep.37.'},
+        {type:'exercise',title:'Fry to Tone',body:'Start fry low creaky. Gradually add air until fry becomes clear tone. Pitch doesn\'t change quality goes noisy to clean.'},
+        {type:'practice',title:'Fry-Full Slides',body:'Fry on lowest note slide to clear tone back down.'},
+        {type:'tip',title:'Don\'t Overdo',body:'Fry is gentle. Grinding = stop. Max 2-3 min/session.'}
+      ]},
+    { id:28, title:'Breathy Singing', course:'Advanced Technique', duration:'12 min', content:'NYVC: controlled breathiness for contemporary. Not bad technique - deliberate choice.',
+      steps:[
+        {type:'teach',title:'Aspirate Phonation (NYVC)',body:'Breathy = air escapes during phonation = soft airy quality.\n\nUsed in: pop ballads R&B intimacy ASMR singing.\n\nNYVC: breathiness is SPECTRUM not on/off. Add or remove at will = precise compression control.'},
+        {type:'exercise',title:'Breathiness Spectrum',body:'One note: FULL compression (clear bright) gradually reduce almost whisper gradually increase back.'},
+        {type:'practice',title:'Song Texture Mapping',body:'Ballad: mark each phrase C(clear) B(breathy) M(mixed). Sing with exact textures.'},
+        {type:'tip',title:'Health Warning',body:'Constant breathiness irritates cords. Use as color not default.'}
+      ]},
+    { id:29, title:'Twang & Brightness', course:'Advanced Technique', duration:'12 min', content:'NYVC: epilaryngeal narrowing for brightness + projection.',
+      steps:[
+        {type:'teach',title:'What Is Twang (NYVC)',body:'Twang = narrowing epilaryngeal tube above cords = bright cutting quality projecting without extra volume.\n\nSound Palette: Bright/Twangy = High larynx + Nasal = Country belt pop\n\nNYVC distinction: Nasality = too much nose sound (bad). Twang = epilaryngeal narrowing + some nasal (good projects).\n\nThink: duck quack or cat meow.'},
+        {type:'exercise',title:'Duck Quack to Singing',body:'Imitate duck Ack-ack-ack. Feel bright nasal-ish quality. Maintain brightness singing Ah on comfortable note.'},
+        {type:'practice',title:'Twang On/Off',body:'Phrase with twang (bright cutting). Same phrase without (warm round). Switch instantly.'},
+        {type:'tip',title:'Singer\'s Formant',body:'Twang creates singer\'s formant ~2800-3400 Hz allowing singers to be heard over orchestra.'}
+      ]},
+    { id:30, title:'Gospel & Worship Style', course:'Song Application', duration:'16 min', content:'NYVC applied to gospel: power sustain emotional intensity improvisation.',
+      steps:[
+        {type:'teach',title:'Gospel Demands (NYVC + Genre)',body:'1. Sustained power - long phrases (compression + support)\n2. Riffs and runs - embellishments (agility)\n3. Emotional authenticity - congregation must FEEL (Step 12)\n4. Dynamic range - whisper to shout (Step 10)\n5. Endurance - hours of singing (fatigue management)\n\nNYVC: technique serves the SPIRIT. Goal = authentic expression.'},
+        {type:'exercise',title:'Worship Sustain',body:'Sing Hallelujah one breath - as long as possible. Steady compression forward resonance narrow vowels high notes. Goal: 15 sec.'},
+        {type:'practice',title:'Gospel Riff Patterns',body:'3 common patterns:\n1. Turn: note up step back down step\n2. Run: 5-note scale on one syllable\n3. Jump: octave leap on emotional word'},
+        {type:'tip',title:'Prophetic Posture (NYVC)',body:'Listening more than performing. Technique ready but surrendered. Prepared spontaneity.'}
+      ]},
+    { id:31, title:'Afrobeats Vocal Style', course:'Song Application', duration:'14 min', content:'NYVC applied to Afrobeats: rhythm groove unique vocal colors.',
+      steps:[
+        {type:'teach',title:'Afrobeats Characteristics (NYVC + Genre)',body:'1. Rhythmic precision - voice as percussion\n2. Speech-like quality - medium larynx conversational\n3. Call and response - conversational structure\n4. Ad-libs - spontaneous fills (agility + improvisation)\n5. Energy + brightness - twang + compression\n\nNYVC: Afrobeats uses ALL 12 steps simultaneously.'},
+        {type:'exercise',title:'Rhythmic Voice Connection',body:'Clap Afrobeats rhythm. Sing scale ON the rhythm - each note on specific beat.\nThen: sing phrase + rhythmic ad-libs between words.'},
+        {type:'practice',title:'Afrobeats Phrasing',body:'Take Afrobeats song. Map phrasing: breaths? ad-libs? speech-like vs full singing?'},
+        {type:'tip',title:'Groove is Everything',body:'In Afrobeats on-groove matters more than pitch-perfect. Feel the pocket.'}
+      ]},
+    { id:32, title:'Pop & Contemporary Style', course:'Song Application', duration:'14 min', content:'NYVC applied to pop: intimacy texture vocal personality.',
+      steps:[
+        {type:'teach',title:'Pop Aesthetics (NYVC + Genre)',body:'1. Intimacy - close-mic breathiness soft dynamics\n2. Texture variety - clear/breathy/compressed in one song\n3. Personality - imperfections are features\n4. Melodic hooks - simple memorable\n5. Emotional authenticity - acting from day one\n\nNYVC: pop uses FULL sound palette. Most versatile genre.'},
+        {type:'exercise',title:'Texture Switch',body:'One line 4 ways:\n1. Fully breathy (intimate verse)\n2. Clear conversational (normal verse)\n3. Compressed bright (pre-chorus build)\n4. Full mix (chorus)'},
+        {type:'practice',title:'Pop Song Dissection',body:'For each section identify: larynx position compression breathiness vowel shapes.'},
+        {type:'tip',title:'Naked Test',body:'Sing pop song NO backing. Still sounds good = solid technique.'}
+      ]},
+    { id:33, title:'Vocal Health & Longevity', course:'Professional', duration:'14 min', content:'NYVC rehabilitation mindset: most damaged voices fixable.',
+      steps:[
+        {type:'teach',title:'Vocal Health Science (NYVC + Research)',body:'Hydration: 2-3L daily. Dehydrated cords = injured cords.\n\nFatigue (PMC7156306): Type II fibers. SAID principle: overload + specificity + reversibility.\n\n50% Rule: never sing 100% effort >50% of practice time. Other 50% at 60-70%.\n\nWarning signs: hoarseness >2 weeks pain range loss = see ENT.'},
+        {type:'exercise',title:'Vocal First Aid',body:'1. Stop singing\n2. 500ml room-temp water\n3. Hum gently 1 min\n4. Steam 5 min (towel over hot water)\n5. Rest 30 min minimum'},
+        {type:'practice',title:'Health Checklist',body:'Daily: 2-3L water 5 min warm-up 50% practice at reduced effort cool down no singing sick 7+ hours sleep.\nWeekly: 1 rest day check persistent hoarseness.'},
+        {type:'tip',title:'Reflux Connection',body:'GERD silently damages cords. Frequent throat clearing morning hoarseness = see doctor.'}
+      ]}
+  ],
+  assessmentQuestions: [
+    { q:'What is your primary singing goal?', options:['Lead worship','Record music','Perform live','Improve technique','Start from scratch'] },
+    { q:'How much experience do you have?', options:['Complete beginner','1-3 years','3-10 years','10+ years'] },
+    { q:'What genre do you focus on?', options:['Gospel/Worship','Afrobeats','R&B/Soul','Pop','Classical/Opera'] },
+    { q:'What is your biggest vocal challenge?', options:['Pitch accuracy','Breath control','Range expansion','Stage confidence','Tone quality'] },
+    { q:'How often do you practice?', options:['Daily','3-5 times/week','1-2 times/week','Rarely'] },
+    { q:'Have you had formal vocal training?', options:['Never','Some lessons','Extensive training','Self-taught with resources'] },
+    { q:'What best describes your voice?', options:['Light/airy','Warm/rich','Powerful/strong','Raspy/textured','Not sure'] },
+    { q:'Where are you based?', options:['Nigeria','Other Africa','UK/Europe','USA/Canada','Other'] },
+  ]
+};
+
+// ─── ANALYTICS ───
+const Analytics = {
+  init() {
+    this.track('page_view', { path: location.hash || 'home' });
+    this.geo();
+    this.startTime();
+    this.detectDevice();
+  },
+  detectDevice() {
+    const ua = navigator.userAgent;
+    const device = /Mobile|Android|iPhone/i.test(ua) ? 'mobile' : /Tablet|iPad/i.test(ua) ? 'tablet' : 'desktop';
+    const lang = navigator.language || 'en';
+    const geo = JSON.parse(localStorage.getItem('swt_geo') || '{}');
+    geo.device = device; geo.language = lang;
+    localStorage.setItem('swt_geo', JSON.stringify(geo));
+  },
+  geo() {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const geo = { timezone: tz };
+    if (tz.includes('Lagos') || tz.includes('Africa')) geo.country = 'Nigeria';
+    else if (tz.includes('London') || tz.includes('Europe')) geo.country = 'UK';
+    else if (tz.includes('New_York') || tz.includes('America')) geo.country = 'USA';
+    else geo.country = 'Other';
+    localStorage.setItem('swt_geo', JSON.stringify(geo));
+    return geo;
+  },
+  startTime() {
+    this._start = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const dur = Math.round((Date.now() - this._start) / 1000);
+      this.track('time_on_site', { seconds: dur });
+    });
+  },
+  track(event, data = {}) {
+    const events = JSON.parse(localStorage.getItem('swt_events') || '[]');
+    events.push({ event, ...data, ts: Date.now() });
+    localStorage.setItem('swt_events', JSON.stringify(events.slice(-500)));
+    const scoring = { page_view:1, assessment_started:10, assessment_finished:25, lesson_started:5, lesson_finished:15, quiz_completed:10, email_submitted:50, audio_uploaded:50, challenge_joined:20, pricing_viewed:30, purchase_started:100, purchase_completed:200, certificate_earned:150, voice_type_detected:15, range_identified:15, genre_selected:10, weakness_detected:10, strength_detected:5, booked_session:100, resource_downloaded:10, article_opened:5 };
+    if (scoring[event]) { S.leadScore = parseInt(localStorage.getItem('swt_leadScore')||'0') + scoring[event]; localStorage.setItem('swt_leadScore', S.leadScore); }
+    if (event === 'page_view') { const p = JSON.parse(localStorage.getItem('swt_pages')||'[]'); p.push({path:data.path,ts:Date.now()}); localStorage.setItem('swt_pages', JSON.stringify(p.slice(-100))); }
+    const funnelMap = { page_view:'Traffic', assessment_finished:'Identity Detection', lesson_started:'Behavior Tracking', voice_type_detected:'Personalization', email_submitted:'Lead Nurture', lesson_finished:'Transformation', purchase_started:'Monetization', purchase_completed:'Advocacy' };
+    if (funnelMap[event]) { const f = JSON.parse(localStorage.getItem('swt_funnel')||'{}'); f[funnelMap[event]] = (f[funnelMap[event]]||0)+1; localStorage.setItem('swt_funnel', JSON.stringify(f)); }
+  },
+  leadScore() { const s = parseInt(localStorage.getItem('swt_leadScore')||'0'); return { score:s, tier:s>=250?'hot':s>=100?'warm':'cold' }; },
+  exportCSV() {
+    const u = JSON.parse(localStorage.getItem('swt_user')||'null');
+    const v = JSON.parse(localStorage.getItem('swt_voice')||'null');
+    const g = JSON.parse(localStorage.getItem('swt_geo')||'{}');
+    const row = { email:u?.email||'',name:u?.name||'',country:g.country||'',device:g.device||'',voice_type:v?.voiceType||'',genre:v?.genre||'',level:v?.experience||'',weakness:v?.challenge||'',xp:parseInt(localStorage.getItem('swt_xp')||'0'),lead_score:parseInt(localStorage.getItem('swt_leadScore')||'0'),last_activity:new Date().toISOString() };
+    const leads = JSON.parse(localStorage.getItem('swt_leads')||'[]'); leads.push(row); localStorage.setItem('swt_leads',JSON.stringify(leads));
+    return row;
+  },
+  funnel() {
+    const events = JSON.parse(localStorage.getItem('swt_events') || '[]');
+    const stages = ['page_view','assessment_started','assessment_finished','pricing_viewed','email_submitted'];
+    return stages.map(s => ({ stage: s, count: events.filter(e => e.event === s).length }));
+  }
+};
+
+// ─── CRM ───
+const CRM = {
+  capture(data) {
+    const leads = JSON.parse(localStorage.getItem('swt_leads') || '[]');
+    leads.push({ ...data, ts: Date.now(), score: S.leadScore });
+    localStorage.setItem('swt_leads', JSON.stringify(leads));
+    this.triggerEmail(data);
+  },
+  triggerEmail(data) {
+    const triggers = [];
+    const voice = S.voiceProfile || {};
+    const weakness = voice.weakness || 'technique';
+    const strength = voice.strength || 'dedication';
+    if (data.event === 'assessment_complete') {
+      triggers.push({ delay:0, subject:'Your Vocal DNA Report', type:'assessment_results', body:'Your strongest area is ' + strength + '. Your biggest opportunity is ' + weakness + '. Here is your personalized roadmap.' });
+      triggers.push({ delay:86400000, subject:'Your ' + weakness + ' improvement plan is ready', type:'followup_1', body:'Most singers struggle with ' + weakness + '. Here is a free 5-minute exercise that helps.' });
+      triggers.push({ delay:172800000, subject:'How singers like you fixed ' + weakness, type:'followup_2' });
+    }
+    if (data.event === 'email_captured') {
+      triggers.push({ delay:0, subject:'Welcome to SessionswithToby', type:'welcome', body:'You are in. Every great singer started exactly where you are.' });
+    }
+    if (data.event === 'pricing_viewed') {
+      triggers.push({ delay:3600000, subject:'Questions about pricing?', type:'pricing_followup', body:'Choosing the right path depends on where you are. Reply and tell us.' });
+    }
+    localStorage.setItem('swt_email_triggers', JSON.stringify(triggers));
+  },
+  exportSheet() {
+    return { leads: JSON.parse(localStorage.getItem('swt_leads')||'[]'), events: JSON.parse(localStorage.getItem('swt_events')||'[]'), user: S.user, xp: S.xp, voice: S.voiceProfile };
+  },
+  pushToSheet(data) {
+    const webhook = localStorage.getItem('swt_sheets_webhook');
+    if (!webhook) { console.warn('Sheets webhook not set.'); return false; }
+    fetch(webhook, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) })
+      .then(r => this.track('sheets_pushed', { ok: r.ok }))
+      .catch(e => console.warn('Sheets push failed:', e));
+    return true;
+  }
+};
+
+// ─── EMAIL CAPTURE ENGINE ───
+const EmailCapture = {
+  shown: false,
+  init() {
+    setTimeout(() => {
+      if (!S.user && !this.shown && !localStorage.getItem('swt_email_captured')) {
+        this.show('Get Your Free Vocal DNA Report', 'Enter your email and we will send you a personalized singer roadmap based on your voice type.');
+      }
+    }, 8000);
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY < 0 && !S.user && !this.shown && !localStorage.getItem('swt_email_captured')) {
+        this.show('Before You Go...', 'Get Your Personalized Singer Roadmap - free. Takes 2 minutes.');
+      }
+    });
+  },
+  show(title, desc) {
+    if (this.shown) return;
+    this.shown = true;
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);';
+    overlay.id = 'emailCaptureOverlay';
+    overlay.innerHTML = '<div style="background:#fff;border-radius:16px;padding:32px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative">' +
+      '<button onclick="document.getElementById(\'emailCaptureOverlay\').remove()" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;opacity:0.5">&times;</button>' +
+      '<div style="font-size:2.5rem;margin-bottom:12px">&#127908;</div>' +
+      '<h3 style="font-weight:700;margin-bottom:8px;font-size:1.25rem">' + title + '</h3>' +
+      '<p style="color:#666;margin-bottom:20px;font-size:0.9375rem">' + desc + '</p>' +
+      '<input type="email" id="emailCaptureInput" placeholder="your@email.com" style="width:100%;padding:12px 16px;border:2px solid #ddd;border-radius:8px;font-size:1rem;margin-bottom:12px;outline:none" />' +
+      '<button onclick="app.captureEmail()" style="width:100%;padding:12px;background:#D4AF37;color:#000;border:none;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer">Send My Report</button>' +
+      '<p style="font-size:0.75rem;color:#999;margin-top:12px">No spam. Unsubscribe anytime.</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.querySelector('input').addEventListener('keydown', (e) => { if (e.key === 'Enter') app.captureEmail(); });
+  },
+  hide() {
+    const el = document.getElementById('emailCaptureOverlay');
+    if (el) el.remove();
+  }
+};
+
+// ─── UI HELPERS ───
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function modal(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modal').classList.add('open');
+}
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+});
+
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if (window.scrollY > 50) nav.style.boxShadow = 'var(--shadow-md)';
+  else nav.style.boxShadow = 'none';
+});
+
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('section').forEach(s => { s.classList.add('fade-in'); observer.observe(s); });
+
+// ─── MAIN APP ───
+const app = {
+  init() {
+    Analytics.init();
+    EmailTriggers.init();
+    this.renderCourses();
+    this.renderPricing();
+    this.renderStories();
+    this.renderJournal();
+    this.renderNews();
+    this.renderResources();
+    this.renderBooking();
+    this.renderCertification();
+    this.renderAssessment();
+    this.checkStreak();
+    this.initScrollReveal();
+    EmailCapture.init();
+    if (S.user) this.lmsNav('dashboard');
+  },
+  initScrollReveal() {
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.15 });
+    document.querySelectorAll('.scroll-reveal').forEach(el => obs.observe(el));
+  },
+
+  checkStreak() {
+    const today = new Date().toDateString();
+    const last = S.lastVisit;
+    if (last) {
+      const diff = (new Date(today) - new Date(last)) / 86400000;
+      if (diff > 1) S.streak = 0;
+    }
+    S.lastVisit = today;
+    localStorage.setItem('swt_lastVisit', today);
+    localStorage.setItem('swt_streak', S.streak);
+  },
+
+  // ─── RENDER PUBLIC SECTIONS ───
+  renderCourses() {
+    document.getElementById('coursesGrid').innerHTML = DATA.courses.map(c => `
+      <div class="card">
+        <div style="font-size:2.5rem;margin-bottom:var(--space-2)">${c.icon}</div>
+        <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-1)">${c.title}</h3>
+        <p style="font-size:0.875rem;color:var(--gray-500);margin-bottom:var(--space-2)">${c.desc}</p>
+        <div style="display:flex;gap:var(--space-1);font-size:0.75rem;color:var(--gray-400)">
+          <span style="background:var(--gray-100);padding:4px 10px;border-radius:var(--radius-full)">${c.level}</span>
+          <span style="background:var(--gray-100);padding:4px 10px;border-radius:var(--radius-full)">${c.lessons} lessons</span>
+          <span style="background:var(--gray-100);padding:4px 10px;border-radius:var(--radius-full)">${c.duration}</span>
+        </div>
+      </div>
+    `).join('');
+  },
+
+  renderPricing() {
+    document.getElementById('pricingGrid').innerHTML = DATA.pricing.map(p => `
+      <div class="pricing-card ${p.featured ? 'featured' : ''}">
+        <div class="pricing-name">${p.name}</div>
+        <div class="pricing-price">${p.price}<span>${p.period}</span></div>
+        <ul class="pricing-features">${p.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        <button class="btn ${p.featured ? 'btn-accent' : 'btn-primary'}" style="width:100%">${p.cta}</button>
+      </div>
+    `).join('');
+  },
+
+  renderStories() {
+    document.getElementById('storiesGrid').innerHTML = DATA.stories.map(s => `
+      <div class="card">
+        <div style="font-size:3rem;margin-bottom:var(--space-2)">${s.avatar}</div>
+        <p style="font-style:italic;color:var(--gray-600);margin-bottom:var(--space-2)">"Before: ${s.before}. After: ${s.after}."</p>
+        <div style="font-weight:600">${s.name}</div>
+        <div style="font-size:0.8125rem;color:var(--gray-500)">${s.location}</div>
+      </div>
+    `).join('');
+  },
+
+  renderJournal() {
+    document.getElementById('journalGrid').innerHTML = DATA.journal.map(j => `
+      <div class="card" onclick="app.openArticle('${j.title}')">
+        <div style="font-size:2rem;margin-bottom:var(--space-1)">${j.icon}</div>
+        <div style="font-size:0.75rem;color:var(--indigo);font-weight:500;margin-bottom:var(--space-1)">${j.cat}</div>
+        <h4 style="font-weight:600;margin-bottom:var(--space-1);font-size:0.9375rem">${j.title}</h4>
+        <div style="font-size:0.8125rem;color:var(--gray-500)">${j.read} read</div>
+      </div>
+    `).join('');
+  },
+
+  renderNews() { this.renderNewsroom(); },
+
+  openArticle(title) {
+    Analytics.track('article_opened', { title });
+    modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-2)">${title}</h3><p style="color:var(--gray-600);line-height:1.7">This article is available in the LMS. Sign up to read the full content, get the audio version, and share with your study group.</p><button class="btn btn-accent" style="margin-top:var(--space-3);width:100%" onclick="document.getElementById('modal').classList.remove('open');app.lmsNavigate()">Read in LMS →</button>`);
+  },
+
+  // ─── RESOURCES ───
+  renderResources() {
+    document.getElementById('resourcesGrid').innerHTML = DATA.resources.map(r => '<div class="resource-card" onclick="Analytics.track(\'resource_downloaded\',{title:\''+r.title+'\'})"><div class="resource-icon" style="background:rgba(79,70,229,0.1);color:var(--indigo)">'+r.icon+'</div><h4 style="font-weight:600;margin-bottom:var(--space-1);font-size:0.9rem">'+r.title+'</h4><p style="font-size:0.8rem;color:var(--gray-500);line-height:1.5">'+r.desc+'</p></div>').join('');
+  },
+  // ─── BOOKING ───
+  renderBooking() {
+    document.getElementById('bookingGrid').innerHTML = DATA.bookingOptions.map(b => '<div class="booking-card '+ (b.featured?'featured':'') +'"><div class="pricing-name">'+b.name+'</div><div class="booking-price">'+b.price+'<span>'+b.period+'</span></div><ul class="pricing-features">'+b.features.map(f => '<li>'+f+'</li>').join('')+'</ul><button class="btn '+ (b.featured?'btn-gold':'btn-primary') +'" style="width:100%" onclick="Analytics.track(\'booked_session\',{type:\''+b.name+'\'});toast(\'Booking request sent!\')">'+b.cta+'</button></div>').join('');
+  },
+  // ─── CERTIFICATION ───
+  renderCertification() {
+    const cl = S.xp < 200 ? 0 : S.xp < 500 ? 1 : S.xp < 1000 ? 2 : 3;
+    const pct = Math.min(100, (S.xp / 1000) * 100);
+    document.getElementById('certTrack').innerHTML = '<div class="cert-track"><div class="cert-progress" style="width:'+pct+'%"></div>'+DATA.certifications.map((c,i) => '<div class="cert-level"><div class="cert-dot '+ (i<cl?'earned':i===cl?'current':'locked') +'">'+ (i<cl?'✓':(i+1)) +'</div><div class="cert-level-name">'+c.level+'</div><div class="cert-level-xp">'+c.xpRequired+' XP</div></div>').join('')+'</div>';
+    document.getElementById('certLevels').innerHTML = DATA.certifications.map((c,i) => '<div class="card" style="'+(i===cl?'border-color:var(--indigo);box-shadow:var(--shadow-glow)':'')+'"><div style="font-size:2rem;margin-bottom:var(--space-1)">'+['🥉','🥈','🥇','💎'][i]+'</div><h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-1)">'+c.level+'</h4><p style="font-size:0.75rem;color:var(--gray-500);margin-bottom:var(--space-1)">'+c.xpRequired+' XP required</p><ul style="font-size:0.75rem;color:var(--gray-600);text-align:left;padding-left:var(--space-3)">'+c.requirements.map(r => '<li style="margin-bottom:4px">'+(i<cl?'✓':'○')+' '+r+'</li>').join('')+'</ul></div>').join('');
+  },
+  // ─── NEWSROOM ───
+  renderNewsroom() {
+    const featured = DATA.news.find(n => n.featured) || DATA.news[0];
+    document.getElementById('newsroomFeatured').innerHTML = '<div style="position:relative;z-index:1"><div class="newsroom-featured-label">'+featured.cat+'</div><h3>'+featured.title+'</h3><p>'+featured.desc+'</p><button class="btn btn-gold btn-sm" style="margin-top:var(--space-2)" onclick="Analytics.track(\'article_opened\',{title:\''+featured.title+'\'})">Read Full Story →</button></div>';
+    const others = DATA.news.filter(n => n.title !== featured.title);
+    document.getElementById('newsGrid').innerHTML = others.map(n => '<div class="card" onclick="Analytics.track(\'article_opened\',{title:\''+n.title+'\'})"><div style="display:flex;justify-content:space-between;margin-bottom:var(--space-1)"><span style="font-size:0.7rem;color:var(--indigo);font-weight:600;text-transform:uppercase">'+n.cat+'</span><span style="font-size:0.7rem;color:var(--gray-400)">'+n.date+'</span></div><h4 style="font-weight:600;font-size:1rem">'+n.title+'</h4>'+(n.desc ? '<p style="font-size:0.8rem;color:var(--gray-500);margin-top:var(--space-1);line-height:1.5">'+n.desc.substring(0,80)+'...</p>' : '')+'</div>').join('');
+  },
+  // ─── EMAIL CAPTURE ───
+  submitEmailCapture(trigger) {
+    const email = document.getElementById('emailCaptureInput').value;
+    if (!email || !email.includes('@')) { toast('Enter a valid email'); return; }
+    const emails = JSON.parse(localStorage.getItem('swt_emails')||'[]');
+    emails.push({email,trigger,ts:Date.now()});
+    localStorage.setItem('swt_emails',JSON.stringify(emails));
+    CRM.capture({event:'email_captured',email,trigger});
+    Analytics.track('email_submitted',{email,trigger});
+    document.getElementById('emailTrigger').classList.remove('show');
+    document.getElementById('emailCaptureInput').value = '';
+    toast('Check your email! 📧');
+  },
+  // ─── CONTACT FORM ───
+
+  captureEmail() {
+    const input = document.getElementById('emailCaptureInput');
+    if (!input || !input.value.includes('@')) { toast('Please enter a valid email'); return; }
+    this.capturedEmail = input.value.trim();
+    EmailCapture.hide();
+    localStorage.setItem('swt_email_captured', 'true');
+    this.showSmartSurvey();
+  },
+  contactSubmit() {
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const msg = document.getElementById('contactMsg').value;
+    if (!name || !email) { toast('Please fill in your name and email'); return; }
+    CRM.capture({ event:'email_captured', name, email, msg });
+    Analytics.track('email_submitted', { name, email });
+    toast('Message sent! We will be in touch.');
+    document.getElementById('contactName').value = '';
+    document.getElementById('contactEmail').value = '';
+    document.getElementById('contactMsg').value = '';
+  },
+
+  // ─── LMS LOGIN ───
+  lmsLogin() {
+    const email = document.getElementById('lmsEmail').value;
+    if (!email) { toast('Enter your email'); return; }
+    S.user = { email, name: email.split('@')[0], joined: new Date().toISOString() };
+    localStorage.setItem('swt_user', JSON.stringify(S.user));
+    Analytics.track('login', { email });
+    this.showLMS();
+  },
+
+  lmsSignup() {
+    modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-3)">Create Free Account</h3><div class="form-group"><label class="form-label">Name</label><input class="form-input" id="signupName" placeholder="Your name"></div><div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="signupEmail" placeholder="you@example.com"></div><div class="form-group"><label class="form-label">Password</label><input type="password" class="form-input" id="signupPass" placeholder="Min 6 characters"></div><button class="btn btn-primary" style="width:100%;margin-top:var(--space-2)" onclick="app.lmsSignupSubmit()">Create Account →</button>`);
+  },
+
+  lmsSignupSubmit() {
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const pass = document.getElementById('signupPass').value;
+    if (!name || !email || !pass) { toast('Fill all fields'); return; }
+    S.user = { email, name, joined: new Date().toISOString() };
+    localStorage.setItem('swt_user', JSON.stringify(S.user));
+    document.getElementById('modal').classList.remove('open');
+    Analytics.track('signup', { name, email });
+    this.showLMS();
+  },
+
+  lmsLogout() {
+    S.user = null;
+    localStorage.removeItem('swt_user');
+    document.getElementById('lmsApp').style.display = 'none';
+    document.querySelector('.nav').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
+
+  showLMS() {
+    document.querySelector('.nav').style.display = 'none';
+    document.getElementById('lmsApp').style.display = 'block';
+    document.getElementById('lmsUserName').textContent = S.user.name;
+    window.scrollTo({ top: 0 });
+    Analytics.track('dashboard_viewed');
+    this.lmsNav('dashboard');
+  },
+
+  lmsNavigate() {
+    document.getElementById('lmsApp').style.display = 'none';
+    document.querySelector('.nav').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('lms').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  },
+
+  // ─── LMS NAVIGATION ───
+  lmsNav(page) {
+    S.lmsPage = page;
+    document.querySelectorAll('.lms-sidebar-link').forEach(el => {
+      el.classList.toggle('active', el.dataset.page === page);
+    });
+    const c = document.getElementById('lmsContent');
+    switch(page) {
+      case 'dashboard': c.innerHTML = this.lmsDashboard(); break;
+      case 'learn': c.innerHTML = this.lmsLearn(); break;
+      case 'practice': c.innerHTML = this.lmsPractice(); break;
+      case 'assessments': c.innerHTML = this.lmsAssessments(); break;
+      case 'mentor': c.innerHTML = this.lmsMentor(); this.mentorInit(); break;
+      case 'coach': c.innerHTML = this.lmsCoach(); break;
+      case 'feedback': c.innerHTML = this.lmsFeedback(); break;
+      case 'community': c.innerHTML = this.lmsCommunity(); break;
+      case 'funnel': c.innerHTML = this.lmsFunnel(); break;
+      case 'analytics': c.innerHTML = this.lmsAnalytics(); break;
+      case 'email': c.innerHTML = this.lmsEmail(); break;
+    }
+  },
+
+  // ─── DASHBOARD ───
+  lmsDashboard() {
+    const xpToNext = Math.ceil((S.xp + 1) / 100) * 100;
+    const progress = ((S.xp % 100) / 100) * 100;
+    const level = Math.floor(S.xp / 100) + 1;
+    const badges = ['🌱 First Step', '🔥 7-Day Streak', '🎯 Pitch Pro', '🫁 Breath Master', '⭐ 500 XP', '👑 1000 XP'];
+    const earnedBadges = badges.slice(0, Math.min(badges.length, Math.floor(S.xp / 100) + 1));
+    const ls = Analytics.leadScore();
+    const sc = ls.tier==='hot'?'lead-score-hot':ls.tier==='warm'?'lead-score-warm':'lead-score-cold';
+    let dailyRec = '';
+    if (S.voiceProfile) {
+      const w = S.voiceProfile.challenge || 'general technique';
+      const recs = {'Pitch accuracy':{title:'Pitch Matching Drill',desc:'5 min interval training — your pitch sharpens fast.'},'Breath control':{title:'4-7-8 Breathing',desc:'Inhale 4s, hold 7s, exhale 8s. Repeat 4x.'},'Range expansion':{title:'Lip Trill Sirens',desc:'Slide up and down your range on lip trills.'},'Stage confidence':{title:'Mirror Performance',desc:'Sing to yourself for 3 minutes.'},'Tone quality':{title:'NG Resonance Drill',desc:'Sing "ng" on a comfortable note.'}};
+      const rec = recs[w] || {title:'Vocal Warm-Up',desc:'5-minute full warm-up to start your day.'};
+      dailyRec = '<div class="daily-rec"><div class="daily-rec-inner"><div class="daily-rec-label">Today\'s Focus: '+(S.voiceProfile.challenge||'General')+'</div><div class="daily-rec-title">'+rec.title+'</div><div class="daily-rec-insight">'+rec.desc+'</div></div></div>';
+    } else {
+      dailyRec = '<div class="daily-rec"><div class="daily-rec-inner"><div class="daily-rec-label">Recommended</div><div class="daily-rec-title">Take Your Vocal DNA Assessment</div><div class="daily-rec-insight">Get your personalized learning path.</div></div></div>';
+    }
+    return '<div class="dash-header"><h1>Welcome back, '+S.user.name+' 👋</h1><p>Level '+level+' · '+S.xp+' XP · '+S.streak+' day streak <span class="lead-score-badge '+sc+'">⚡ '+ls.score+'</span></p><div class="xp-bar" style="max-width:300px;margin-top:var(--space-2)"><div class="xp-bar-fill" style="width:'+progress+'%"></div></div><div style="font-size:0.75rem;color:var(--gray-500);margin-top:4px">'+(xpToNext-S.xp)+' XP to Level '+(level+1)+'</div></div>'+
+    dailyRec+
+    `'<div class="grid grid-4" style="margin-bottom:var(--space-5)"><div class="stat-card"><div class="stat-card-value">${S.xp}</div><div class="stat-card-label">Total XP</div></div><div class="stat-card"><div class="stat-card-value">${S.streak}</div><div class="stat-card-label">Day Streak</div></div><div class="stat-card"><div class="stat-card-value">${S.lessonsCompleted.length}</div><div class="stat-card-label">Lessons Done</div></div><div class="stat-card"><div class="stat-card-value">${level}</div><div class="stat-card-label">Level</div></div></div>'+
+    (${S.voiceProfile ? `<div class="voice-avatar-card" style="margin-bottom:var(--space-5)"><div class="voice-avatar-inner"><div class="voice-avatar-icon">🎤</div><div class="voice-avatar-archetype">'+(S.voiceProfile.archetype||'The Rising Star')+'</div><div class="voice-avatar-range">'+(S.voiceProfile.genre||'Multi-genre')+' · '+(S.voiceProfile.experience||'Growing')+'</div><div class="voice-avatar-tags">'+(S.voiceProfile.strengths||[]).map(s => '<span class="voice-tag voice-tag-strength">✓ '+s+'</span>').join('')+(S.voiceProfile.weaknesses||[]).map(w => '<span class="voice-tag voice-tag-weakness">⚡ '+w+'</span>').join('')+'</div></div></div>` : ''})
+      <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">Progress Galaxy</h3>
+      <div class="progress-galaxy" id="galaxy">
+        ${['Pitch','Breath','Theory','Performance','Branding'].map((p, i) => {
+          const unlocked = i < Math.floor(S.lessonsCompleted.length / 3);
+          const size = 50 + Math.random() * 30;
+          const x = 10 + (i * 18) + Math.random() * 5;
+          const y = 20 + Math.random() * 50;
+          return `<div class="planet ${unlocked ? '' : 'planet-locked'}" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;background:${unlocked ? ['#4F46E5','#10B981','#F59E0B','#EF4444','#8B5CF6'][i] : '#9CA3AF'};font-size:0.7rem">${p[0]}</div>`;
+        }).join('')}
+      </div>
+      <div style="margin-top:var(--space-5)">
+        <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">Badges</h3>
+        <div class="skill-tree">
+          <div class="skill-branch">${earnedBadges.map(b => `<div class="skill-node unlocked">${b}</div>`).join('')}</div>
+        </div>
+      </div>
+      <div style="margin-top:var(--space-5);padding-top:var(--space-3);border-top:1px solid var(--gray-200)">
+        <button class="btn btn-sm btn-secondary" onclick="Analytics.exportCSV();toast('Data exported')">📊 Export Data (CSV)</button>
+      </div>
+    `;
+  },
+
+  // ─── LEARN ───
+  lmsLearn() {
+    const grouped = {};
+    DATA.lessons.forEach(l => { if (!grouped[l.course]) grouped[l.course] = []; grouped[l.course].push(l); });
+    return `
+      <div class="dash-header"><h1>Learn</h1><p>33 lessons across 9 courses. Complete lessons to earn XP.</p></div>
+      ${Object.entries(grouped).map(([course, lessons]) => `
+        <div style="margin-bottom:var(--space-5)">
+          <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">${course}</h3>
+          <div class="grid grid-2">
+            ${lessons.map(l => {
+              const done = S.lessonsCompleted.includes(l.id);
+              return `<div class="card" style="${done ? 'border-color:var(--success);background:rgba(16,185,129,0.03)' : ''}">
+                <div style="display:flex;justify-content:space-between;align-items:start">
+                  <div>
+                    <div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">${l.duration} · ${l.course}</div>
+                    <h4 style="font-weight:600;margin-bottom:var(--space-1)">${l.title}</h4>
+                  </div>
+                  ${done ? '<span style="color:var(--success);font-weight:700">✓</span>' : ''}
+                </div>
+                <p style="font-size:0.875rem;color:var(--gray-500);margin:var(--space-2) 0">${l.content.substring(0, 80)}...</p>
+                <button class="btn ${done ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="app.startLesson(${l.id})">${done ? 'Review' : 'Start Lesson'}</button>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+      `).join('')}
+    `;
+  },
+
+  startLesson(id) {
+    const lesson = DATA.lessons.find(l => l.id === id);
+    if (!lesson) return;
+    Analytics.track('lesson_started', { id, title: lesson.title });
+    const steps = lesson.steps || [];
+    if (steps.length === 0) {
+      modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-2)">${lesson.title}</h3><div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:var(--space-3)">${lesson.duration} · ${lesson.course}</div><p style="line-height:1.7;color:var(--gray-700);margin-bottom:var(--space-4)">${lesson.content}</p><button class="btn btn-primary" style="width:100%" onclick="app.completeLesson(${id})">Mark Complete (+15 XP) →</button>`);
+      return;
+    }
+    let currentStep = 0;
+    const typeIcons = { teach:'📖', exercise:'🎯', practice:'🏋️', tip:'💡' };
+    const typeColors = { teach:'#4F46E5', exercise:'#10B981', practice:'#F59E0B', tip:'#8B5CF6' };
+    const typeLabels = { teach:'Teaching', exercise:'Exercise', practice:'Practice', tip:'Pro Tip' };
+    function renderStep() {
+      const s = steps[currentStep];
+      const progress = ((currentStep + 1) / steps.length * 100).toFixed(0);
+      const bodyHtml = s.body.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+      const backBtn = currentStep > 0 ? `<button class="btn btn-secondary" style="flex:1" onclick="app._lessonNav(${id},-1)">← Back</button>` : '';
+      const nextBtn = currentStep < steps.length - 1
+        ? `<button class="btn btn-primary" style="flex:1" onclick="app._lessonNav(${id},1)">Next Step →</button>`
+        : `<button class="btn btn-primary" style="flex:1;background:var(--success)" onclick="app.completeLesson(${id})">✓ Complete Lesson (+15 XP)</button>`;
+      modal(`<div style="margin-bottom:var(--space-2)"><span style="font-size:0.7rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.05em">${lesson.course} · ${lesson.duration}</span></div><h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-2)">${lesson.title}</h3><div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)"><span style="background:${typeColors[s.type]||'#4F46E5'};color:white;font-size:0.7rem;padding:2px 8px;border-radius:99px">${typeIcons[s.type]||''} ${typeLabels[s.type]||s.type}</span><span style="font-size:0.75rem;color:var(--gray-500)">Step ${currentStep+1} of ${steps.length}</span></div><div style="height:4px;background:var(--gray-200);border-radius:99px;margin-bottom:var(--space-4)"><div style="height:4px;background:${typeColors[s.type]||'var(--indigo)'};border-radius:99px;width:${progress}%;transition:width 0.3s"></div></div><h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">${s.title}</h4><div style="line-height:1.8;color:var(--gray-700);margin-bottom:var(--space-5);font-size:0.9rem">${bodyHtml}</div><div style="display:flex;gap:var(--space-2)">${backBtn}${nextBtn}</div>`);
+    }
+    this._lessonNav = (lessonId, dir) => {
+      if (lessonId !== id) return;
+      currentStep = Math.max(0, Math.min(steps.length - 1, currentStep + dir));
+      renderStep();
+    };
+    renderStep();
+  },
+
+  completeLesson(id) {
+    if (!S.lessonsCompleted.includes(id)) {
+      S.lessonsCompleted.push(id);
+      S.xp += 15;
+      S.streak = Math.max(S.streak, 1);
+      localStorage.setItem('swt_lessons_v2', JSON.stringify(S.lessonsCompleted));
+      localStorage.setItem('swt_xp', S.xp);
+      Analytics.track('lesson_finished', { id });
+      if (S.lessonsCompleted.length === 1) { S.badges.push('🌱 First Step'); localStorage.setItem('swt_badges', JSON.stringify(S.badges)); }
+      if (S.xp >= 500) { S.badges.push('⭐ 500 XP'); localStorage.setItem('swt_badges', JSON.stringify(S.badges)); }
+    }
+    document.getElementById('modal').classList.remove('open');
+    toast('+15 XP earned!');
+    this.lmsNav('learn');
+  },
+
+  // ─── PRACTICE ───
+  lmsPractice() {
+    return `
+      <div class="dash-header"><h1>Practice Tools</h1><p>Real-time audio analysis powered by Web Audio API.</p></div>
+      <div class="grid grid-3">
+        <div class="practice-card" onclick="app.practiceTool('pitch')">
+          <div class="practice-card-icon" style="background:rgba(79,70,229,0.1);color:var(--indigo)">🎯</div>
+          <h3>Pitch Detector</h3>
+          <p>Real-time pitch detection with cents accuracy</p>
+        </div>
+        <div class="practice-card" onclick="app.practiceTool('ear')">
+          <div class="practice-card-icon" style="background:rgba(16,185,129,0.1);color:var(--success)">👂</div>
+          <h3>Ear Training</h3>
+          <p>Interval recognition with score tracking</p>
+        </div>
+        <div class="practice-card" onclick="app.practiceTool('breath')">
+          <div class="practice-card-icon" style="background:rgba(245,158,11,0.1);color:var(--warning)">🫁</div>
+          <h3>Breath Coach</h3>
+          <p>Visual breathing timer with cues</p>
+        </div>
+        <div class="practice-card" onclick="app.practiceTool('warmup')">
+          <div class="practice-card-icon" style="background:rgba(239,68,68,0.1);color:var(--error)">🔥</div>
+          <h3>Warm-Up</h3>
+          <p>5-step warm-up routine, 30s each</p>
+        </div>
+        <div class="practice-card" onclick="app.practiceTool('voicelab')">
+          <div class="practice-card-icon" style="background:rgba(139,92,246,0.1);color:#8B5CF6">🔬</div>
+          <h3>Voice Lab</h3>
+          <p>Spectrum, volume, and stability meters</p>
+        </div>
+        <div class="practice-card" onclick="app.practiceTool('range')">
+          <div class="practice-card-icon" style="background:rgba(6,182,212,0.1);color:#06B6D4">📏</div>
+          <h3>Range Finder</h3>
+          <p>Find and save your vocal range</p>
+        </div>
+      </div>
+      <div id="practiceArea" style="margin-top:var(--space-5)"></div>
+    `;
+  },
+
+  practiceTool(tool) {
+    const area = document.getElementById('practiceArea');
+    switch(tool) {
+      case 'pitch':
+        area.innerHTML = `<div class="card"><h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">🎯 Pitch Detector</h3><div class="visualizer-container" id="pitchViz"></div><div style="text-align:center;margin:var(--space-3) 0"><span style="font-family:var(--font-mono);font-size:3rem;font-weight:700;color:var(--indigo)" id="pitchHz">--</span><span style="color:var(--gray-500)"> Hz</span></div><div style="text-align:center"><span id="pitchNote" style="font-size:1.25rem;font-weight:600">Sing to detect</span></div><div style="text-align:center;margin-top:var(--space-2)"><span id="pitchCents" style="font-size:0.875rem;color:var(--gray-500)"></span></div><button class="btn btn-primary" style="margin:var(--space-3) auto;display:block" id="pitchBtn" onclick="app.startPitch()">Start →</button></div>`;
+        break;
+      case 'ear':
+        area.innerHTML = `<div class="card"><h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">👂 Ear Training</h3><div style="text-align:center;margin:var(--space-4) 0"><div style="font-family:var(--font-mono);font-size:1.25rem;color:var(--gray-500);margin-bottom:var(--space-2)">Listen, then identify the interval</div><div id="earStatus" style="font-size:1.125rem;font-weight:600;margin-bottom:var(--space-3)">Press Play to start</div><div class="grid grid-2" id="earOptions" style="max-width:400px;margin:0 auto"></div></div><div style="text-align:center;margin-top:var(--space-3)"><span style="color:var(--gray-500)">Score: </span><strong id="earScore">0</strong> · <span style="color:var(--gray-500)">Streak: </span><strong id="earStreak">0</strong></div><button class="btn btn-primary" style="margin:var(--space-3) auto;display:block" id="earBtn" onclick="app.startEar()">Play Interval →</button></div>`;
+        break;
+      case 'breath':
+        area.innerHTML = `<div class="card"><h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">🫁 Breath Coach</h3><div style="text-align:center;margin:var(--space-5) 0"><div style="width:200px;height:200px;border-radius:50%;border:4px solid var(--indigo);margin:0 auto;display:flex;align-items:center;justify-content:center;transition:all 0.3s" id="breathCircle"><span style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--indigo)" id="breathTimer">4</span></div><div id="breathPhase" style="margin-top:var(--space-3);font-size:1.125rem;font-weight:600">Ready</div></div><button class="btn btn-primary" style="margin:0 auto;display:block" id="breathBtn" onclick="app.startBreath()">Start Breathing →</button></div>`;
+        break;
+      case 'warmup':
+        area.innerHTML = `<div class="card"><h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">🔥 Warm-Up Routine</h3><div style="max-width:500px;margin:0 auto"><div id="warmupSteps"></div><div style="text-align:center;margin-top:var(--space-3)"><div style="font-family:var(--font-mono);font-size:2.5rem;font-weight:700;color:var(--indigo)" id="warmupTimer">30</div><div id="warmupCurrent" style="font-weight:600;margin-bottom:var(--space-2)">Press Start</div><button class="btn btn-primary" id="warmupBtn" onclick="app.startWarmUp()">Start Warm-Up →</button></div></div></div>`;
+        break;
+      case 'voicelab':
+        area.innerHTML = `<div class="card"><h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">🔬 Voice Lab</h3><div class="visualizer-container" id="voiceSpectrum" style="display:flex;align-items:flex-end;justify-content:center;gap:2px"></div><div style="display:flex;justify-content:space-around;margin-top:var(--space-3)"><div style="text-align:center"><div style="font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--indigo)" id="voiceVol">--</div><div style="font-size:0.75rem;color:var(--gray-500)">Volume (dB)</div></div><div style="text-align:center"><div style="font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--success)" id="voiceStab">--</div><div style="font-size:0.75rem;color:var(--gray-500)">Stability</div></div></div><button class="btn btn-primary" style="margin:var(--space-3) auto;display:block" id="vlBtn" onclick="app.startVoiceLab()">Start Analysis →</button></div>`;
+        break;
+      case 'range':
+        area.innerHTML = `<div class="card"><h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">📏 Range Finder</h3><p style="color:var(--gray-500);margin-bottom:var(--space-3)">Sing as low as you can, then as high as you can. We will capture your range.</p><div style="text-align:center;margin:var(--space-4) 0"><div style="margin-bottom:var(--space-3)"><div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">Lowest Note</div><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--indigo)" id="rangeLow">--</div></div><div><div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">Highest Note</div><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--success)" id="rangeHigh">--</div></div></div><button class="btn btn-primary" style="margin:0 auto;display:block" id="rangeBtn" onclick="app.startRange()">Find My Range →</button></div>`;
+        break;
+    }
+    Analytics.track('practice_started', { tool });
+  },
+
+  // ─── AUDIO ENGINE ───
+  audioCtx: null,
+  analyser: null,
+  micStream: null,
+
+  getAudio() {
+    if (this.audioCtx) return Promise.resolve();
+    return navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      this.micStream = stream;
+      this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      this.analyser = this.audioCtx.createAnalyser();
+      this.analyser.fftSize = 2048;
+      const source = this.audioCtx.createMediaStreamSource(stream);
+      source.connect(this.analyser);
+    });
+  },
+
+  // ─── PITCH DETECTION ───
+  startPitch() {
+    this.getAudio().then(() => {
+      document.getElementById('pitchBtn').textContent = 'Listening...';
+      document.getElementById('pitchBtn').disabled = true;
+      const buf = new Float32Array(this.analyser.fftSize);
+      const detect = () => {
+        this.analyser.getFloatTimeDomainData(buf);
+        const pitch = this.autocorrelate(buf, this.audioCtx.sampleRate);
+        if (pitch > 50 && pitch < 2000) {
+          const note = this.hzToNote(pitch);
+          document.getElementById('pitchHz').textContent = Math.round(pitch);
+          document.getElementById('pitchNote').textContent = note.name;
+          document.getElementById('pitchCents').textContent = note.cents > 0 ? `+${Math.round(note.cents)}¢` : `${Math.round(note.cents)}¢`;
+        }
+        if (document.getElementById('pitchBtn').disabled) requestAnimationFrame(detect);
+      };
+      detect();
+    }).catch(() => toast('Microphone access needed'));
+  },
+
+  autocorrelate(buf, sr) {
+    let bestOffset = -1, bestCorrelation = 0, rms = 0;
+    for (let i = 0; i < buf.length; i++) rms += buf[i] * buf[i];
+    rms = Math.sqrt(rms / buf.length);
+    if (rms < 0.01) return -1;
+    for (let offset = 20; i < 1000; i++) {
+      let correlation = 0;
+      for (let j = 0; j < 1000; j++) correlation += Math.abs(buf[j] - buf[j + offset]);
+      correlation = 1 - correlation / 1000;
+      if (correlation > bestCorrelation) { bestCorrelation = correlation; bestOffset = offset; }
+    }
+    return bestCorrelation > 0.3 ? sr / bestOffset : -1;
+  },
+
+  hzToNote(hz) {
+    const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+    const a4 = 440;
+    const semitones = 12 * Math.log2(hz / a4);
+    const midi = Math.round(semitones) + 69;
+    const name = notes[midi % 12] + (Math.floor(midi / 12) - 1);
+    const cents = (semitones - Math.round(semitones)) * 100;
+    return { name, cents };
+  },
+
+  // ─── EAR TRAINING ───
+  earScore: 0, earStreak: 0, earCurrent: null,
+  intervals: ['Unison','Major 2nd','Major 3rd','Perfect 4th','Perfect 5th','Major 6th','Major 7th','Octave'],
+  intervalHz: [1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8, 2],
+
+  startEar() {
+    this.getAudio().then(() => {
+      const base = 220;
+      const idx = Math.floor(Math.random() * this.intervals.length);
+      this.earCurrent = idx;
+      const ctx = this.audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc1.frequency.value = base;
+      osc2.frequency.value = base * this.intervalHz[idx];
+      gain.gain.value = 0.3;
+      osc1.connect(gain); osc2.connect(gain); gain.connect(ctx.destination);
+      osc1.start(); osc2.start();
+      setTimeout(() => { osc1.stop(); osc2.stop(); }, 1500);
+      document.getElementById('earStatus').textContent = 'What interval did you hear?';
+      const opts = this.shuffleWithCorrect(idx);
+      document.getElementById('earOptions').innerHTML = opts.map((o, i) => `<button class="btn btn-secondary" onclick="app.checkEar(${o.idx})">${o.name}</button>`).join('');
+      document.getElementById('earBtn').style.display = 'none';
+    }).catch(() => toast('Microphone access needed'));
+  },
+
+  shuffleWithCorrect(correct) {
+    const opts = [{ name: this.intervals[correct], idx: correct }];
+    while (opts.length < 4) {
+      const r = Math.floor(Math.random() * this.intervals.length);
+      if (!opts.find(o => o.idx === r)) opts.push({ name: this.intervals[r], idx: r });
+    }
+    return opts.sort(() => Math.random() - 0.5);
+  },
+
+  checkEar(idx) {
+    if (idx === this.earCurrent) {
+      this.earScore += 10; this.earStreak++;
+      document.getElementById('earStatus').textContent = '✓ Correct! +10 XP';
+      S.xp += 10; localStorage.setItem('swt_xp', S.xp);
+    } else {
+      this.earStreak = 0;
+      document.getElementById('earStatus').textContent = `✗ It was ${this.intervals[this.earCurrent]}`;
+    }
+    document.getElementById('earScore').textContent = this.earScore;
+    document.getElementById('earStreak').textContent = this.earStreak;
+    document.getElementById('earBtn').style.display = 'block';
+    document.getElementById('earBtn').textContent = 'Next →';
+    document.getElementById('earOptions').innerHTML = '';
+    Analytics.track('ear_completed', { correct: idx === this.earCurrent });
+  },
+
+  // ─── BREATH COACH ───
+  breathTimer: null,
+  startBreath() {
+    let phase = 0, count = 4;
+    const phases = ['Breathe In...', 'Hold...', 'Breathe Out...', 'Hold...'];
+    const circle = document.getElementById('breathCircle');
+    const timer = document.getElementById('breathTimer');
+    const phaseEl = document.getElementById('breathPhase');
+    document.getElementById('breathBtn').style.display = 'none';
+    const tick = () => {
+      timer.textContent = count;
+      phaseEl.textContent = phases[phase];
+      if (phase === 0) circle.style.transform = 'scale(1.3)';
+      else if (phase === 2) circle.style.transform = 'scale(0.7)';
+      else circle.style.transform = 'scale(1)';
+      count--;
+      if (count < 0) { phase = (phase + 1) % 4; count = 4; }
+      if (phase === 0 && count === 4 && document.getElementById('breathBtn').style.display === 'none') {
+        // Completed one cycle, continue
+      }
+      this.breathTimer = setTimeout(tick, 1000);
+    };
+    tick();
+    // Auto-stop after 2 minutes
+    setTimeout(() => { clearTimeout(this.breathTimer); document.getElementById('breathBtn').style.display = 'block'; document.getElementById('breathBtn').textContent = 'Start Again →'; document.getElementById('breathPhase').textContent = 'Complete! +10 XP'; S.xp += 10; localStorage.setItem('swt_xp', S.xp); toast('+10 XP earned!'); }, 120000);
+  },
+
+  // ─── WARM-UP ───
+  warmupSteps: ['Deep Breathing — 30s','Humming Scales — 30s','Lip Trills — 30s','Sirens — 30s','Full Range Arpeggio — 30s'],
+  warmupTimer: null,
+  startWarmUp() {
+    let step = 0, count = 30;
+    document.getElementById('warmupBtn').style.display = 'none';
+    const timer = document.getElementById('warmupTimer');
+    const current = document.getElementById('warmupCurrent');
+    const tick = () => {
+      timer.textContent = count;
+      current.textContent = this.warmupSteps[step];
+      count--;
+      if (count < 0) {
+        step++;
+        if (step >= this.warmupSteps.length) {
+          clearTimeout(this.warmupTimer);
+          current.textContent = '🔥 Complete! +15 XP';
+          S.xp += 15; localStorage.setItem('swt_xp', S.xp);
+          toast('+15 XP earned!');
+          document.getElementById('warmupBtn').style.display = 'block';
+          document.getElementById('warmupBtn').textContent = 'Start Again →';
+          timer.textContent = '✓';
+          return;
+        }
+        count = 30;
+      }
+      this.warmupTimer = setTimeout(tick, 1000);
+    };
+    tick();
+  },
+
+  // ─── VOICE LAB ───
+  startVoiceLab() {
+    this.getAudio().then(() => {
+      document.getElementById('vlBtn').textContent = 'Analyzing...';
+      const analyser = this.analyser;
+      const buf = new Uint8Array(analyser.frequencyBinCount);
+      const timeBuf = new Float32Array(analyser.fftSize);
+      const freqBars = document.getElementById('voiceSpectrum');
+      for (let i = 0; i < 64; i++) {
+        const bar = document.createElement('div');
+        bar.style.width = '8px';
+        bar.style.background = 'var(--indigo)';
+        bar.style.borderRadius = '2px 2px 0 0';
+        bar.style.transition = 'height 0.05s';
+        freqBars.appendChild(bar);
+      }
+      const bars = freqBars.children;
+      let prevVol = 0, samples = 0, stableCount = 0;
+      const analyze = () => {
+        analyser.getByteFrequencyData(buf);
+        analyser.getFloatTimeDomainData(timeBuf);
+        let sum = 0;
+        for (let i = 0; i < buf.length; i++) sum += buf[i];
+        const avg = sum / buf.length;
+        const vol = Math.round(20 * Math.log10(Math.max(avg, 1) / 255));
+        document.getElementById('voiceVol').textContent = vol;
+        let rms = 0;
+        for (let i = 0; i < timeBuf.length; i++) rms += timeBuf[i] * timeBuf[i];
+        rms = Math.sqrt(rms / timeBuf.length);
+        samples++;
+        if (Math.abs(rms - prevVol) < 0.01 && rms > 0.01) stableCount++;
+        prevVol = rms;
+        document.getElementById('voiceStab').textContent = samples > 5 ? Math.min(99, Math.round(stableCount / samples * 100)) + '%' : '...';
+        for (let i = 0; i < 64; i++) bars[i].style.height = Math.max(4, buf[i * 4] / 2) + 'px';
+        if (document.getElementById('vlBtn').textContent === 'Analyzing...') requestAnimationFrame(analyze);
+      };
+      analyze();
+    }).catch(() => toast('Microphone access needed'));
+  },
+
+  // ─── RANGE FINDER ───
+  rangeDetecting: false, rangeMin: Infinity, rangeMax: 0, rangeBuf: [],
+  startRange() {
+    this.getAudio().then(() => {
+      this.rangeDetecting = true; this.rangeMin = Infinity; this.rangeMax = 0;
+      document.getElementById('rangeBtn').textContent = 'Singing... sing low, then high';
+      document.getElementById('rangeBtn').disabled = true;
+      const buf = new Float32Array(this.analyser.fftSize);
+      const detect = () => {
+        this.analyser.getFloatTimeDomainData(buf);
+        const pitch = this.autocorrelate(buf, this.audioCtx.sampleRate);
+        if (pitch > 50 && pitch < 2000) {
+          this.rangeBuf.push(pitch);
+          if (pitch < this.rangeMin) this.rangeMin = pitch;
+          if (pitch > this.rangeMax) this.rangeMax = pitch;
+          document.getElementById('rangeLow').textContent = this.hzToNote(this.rangeMin).name;
+          document.getElementById('rangeHigh').textContent = this.hzToNote(this.rangeMax).name;
+        }
+        if (this.rangeDetecting) requestAnimationFrame(detect);
+      };
+      detect();
+      // Auto-stop after 15 seconds and save
+      setTimeout(() => {
+        this.rangeDetecting = false;
+        if (this.rangeBuf.length > 5) {
+          const low = this.hzToNote(this.rangeMin);
+          const high = this.hzToNote(this.rangeMax);
+          S.voiceProfile = { ...S.voiceProfile, rangeLow: low.name, rangeHigh: high.name };
+          localStorage.setItem('swt_voice', JSON.stringify(S.voiceProfile));
+          S.xp += 5; localStorage.setItem('swt_xp', S.xp);
+          toast(`Range saved: ${low.name} – ${high.name} (+5 XP)`);
+        }
+        document.getElementById('rangeBtn').disabled = false;
+        document.getElementById('rangeBtn').textContent = 'Find My Range →';
+      }, 15000);
+    }).catch(() => toast('Microphone access needed'));
+  },
+
+  // ─── VOCAL DNA ASSESSMENT ───
+  renderAssessment() {
+    const prog = document.getElementById('assessProgress');
+    prog.innerHTML = DATA.assessmentQuestions.map((_, i) => {
+      let cls = 'assessment-progress-bar';
+      if (i < S.assessmentStep) cls += ' done';
+      else if (i === S.assessmentStep) cls += ' current';
+      return `<div class="${cls}"></div>`;
+    }).join('');
+    const steps = document.getElementById('assessSteps');
+    if (S.assessmentStep >= DATA.assessmentQuestions.length) {
+      steps.innerHTML = this.assessmentResult();
+      document.getElementById('assessNav').style.display = 'none';
+      return;
+    }
+    const q = DATA.assessmentQuestions[S.assessmentStep];
+    steps.innerHTML = `
+      <div class="assessment-step active">
+        <div class="assessment-q">${q.q}</div>
+        <div class="assessment-options">
+          ${q.options.map((o, i) => `<div class="assessment-option${S.assessmentAnswers[S.assessmentStep] === i ? ' selected' : ''}" onclick="app.selectAnswer(${i})"><div class="assessment-option-radio"></div><span>${o}</span></div>`).join('')}
+        </div>
+      </div>
+    `;
+    document.getElementById('assessNav').style.display = 'flex';
+    document.getElementById('assessPrev').style.visibility = S.assessmentStep === 0 ? 'hidden' : 'visible';
+    document.getElementById('assessNext').textContent = S.assessmentStep === DATA.assessmentQuestions.length - 1 ? 'See Results →' : 'Next →';
+    Analytics.track('assessment_step', { step: S.assessmentStep });
+  },
+
+  selectAnswer(idx) {
+    S.assessmentAnswers[S.assessmentStep] = idx;
+    if (S.assessmentStep === 0) Analytics.track('assessment_started');
+    this.renderAssessment();
+  },
+
+  nextStep() {
+    if (S.assessmentAnswers[S.assessmentStep] === undefined) { toast('Please select an option'); return; }
+    S.assessmentStep++;
+    if (S.assessmentStep >= DATA.assessmentQuestions.length) {
+      this.finishAssessment();
+    }
+    this.renderAssessment();
+  },
+
+  prevStep() {
+    if (S.assessmentStep > 0) S.assessmentStep--;
+    this.renderAssessment();
+  },
+
+  finishAssessment() {
+    const a = S.assessmentAnswers;
+    const profile = {
+      goal: DATA.assessmentQuestions[0].options[a[0]],
+      experience: DATA.assessmentQuestions[1].options[a[1]],
+      genre: DATA.assessmentQuestions[2].options[a[2]],
+      challenge: DATA.assessmentQuestions[3].options[a[3]],
+      frequency: DATA.assessmentQuestions[4].options[a[4]],
+      training: DATA.assessmentQuestions[5].options[a[5]],
+      voiceType: DATA.assessmentQuestions[6].options[a[6]],
+      location: DATA.assessmentQuestions[7].options[a[7]],
+    };
+    // Determine archetype
+    const archetypes = ['The Worship Warrior','The Rising Star','The Comeback Kid','The Natural Talent','The Dedicated Scholar'];
+    const archetype = archetypes[Math.floor(Math.random() * archetypes.length)];
+    const strengths = [];
+    const weaknesses = [];
+    if (a[3] !== 3) weaknesses.push(DATA.assessmentQuestions[3].options[a[3]]);
+    if (a[3] !== 2) strengths.push('Range potential');
+    if (a[4] === 0 || a[4] === 1) strengths.push('Disciplined practice');
+    strengths.push(`${profile.genre} specialization`);
+    if (profile.challenge === 'Pitch accuracy') weaknesses.push('Pitch accuracy');
+    if (profile.challenge === 'Breath control') weaknesses.push('Breath support');
+    if (profile.challenge === 'Range expansion') weaknesses.push('Range expansion');
+    if (profile.challenge === 'Stage confidence') weaknesses.push('Performance confidence');
+    if (profile.challenge === 'Tone quality') weaknesses.push('Tone shaping');
+    S.voiceProfile = { ...profile, archetype, strengths, weaknesses, completedAt: new Date().toISOString() };
+    localStorage.setItem('swt_voice', JSON.stringify(S.voiceProfile));
+    S.xp += 50; localStorage.setItem('swt_xp', S.xp);
+    S.leadScore += 25; localStorage.setItem('swt_leadScore', S.leadScore);
+    CRM.capture({ event:'assessment_complete', profile: S.voiceProfile });
+    Analytics.track('assessment_finished');
+  },
+
+  assessmentResult() {
+    const v = S.voiceProfile;
+    return `
+      <div style="padding:var(--space-4);text-align:center">
+        <div style="font-size:4rem;margin-bottom:var(--space-3)">🎤</div>
+        <h3 style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;margin-bottom:var(--space-2)">Your Vocal DNA</h3>
+        <div style="display:inline-block;background:var(--indigo);color:white;padding:8px 24px;border-radius:var(--radius-full);font-weight:600;margin-bottom:var(--space-4)">${v.archetype}</div>
+        <div class="grid grid-2" style="text-align:left;max-width:400px;margin:0 auto var(--space-3)">
+          <div class="card"><div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">Genre</div><strong>${v.genre}</strong></div>
+          <div class="card"><div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">Level</div><strong>${v.experience}</strong></div>
+          <div class="card"><div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">Voice Type</div><strong>${v.voiceType}</strong></div>
+          <div class="card"><div style="font-size:0.75rem;color:var(--gray-500);margin-bottom:4px">Location</div><strong>${v.location}</strong></div>
+        </div>
+        <div style="text-align:left;max-width:400px;margin:0 auto var(--space-3)">
+          <h4 style="color:var(--success);margin-bottom:var(--space-1)">Strengths</h4>
+          <p style="margin-bottom:var(--space-2)">${v.strengths.join(', ')}</p>
+          <h4 style="color:var(--error);margin-bottom:var(--space-1)">Focus Areas</h4>
+          <p>${v.weaknesses.join(', ')}</p>
+        </div>
+        <p style="color:var(--gold);font-weight:600;margin:var(--space-3) 0">+50 XP earned!</p>
+        <button class="btn btn-primary" onclick="app.lmsSignup()">Start Your Journey →</button>
+      </div>
+    `;
+  },
+
+  // Wire assessment buttons
+  initAssessment() {
+    document.getElementById('assessNext').addEventListener('click', () => this.nextStep());
+    document.getElementById('assessPrev').addEventListener('click', () => this.prevStep());
+    this.renderAssessment();
+  },
+
+  // ─── LEAD FUNNEL ───
+  lmsFunnel() {
+    const funnel = JSON.parse(localStorage.getItem('swt_funnel')||'{}');
+    const total = funnel['Traffic'] || 1;
+    return '<div class="dash-header"><h1>Lead Funnel</h1><p>Traffic to Advocacy pipeline.</p></div>'+
+    '<div style="margin-bottom:var(--space-5)">'+
+    DATA.funnelStages.map(s => {
+      const c = funnel[s.name] || 0;
+      const p = total > 0 ? Math.round((c/total)*100) : 0;
+      return '<div class="funnel-stage"><span class="funnel-stage-label">'+s.name+'</span><div class="funnel-stage-bar"><div class="funnel-stage-fill" style="width:'+p+'%;background:'+s.color+'"></div></div><span class="funnel-stage-count">'+c+'</span></div>';
+    }).join('')+'</div>';
+  },
+  // ─── ANALYTICS ───
+  lmsAnalytics() {
+    const events = JSON.parse(localStorage.getItem('swt_events')||'[]');
+    const geo = JSON.parse(localStorage.getItem('swt_geo')||'{}');
+    const pages = JSON.parse(localStorage.getItem('swt_pages')||'[]');
+    const ls = Analytics.leadScore();
+    const ec = {};
+    events.forEach(e => { ec[e.event] = (ec[e.event]||0)+1; });
+    const top = Object.entries(ec).sort((a,b)=>b[1]-a[1]).slice(0,6);
+    const pc = {};
+    pages.forEach(p => { pc[p.path] = (pc[p.path]||0)+1; });
+    return '<div class="dash-header"><h1>Analytics</h1><p>Real-time event tracking.</p></div>'+
+    '<div class="grid grid-4" style="margin-bottom:var(--space-5)">'+
+    '<div class="analytics-card"><div class="analytics-stat">'+events.length+'</div><div class="analytics-label">Total Events</div></div>'+
+    '<div class="analytics-card"><div class="analytics-stat">'+pages.length+'</div><div class="analytics-label">Page Views</div></div>'+
+    '<div class="analytics-card"><div class="analytics-stat">'+S.xp+'</div><div class="analytics-label">Total XP</div></div>'+
+    '<div class="analytics-card"><span class="lead-score-badge '+ (ls.tier==='hot'?'lead-score-hot':ls.tier==='warm'?'lead-score-warm':'lead-score-cold') +'">⚡ '+ls.score+' pts</span><div class="analytics-label">Lead Score</div></div>'+
+    '</div><div class="grid grid-2" style="margin-bottom:var(--space-5)">'+
+    '<div class="analytics-card"><h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">Top Events</h4>'+
+    (top.length ? top.map(([n,c]) => '<div class="geo-bar-row"><span class="geo-bar-label">'+n.replace(/_/g,' ')+'</span><div class="geo-bar" style="width:'+Math.min(100,c*5)+'%"></div><span class="geo-bar-count">'+c+'</span></div>').join('') : '<p style="color:var(--gray-500);font-size:0.85rem">No events yet</p>')+'</div>'+
+    '<div class="analytics-card"><h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">Geo & Device</h4>'+
+    '<div class="geo-bar-row"><span class="geo-bar-label">Country</span><span class="geo-bar-count">'+(geo.country||'Unknown')+'</span></div>'+
+    '<div class="geo-bar-row"><span class="geo-bar-label">Device</span><span class="geo-bar-count">'+(geo.device||'Unknown')+'</span></div>'+
+    '<div class="geo-bar-row"><span class="geo-bar-label">Language</span><span class="geo-bar-count">'+(geo.language||'en')+'</span></div>'+
+    '<h4 style="font-family:var(--font-display);font-weight:600;margin:var(--space-3) 0 var(--space-2)">Pages Visited</h4>'+
+    (Object.entries(pc).length ? Object.entries(pc).map(([p,c]) => '<div class="geo-bar-row"><span class="geo-bar-label">'+(p||'home')+'</span><div class="geo-bar" style="width:'+Math.min(100,c*10)+'%;background:var(--emerald)"></div><span class="geo-bar-count">'+c+'</span></div>').join('') : '<p style="color:var(--gray-500);font-size:0.85rem">No page data</p>')+'</div>'+
+    '</div>';
+  },
+  // ─── EMAIL AUTOMATION ───
+  lmsEmail() {
+    const captured = JSON.parse(localStorage.getItem('swt_emails')||'[]');
+    return '<div class="dash-header"><h1>Email Automation</h1><p>AI-personalized sequences.</p></div>'+
+    '<div class="grid grid-2" style="margin-bottom:var(--space-5)">'+
+    '<div class="analytics-card"><h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">Capture Triggers</h4>'+
+    '<div style="padding:var(--space-2);background:var(--gray-50);border-radius:var(--radius-sm);margin-bottom:var(--space-1)"><strong style="color:var(--indigo)">Trigger 1:</strong> 7s delay → Vocal DNA popup</div>'+
+    '<div style="padding:var(--space-2);background:var(--gray-50);border-radius:var(--radius-sm);margin-bottom:var(--space-1)"><strong style="color:var(--indigo)">Trigger 2:</strong> Exit intent → Singer Roadmap</div>'+
+    '<div style="padding:var(--space-2);background:var(--gray-50);border-radius:var(--radius-sm)"><strong style="color:var(--indigo)">Trigger 3:</strong> Assessment done → Save Results</div></div>'+
+    '<div class="analytics-card"><h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">Captured Emails</h4>'+
+    (captured.length ? '<div style="max-height:200px;overflow-y:auto">'+captured.map(e => '<div style="padding:8px 0;border-bottom:1px solid var(--gray-200);display:flex;justify-content:space-between"><span style="font-weight:500">'+e.email+'</span><span style="font-size:0.75rem;color:var(--gray-500)">'+e.trigger+'</span></div>').join('')+'</div>' : '<p style="color:var(--gray-500);font-size:0.85rem">No emails yet</p>')+
+    '<div style="margin-top:var(--space-2);font-size:0.8rem;color:var(--gray-500)">Total: '+captured.length+' emails</div></div>'+
+    '</div>'+
+    '<div class="analytics-card"><h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">AI Personalization Rules</h4>'+
+    '<div style="font-size:0.85rem;color:var(--gray-600);line-height:2"><strong>Weakness-based:</strong> pitch, breath, range, confidence, tone → targeted emails<br><br><strong>Genre-based:</strong> Afrobeats → Afrobeats techniques<br><br><strong>Lead Score:</strong> Hot (250+) → priority offers | Warm (100+) → nurture</div></div>';
+  },
+  // ─── AI MENTOR ───
+  lmsMentor() {
+    const lastMsg = S.mentorHistory.length > 0 ? S.mentorHistory[S.mentorHistory.length - 1] : null;
+    let greeting = "Hey! I'm your AI Vocal Mentor. I know your voice, your goals, and your progress. What would you like to work on today?";
+    if (S.voiceProfile) {
+      greeting = `Hey ${S.user?.name || 'there'}! I see your challenge area is ${S.voiceProfile.challenge || 'general technique'}. `;
+      if (S.xp > 50) greeting += `You've earned ${S.xp} XP so far — solid work! `;
+      greeting += "Want a personalized exercise for today?";
+    }
+    return `
+      <div class="dash-header"><h1>AI Mentor</h1><p>Your persistent vocal coach that remembers everything about you.</p></div>
+      <div class="mentor-container" id="mentorBox">
+        <div class="mentor-messages" id="mentorMsgs">
+          <div class="mentor-msg mentor-msg-bot">${greeting}</div>
+        </div>
+        <div class="mentor-input">
+          <input type="text" id="mentorInput" placeholder="Ask me anything about your voice..." onkeypress="if(event.key==='Enter')app.mentorSend()">
+          <button class="btn btn-primary" onclick="app.mentorSend()">Send</button>
+        </div>
+      </div>
+    `;
+  },
+
+  mentorInit() {
+    const msgs = document.getElementById('mentorMsgs');
+    const box = document.getElementById('mentorBox');
+    // Restore history
+    S.mentorHistory.forEach(m => {
+      const div = document.createElement('div');
+      div.className = `mentor-msg mentor-msg-${m.role}`;
+      div.textContent = m.text;
+      msgs.appendChild(div);
+    });
+    msgs.scrollTop = msgs.scrollHeight;
+    // Bind send
+    document.getElementById('mentorInput').focus();
+  },
+
+  mentorSend() {
+    const input = document.getElementById('mentorInput');
+    const text = input.value.trim();
+    if (!text) return;
+    S.mentorHistory.push({ role: 'user', text });
+    input.value = '';
+    const msgs = document.getElementById('mentorMsgs');
+    msgs.innerHTML += `<div class="mentor-msg mentor-msg-user">${text}</div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+    // Generate response
+    setTimeout(() => {
+      const response = this.mentorRespond(text);
+      S.mentorHistory.push({ role: 'bot', text: response });
+      localStorage.setItem('swt_mentor', JSON.stringify(S.mentorHistory));
+      msgs.innerHTML += `<div class="mentor-msg mentor-msg-bot">${response}</div>`;
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 500 + Math.random() * 800);
+  },
+
+  mentorRespond(input) {
+    const t = input.toLowerCase();
+    const v = S.voiceProfile;
+    // Keyword matching
+    if (t.includes('pitch') || t.includes('note') || t.includes('flat') || t.includes('sharp')) {
+      return this.pickResponse('pitch');
+    }
+    if (t.includes('breath') || t.includes('support') || t.includes('air') || t.includes('lung')) {
+      return this.pickResponse('breath');
+    }
+    if (t.includes('range') || t.includes('high') || t.includes('low') || t.includes('register')) {
+      return this.pickResponse('range');
+    }
+    if (t.includes('stage') || t.includes('fear') || t.includes('nervous') || t.includes('confidence') || t.includes('perform')) {
+      return this.pickResponse('confidence');
+    }
+    // Personalized based on profile
+    if (v && t.includes('what') && t.includes('weak')) {
+      return `Your main focus area is ${v.challenge}. Here's what I recommend: spend 5 minutes daily on targeted exercises for this. Specific practice beats general practice every time.`;
+    }
+    if (v && t.includes('genre') && v.genre) {
+      return `Since you focus on ${v.genre}, I recommend studying the greats in that style. Record yourself singing along, then remove the original and listen back. That's the fastest path to genre mastery.`;
+    }
+    if (t.includes('hello') || t.includes('hi') || t.includes('hey')) {
+      return `Hey! Ready to practice? I've been tracking your ${S.xp} XP — every session counts. What are we working on?`;
+    }
+    if (t.includes('help') || t.includes('start') || t.includes('begin')) {
+      return `Great question! Start here: 1) Do the 5-minute warm-up, 2) Practice your weakest area for 10 minutes, 3) Record before/after. The Voice Lab can help you measure progress. Want me to walk you through any of those?`;
+    }
+    if (t.includes('tired') || t.includes('cant') || t.includes('difficult') || t.includes('hard')) {
+      return `I hear you. Vocal fatigue is normal — it means you're growing. Remember: rest IS practice. Your voice consolidates during rest days. Take a breath, hydrate, come back stronger tomorrow. The streak will wait for you.`;
+    }
+    // Context-aware responses
+    if (S.lessonsCompleted.length > 0 && S.lessonsCompleted.length < 10) {
+      return `You've completed ${S.lessonsCompleted.length} lessons — nice start! Let's build momentum. Which lesson area do you want to tackle next?`;
+    }
+    if (S.xp >= 100) {
+      return `At ${S.xp} XP, you're proving real consistency. The difference between good and great singers? Keep showing up. What specific challenge can I help with?`;
+    }
+    return this.pickResponse('general');
+  },
+
+  pickResponse(category) {
+    const responses = {
+      pitch: ["Train your ear before your voice. Spend 3 minutes just listening to reference tones before singing them. Ear training is the secret to pitch accuracy.","Pitch is a muscle memory. Short, focused practice beats long unfocused sessions. Try 5 minutes of pitch-matching twice a day.","Record yourself singing scales. Compare to a tuner. Your ear will self-correct faster than you think."],
+      breath: ["Breath support is everything. Try this: lie on your back, put a book on your stomach, breathe so the book rises. That is your diaphragmatic breath. Use it in every phrase.","The hiss test: take a deep breath and hiss for as long as possible. Aim for 30+ seconds. This builds the endurance you need for long phrases.","Think of breath as fuel management. Singers who run out of breath are wasting air on consonants and unstable vowels. Practice pure vowels only."],
+      range: ["Expand range like stretching. Gentle, daily, no forcing. Lip trills sliding up and down your comfortable range. Add one semitone per week.","Your range is defined by coordination, not effort. If you are straining, you are doing it wrong. Stay relaxed, stay breath-supported, and let the notes find you.","Try sirens: comfortable low slide to comfortable high and back. This smooths out your break and expands usable range naturally."],
+      confidence: ["Confidence equals preparation plus performance. The more you practice in private, the more free you will feel in public. Record every session. You will hear progress your brain filters out.","Stage fright is energy. Name it. I am not nervous, I am excited. Same physical sensation, different story. The audience is on your side. They want you to win.","Perform for one person. Then three. Then five. Then ten. Build your exposure ladder. Every great singer did this."],
+      general: ["I am tracking your progress and I can see you are improving. The fact that you are here, asking questions, puts you ahead of 90% of singers. Keep going.","Every voice has a unique fingerprint. Do not compare your chapter 1 to someone else's chapter 10. Focus on your own growth trajectory.","Your strongest practice sessions happen after a proper warm-up. 5 minutes of humming and lip trills before anything else. Make it non-negotiable.","Consistency beats intensity. 10 minutes daily beats 2 hours once a week. Your vocal cords need regular gentle stimulation, not occasional shock.","The best singers are the best listeners. Train your ear daily. Listen to great singers, analyze their technique, mimic, then make it your own."]
+    };
+    const arr = responses[category] || responses.general;
+    return arr[Math.floor(Math.random() * arr.length)];
+  },
+
+  // ─── SMART SURVEY ───
+  showSmartSurvey() {
+    const email = this.capturedEmail;
+    const surveyHtml = `
+      <div style="text-align:center;margin-bottom:var(--space-3)">
+        <div style="font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">2-minute setup</div>
+        <h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:8px">Personalize your experience</h3>
+        <p style="color:var(--gray-500);font-size:0.9rem;margin-bottom:20px">We will recommend the right lessons for your voice</p>
+      </div>
+      <div class="survey-step active" data-step="1">
+        <div class="survey-q">What do you want to achieve?</div class="survey-options">
+          <button class="survey-opt" onclick="app.surveySelect('goal','worship',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">🙏</span> Lead worship or minister</button>
+          <button class="survey-opt" onclick="app.surveySelect('goal','record',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">�️</span> Record & release songs</button>
+          <button class="survey-opt" onclick="app.surveySelect('goal','perform',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">�</span> Perform live confidently</button>
+          <button class="survey-opt" onclick="app.surveySelect('goal','technique',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">�</span> Improve vocal technique</button>
+          <button class="survey-opt" onclick="app.surveySelect('goal','beginner',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">🌱</span> Start from scratch</button>
+        </div>
+      </div>
+      <div class="survey-step" data-step="2" style="display:none">
+        <div class="survey-q">Your current level?</div>
+        <div class="survey-options">
+          <button class="survey-opt" onclick="app.surveySelect('level','beginner',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">🌱</span> Complete beginner</button>
+          <button class="survey-opt" onclick="app.surveySelect('level','some',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">🎵</span> Some experience</button>
+          <button class="survey-opt" onclick="app.surveySelect('level','intermediate',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">�</span> Intermediate (years)</button>
+          <button class="survey-opt" onclick="app.surveySelect('level','advanced',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">⭐</span> Advanced (performing)</button>
+        </div>
+      </div>
+      <div class="survey-step" data-step="3" style="display:none">
+        <div class="survey-q">Your primary genre?</div>
+        <div class="survey-options">
+          <button class="survey-opt" onclick="app.surveySelect('genre','gospel',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">✝️</span> Gospel / Worship</button>
+          <button class="survey-opt" onclick="app.surveySelect('genre','afrobeats',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">🥁</span> Afrobeats</button>
+          <button class="survey-opt" onclick="app.surveySelect('genre','rnb',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">�</span> R&B / Soul</button>
+          <button class="survey-opt" onclick="app.surveySelect('genre','pop',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">🎵</span> Pop</button>
+          <button class="survey-opt" onclick="app.surveySelect('genre','other',this)"><span style="font-size:1.1rem;margin-right:6px;display:inline-block;vertical-align:middle">🎸</span> Other / Multiple</button>
+        </div>
+      </div>
+      <div class="survey-step" data-step="4" style="display:none">
+        <div class="survey-q">Anything specific to fix?</div>
+        <textarea class="form-input" id="surveyWants" rows="3" placeholder="e.g., I go flat on high notes, I want more range..." style="resize:vertical;text-align:left;font-size:0.9rem"></textarea>
+        <button class="btn btn-gold btn-lg btn-block" onclick="app.submitSurvey()" style="margin-top:14px;text-align:center">Start My Journey →</button>
+        <button class="btn btn-secondary btn-sm btn-block" style="margin-top:8px;text-align:center" onclick="app.submitSurvey(true)">Skip →</button>
+      </div>
+    `;
+    const wrappedHtml = `<div class="survey-modal">${surveyHtml}</div>`;
+    const existing = document.getElementById('launch');
+    if (existing && existing.classList.contains('gone')) {
+      this.showModalInLMS(wrappedHtml);
+    } else {
+      modal(wrappedHtml);
+    }
+    this.surveyData = { email };
+  },
+
+  showModalInLMS(html) {
+    modal(html);
+  },
+
+  surveySelect(key, val, el) {
+    this.surveyData[key] = val;
+    const step = el.closest('.survey-step');
+    step.querySelectorAll('.survey-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    setTimeout(() => {
+      step.style.display = 'none';
+      const next = step.nextElementSibling;
+      if (next && next.classList.contains('survey-step')) {
+        next.style.display = 'block';
+        next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 150);
+  },
+
+  submitSurvey(skip) {
+    const wantsEl = document.getElementById('surveyWants');
+    if (wantsEl && wantsEl.value.trim()) this.surveyData.wants = wantsEl.value.trim();
+    localStorage.setItem('swt_survey', JSON.stringify(this.surveyData));
+    const { email, goal, level, genre, wants } = this.surveyData;
+    CRM.pushToSheet({ email, goal, level, genre: genre || 'other', wants: wants || '', type:'survey', ts: Date.now() });
+    S.user = { email, name: email.split('@')[0], goal, level, genre, wants, joined: new Date().toISOString() };
+    localStorage.setItem('swt_user', JSON.stringify(S.user));
+    CRM.capture({ event:'survey_completed', email, goal, level, genre, wants });
+    document.getElementById('modal').classList.remove('open');
+    if (document.getElementById('lmsApp').style.display === 'block') {
+      this.lmsNav('dashboard');
+    } else if (S.lmsPage) {
+      this.lmsNav(S.lmsPage);
+    }
+    toast('Profile saved');
+  },
+
+  // ─── COACH TOBY ───
+  lmsCoach() {
+    const msg = "Hi Coach Toby! I'd like to book a session.";
+    const waUrl = 'https://wa.me/2349160106084?text=' + encodeURIComponent(msg);
+    return `
+      <div class="dash-header"><h1>Coach Toby</h1><p>The human behind the method. Vocal coach, artist, and mentor.</p></div>
+      <div class="card" style="max-width:600px">
+        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);flex-wrap:wrap">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#F59E0B);display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0">🎤</div>
+          <div style="flex:1;min-width:200px">
+            <h3 style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:-.02em;margin-bottom:4px">Toby — Coach & Founder</h3>
+            <p style="color:var(--gray-500);font-size:0.9rem">10+ years · 15 countries · 1000+ singers transformed</p>
+          </div>
+        </div>
+        <div style="margin-bottom:var(--space-3);padding:var(--space-3);background:rgba(212,175,55,0.05);border-radius:var(--radius-md);border:1px solid rgba(212,175,55,0.15)">
+          <h4 style="font-weight:600;margin-bottom:var(--space-1);color:var(--gold)">The NYVC Method</h4>
+          <p style="color:var(--gray-500);line-height:1.7;font-size:0.9rem">New York Vocal Coaching — built on what singers <em>actually feel</em>. No generic pedagogy. Every exercise targets a real sensation: jaw drops, tongue glides, throat opens, air flows steady, mask resonance buzzes. Your voice is an instrument you <strong>feel</strong>, not just hear.</p>
+        </div>
+        <div class="grid grid-3" style="margin-bottom:var(--space-3)">
+          <div style="text-align:center;padding:var(--space-2);background:var(--gray-50);border-radius:var(--radius-md)"><div style="font-size:1.5rem;font-family:var(--font-display);font-weight:700;color:var(--indigo)">9</div><div style="font-size:0.7rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em">Courses</div></div>
+          <div style="text-align:center;padding:var(--space-2);background:var(--gray-50);border-radius:var(--radius-md)"><div style="font-size:1.5rem;font-family:var(--font-display);font-weight:700;color:var(--indigo)">33</div><div style="font-size:0.7rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em">Lessons</div></div>
+          <div style="text-align:center;padding:var(--space-2);background:var(--gray-50);border-radius:var(--radius-md)"><div style="font-size:1.5rem;font-family:var(--font-display);font-weight:700;color:var(--emerald)">4</div><div style="font-size:0.7rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em">Cert Levels</div></div>
+        </div>
+        <h4 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-2)">Book a 1-on-1 Session</h4>
+        <p style="color:var(--gray-500);line-height:1.6;margin-bottom:var(--space-2);font-size:0.9rem">Get your voice evaluated personally by Toby. Receive a custom training plan, specific exercises for your weaknesses, and expert feedback on a recording.</p>
+        <div class="grid grid-2" style="margin-bottom:var(--space-4)">
+          <div style="padding:var(--space-3);background:var(--gray-50);border-radius:var(--radius-md);border:1px solid var(--gray-200)">
+            <div style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-1)">Free Discovery</div>
+            <div style="font-family:var(--font-display);font-size:1.75rem;font-weight:800;color:var(--gold);margin-bottom:var(--space-1)">$0</div>
+            <ul style="font-size:0.85rem;color:var(--gray-500);line-height:1.8li>15-min voice evaluation</li><li>Your strengths & weaknesses</li><li>No commitment</li></ul>
+          </div>
+          <div style="padding:var(--space-3);background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(245,158,11,0.05));border-radius:var(--radius-md);border:1px solid rgba(212,175,55,0.3);position:relative">
+            <div style="position:absolute;top:-8px;right:var(--space-1);background:var(--gold);color:var(--midnight);font-size:0.65rem;font-weight:700;padding:2px 10px;border-radius:var(--radius-full);letter-spacing:.05em;text-transform:uppercase">Most Popular</div>
+            <div style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-1)">1-on-1 Coaching</div>
+            <div style="font-family:var(--font-display);font-size:1.75rem;font-weight:800;color:var(--gold);margin-bottom:var(--space-1)">$200<span style="font-size:0.8rem;font-weight:400;color:var(--gray-500)">/hour</span></div>
+            <ul style="font-size:0.85rem;color:var(--gray-500);line-height:1.8"><li>Full vocal assessment</li><li>Custom training plan</li><li>Recording feedback</li><li>WhatsApp follow-up</li></ul>
+          </div>
+        </div>
+        <a href="${waUrl}" target="_blank" class="btn btn-gold btn-lg btn-block" style="text-align:center">Book Session via WhatsApp →</a>
+        <p style="font-size:0.8rem;color:var(--gray-500);text-align:center;margin-top:var(--space-1)">Or email: <a href="mailto:coach@toby.vip" style="color:var(--gold);text-decoration:underline">coach@toby.vip</a></p>
+      </div>
+    `;
+  },
+
+  // ─── FEEDBACK ───
+  lmsFeedback() {
+    const existing = JSON.parse(localStorage.getItem('swt_feedback') || '[]');
+    return `
+      <div class="dash-header"><h1>Feedback</h1><p>Your voice shapes this platform. Tell us what to improve.</p></div>
+      <div class="card" style="max-width:600px;margin-bottom:var(--space-5)">
+        <h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-3)">Share your thoughts</h3>
+        <div class="form-group"><label class="form-label">What do you want us to improve, add, or fix?</label><textarea class="form-input" id="fbText" rows="5" placeholder="Tell me anything — a bug, feature request, content feedback..." style="resize:vertical"></textarea></div>
+        <div class="form-group"><label class="form-label">Rate your experience</label>
+          <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">
+            ${[1,2,3,4,5].map(n => '<button class="btn btn-secondary btn-sm" id="fbRate'+n+'" onclick="document.getElementById(\'fbRating\').value='+n+';[].forEach.call(document.querySelectorAll(\'[id^=fbRate]\'),function(e){e.style.borderColor=\'var(--gray-200)\';e.style.background=\'white\'});this.style.borderColor=\'var(--gold)\';this.style.background=\'rgba(212,175,55,0.1)\';return false">'+'⭐'.repeat(n)+'</button>').join('')}
+          </div>
+          <input type="hidden" id="fbRating" value="5">
+        </div>
+        <div class="form-group"><label class="form-label">Which page/lesson? (optional)</label><input class="form-input" id="fbRef" placeholder="e.g. Lesson 4, Dashboard..."></div>
+        <button class="btn btn-gold btn-lg btn-block" onclick="app.submitFeedback()" style="text-align:center">Send Feedback →</button>
+      </div>
+      ${existing.length > 0 ? '<div><h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3);font-size:1.1rem">Your past feedback ('+existing.length+')</h3><div class="card" style="padding:0;overflow:hidden">'+existing.slice().reverse().slice(0,10).map(f => '<div style="padding:var(--space-3);border-bottom:1px solid var(--gray-100)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:0.7rem;color:var(--gray-500)">'+new Date(f.ts).toLocaleDateString()+(f.ref?' · '+f.ref:'')+'</span><span>'+'⭐'.repeat(f.rating)+'</span></div><div style="font-size:0.9rem;color:var(--gray-800)">'+f.text+'</div></div>').join('')+'</div></div>' : ''}
+    `;
+  },
+
+  submitFeedback() {
+    const text = document.getElementById('fbText').value.trim();
+    const ref = document.getElementById('fbRef').value.trim();
+    let rating = parseInt(document.getElementById('fbRating').value);
+    if (isNaN(rating)) rating = 5;
+    if (!text) { toast('Write something first'); return; }
+    const feedback = { text, rating, ref: ref || null, ts: Date.now() };
+    const existing = JSON.parse(localStorage.getItem('swt_feedback') || '[]');
+    existing.push(feedback);
+    localStorage.setItem('swt_feedback', JSON.stringify(existing));
+    CRM.pushToSheet({ ...feedback, email: S.user?.email, type:'feedback' });
+    toast('Thank you! Feedback logged.');
+    this.lmsNav('feedback');
+  },
+
+  // ─── ASSESSMENTS ───
+  lmsAssessments() {
+    return `
+      <div class="dash-header"><h1>Assessments</h1><p>Track your progress with periodic check-ins and challenges.</p></div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-1)">🎯 Vocal Check-In</h3>
+          <p style="color:var(--gray-500);font-size:0.875rem;margin-bottom:var(--space-2)">Record yourself singing a scale. Compare it to last week's recording.</p>
+          <button class="btn btn-primary btn-sm" onclick="app.startAudioAssessment()">Record Now →</button>
+        </div>
+        <div class="card">
+          <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-1)">📊 Transformation Timeline</h3>
+          <p style="color:var(--gray-500);font-size:0.875rem;margin-bottom:var(--space-2)">See your progress from Day 1 to now.</p>
+          <button class="btn btn-secondary btn-sm" onclick="app.showTimeline()">View Timeline →</button>
+        </div>
+        <div class="card">
+          <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-1)">🏆 Knowledge Quiz</h3>
+          <p style="color:var(--gray-500);font-size:0.875rem;margin-bottom:var(--space-2)">Test your music theory and technique knowledge.</p>
+          <button class="btn btn-primary btn-sm" onclick="app.startQuiz()">Take Quiz →</button>
+        </div>
+        <div class="card">
+          <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-1)">🎤 Performance Challenge</h3>
+          <p style="color:var(--gray-500);font-size:0.875rem;margin-bottom:var(--space-2)">Submit a performance for peer review.</p>
+          <button class="btn btn-secondary btn-sm" onclick="performanceChallenge()">Submit →</button>
+        </div>
+      </div>
+    `;
+  },
+
+  startAudioAssessment() {
+    this.getAudio().then(() => {
+      modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-2)">🎤 Recording Assessment</h3><p style="color:var(--gray-500);margin-bottom:var(--space-3)">Sing "Twinkle Twinkle Little Star" or any simple scale. We'll analyze your pitch, volume, and stability.</p><div id="recStatus" style="text-align:center;font-size:1.25rem;font-weight:600;margin:var(--space-3) 0;color:var(--indigo)">Recording in 3... 2... 1...</div><div class="visualizer-container" id="recViz"></div><button class="btn btn-primary" style="margin:var(--space-3) auto;display:block" id="recBtn" onclick="app.stopRecording()">Stop Recording</button>`);
+      const analyser = this.analyser;
+      const buf = new Uint8Array(analyser.frequencyBinCount);
+      const viz = document.getElementById('recViz');
+      for (let i = 0; i < 32; i++) {
+        const bar = document.createElement('div');
+        bar.style.width = '10px';
+        bar.style.background = 'var(--indigo)';
+        bar.style.borderRadius = '2px 2px 0 0';
+        bar.style.transition = 'height 0.05s';
+        viz.appendChild(bar);
+      }
+      const bars = viz.children;
+      let count = 3;
+      const countdown = setInterval(() => {
+        count--;
+        if (count > 0) document.getElementById('recStatus').textContent = `Recording in ${count}...`;
+        else { clearInterval(countdown); document.getElementById('recStatus').textContent = 'Recording...'; }
+      }, 1000);
+      let frameCount = 0;
+      const record = () => {
+        analyser.getByteFrequencyData(buf);
+        let sum = 0;
+        for (let i = 0; i < buf.length; i++) sum += buf[i];
+        const avg = sum / buf.length / 255;
+        for (let i = 0; i < 32; i++) bars[i].style.height = Math.max(4, buf[i * 8] / 2.55) + '%';
+        frameCount++;
+        if (document.getElementById('recBtn').textContent === 'Stop Recording') requestAnimationFrame(record);
+      };
+      record();
+      this._recordingFrames = 0;
+      setTimeout(() => {
+        if (document.getElementById('recBtn').textContent === 'Stop Recording') {
+          this.stopRecording();
+        }
+      }, 30000);
+    }).catch(() => toast('Microphone needed'));
+  },
+
+  stopRecording() {
+    this._recordingFrames = 100; // trigger stop
+    document.getElementById('modal').classList.remove('open');
+    const score = 60 + Math.floor(Math.random() * 35);
+    S.xp += 20; localStorage.setItem('swt_xp', S.xp);
+    toast(`Assessment complete! Score: ${score}/100 (+20 XP)`);
+    Analytics.track('assessment_audio', { score });
+  },
+
+  showTimeline() {
+    modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-3)">📊 Transformation Timeline</h3>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <div style="background:var(--gray-100);padding:var(--space-3);border-radius:var(--radius-md)"><div style="font-size:0.75rem;color:var(--indigo);font-weight:600;margin-bottom:4px">Day 1</div><div style="color:var(--gray-700)">${S.voiceProfile?.challenge ? `Identified ${S.voiceProfile.challenge} as focus area` : 'Started your journey'}</div></div>
+      <div style="background:var(--gray-100);padding:var(--space-3);border-radius:var(--radius-md)"><div style="font-size:0.75rem;color:var(--indigo);font-weight:600;margin-bottom:4px">Now (${S.xp} XP)</div><div style="color:var(--gray-700)">${S.lessonsCompleted.length} lessons completed. ${S.streak > 0 ? `${S.streak} day streak!` : 'Keep building momentum!'}</div></div>
+      <div style="background:var(--gray-50);padding:var(--space-3);border-radius:var(--radius-md);border:2px dashed var(--gray-200)"><div style="font-size:0.75rem;color:var(--gray-400);font-weight:600;margin-bottom:4px">Day 30</div><div style="color:var(--gray-400)">Record your next assessment to see progress</div></div>
+    </div>`);
+  },
+
+  startQuiz() {
+    const questions = [
+      { q: "What controls your pitch?", opts: ["Vocal cords", "Lungs", "Tongue", "Jaw"], a: 0 },
+      { q: "How many beats in a measure of 4/4?", opts: ["2", "3", "4", "8"], a: 2 },
+      { q: "Which breath supports singing?", opts: ["Clavicular", "Diaphragonal", "Shreverse", "Held"], a: 1 },
+      { q: "What is vibrato?", opts: ["A vowel type", "Pitch oscillation", "A rest", "Volume change"], a: 1 },
+    ];
+    let qi = 0, score = 0;
+    const ask = () => {
+      if (qi >= questions.length) {
+        S.xp += score * 5; localStorage.setItem('swt_xp', S.xp);
+        modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-2)">Quiz Complete!</h3><p style="font-size:1.125rem;margin-bottom:var(--space-3)">You scored <strong>${score}/${questions.length}</strong></p><p style="color:var(--gray-500);margin-bottom:var(--space-3)">${score * 5} XP earned. ${score === questions.length ? 'Perfect score!' : 'Keep studying!'}</p>`);
+        Analytics.track('quiz_completed', { score, total: questions.length });
+        return;
+      }
+      const q = questions[qi];
+      modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-2)">Quiz (${qi + 1}/${questions.length})</h3><p style="margin-bottom:var(--space-3);font-size:1.125rem">${q.q}</p><div style="display:flex;flex-direction:column;gap:var(--space-1)" id="quizOpts">${q.opts.map((o, i) => `<button class="btn btn-secondary" style="text-align:left;width:100%" onclick="app.answerQuiz(${i}, ${q.a})">${o}</button>`).join('')}</div>`);
+    };
+    window.answerQuiz = (selected, correct) => {
+      if (selected === correct) score++;
+      qi++;
+      ask();
+    };
+    ask();
+  },
+
+  performanceChallenge() {
+    modal(`<h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:var(--space-2)">🏆 Performance Challenge</h3><p style="color:var(--gray-500);margin-bottom:var(--space-3)">Submit a recording for community feedback.</p><div class="form-group"><label class="form-label">Song/Exercise</label><input class="form-input" id="perfTitle" placeholder="What did you perform?"></div><div class="form-group"><label class="form-label">Notes (optional)</label><textarea class="form-input" id="perfNotes" placeholder="Anything the community should listen for?"></textarea></div><button class="btn btn-primary" style="width:100%;margin-top:var(--space-2)" onclick="app.submitPerformance()">Submit →</button>`);
+  },
+
+  submitPerformance() {
+    const title = document.getElementById('perfTitle').value;
+    if (!title) { toast('Enter what you performed'); return; }
+    S.xp += 15; localStorage.setItem('swt_xp', S.xp);
+    document.getElementById('modal').classList.remove('open');
+    toast('Performance submitted! +15 XP');
+    Analytics.track('performance_submitted', { title });
+  },
+
+  // ─── COMMUNITY ───
+  lmsCommunity() {
+    const users = [
+      { name: 'Chidinma K.', xp: 1240, streak: 12, badge: '🔥' },
+      { name: 'Marcus B.', xp: 980, streak: 8, badge: '⭐' },
+      { name: 'Grace A.', xp: 875, streak: 15, badge: '🏆' },
+      { name: 'David O.', xp: 720, streak: 5, badge: '🎯' },
+      { name: 'Amina I.', xp: 650, streak: 10, badge: '💎' },
+      { name: 'James T.', xp: 580, streak: 3, badge: '🎵' },
+      { name: 'User', xp: S.xp, streak: S.streak, badge: '🎤' },
+    ].sort((a, b) => b.xp - a.xp);
+    return `
+      <div class="dash-header"><h1>Community</h1><p>See how you stack up against other singers.</p></div>
+      <h3 style="font-family:var(--font-display);font-weight:600;margin-bottom:var(--space-3)">🏅 Leaderboard</h3>
+      <div class="card" style="padding:0;overflow:hidden">
+        ${users.map((u, i) => `<div style="display:flex;align-items:center;padding:var(--space-2) var(--space-3);${i !== users.length - 1 ? 'border-bottom:1px solid var(--gray-200)' : ''}${u.name === 'User' ? 'background:rgba(79,70,229,0.05)' : ''}">
+          <div style="width:30px;font-family:var(--font-mono);font-weight:600;color:var(--gray-400)">${i + 1}</div>
+          <div style="flex:1;font-weight:${u.name === 'User' ? '700' : '500'}">${u.name} ${u.badge}</div>
+          <div style="display:flex;gap:var(--space-3);font-size:0.875rem"><span style="color:var(--indigo);font-weight:600">${u.xp} XP</span><span style="color:var(--gray-400)">🔥 ${u.streak}d</span></div>
+        </div>`).join('')}
+      </div>
+      <h3 style="font-family:var(--font-display);font-weight:600;margin:var(--space-5) 0 var(--space-3)">📅 Active Challenges</h3>
+      <div class="grid grid-2">
+        <div class="card"><div style="font-size:1.5rem;margin-bottom:var(--space-1)">🔥</div><h4 style="font-weight:600;margin-bottom:var(--space-1)">7-Day Streak</h4><p style="color:var(--gray-500);font-size:0.875rem">Complete at least one practice session every day.</p></div>
+        <div class="card"><div style="font-size:1.5rem;margin-bottom:var(--space-1)">🎯</div><h4 style="font-weight:600;margin-bottom:var(--space-1)">Pitch Perfect</h4><p style="color:var(--gray-500);font-size:0.875rem">Score 90%+ on pitch detection 5 times.</p></div>
+      </div>
+    `;
+  },
+};
+
+// ─── INIT ───
+document.addEventListener('DOMContentLoaded', () => app.init());
+

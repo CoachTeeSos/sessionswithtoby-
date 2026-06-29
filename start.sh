@@ -3,12 +3,13 @@ set -e
 export HERMES_HOME=/opt/data
 export HERMES_WRITE_SAFE_ROOT=/opt/data
 export WHATSAPP_MODE=bot
+PORT=${PORT:-8080}
 mkdir -p /opt/data/logs
 
 if [ -d /opt/data/whatsapp/session ] && [ "$(ls -A /opt/data/whatsapp/session 2>/dev/null)" ]; then
     echo "[$(date)] WhatsApp session found"
 else
-    echo "[$(date)] WARNING: No WhatsApp session - copy from Termux or pair interactively"
+    echo "[$(date)] WARNING: No WhatsApp session - copy from Termux first"
 fi
 
 cd /opt/hermes
@@ -20,14 +21,14 @@ for i in $(seq 1 15); do
     sleep 2
 done
 
-echo "[$(date)] Starting Hermes Gateway..."
-hermes gateway run >> /opt/data/logs/gateway.log 2>&1 &
+echo "[$(date)] Starting Hermes Gateway on port $PORT..."
+hermes gateway run --port $PORT >> /opt/data/logs/gateway.log 2>&1 &
 echo "[$(date)] Gateway started (PID: $!)"
 
 for i in $(seq 1 30); do
-    curl -s http://localhost:8080/health > /dev/null 2>&1 && echo "[$(date)] Gateway ready!" && break
+    curl -s http://localhost:$PORT/health > /dev/null 2>&1 && echo "[$(date)] Gateway ready!" && break
     sleep 2
 done
 
-echo "[$(date)] All services running..."
+echo "[$(date)] All services running on port $PORT..."
 wait
