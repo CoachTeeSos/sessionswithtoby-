@@ -4074,10 +4074,13 @@ var app = {
   // ─── PITCH DETECTION ───
   startPitch() {
     this.getAudio().then(() => {
-      document.getElementById('pitchBtn').textContent = 'Listening...';
-      document.getElementById('pitchBtn').disabled = true;
+      const btn = document.getElementById('pitchBtn');
+      btn.textContent = 'Listening...'; btn.disabled = true;
       const buf = new Float32Array(this.analyser.fftSize);
-      const detect = () => {
+      let lastFrame = 0;
+      const detect = (now) => {
+        if (now - lastFrame < 33) { requestAnimationFrame(detect); return; }
+        lastFrame = now;
         this.analyser.getFloatTimeDomainData(buf);
         const pitch = this.autocorrelate(buf, this.audioCtx.sampleRate);
         if (pitch > 50 && pitch < 2000) {
@@ -4086,10 +4089,15 @@ var app = {
           document.getElementById('pitchNote').textContent = note.name;
           document.getElementById('pitchCents').textContent = note.cents > 0 ? `+${Math.round(note.cents)}¢` : `${Math.round(note.cents)}¢`;
         }
-        if (document.getElementById('pitchBtn').disabled) requestAnimationFrame(detect);
+        if (btn.disabled) requestAnimationFrame(detect);
+        else { btn.textContent = 'Start →'; btn.disabled = false; }
       };
-      detect();
-    }).catch(() => toast('Microphone access needed'));
+      requestAnimationFrame(detect);
+    }).catch(err => {
+      toast('Microphone access needed — check browser permissions');
+      const btn = document.getElementById('pitchBtn');
+      btn.textContent = 'Start →'; btn.disabled = false;
+    });
   },
 
   autocorrelate(buf, sr) {
@@ -4097,7 +4105,7 @@ var app = {
     for (let i = 0; i < buf.length; i++) rms += buf[i] * buf[i];
     rms = Math.sqrt(rms / buf.length);
     if (rms < 0.01) return -1;
-    for (let offset = 20; i < 1000; i++) {
+    for (let offset = 20; offset < 1000; offset++) {
       let correlation = 0;
       for (let j = 0; j < 1000; j++) correlation += Math.abs(buf[j] - buf[j + offset]);
       correlation = 1 - correlation / 1000;
