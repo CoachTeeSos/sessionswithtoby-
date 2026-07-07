@@ -1,7 +1,7 @@
-/* services/store.js — minimal data loader with schema version guard + API base */
+/* services/store.js — minimal data loader with schema version guard + proxy-ready API */
 const Store = {
   data: null,
-  apiBase: '', // set this to your proxy URL, e.g. 'https://sessionswithtoby-proxy.up.railway.app'
+  apiBase: '', // set to proxy URL, e.g. 'https://sessionswithtoby-proxy.up.railway.app'
   async init() {
     const res = await fetch('data/lessons.json', {cache: 'no-store'});
     const lessons = await res.json();
@@ -20,14 +20,12 @@ const Store = {
   get assessments() { return this.data?.assessments || {}; },
   async submitEmail(payload) {
     const base = (this.apiBase || '').replace(/\/$/, '');
-    const url = base ? base + '/api/register' : 'https://api.airtable.com/v0/app3N2MFPvfDSuYxk/Leads';
-    const headers = {'Content-Type':'application/json'};
-    if (!base) {
-      const token = (window.__SWT_AIRTABLE_TOKEN || (typeof process !== 'undefined' && process.env && process.env.AIRTABLE_TOKEN) || '').toString();
-      if (!token) throw new Error('missing Airtable token');
-      headers['Authorization'] = 'Bearer ' + token;
-    }
-    const res = await fetch(url, {method:'POST', headers, body: JSON.stringify({fields: payload})});
+    if (!base) throw new Error('missing apiBase');
+    const res = await fetch(base + '/api/register', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({fields: payload})
+    });
     if (!res.ok) throw new Error('submitEmail failed');
     return true;
   }
