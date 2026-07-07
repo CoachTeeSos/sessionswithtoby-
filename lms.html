@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sessions with Toby — LMS</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J9V395RPDH"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J9V395RPDH');</script>
+<link rel="stylesheet" href="../assets/css/main.css">
+<style>
+.lms-wrap{max-width:980px;margin:0 auto;padding:32px 20px;display:grid;gap:14px}
+.lms-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lms-panel{display:none}
+.lms-panel.active{display:block}
+.email-gate{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+</style>
+</head>
+<body style="background:#0D0E12;color:#F4F5F7">
+<div class="lms-wrap">
+  <div class="lms-header">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.4rem">Sessions with Toby — LMS</div>
+    <div id="lmsUser" style="font-size:.85rem;color:#9FA6B5"></div>
+    <button onclick="app.lmsLogout()" style="background:#242838;color:#F4F5F7;border:1px solid #242838;border-radius:10px;padding:10px 14px">Logout</button>
+  </div>
+
+  <div id="emailGate" class="lms-panel active">
+    <h1 style="margin-top:0">Enter your email to continue</h1>
+    <div class="email-gate">
+      <input type="email" id="gateEmail" placeholder="you@example.com" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;min-width:260px">
+      <button onclick="app.submitGateEmail()" class="funnel-cta" style="border:none;padding:10px 14px">Continue</button>
+    </div>
+    <p class="funnel-note" style="margin-top:18px">We’ll track your progress privately in this browser.</p>
+  </div>
+
+  <div id="lmsMain" class="lms-panel">
+    <div class="lms-nav" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="app.lmsNav('dashboard')" class="funnel-cta-outline">Dashboard</button>
+      <button onclick="app.lmsNav('learn')" class="funnel-cta-outline">Learn</button>
+      <button onclick="app.lmsNav('assessments')" class="funnel-cta-outline">Assessments</button>
+      <button onclick="app.lmsNav('mentor')" class="funnel-cta-outline">Mentor</button>
+    </div>
+    <div id="statsContent" style="margin-top:14px"></div>
+    <div id="learnContent" style="margin-top:14px"></div>
+    <div id="assessmentsContent" style="margin-top:14px"></div>
+    <div id="mentorMessages" style="margin-top:14px;min-height:140px"></div>
+    <input id="mentorInput" placeholder="Ask Mentor..." style="width:100%;margin-top:10px;padding:10px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px">
+  </div>
+</div>
+
+<script src="../lms/bootstrap.js"></script>
+<script src="../services/progress-engine.js"></script>
+<script src="../services/progress-persistence.js"></script>
+<script src="../services/mentor.js"></script>
+<script src="../services/mentor-llm.js"></script>
+<script src="../services/assessor.js"></script>
+<script src="../lms/router.js"></script>
+<script src="../lms/pages.js"></script>
+<script src="../services/store.js"></script>
+<script>
+(function(){
+  try {
+    const u = JSON.parse(localStorage.getItem('swt_user')||'null');
+    if (u && u.email) {
+      document.getElementById('emailGate').style.display = 'none';
+      document.getElementById('lmsUser').textContent = u.email;
+    }
+  } catch {}
+})();
+</script>
+</body>
+</html>

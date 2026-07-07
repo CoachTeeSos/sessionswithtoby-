@@ -1,4 +1,6 @@
 /* bootstrap.js — replaces inline app.js with modular LMS */
+// Google Analytics — matches prior property for SEO continuity
+(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-J9V395RPDH';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J9V395RPDH');})();
 window.app = {
   lmsNav(page) { LMS.nav(page); },
   lmsLogin() {
@@ -16,6 +18,15 @@ window.app = {
     const email = document.getElementById('gateEmail')?.value?.trim();
     if (!email) return;
     localStorage.setItem('swt_email_captured', JSON.stringify({email, ts: Date.now()}));
+    if (window.Store && window.Store.submitEmail) {
+      window.Store.submitEmail({
+        Name: email.split('@')[0] || email,
+        Email: email,
+        Plan: 'LMS Entry',
+        Status: 'Active',
+        Source: 'LMS Entry'
+      }).catch(()=>{});
+    }
     document.getElementById('emailGate').style.display = 'none';
   }
 };
