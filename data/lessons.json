@@ -1,58 +1,1458 @@
 [
   {
     "id": 1,
-    "courseId": 1,
     "title": "Posture & Alignment",
-    "level": "Beginner",
+    "course": "Technique",
     "durationMin": 10,
-    "outcomes": [
-      {
-        "id": "1-k1",
-        "statement": "Explain alignment stack and its effect on phonation",
-        "type": "knowledge",
-        "bloomLevel": "understand"
-      },
-      {
-        "id": "1-s1",
-        "statement": "Demonstrate wall drill alignment with consistent head/neck position",
-        "type": "skill",
-        "bloomLevel": "apply"
-      },
-      {
-        "id": "1-b1",
-        "statement": "Perform a daily posture check before singing",
-        "type": "behavior",
-        "bloomLevel": "apply"
-      }
-    ],
-    "steps": [
-      {
-        "type": "teach",
-        "title": "The Alignment Stack",
-        "body": "Stand against a wall: head touches lightly, shoulders touch, hips touch. Step away while maintaining this stacked position. Your ears should align over your shoulders, shoulders over hips, hips over ankles. The spine is long but not rigid. The jaw hangs free, not jutted forward.",
-        "timeMin": 2
-      },
-      {
-        "type": "exercise",
-        "title": "Wall Drill",
-        "body": "Stand in the alignment position against the wall for 60 seconds. Then step away and sing a comfortable note on 'oo'. Maintain the alignment. Do this 3 times. Notice: does your chin lift when you sing higher? That breaks alignment. Keep the head level.",
-        "timeMin": 3
-      },
-      {
-        "type": "practice",
-        "title": "Daily Posture Check",
-        "body": "Every morning for 7 days, do the wall drill before singing. After 7 days, you should be able to find alignment without the wall. Test: sing a scale from lowest comfortable to highest comfortable note. If you feel tension in your neck or jaw at any point, reset your alignment and start the scale again.",
-        "timeMin": 4
-      },
-      {
-        "type": "tip",
-        "title": "Pro Tip",
-        "body": "Professional singers check their alignment before every performance. Some use a mirror, some use the wall, some just feel it. The key is consistency — your body should default to this position without thinking.",
-        "timeMin": 1
-      }
-    ],
-    "assessmentRefs": ["posture-quiz"],
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
     "prereqIds": [],
-    "tags": ["technique","foundations"]
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Low Breathing & Appoggio",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Sustained Notes & Breath Control",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Vocal Onset: Clean Note Starts",
+    "course": "Technique",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Vocal Health & Hydration",
+    "course": "Technique",
+    "durationMin": 8,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "The Daily Warm-Up Routine",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "SOVT Exercises (Semi-Occluded Vocal Tract)",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Chest Voice: Your Power Register",
+    "course": "Theory",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Head Voice: Your Upper Register",
+    "course": "Theory",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Mixed Voice: Blending Registers",
+    "course": "Theory",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Time Signatures & Meter",
+    "course": "Theory",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Rhythm & Note Values",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Ear Training: Call & Response",
+    "course": "Ear Training",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Pitch Drift & Intonation Awareness",
+    "course": "Ear Training",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Microphone Technique Fundamentals",
+    "course": "Performance",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Overcoming Stage Fright",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Song Structure: Verse, Chorus, Bridge",
+    "course": "Theory",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 18,
+    "title": "The Discipline of Daily Practice",
+    "course": "Mindset",
+    "durationMin": 8,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "mindset"
+    ]
+  },
+  {
+    "id": 19,
+    "title": "SOVT Advanced: Straw Phonation",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Chest Voice: Your Power Register",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Head Voice: Your Upper Register",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Mixed Voice: Blending Registers",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Vowel Modification (Vowel Migration)",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 24,
+    "title": "Resonance & Placement",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Nasality: When It Helps, When It Hurts",
+    "course": "Technique",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 26,
+    "title": "Vibrato: Natural Oscillation",
+    "course": "Technique",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Articulation: Consonants & Diction",
+    "course": "Technique",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 28,
+    "title": "Intervals: 2nds & 3rds",
+    "course": "Theory",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Triads: Major, Minor, Diminished",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 30,
+    "title": "Rhythm: 16th Notes & Syncopation",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 31,
+    "title": "Circle of Fifths",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Chord Quality Recognition by Ear",
+    "course": "Ear Training",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Harmonic Listening: Hearing the Chords",
+    "course": "Ear Training",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 34,
+    "title": "Stage Presence & Body Language",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Emotional Connection to Lyrics",
+    "course": "Performance",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 36,
+    "title": "Worship Leading: Shepherding a Room",
+    "course": "Performance",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 37,
+    "title": "Afrobeats Vocal Style",
+    "course": "Style-Specific",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "style-specific"
+    ]
+  },
+  {
+    "id": 38,
+    "title": "Praise & Worship Vocal Delivery",
+    "course": "Style-Specific",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "style-specific"
+    ]
+  },
+  {
+    "id": 39,
+    "title": "Building Your Personal Brand",
+    "course": "Business",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 40,
+    "title": "Advanced SOVT: Pressure Exercises",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 41,
+    "title": "Belting: Power Without Pain",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 42,
+    "title": "Pharyngeal Voice (Twang)",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 43,
+    "title": "Vocal Agility: Scales & Arpeggios",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 44,
+    "title": "Registration: Understanding Your Passaggio",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 45,
+    "title": "Messa di Voce: Dynamic Control",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 46,
+    "title": "Riffs & Runs: Melismatic Singing",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 47,
+    "title": "Minor Scales: Natural, Harmonic, Melodic",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 48,
+    "title": "7th Chords: Maj7, min7, Dom7",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 49,
+    "title": "Compound Time: 6/8, 9/8, 12/8",
+    "course": "Theory",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 50,
+    "title": "Modulation: Changing Keys Mid-Song",
+    "course": "Theory",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 51,
+    "title": "Intervals: 4ths, 5ths & 6ths",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 52,
+    "title": "Transcription: Writing Down What You Hear",
+    "course": "Ear Training",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 53,
+    "title": "Relative Pitch Development",
+    "course": "Ear Training",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 54,
+    "title": "In-Ear Monitors: Live Performance Setup",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 55,
+    "title": "Visual Storytelling in Performance",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 56,
+    "title": "Setlist Design: Crafting a Journey",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 57,
+    "title": "R&B Vocal Styling: Runs & Soul",
+    "course": "Style-Specific",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "style-specific"
+    ]
+  },
+  {
+    "id": 58,
+    "title": "Gospel Vocal Techniques",
+    "course": "Style-Specific",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "style-specific"
+    ]
+  },
+  {
+    "id": 59,
+    "title": "Building a Digital Portfolio",
+    "course": "Business",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 60,
+    "title": "Advanced Melisma: Complex Runs",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 61,
+    "title": "Vocal Distortion: Grit & Rasp Safely",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 62,
+    "title": "Whistle Register",
+    "course": "Technique",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 63,
+    "title": "Vocal Stamina & Endurance",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 64,
+    "title": "Acoustic Tuning: Singing in Tune with Instruments",
+    "course": "Ear Training",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 65,
+    "title": "Dynamic Tapering: Ending Songs with Control",
+    "course": "Technique",
+    "durationMin": 10,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 66,
+    "title": "Vocal Rehabilitation: Recovering from Strain",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 67,
+    "title": "Modal Concepts: Mixolydian, Dorian, Phrygian",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 68,
+    "title": "Polyrhythms & African Rhythmic Concepts",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 69,
+    "title": "Extended Chords: 9ths, 11ths, 13ths",
+    "course": "Theory",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 70,
+    "title": "Microtonal Singing: Blue Notes & Pitch Bends",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 71,
+    "title": "Advanced Modulation: Modulation Types",
+    "course": "Theory",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "theory"
+    ]
+  },
+  {
+    "id": 72,
+    "title": "Aural Polyphony: Hearing Multiple Lines",
+    "course": "Ear Training",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 73,
+    "title": "Chord Progression Dictation",
+    "course": "Ear Training",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "ear training"
+    ]
+  },
+  {
+    "id": 74,
+    "title": "Microphone Artistry: Condenser vs Dynamic",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 75,
+    "title": "Camera Artistry: Live-Stream & TV Performance",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 76,
+    "title": "Spontaneous Flow: Prophetic Song Leading",
+    "course": "Performance",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 77,
+    "title": "Audience Engagement Psychology",
+    "course": "Performance",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 78,
+    "title": "Vocal Arranging for Ensembles (SATB)",
+    "course": "Performance",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 79,
+    "title": "Hybrid Styling: Classical Tone Meets CCM Belt",
+    "course": "Style-Specific",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "style-specific"
+    ]
+  },
+  {
+    "id": 80,
+    "title": "Neo-Soul Styling: Microtonal Drifts & Lazy Phrasing",
+    "course": "Style-Specific",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "style-specific"
+    ]
+  },
+  {
+    "id": 81,
+    "title": "Cinematic & Theatrical Belting",
+    "course": "Style-Specific",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "style-specific"
+    ]
+  },
+  {
+    "id": 82,
+    "title": "Vocal Healing: Somatic Pedagogy",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 83,
+    "title": "Vocal Psychodynamics: Overcoming Passaggio Fear",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 84,
+    "title": "Anatomy of the Voice: Advanced Laryngeal Physiology",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 85,
+    "title": "Acoustics & Formants: The Science of Resonance",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 86,
+    "title": "Aerodynamics: Subglottic Pressure vs Glottal Resistance",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 87,
+    "title": "Contract Law: Splitting Royalties",
+    "course": "Business",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 88,
+    "title": "Studio Business: Session Vocalist Workflow",
+    "course": "Business",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 89,
+    "title": "Structuring High-End Coaching Programs",
+    "course": "Business",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 90,
+    "title": "Music Distribution & Monetization",
+    "course": "Business",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 91,
+    "title": "Advanced Studio Tech: Vocal Production & Mixing",
+    "course": "Business",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 92,
+    "title": "Sustainable Artist Ecosystem: Longevity Strategy",
+    "course": "Business",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 93,
+    "title": "Vocal Pedagogy: The Art of Diagnosis",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 94,
+    "title": "Designing Custom Curricula for Diverse Students",
+    "course": "Technique",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 95,
+    "title": "Ethics in Vocal Coaching",
+    "course": "Mindset",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "mindset"
+    ]
+  },
+  {
+    "id": 96,
+    "title": "Masterclass Blueprint: Teaching Groups Effectively",
+    "course": "Technique",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "technique"
+    ]
+  },
+  {
+    "id": 97,
+    "title": "Advanced Lesson Management & Client Tracking",
+    "course": "Business",
+    "durationMin": 12,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 98,
+    "title": "Capstone Project: Selecting Your Masterpiece Track",
+    "course": "Performance",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 99,
+    "title": "The Final Capstone Performance",
+    "course": "Performance",
+    "durationMin": 20,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "performance"
+    ]
+  },
+  {
+    "id": 100,
+    "title": "Graduation & Beyond: Your Artist Roadmap",
+    "course": "Business",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "business"
+    ]
+  },
+  {
+    "id": 101,
+    "title": "The Accountability Framework: How to Stay Consistent in an Age of Distraction",
+    "course": "Mindset",
+    "durationMin": 20,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "mindset"
+    ]
+  },
+  {
+    "id": 102,
+    "title": "Deep Work for Singers: Crafting Your Practice Like a Pro Instrumentalist",
+    "course": "Mindset",
+    "durationMin": 18,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "mindset"
+    ]
+  },
+  {
+    "id": 110,
+    "title": "BandLab 101: Setting Up & Your First Project",
+    "course": "BandLab",
+    "durationMin": 15,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 111,
+    "title": "Recording Vocals: Getting Clean Sound Every Time",
+    "course": "BandLab",
+    "durationMin": 20,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 112,
+    "title": "The Multitrack Editor: Building Your First Beat",
+    "course": "BandLab",
+    "durationMin": 20,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 113,
+    "title": "Editing: Cut, Copy, Move, and Fix Your Recordings",
+    "course": "BandLab",
+    "durationMin": 18,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 114,
+    "title": "Mixing 101: Volume, Panning & EQ",
+    "course": "BandLab",
+    "durationMin": 25,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 115,
+    "title": "Effects: Reverb, Delay, Compression & More",
+    "course": "BandLab",
+    "durationMin": 25,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 116,
+    "title": "Recording External Instruments & MIDI",
+    "course": "BandLab",
+    "durationMin": 20,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 117,
+    "title": "Mixing 200: Advanced Techniques & Automation",
+    "course": "BandLab",
+    "durationMin": 25,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 118,
+    "title": "Mastering: Making Your Song Release-Ready",
+    "course": "BandLab",
+    "durationMin": 20,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
+  },
+  {
+    "id": 119,
+    "title": "Publishing: From BandLab to Spotify (Full Distribution)",
+    "course": "BandLab",
+    "durationMin": 20,
+    "outcomes": [],
+    "steps": [],
+    "assessmentRefs": [],
+    "prereqIds": [],
+    "tags": [
+      "bandlab"
+    ]
   }
 ]
