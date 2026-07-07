@@ -35,7 +35,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Posture & Alignment. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 2,
@@ -80,7 +104,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Low Breathing & Appoggio. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 3,
@@ -120,7 +168,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Sustained Notes & Breath Control. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 4,
@@ -160,7 +232,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Onset: Clean Note Starts. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 5,
@@ -198,7 +294,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Health & Hydration. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 6,
@@ -239,7 +359,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: The Daily Warm-Up Routine. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 7,
@@ -284,7 +428,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: SOVT Exercises (Semi-Occluded Vocal Tract). Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 8,
@@ -324,7 +492,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Chest Voice: Your Power Register. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 9,
@@ -364,7 +556,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Head Voice: Your Upper Register. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 10,
@@ -405,7 +621,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Mixed Voice: Blending Registers. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 11,
@@ -448,7 +688,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Time Signatures & Meter. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 12,
@@ -493,7 +757,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Rhythm & Note Values. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 13,
@@ -536,7 +824,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Ear Training: Call & Response. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 14,
@@ -581,7 +893,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Pitch Drift & Intonation Awareness. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 15,
@@ -626,7 +962,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Microphone Technique Fundamentals. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 16,
@@ -669,7 +1029,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Overcoming Stage Fright. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 17,
@@ -712,7 +1096,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Song Structure: Verse, Chorus, Bridge. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 18,
@@ -755,7 +1163,31 @@
     "tags": [
       "mindset"
     ],
-    "courseId": 5
+    "courseId": 5,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: The Discipline of Daily Practice. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 19,
@@ -798,7 +1230,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: SOVT Advanced: Straw Phonation. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 20,
@@ -843,7 +1299,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Chest Voice: Your Power Register. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 21,
@@ -888,7 +1368,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Head Voice: Your Upper Register. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 22,
@@ -929,7 +1433,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Mixed Voice: Blending Registers. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 23,
@@ -975,7 +1503,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vowel Modification (Vowel Migration). Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 24,
@@ -1015,7 +1567,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Resonance & Placement. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 25,
@@ -1055,7 +1631,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Nasality: When It Helps, When It Hurts. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 26,
@@ -1095,7 +1695,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vibrato: Natural Oscillation. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 27,
@@ -1135,7 +1759,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Articulation: Consonants & Diction. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 28,
@@ -1180,7 +1828,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Intervals: 2nds & 3rds. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 29,
@@ -1220,7 +1892,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Triads: Major, Minor, Diminished. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 30,
@@ -1260,7 +1956,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Rhythm: 16th Notes & Syncopation. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 31,
@@ -1300,7 +2020,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Circle of Fifths. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 32,
@@ -1340,7 +2084,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Chord Quality Recognition by Ear. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 33,
@@ -1380,7 +2148,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Harmonic Listening: Hearing the Chords. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 34,
@@ -1420,7 +2212,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Stage Presence & Body Language. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 35,
@@ -1460,7 +2276,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Emotional Connection to Lyrics. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 36,
@@ -1495,7 +2335,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Worship Leading: Shepherding a Room. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 37,
@@ -1534,7 +2398,31 @@
     "prereqIds": [],
     "tags": [
       "style-specific"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Afrobeats Vocal Style. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 38,
@@ -1573,7 +2461,31 @@
     "prereqIds": [],
     "tags": [
       "style-specific"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Praise & Worship Vocal Delivery. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 39,
@@ -1613,7 +2525,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Building Your Personal Brand. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 40,
@@ -1653,7 +2589,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Advanced SOVT: Pressure Exercises. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 41,
@@ -1688,7 +2648,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Belting: Power Without Pain. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 42,
@@ -1728,7 +2712,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Pharyngeal Voice (Twang). Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 43,
@@ -1768,7 +2776,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Agility: Scales & Arpeggios. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 44,
@@ -1808,7 +2840,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Registration: Understanding Your Passaggio. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 45,
@@ -1848,7 +2904,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Messa di Voce: Dynamic Control. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 46,
@@ -1888,7 +2968,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Riffs & Runs: Melismatic Singing. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 47,
@@ -1933,7 +3037,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Minor Scales: Natural, Harmonic, Melodic. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 48,
@@ -1973,7 +3101,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: 7th Chords: Maj7, min7, Dom7. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 49,
@@ -2013,7 +3165,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Compound Time: 6/8, 9/8, 12/8. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 50,
@@ -2053,7 +3229,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Modulation: Changing Keys Mid-Song. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 51,
@@ -2098,7 +3298,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Intervals: 4ths, 5ths & 6ths. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 52,
@@ -2138,7 +3362,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Transcription: Writing Down What You Hear. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 53,
@@ -2178,7 +3426,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Relative Pitch Development. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 54,
@@ -2218,7 +3490,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: In-Ear Monitors: Live Performance Setup. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 55,
@@ -2258,7 +3554,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Visual Storytelling in Performance. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 56,
@@ -2298,7 +3618,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Setlist Design: Crafting a Journey. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 57,
@@ -2337,7 +3681,31 @@
     "prereqIds": [],
     "tags": [
       "style-specific"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: R&B Vocal Styling: Runs & Soul. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 58,
@@ -2376,7 +3744,31 @@
     "prereqIds": [],
     "tags": [
       "style-specific"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Gospel Vocal Techniques. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 59,
@@ -2416,7 +3808,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Building a Digital Portfolio. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 60,
@@ -2456,7 +3872,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Advanced Melisma: Complex Runs. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 61,
@@ -2496,7 +3936,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Distortion: Grit & Rasp Safely. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 62,
@@ -2536,7 +4000,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Whistle Register. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 63,
@@ -2576,7 +4064,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Stamina & Endurance. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 64,
@@ -2616,7 +4128,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Acoustic Tuning: Singing in Tune with Instruments. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 65,
@@ -2656,7 +4192,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Dynamic Tapering: Ending Songs with Control. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 66,
@@ -2696,7 +4256,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Rehabilitation: Recovering from Strain. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 67,
@@ -2741,7 +4325,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Modal Concepts: Mixolydian, Dorian, Phrygian. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 68,
@@ -2781,7 +4389,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Polyrhythms & African Rhythmic Concepts. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 69,
@@ -2821,7 +4453,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Extended Chords: 9ths, 11ths, 13ths. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 70,
@@ -2861,7 +4517,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Microtonal Singing: Blue Notes & Pitch Bends. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 71,
@@ -2901,7 +4581,31 @@
     "tags": [
       "theory"
     ],
-    "courseId": 2
+    "courseId": 2,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Advanced Modulation: Modulation Types. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 72,
@@ -2941,7 +4645,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Aural Polyphony: Hearing Multiple Lines. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 73,
@@ -2981,7 +4709,31 @@
     "tags": [
       "ear training"
     ],
-    "courseId": 3
+    "courseId": 3,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Chord Progression Dictation. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 74,
@@ -3021,7 +4773,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Microphone Artistry: Condenser vs Dynamic. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 75,
@@ -3061,7 +4837,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Camera Artistry: Live-Stream & TV Performance. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 76,
@@ -3101,7 +4901,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Spontaneous Flow: Prophetic Song Leading. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 77,
@@ -3141,7 +4965,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Audience Engagement Psychology. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 78,
@@ -3181,7 +5029,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Arranging for Ensembles (SATB). Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 79,
@@ -3220,7 +5092,31 @@
     "prereqIds": [],
     "tags": [
       "style-specific"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Hybrid Styling: Classical Tone Meets CCM Belt. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 80,
@@ -3259,7 +5155,31 @@
     "prereqIds": [],
     "tags": [
       "style-specific"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Neo-Soul Styling: Microtonal Drifts & Lazy Phrasing. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 81,
@@ -3298,7 +5218,31 @@
     "prereqIds": [],
     "tags": [
       "style-specific"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Cinematic & Theatrical Belting. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 82,
@@ -3338,7 +5282,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Healing: Somatic Pedagogy. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 83,
@@ -3378,7 +5346,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Psychodynamics: Overcoming Passaggio Fear. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 84,
@@ -3418,7 +5410,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Anatomy of the Voice: Advanced Laryngeal Physiology. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 85,
@@ -3453,7 +5469,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Acoustics & Formants: The Science of Resonance. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 86,
@@ -3493,7 +5533,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Aerodynamics: Subglottic Pressure vs Glottal Resistance. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 87,
@@ -3533,7 +5597,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Contract Law: Splitting Royalties. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 88,
@@ -3573,7 +5661,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Studio Business: Session Vocalist Workflow. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 89,
@@ -3613,7 +5725,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Structuring High-End Coaching Programs. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 90,
@@ -3653,7 +5789,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Music Distribution & Monetization. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 91,
@@ -3693,7 +5853,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Advanced Studio Tech: Vocal Production & Mixing. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 92,
@@ -3733,7 +5917,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Sustainable Artist Ecosystem: Longevity Strategy. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 93,
@@ -3773,7 +5981,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Vocal Pedagogy: The Art of Diagnosis. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 94,
@@ -3813,7 +6045,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Designing Custom Curricula for Diverse Students. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 95,
@@ -3853,7 +6109,31 @@
     "tags": [
       "mindset"
     ],
-    "courseId": 5
+    "courseId": 5,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Ethics in Vocal Coaching. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 96,
@@ -3893,7 +6173,31 @@
     "tags": [
       "technique"
     ],
-    "courseId": 1
+    "courseId": 1,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Masterclass Blueprint: Teaching Groups Effectively. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 97,
@@ -3933,7 +6237,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Advanced Lesson Management & Client Tracking. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 98,
@@ -3973,7 +6301,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: Capstone Project: Selecting Your Masterpiece Track. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 99,
@@ -4013,7 +6365,31 @@
     "tags": [
       "performance"
     ],
-    "courseId": 4
+    "courseId": 4,
+    "performanceTask": {
+      "type": "audio",
+      "prompt": "Record a 30-60s demonstration of: The Final Capstone Performance. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 100,
@@ -4048,7 +6424,31 @@
     "tags": [
       "business"
     ],
-    "courseId": 6
+    "courseId": 6,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Graduation & Beyond: Your Artist Roadmap. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 101,
@@ -4098,7 +6498,31 @@
     "tags": [
       "mindset"
     ],
-    "courseId": 5
+    "courseId": 5,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: The Accountability Framework: How to Stay Consistent in an Age of Distraction. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 102,
@@ -4138,7 +6562,31 @@
     "tags": [
       "mindset"
     ],
-    "courseId": 5
+    "courseId": 5,
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Deep Work for Singers: Crafting Your Practice Like a Pro Instrumentalist. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 110,
@@ -4172,7 +6620,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: BandLab 101: Setting Up & Your First Project. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 111,
@@ -4216,7 +6688,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Recording Vocals: Getting Clean Sound Every Time. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 112,
@@ -4250,7 +6746,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: The Multitrack Editor: Building Your First Beat. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 113,
@@ -4289,7 +6809,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Editing: Cut, Copy, Move, and Fix Your Recordings. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 114,
@@ -4333,7 +6877,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Mixing 101: Volume, Panning & EQ. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 115,
@@ -4377,7 +6945,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Effects: Reverb, Delay, Compression & More. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 116,
@@ -4411,7 +7003,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Recording External Instruments & MIDI. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 117,
@@ -4450,7 +7066,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Mixing 200: Advanced Techniques & Automation. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 118,
@@ -4484,7 +7124,31 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Mastering: Making Your Song Release-Ready. Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   },
   {
     "id": 119,
@@ -4528,6 +7192,30 @@
     "prereqIds": [],
     "tags": [
       "bandlab"
-    ]
+    ],
+    "performanceTask": {
+      "type": "written",
+      "prompt": "Record a 30-60s demonstration of: Publishing: From BandLab to Spotify (Full Distribution). Apply what was taught in lesson steps.",
+      "rubric": [
+        {
+          "criterion": "Accuracy",
+          "weight": 0.4
+        },
+        {
+          "criterion": "Consistency",
+          "weight": 0.3
+        },
+        {
+          "criterion": "Application of lesson concepts",
+          "weight": 0.3
+        }
+      ]
+    },
+    "srs": {
+      "intervalDays": 1,
+      "easeFactor": 2.5,
+      "reps": 0,
+      "lapses": 0
+    }
   }
 ]
