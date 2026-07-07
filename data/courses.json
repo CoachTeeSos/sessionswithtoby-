@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "Foundations of Voice",
+    "level": "Beginner",
+    "lessons": [1,2,3],
+    "weeks": 4,
+    "credits": 3,
+    "outcomeSummary": [
+      {"id":"c1-k1","statement":"Demonstrate basic posture, breathing, and steady phonation","type":"skill"},
+      {"id":"c1-b1","statement":"Complete daily warm-ups without compensations","type":"behavior"}
+    ],
+    "prereqCourseIds": [],
+    "corequisites": [],
+    "musicianshipModules": ["vocal-health-basics"],
+    "performanceRequirement": "Submit 2 recorded scales with sustained notes"
+  }
+]

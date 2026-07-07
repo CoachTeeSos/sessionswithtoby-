@@ -1,0 +1,35 @@
+{
+  "vocalDNA": [],
+  "lessonQuizzes": [
+    {
+      "ref": "posture-quiz",
+      "type": "knowledge",
+      "items": [
+        {
+          "id": "pq1",
+          "prompt": "Which point should align directly over the ankles?",
+          "options": ["Nose","Ears","Shoulders","Hips"],
+          "rubricRef": "posture-rubric"
+        }
+      ],
+      "passing": {
+        "score": 0.8,
+        "retryPolicy": "immediate"
+      }
+    }
+  ],
+  "performanceTasks": [
+    {
+      "id": "sustained-note-1",
+      "title": "20-second sustained note",
+      "criteria": [
+        "Pitch stays within 10 cents",
+        "No volume fade > 30%",
+        "Ribs remain expanded"
+      ],
+      "submissionType": "audio",
+      "maxAttempts": 3,
+      "feedbackWindowDays": 3
+    }
+  ]
+}
