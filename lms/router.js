@@ -9,19 +9,17 @@ const LMS = {
   },
   show(page) {
     this.current = page;
-    document.querySelectorAll('[data-page]').forEach(el => el.classList.add('hidden'));
-    const root = document.querySelector('[data-page="' + page + '"]');
-    if (root) root.classList.remove('hidden');
-    if (page === 'learn') this.renderLearn();
-    if (page === 'dashboard') this.renderDashboard();
-    if (page === 'mentor') this.renderMentor();
-    if (page === 'practice') this.renderPractice();
-    if (page === 'assessments') this.renderAssessments();
-  },
-  nav(page) { this.show(page); },
-  renderLearn() {
-    const container = document.getElementById('learnContent');
+    const container = document.getElementById('lmsMain');
     if (!container) return;
+    if (page === 'learn') this.renderLearn(container);
+    if (page === 'dashboard') this.renderDashboard(container);
+    if (page === 'mentor') this.renderMentor(container);
+    if (page === 'practice') this.renderPractice(container);
+    if (page === 'assessments') this.renderAssessments(container);
+    if (page === 'community') this.renderCommunity(container);
+    if (page === 'coach') this.renderCoach(container);
+  },
+  renderLearn(container) {
     const lessons = Store.lessons;
     const progress = Progress.load();
     container.innerHTML = lessons.map(l => {
@@ -34,29 +32,37 @@ const LMS = {
         '</div>';
     }).join('');
   },
-  startLesson(id) {
-    if (!Progress.canAccess(id)) return;
-    Progress.mark(id, {status:'started'});
-    this.show('learn');
-  },
-  renderDashboard() {
+  renderDashboard(container) {
     const progress = Progress.load();
     const xp = Progress.xpFor(progress);
     const completed = Object.values(progress).filter(s => s.status === 'passed' || s.status === 'mastered').length;
-    const el = document.getElementById('statsContent');
-    if (!el) return;
-    el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">' +
+    container.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">' +
       '<div><div style="font-size:1.5rem;font-weight:800">' + xp + '</div><div style="font-size:0.8rem;color:#6B7280">XP</div></div>' +
       '<div><div style="font-size:1.5rem;font-weight:800">' + completed + '</div><div style="font-size:0.8rem;color:#6B7280">Lessons done</div></div>' +
       '<div><div style="font-size:1.5rem;font-weight:800">' + Store.lessons.length + '</div><div style="font-size:0.8rem;color:#6B7280">Lessons total</div></div>' +
       '</div>';
   },
-  renderMentor() {
-    const wrap = document.getElementById('mentorMessages');
-    if (!wrap) return;
-    wrap.innerHTML = '<div class="mentor-msg mentor-msg-bot">What do you want to work on today?</div>';
-    const input = document.getElementById('mentorInput');
-    if (!input) return;
+  renderMentor(container) {
+    container.innerHTML = '<div data-mentor id="mentorMessages" style="min-height:140px"><div class="mentor-msg mentor-msg-bot">What do you want to work on today?</div></div>' +
+      '<input data-mentor-input id="mentorInput" placeholder="Ask Mentor..." style="width:100%;margin-top:10px;padding:10px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px">';
+    this.wireMentor(container);
+  },
+  renderPractice(container) {
+    container.innerHTML = '<div style="padding:12px;border-radius:8px;background:#F3F4F6"><div style="font-weight:700">Sustained Note</div><div style="font-size:0.85rem">Sing a comfortable note for 20 seconds while keeping ribs expanded.</div></div>';
+  },
+  renderAssessments(container) {
+    container.innerHTML = '<div><div style="font-weight:700">Lesson Quiz</div><div style="font-size:0.85rem">Passing score: 80%. Retries: immediate.</div></div>';
+  },
+  renderCommunity(container) {
+    container.innerHTML = '<div><div style="font-weight:700">Community</div><div style="font-size:0.85rem">Forum and peer feedback coming next.</div></div>';
+  },
+  renderCoach(container) {
+    container.innerHTML = '<div><div style="font-weight:700">Coach</div><div style="font-size:0.85rem">Scheduling and notes coming next.</div></div>';
+  },
+  wireMentor(root) {
+    const wrap = root.querySelector('[data-mentor]');
+    const input = root.querySelector('[data-mentor-input]');
+    if (!wrap || !input) return;
     input.focus();
     input.onkeydown = (e) => {
       if (e.key !== 'Enter') return;
@@ -68,16 +74,6 @@ const LMS = {
         wrap.scrollTop = wrap.scrollHeight;
       }, 200);
     };
-  },
-  renderPractice() {
-    const el = document.getElementById('practiceContent');
-    if (!el) return;
-    el.innerHTML = '<div style="padding:12px;border-radius:8px;background:#F3F4F6"><div style="font-weight:700">Sustained Note</div><div style="font-size:0.85rem">Sing a comfortable note for 20 seconds while keeping ribs expanded.</div></div>';
-  },
-  renderAssessments() {
-    const el = document.getElementById('assessmentsContent');
-    if (!el) return;
-    el.innerHTML = '<div><div style="font-weight:700">Lesson Quiz</div><div style="font-size:0.85rem">Passing score: 80%. Retries: immediate.</div></div>';
   }
 };
 window.LMS = LMS;
