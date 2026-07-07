@@ -30,7 +30,12 @@
         "body": "Professional singers check their alignment before every performance. Some use a mirror, some use the wall, some just feel it. The key is consistency \u2014 your body should default to this position without thinking."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "vocal-dna",
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -97,7 +102,12 @@
         "body": "The most common error: lifting the shoulders on inhale. This wastes air and creates neck tension. If your shoulders rise, you are breathing from the chest, not the belly. Reset, drop the shoulders, breathe again."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "vocal-dna",
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       1
     ],
@@ -161,7 +171,12 @@
         "body": "During sustained notes, periodically check: are my ribs still expanded? Most singers collapse around 60% through the note. If you feel your ribs coming in, you have 2-3 seconds of air left \u2014 end the note there rather than pushing to empty."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "vocal-dna",
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       2
     ],
@@ -225,7 +240,11 @@
         "body": "Breathy onset = you run out of air fast. Glottal onset = vocal fatigue and potential damage over months. Clean onset = efficient, healthy, and your tone sounds professional from day one."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       3
     ],
@@ -289,7 +308,11 @@
         "body": "Stop singing and rest if: you feel pain in your throat, your voice cuts out unexpectedly, you have hoarseness that lasts more than 2 days, or you feel a 'lump' when singing. These are signs of strain or damage. If hoarseness persists beyond 3 days, see an ENT (ear-nose-throat doctor) who specializes in voice."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -351,7 +374,11 @@
         "body": "When you only have 5 minutes: 1) Hiss for 1 min (breath support). 2) Lip trills sliding up and down your range for 2 min. 3) Hum a familiar song melody for 1 min. 4) Sing one verse of your song on 'ng' (closed nose sound) for 1 min. This is not a full warm-up but it prevents singing on completely cold folds."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       4,
       5
@@ -421,7 +448,11 @@
         "body": "Thinner straws (3-4mm) create more back-pressure \u2014 good for finding head voice. Thicker straws (6-8mm) create less resistance \u2014 good for chest voice and general warm-up. Start with a standard drinking straw (6mm). If you cannot find a straw, a lip trill works similarly."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       6
     ],
@@ -485,7 +516,10 @@
         "body": "Chest voice does not have to be loud. You can sing chest voice softly \u2014 it just has a different quality than head voice. Practice singing the same note at 3 volumes: soft, medium, loud. All three should be chest voice. If loud chest voice strains, you are pushing, not supporting."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [
       6
     ],
@@ -549,7 +583,10 @@
         "body": "Many singers avoid head voice because it feels 'weak'. This is because they are not supporting it. Head voice with proper breath support is powerful and rings clearly. Think of opera sopranos \u2014 that is supported head voice at full power."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [
       8
     ],
@@ -613,7 +650,10 @@
         "body": "You cannot hear your own mix voice accurately \u2014 what sounds 'mixed' to you may sound like head voice to others. Record yourself frequently. If your high notes sound clear and supported (not breathy, not shouty), you are mixing."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [
       9,
       10
@@ -683,7 +723,10 @@
         "body": "Most pop, rock, hip-hop, and R&B is in 4/4. Most ballads and waltzes are in 3/4 or 6/8. Odd meters (5/4, 7/4) are rare in pop but common in prog rock and some gospel. When in doubt, find the snare drum \u2014 it usually hits on beats 2 and 4 in 4/4."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -750,7 +793,10 @@
         "body": "Professional singers internalize the quarter note as their pulse. When you hear a song, tap your foot at the quarter note level. Everything else (eighths, sixteenths, syncopation) is a subdivision of that pulse. If you lose the quarter note, you lose the groove."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [
       11
     ],
@@ -819,7 +865,10 @@
         "body": "If you cannot sing it back, you did not truly hear it. The ear-to-voice loop is the fastest way to improve pitch accuracy. Do 10 minutes of call & response daily \u2014 it replaces hours of mechanical scale practice because it trains pitch, rhythm, memory, and vocal control simultaneously."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -886,7 +935,10 @@
         "body": "Singers in professional choirs and studio sessions monitor their pitch through one ear (using a single earbud). This lets you hear yourself against the reference. If you do not have a monitor, record every practice session. You cannot fix what you cannot hear."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [
       13
     ],
@@ -955,7 +1007,10 @@
         "body": "Never cup the mic head with both hands \u2014 it changes the pickup pattern and causes feedback. Hold the mic by the body, not the grille. If you are using a stand, position it at chin height and step back for loud sections. The best mic technique is invisible \u2014 the audience should not notice you using it."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [
       14
     ],
@@ -1024,7 +1079,10 @@
         "body": "The audience wants you to succeed. They are not judging you \u2014 they are hoping you will move them. Focus on the message of the song, not on yourself. When you shift attention from 'How am I doing?' to 'How can I serve this room?', the fear dissolves. Every great performer still gets nervous \u2014 they just use it."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -1091,7 +1149,10 @@
         "body": "When learning a new song, identify the structure FIRST before learning melody or lyrics. Knowing 'this is the bridge' tells you 'this should feel different.' It also helps you memorize \u2014 you remember 4 sections, not 3 minutes of continuous music. Professional session singers do this automatically."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -1158,7 +1219,9 @@
         "body": "The best time to practice is the same time every day \u2014 ideally morning, before the day's fatigue accumulates. Your voice is freshest after rest. If you can only practice at night, do gentle warm-ups first (your folds are swollen from talking all day). Never skip the warm-up \u2014 it is like stretching before exercise."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2"
+    ],
     "prereqIds": [],
     "tags": [
       "mindset"
@@ -1225,7 +1288,11 @@
         "body": "Singers with vocal nodules, polyps, or chronic strain use straw phonation as therapy (the LMRVT protocol). If your voice feels tired or hoarse, 10 minutes of straw phonation can restore it faster than silence. Keep a straw in your bag \u2014 it is the cheapest vocal health tool available."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -1292,7 +1359,11 @@
         "body": "The biggest chest voice mistake is pushing it too high. When you feel strain, tightness, or your neck veins pop, you have gone too far. The solution is not more power \u2014 it is transitioning to mix voice. Chest voice should feel easy and conversational, even at performance volume. If it hurts, stop."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       6
     ],
@@ -1361,7 +1432,11 @@
         "body": "Many singers avoid head voice because it feels weak. But head voice is not weak \u2014 it is efficient. With proper breath support and cord closure, head voice can be powerful and projected. The key is appoggio: steady air pressure from below, not squeezing from above. Think 'support from the belly, release in the throat.'"
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       8
     ],
@@ -1425,7 +1500,11 @@
         "body": "The 'bratty nay' exercise is the fastest way to find mix. The nasality keeps the cords together while the pitch rises. Other helpful sounds: 'mum,' 'gug,' 'bub.' These consonants create back-pressure that encourages mix. Once you feel it on these sounds, transfer to open vowels (ah, oh, ee)."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       9,
       10
@@ -1495,7 +1574,11 @@
         "body": "Vowel modification is not cheating \u2014 it is acoustics. The first and second formants of your vocal tract must align with the harmonics of your voice. On high notes, the only way to achieve this is by changing vowel shape. Every professional singer modifies. The art is doing it so the audience does not notice."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [
       10,
       22
@@ -1562,7 +1645,11 @@
         "body": "Resonance is not something you 'do' \u2014 it is something you 'allow.' The more open and relaxed your throat, the more resonance you get. Tension kills resonance. If you feel strain, you are pushing, not resonating. Think 'space in the throat, buzz in the face.' The yawn feeling opens the throat; the hum feeling places it forward."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -1626,7 +1713,11 @@
         "body": "Country and musical theater singers use MORE nasality as a stylistic choice. Pop and R&B singers use LESS. Gospel sits in the middle. Listen to your genre's reference singers and notice their nasal balance. Imitate it. Nasality is a tool \u2014 use it intentionally, not accidentally."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -1690,7 +1781,11 @@
         "body": "Do not try to 'do' vibrato. If you manually wobble your jaw, shake your larynx, or pulse your diaphragm, it sounds artificial. Natural vibrato comes from a free, supported voice. Focus on breath support and throat release \u2014 vibrato appears as a byproduct. If you have no vibrato, the fix is almost always: more breath support, less tension."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -1754,7 +1849,11 @@
         "body": "In fast passages, simplify consonants. You do not need a full 't' on every word \u2014 a light tap is enough. In slow, emotional passages, consonants can be more deliberate and expressive. The 'd' in 'God' can be a moment of emphasis. The 's' in 'silence' can be extended for effect. Diction serves the emotion."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -1823,7 +1922,10 @@
         "body": "Do not rely on reference songs ('Twinkle Twinkle' for perfect 5th). They work for beginners but fail in different keys. Instead, learn the SOUND of each interval \u2014 its emotional quality. A major 3rd feels bright. A minor 3rd feels dark. A tritone feels unstable. This is relative pitch."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -1887,7 +1989,10 @@
         "body": "Every song you know is built from triads. The I chord (tonic) is the home chord. The V chord (dominant) creates tension. The IV chord (subdominant) is the departure. In C major: I = C, V = G, IV = F. These three chords cover 80% of pop songs."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -1951,7 +2056,10 @@
         "body": "If you are always on the beat, you sound robotic. If you are always off the beat, you sound lost. The art is knowing WHERE the beat is and choosing to land slightly before (urgency) or slightly after (laid-back). Great rhythm is not about precision \u2014 it is about feel."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -2015,7 +2123,10 @@
         "body": "The circle of fifths is not just theory \u2014 it is a songwriting tool. The most common chord progression (I-V-vi-IV) works in ANY key. The most common modulation is to the key one step clockwise (up a 5th) or to the relative minor. Learn the circle and you can play in any key."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -2079,7 +2190,10 @@
         "body": "Diminished chords are rare in pop but common in jazz and gospel (as passing chords). Augmented chords are rare everywhere but create a 'dreamy' effect. If you can identify major and minor instantly, you have 90% of chord recognition. The rest is practice."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -2143,7 +2257,10 @@
         "body": "The bass note usually tells you the root of the chord. If you can hear the bass line, you can identify the chords. Practice: listen to a song and hum the bass line. Then find those notes on a piano. Those are your chord roots. From there, determine major/minor quality."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -2207,7 +2324,10 @@
         "body": "The best stage presence is genuine emotion. If you are feeling the song, your body will naturally express it. Do not choreograph every move \u2014 that looks robotic. Instead, FEEL the song and let your body respond. Some of the greatest performers (Adele, Sam Smith) barely move \u2014 but every micro-expression is real."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -2271,7 +2391,10 @@
         "body": "Do not 'act' emotional \u2014 that is melodrama. Instead, RELIVE the emotion. Close your eyes. See the memory. Feel it in your body. Then open your eyes and sing. The emotion will come through in your tone, your dynamics, your phrasing. It is subtle but unmistakable."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -2330,7 +2453,10 @@
         "body": "The best worship leaders are the best listeners. Listen to the room. Listen to the band. Listen to the silence between songs. Do not fill every gap with talking \u2014 sometimes the most powerful moment is 10 seconds of silence after a song. Trust the room to respond."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -2584,7 +2710,11 @@
         "body": "SOVT is not just for warm-up \u2014 it is a training tool. Professional singers use it before every performance. Vocal therapists use it for rehabilitation. If your voice feels tired, strained, or hoarse, 10 minutes of SOVT can restore it faster than rest alone."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -2643,7 +2773,11 @@
         "body": "The biggest belt mistake is using too much air. Belting requires LESS air than you think \u2014 the cords are thick and closed, so they need less airflow to vibrate. Too much air = strain. Think 'efficient power,' not 'maximum power.' If it hurts, stop. Belt should feel powerful, never painful."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -2707,7 +2841,11 @@
         "body": "Twang is your best friend for projection. In a loud room (band, club, church), twang is what makes you heard without a mic. It is also the secret to belting safely \u2014 twang allows high notes with less air pressure. Practice: sing a phrase with twang, then without. Notice which carries further."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -2771,7 +2909,11 @@
         "body": "The secret to fast runs is practicing them SLOWLY. Your brain learns the pattern at slow speed, then your voice executes it at fast speed. If you practice fast and sloppy, you learn sloppiness. Practice slow and clean, then speed up. The metronome is your best teacher."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -2835,7 +2977,11 @@
         "body": "The passaggio is not a wall \u2014 it is a bridge. You do not 'break through' it; you 'blend across' it. The best singers have no audible transition. Their chest, mix, and head voice sound like one continuous instrument. This takes time. Be patient. The passaggio is the hardest coordination to master."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -2899,7 +3045,11 @@
         "body": "Messa di voce is the exercise that separates amateurs from professionals. It requires complete coordination of breath, cords, and resonance. If you can do a clean messa di voce, you have mastered the fundamentals. Practice it daily \u2014 even 5 minutes transforms your control."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -2963,7 +3113,11 @@
         "body": "The biggest riff mistake is rushing. A clean riff at medium speed sounds better than a sloppy riff at fast speed. Start at half speed. Be perfect. Then speed up by 5 BPM increments. Also: riffs should serve the song, not show off. One well-placed riff beats ten random ones."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -3032,7 +3186,10 @@
         "body": "Most pop and hip-hop uses natural minor (or the Dorian mode with a raised 6th). Most classical uses harmonic or melodic minor. Most jazz uses melodic minor and its modes. When learning a song in minor, identify which minor scale it uses \u2014 this tells you which notes to expect."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -3096,7 +3253,10 @@
         "body": "In gospel and neo-soul, 7th chords are everywhere. The ii7-V7-Imaj7 progression is the foundation of the genre. When you hear a chord that sounds 'jazzy' or 'sophisticated,' it is probably a maj7 or min7. When it sounds 'bluesy' or 'tense,' it is a dom7. Train your ear to distinguish them."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -3160,7 +3320,10 @@
         "body": "Many Afrobeat and highlife songs use compound time (6/8 or 12/8). The 'swing' feel is what makes the genre groove. If you are singing over an Afrobeat instrumental, feel the 6/8 pulse \u2014 your phrasing should ride the triplet subdivision, not fight it."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -3224,7 +3387,10 @@
         "body": "The most common modulation in pop is up a half step (semitone) on the final chorus. It is simple, effective, and always works. But do not overuse it \u2014 one modulation per song is enough. And make sure you can actually sing the higher key. A modulation you cannot reach is worse than no modulation."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -3293,7 +3459,10 @@
         "body": "The perfect 5th is your best friend for tuning. If you are singing with a band, listen for the 5th \u2014 it is the easiest interval to hear in harmony. If you are sharp or flat, the 5th will sound 'out.' Use it as a reference. Also: the tritone is the sound of tension in movie scores \u2014 learn to love it."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -3357,7 +3526,10 @@
         "body": "Use technology: slow down recordings (YouTube playback speed, Amazing Slow Downer, Transcribe!). Loop short sections. Use a piano to check your guesses. But do not rely on software to transcribe for you \u2014 the learning happens in the struggle. Struggle for 5 minutes before checking."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -3421,7 +3593,10 @@
         "body": "The fastest way to develop relative pitch: sing solfege (Do-Re-Mi-Fa-Sol-La-Ti-Do) in every key. When you can sing any melody in solfege, you can identify any interval, any chord, any progression. Movable-do solfege is the secret weapon of Berklee, Juilliard, and every top music school."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -3485,7 +3660,10 @@
         "body": "Always carry a backup: a pair of foam earplugs. If your IEMs fail mid-show, you can still hear yourself acoustically and protect your hearing. Also: get custom-molded earpieces if you perform regularly. Universal fit IEMs fall out when you sweat."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -3549,7 +3727,10 @@
         "body": "The most powerful visual moment is the EYES CLOSING at an emotional peak. It signals: 'I am feeling this so deeply I cannot even look at you.' Use it sparingly \u2014 once or twice per song. Overuse looks melodramatic. The best moment: the last line of the bridge, or the final note."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -3613,7 +3794,10 @@
         "body": "Always open with a song the audience knows (if playing covers) or your strongest original (if playing originals). You have 30 seconds to win the room. Always close with your most powerful song \u2014 the one that leaves them stunned. The middle is where you can take risks."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -3867,7 +4051,11 @@
         "body": "The secret to fast runs is TONGUE ARTICULATION. Your tongue moves for each consonant-like attack in the run. Practice runs on 'doo-doo-doo-doo' or 'yah-yah-yah-yah' \u2014 the consonant gives each note a clean start. Without it, runs sound like slides."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -3931,7 +4119,11 @@
         "body": "James Hetfield (Metallica), Christina Aguilera, and Joss Stone all use distortion safely. They do NOT sing with grit all the time. They add it as a spice, not a base. If you are singing distorted for more than 30% of a song, you are overusing it. Rest your voice after heavy distortion sessions."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -3995,7 +4187,11 @@
         "body": "Whistle register is rarely required in most genres. It is a bonus, not a necessity. If you cannot access it safely, do not force it. Many legendary singers (Adele, Sam Smith, Bruno Mars) never use whistle. Your uniqueness is not your range limit \u2014 it is your tone, your emotion, your style."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -4059,7 +4255,11 @@
         "body": "The secret to stamina is not MORE practice \u2014 it is SMART practice. Sing with perfect technique for 30 minutes rather than sloppy technique for 2 hours. Also: sleep is the most important factor. Your vocal folds repair during sleep. Less than 7 hours = compromised voice the next day."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -4123,7 +4323,10 @@
         "body": "If you are sharp your entire vocal range, the issue is likely: (1) too much air pressure, (2) tension in the tongue or jaw, (3) not modifying vowels. If you are flat, the issue is: (1) insufficient breath support, (2) lazy phonation, (3) speaking too quietly. Use a tuner to diagnose."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -4187,7 +4390,11 @@
         "body": "The most common ending mistake is 'giving up' at the last moment. The audience leans IN at the end of a song. Your job: give them MORE intention, not less. Whether fading or full voice, the ending should feel RESOLVED. The story is over. Land it."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -4251,7 +4458,11 @@
         "body": "The #1 cause of vocal damage is singing when already strained. 'I just need to get through this gig' is the most dangerous sentence a singer can say. Cancel. Rest. One week of rest saves you from months of rehabilitation. If you must perform, use SOVT exercises before, reduce volume by 50%, and steam after."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -4320,7 +4531,10 @@
         "body": "Modes are not just for improvisation. They are the SOUND of entire genres. Afrobeat = Mixolydian and Dorian. Blues = Mixolydian + minor pentatonic. Flamenco/Middle Eastern = Phrygian. Knowing modes helps you unlock the sound of any genre you want to sing."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -4384,7 +4598,10 @@
         "body": "Polyrhythms are best learned by FEELING, not thinking. Do not try to count mathematically. Instead: (1) Internalize the pulse (foot tap), (2) Add the pattern (hand clap), (3) Sing over it. The voice should either align with one pattern or float between them. Trust your body."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -4448,7 +4665,10 @@
         "body": "You do not need to name every extension. If a chord sounds 'richer' than a triad, it has extensions. If it sounds 'hazy' or 'floating,' it probably has a 9th. If it sounds 'dark and mysterious,' it has a b9 or b13. Trust your ear more than theory."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -4512,7 +4732,11 @@
         "body": "Microtonal singing is not 'out of tune' \u2014 it is a different tuning system. But it must be used intentionally, not accidentally. If you cannot control the bend, it sounds like bad pitch. If you can control it, it sounds like emotion. Practice until every bend is intentional."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -4576,7 +4800,10 @@
         "body": "The most common modulation in pop is UP a whole step for the final chorus. It is simple, effective, and audiences love it. But the modulation should feel INEVITABLE \u2014 like the song naturally wants to go there. If it feels forced, do not modulate."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2",
+      "quiz-5"
+    ],
     "prereqIds": [],
     "tags": [
       "theory"
@@ -4640,7 +4867,10 @@
         "body": "The secret to part-singing is KNOWING YOUR PART COMPLETELY. If you have to think about your part, you will be pulled toward other parts. One tip: when singing, hear your note AND the chord tone relationship to the harmony. If you are the 3rd, hear the root \u2014 it anchors you."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -4704,7 +4934,10 @@
         "body": "The bottleneck is usually identifying MINOR vs. MAJOR. If a chord is major, it sounds bright/happy. If minor, sad/dark. Practice: play a major chord, sing it. Play a minor chord, sing it. Alternate. Minor = the 3rd is one semitone lower. This is the only difference. Hear it."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-3",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "ear training"
@@ -4768,7 +5001,10 @@
         "body": "If your voice sounds thin or bright, try a dynamic mic (the SM7B is famous for making voices sound rich). If your voice sounds dull or muffled, try a condenser (it will bring out the air and top end). The mic is an instrument \u2014 match it to your voice."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -4832,7 +5068,10 @@
         "body": "The most powerful camera performance skill: the REACTION SHOT. Between sung phrases, let your face react to the emotion of the song. Not performing \u2014 REACTING. A look of pain, longing, or joy between notes is more powerful than any vocal run. Watch Adele's 'Hello' video \u2014 her face between phrases says everything."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -4896,7 +5135,10 @@
         "body": "The secret of great spontaneous leaders: they have a DEEP repertoire. They know hundreds of songs, chords, and progressions so well that they do not think about them \u2014 they just flow. Build your vocabulary. The more you know, the more freely you can improvise. Knowledge becomes instinct."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -4960,7 +5202,10 @@
         "body": "The most powerful audience engagement tool is SILENCE. Stop singing. Stop the music. Let 3 seconds of silence hang. The audience leans IN. What happens next matters. Use silence strategically: before the chorus, at the emotional climax, before the ending. Silence creates anticipation."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -5024,7 +5269,10 @@
         "body": "The secret of great arranging: keep the MELODY in the soprano. Everything else supports it. The bass is second most important (it defines the harmony). Inner voices fill the color. If the alto or tenor is more audible than the melody, the arrangement needs fixing."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -5277,7 +5525,11 @@
         "body": "Chronic tension is often EMOTIONAL. Fear of high notes manifests as throat tension. Fear of judgment manifests as shoulder tension. The body is the messenger. If you cannot release the tension with physical techniques, ask: 'What am I afraid of?' Address the fear, and the tension often dissolves."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -5341,7 +5593,11 @@
         "body": "Famous singers with audible breaks (John Legend, Michael Bubl\u00e9, Adele) have made it part of their sound. The break is a feature, not a bug. If you transition smoothly 95% of the time, the 5% where it subtly shifts is HUMAN. Audiences connect with human imperfection. Stop trying to be perfect."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -5405,7 +5661,11 @@
         "body": "Professional vocal pedagogy students spend years studying anatomy. You do not need that level. But knowing: (1) the TA muscle powers chest voice, (2) CT muscle powers head voice, (3) mix is their coordination \u2014 gives you a mental model for every technical problem. When stuck, ask: 'Which muscle am I overusing?'"
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -5464,7 +5724,11 @@
         "body": "Women often lose the singer's formant because their F1 overlaps with the fundamental frequency. The solution: lower the larynx and widen the pharynx (yawn feeling). This brings F4 out. Practice: sing a scale, focusing on keeping the 'ring' (buzz in your face) constant throughout your range."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -5528,7 +5792,11 @@
         "body": "When you are tired, the vocal folds lose stiffness (less resistance). The instinct is to PUSH more air. This makes it worse. The fix: REST. Pushing when tired causes swelling. Also: hydration improves fold efficiency (less pressure needed for the same volume). Drink water, sing easier."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -5976,7 +6244,11 @@
         "body": "If your student does not improve after 3 sessions on the same intervention, your diagnosis was wrong. The problem you identified is NOT the problem. Reassess. Sometimes the real issue is not the voice \u2014 it is stress, fear, mistaken beliefs about singing, or physical posture. Look deeper."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -6040,7 +6312,11 @@
         "body": "Document EVERYTHING. After each session, write: what we worked on, what improved, what to do next. This creates a paper trail that tracks progress, motivates the student, and protects you if there is ever a dispute. Good records = good teaching = good business."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -6104,7 +6380,9 @@
         "body": "The best coaches are humble. You do not have all the answers. When you encounter a problem you cannot solve, say 'I do not know, but let me find out' or 'Let me refer you to someone who specializes in this.' Honesty builds trust. Pretending destroys it."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2"
+    ],
     "prereqIds": [],
     "tags": [
       "mindset"
@@ -6168,7 +6446,11 @@
         "body": "The best group teachers create SAFETY. Students must feel safe to make mistakes, sound bad, and be vulnerable. Start every group session with: 'There are no wrong sounds in this room \u2014 only experiments.' The first time a student feels safe enough to belt out a wrong note, learning begins."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-1",
+      "quiz-4",
+      "quiz-7"
+    ],
     "prereqIds": [],
     "tags": [
       "technique"
@@ -6296,7 +6578,10 @@
         "body": "The capstone recording becomes the student's professional calling card. Invest in quality: even a $200 studio session or a well-mic'd home recording is worth it. A great demo of ONE song is better than mediocre demos. Also: help student choose a song that will still represent them in 5 years \u2014 not just a trend."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -6360,7 +6645,10 @@
         "body": "Perfection is not the goal. CONNECTION is. If you miss a note but move the audience, you win. If you hit every note but feel robotic, you lose. Before performing, ask yourself: 'What do I want the audience to FEEL?' Focus on that. The voice will follow. And remember: audiences WANT you to succeed. They are on your side."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-4",
+      "quiz-6"
+    ],
     "prereqIds": [],
     "tags": [
       "performance"
@@ -6493,7 +6781,9 @@
         "body": "Starting tomorrow, commit to 7 days:\\n\\nDay 1: 25 min \u2014 Warm-up + one technique exercise\\nDay 2: 25 min \u2014 Song work (pick one you love)\\nDay 3: 25 min \u2014 Breath control + sustain exercises\\nDay 4: 25 min \u2014 Record yourself, listen back\\nDay 5: 25 min \u2014 Weak spot attack (what's hardest?)\\nDay 6: 25 min \u2014 Free practice (follow your energy)\\nDay 7: 25 min \u2014 Record again, compare to Day 4\\n\\nRules: Phone on airplane mode every session. Text your accountability partner after each one. Log it in this LMS. If you miss a day, do TWO sessions the next day. At the end: 3+ hours of focused practice, two recordings to compare, and proof that you can do this."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2"
+    ],
     "prereqIds": [],
     "tags": [
       "mindset"
@@ -6557,7 +6847,9 @@
         "body": "Keep a practice journal. Every session write: (1) What you worked on, (2) Duration, (3) One thing that improved, (4) One thing still weak. Review weekly. This is how instrumentalists track growth over years. Your voice is an instrument. Treat it like one."
       }
     ],
-    "assessmentRefs": [],
+    "assessmentRefs": [
+      "quiz-2"
+    ],
     "prereqIds": [],
     "tags": [
       "mindset"
