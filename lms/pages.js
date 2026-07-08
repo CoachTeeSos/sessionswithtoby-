@@ -1,5 +1,18 @@
 /* lms/pages.js — runtime app: auth, nav, submission */
 const app = {
+  init() {
+    try {
+      const cfg = JSON.parse(localStorage.getItem('swt_config')||'{}');
+      if (cfg.formsubmitUrl) Store.formsubmitUrl = cfg.formsubmitUrl;
+    } catch {}
+  },
+  setFormSubmit(url) {
+    url = (url||'').trim();
+    if (!url) return false;
+    Store.formsubmitUrl = url;
+    try { localStorage.setItem('swt_config', JSON.stringify({formsubmitUrl: url})); } catch {}
+    return true;
+  },
   lmsNav(page) {
     if (!LMS) return;
     LMS.show(page);

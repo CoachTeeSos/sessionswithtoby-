@@ -7,6 +7,13 @@
     <p class="funnel-note" style="margin-top:18px">We’ll track your progress privately in this browser.</p>
   </div>
 
+  <script>
+    if (window.Store) {
+      Store.formsubmitUrl = location.hostname ? 'https://formsubmit.co/prosperolumotobi@gmail.com' : '';
+      window.app && window.app.init && window.app.init();
+    }
+  </script>
+
   <div id="lmsMain" class="lms-panel" style="display:none">
     <div class="lms-nav" style="display:flex;gap:8px;flex-wrap:wrap">
       <button onclick="app.lmsNav('dashboard')" class="funnel-cta-outline">Dashboard</button>
