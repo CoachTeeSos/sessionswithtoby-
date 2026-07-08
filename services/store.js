@@ -1,7 +1,8 @@
-/* services/store.js — minimal data loader with proxy-ready API */
+/* services/store.js — minimal data loader with proxy-ready API + FormSubmit fallback */
 const Store = {
   data: null,
   apiBase: '',
+  formsubmitUrl: '', // e.g. 'https://formsubmit.co/you@example.com'
   queue: [],
   async init() {
     const res = await fetch('data/lessons.json', {cache: 'no-store'});
@@ -30,18 +31,19 @@ const Store = {
   loadQueue() {
     this.queue = JSON.parse(localStorage.getItem('swt_email_queue')||'[]');
   },
+  async postJSON(url, payload) {
+    const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+    return r.ok;
+  },
   async submitEmail(payload) {
     if (!payload.email) return false;
     const base = (this.apiBase || '').replace(/\/$/, '');
     try {
-      if (base) {
-        const r = await fetch(base + '/api/register', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({fields: payload})
-        });
-        if (r.ok) { this.clearQueue(); return true; }
-      }
+      if (base && await this.postJSON(base + '/api/register', {fields: payload})) { this.clearQueue(); return true; }
+    } catch {}
+    try {
+      const fs = (this.formsubmitUrl || '').replace(/\/$/, '');
+      if (fs && await this.postJSON(fs, payload)) return true;
     } catch {}
     this.enqueue(payload);
     return false;
@@ -50,17 +52,14 @@ const Store = {
     const q = JSON.parse(localStorage.getItem('swt_email_queue')||'[]');
     if (!q.length) return;
     const base = (this.apiBase || '').replace(/\/$/, '');
-    if (!base) return;
+    const fs = (this.formsubmitUrl || '').replace(/\/$/, '');
     const out = [];
     for (const item of q) {
-      try {
-        const r = await fetch(base + '/api/register', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({fields: item.payload})
-        });
-        if (r.ok) out.push(item);
-      } catch {}
+      const p = {fields: item.payload};
+      let ok = false;
+      if (base) ok = await this.postJSON(base + '/api/register', p).catch(()=>false);
+      if (!ok && fs) ok = await this.postJSON(fs, item.payload).catch(()=>false);
+      if (ok) out.push(item);
     }
     if (out.length) this.clearQueue(out.length);
   },
