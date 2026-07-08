@@ -22,8 +22,7 @@ const app = {
       return;
     }
     const payload = {email, Plan: 'LMS Access', Source: 'entry_gate'};
-    const ok = Store.submitEmail(payload);
-    if (!ok) Store.enqueue(payload);
+    Promise.resolve(Store.submitEmail(payload)).catch(() => {});
     try {
       localStorage.setItem('swt_user', JSON.stringify({email, submittedAt: Date.now()}));
     } catch {}
