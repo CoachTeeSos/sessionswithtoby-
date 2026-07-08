@@ -1,0 +1,47 @@
+[
+  {
+    "level": "Bronze",
+    "xpRequired": 0,
+    "requirements": [
+      {"id":"bronze-1","description":"Complete Vocal DNA Assessment","type":"assessment"},
+      {"id":"bronze-2","description":"Finish 5 Lessons","type":"lessons"},
+      {"id":"bronze-3","description":"Pass Bronze Quiz","type":"assessment"}
+    ],
+    "outcomes": ["Foundational vocal body awareness","Basic breath control readiness"]
+  },
+  {
+    "level": "Silver",
+    "xpRequired": 200,
+    "requirements": [
+      {"id":"silver-1","description":"Complete 15 Lessons","type":"lessons"},
+      {"id":"silver-2","description":"Pass Silver Quiz","type":"assessment"},
+      {"id":"silver-3","description":"Submit 1 Recording","type":"recording"},
+      {"id":"silver-4","description":"7-Day Streak","type":"streak"}
+    ],
+    "outcomes": ["Consistent pitch accuracy","Routine practice maintenance"]
+  },
+  {
+    "level": "Gold",
+    "xpRequired": 500,
+    "requirements": [
+      {"id":"gold-1","description":"Complete 25 Lessons","type":"lessons"},
+      {"id":"gold-2","description":"Pass Gold Quiz","type":"assessment"},
+      {"id":"gold-3","description":"Submit 3 Recordings","type":"recording"},
+      {"id":"gold-4","description":"14-Day Streak","type":"streak"},
+      {"id":"gold-5","description":"Community Contribution","type":"community"}
+    ],
+    "outcomes": ["Intermediate technique integration","Repertoire readiness"]
+  },
+  {
+    "level": "Associate",
+    "xpRequired": 1000,
+    "requirements": [
+      {"id":"assoc-1","description":"Complete All 100 Lessons","type":"lessons"},
+      {"id":"assoc-2","description":"Pass All Quizzes","type":"assessment"},
+      {"id":"assoc-3","description":"Submit 5 Recordings","type":"recording"},
+      {"id":"assoc-4","description":"30-Day Streak","type":"streak"},
+      {"id":"assoc-5","description":"Pass Performance Review","type":"coachReview"}
+    ],
+    "outcomes": ["Applied vocal artistry","Performance self-sufficiency"]
+  }
+]

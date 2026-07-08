@@ -1,0 +1,705 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sessions with Toby LMS v1",
+  "type": "object",
+  "required": [
+    "lessons",
+    "courses",
+    "certifications",
+    "assessments",
+    "progress"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1,
+      "type": "integer"
+    },
+    "lessons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "courseId",
+          "title",
+          "level",
+          "durationMin",
+          "outcomes",
+          "steps",
+          "assessmentRefs",
+          "prereqIds"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "courseId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              "Beginner",
+              "Intermediate",
+              "Advanced",
+              "Professional"
+            ]
+          },
+          "durationMin": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "outcomes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "statement",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "statement": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "knowledge",
+                    "skill",
+                    "behavior"
+                  ]
+                },
+                "bloomLevel": {
+                  "enum": [
+                    "remember",
+                    "understand",
+                    "apply",
+                    "analyze",
+                    "evaluate",
+                    "create"
+                  ]
+                },
+                "rubric": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "criterion",
+                      "levels"
+                    ],
+                    "properties": {
+                      "criterion": {
+                        "type": "string"
+                      },
+                      "levels": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "description"
+                          ],
+                          "properties": {
+                            "label": {
+                              "enum": [
+                                "Exemplary",
+                                "Proficient",
+                                "Developing",
+                                "Beginning"
+                              ]
+                            },
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "title",
+                "body"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "teach",
+                    "exercise",
+                    "practice",
+                    "tip",
+                    "performance",
+                    "reflection",
+                    "dictation",
+                    "transcription"
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "timeMin": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "tools": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "musicianshipIntegration": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "assessmentRefs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "prereqIds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "courses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "level",
+          "lessons",
+          "weeks",
+          "credits",
+          "outcomeSummary"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              "Beginner",
+              "Intermediate",
+              "Advanced",
+              "Professional"
+            ]
+          },
+          "lessons": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "weeks": {
+            "type": "integer"
+          },
+          "credits": {
+            "type": "integer"
+          },
+          "outcomeSummary": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "statement",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "statement": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "knowledge",
+                    "skill",
+                    "behavior"
+                  ]
+                }
+              }
+            }
+          },
+          "prereqCourseIds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "corequisites": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "musicianshipModules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "performanceRequirement": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "level",
+          "xpRequired",
+          "requirements",
+          "outcomes"
+        ],
+        "properties": {
+          "level": {
+            "enum": [
+              "Bronze",
+              "Silver",
+              "Gold",
+              "Platinum",
+              "Associate",
+              "Bachelor",
+              "Master"
+            ]
+          },
+          "xpRequired": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "description",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "lessons",
+                    "assessment",
+                    "recording",
+                    "streak",
+                    "mentoring",
+                    "community"
+                  ]
+                }
+              }
+            }
+          },
+          "outcomes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "assessments": {
+      "type": "object",
+      "required": [
+        "vocalDNA",
+        "lessonQuizzes",
+        "performanceTasks"
+      ],
+      "properties": {
+        "vocalDNA": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "domain",
+              "question",
+              "options"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string"
+              },
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "text",
+                    "weight"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "weight": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "lessonQuizzes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "ref",
+              "type",
+              "items",
+              "passing"
+            ],
+            "properties": {
+              "ref": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "knowledge",
+                  "skill",
+                  "performance"
+                ]
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "prompt"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "prompt": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "rubricRef": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "passing": {
+                "type": "object",
+                "required": [
+                  "score",
+                  "retryPolicy"
+                ],
+                "properties": {
+                  "score": {
+                    "type": "number"
+                  },
+                  "retryPolicy": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "performanceTasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "criteria",
+              "submissionType"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "criteria": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "submissionType": {
+                "enum": [
+                  "audio",
+                  "video",
+                  "selfReport",
+                  "coachReview"
+                ]
+              },
+              "maxAttempts": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "feedbackWindowDays": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "progress": {
+      "type": "object",
+      "required": [
+        "competencyMap",
+        "lessonStates",
+        "assessmentResults",
+        "performancePortfolio",
+        "srs"
+      ],
+      "properties": {
+        "competencyMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "level",
+              "evidenceIds"
+            ],
+            "properties": {
+              "level": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "evidenceIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "lastAssessed": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "lessonStates": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "status",
+              "timeSpentMin",
+              "attempts"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "locked",
+                  "started",
+                  "reviewed",
+                  "passed",
+                  "mastered"
+                ]
+              },
+              "timeSpentMin": {
+                "type": "integer"
+              },
+              "attempts": {
+                "type": "integer"
+              },
+              "passedAt": {
+                "type": "string"
+              },
+              "masteredAt": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "assessmentResults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "ref",
+              "score",
+              "passed"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "feedback": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "performancePortfolio": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "taskRef",
+              "submissionType",
+              "submittedAt"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "taskRef": {
+                "type": "string"
+              },
+              "submissionType": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "submittedAt": {
+                "type": "string"
+              },
+              "feedback": {
+                "type": "string"
+              },
+              "rating": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "coachNotes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "srs": {
+          "type": "object",
+          "required": [
+            "items",
+            "nextReviewBy"
+          ],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "lessonId",
+                  "due",
+                  "intervalDays"
+                ],
+                "properties": {
+                  "lessonId": {
+                    "type": "integer"
+                  },
+                  "due": {
+                    "type": "string"
+                  },
+                  "intervalDays": {
+                    "type": "number"
+                  },
+                  "easeFactor": {
+                    "type": "number"
+                  },
+                  "lapses": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "nextReviewBy": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
