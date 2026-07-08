@@ -32,7 +32,9 @@ const Store = {
     this.queue = JSON.parse(localStorage.getItem('swt_email_queue')||'[]');
   },
   async postJSON(url, payload) {
-    const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+    const form = new FormData();
+    Object.keys(payload.fields || payload).forEach(k => form.append(k, payload.fields ? payload.fields[k] : payload[k]));
+    const r = await fetch(url, {method:'POST', body: form});
     return r.ok;
   },
   async submitEmail(payload) {
