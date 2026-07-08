@@ -1,4 +1,4 @@
-/* lms/pages.js — runtime app: auth, nav, logging */
+/* lms/pages.js — runtime app: auth, nav, submission */
 const app = {
   lmsNav(page) {
     if (!LMS) return;
@@ -17,11 +17,15 @@ const app = {
   submitGateEmail() {
     const input = document.getElementById('gateEmail');
     const email = (input && input.value || '').trim();
-    if (!email) return;
-    const payload = {email, Plan: 'LMS Access'};
-    Promise.resolve(Store.submitEmail(payload)).catch(() => {});
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (input) input.style.borderColor = '#EF4444';
+      return;
+    }
+    const payload = {email, Plan: 'LMS Access', Source: 'entry_gate'};
+    const ok = Store.submitEmail(payload);
+    if (!ok) Store.enqueue(payload);
     try {
-      localStorage.setItem('swt_user', JSON.stringify({email}));
+      localStorage.setItem('swt_user', JSON.stringify({email, submittedAt: Date.now()}));
     } catch {}
     const gate = document.getElementById('emailGate');
     const user = document.getElementById('lmsUser');
@@ -30,6 +34,7 @@ const app = {
     if (user) user.textContent = email;
     if (main) main.style.display = 'block';
     if (LMS) LMS.show('dashboard');
+    try { Store.flushQueue(); } catch {}
   }
 };
 window.app = app;
