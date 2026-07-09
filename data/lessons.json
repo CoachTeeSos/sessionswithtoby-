@@ -64,7 +64,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Stand Without Thinking",
+    "displayOutcome": "Sing with zero tension from the first note"
   },
   {
     "id": 2,
@@ -138,7 +140,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Breathe Like A Pro",
+    "displayOutcome": "Sustain phrases without running out of air"
   },
   {
     "id": 3,
@@ -207,7 +211,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Hold Any Note Steady",
+    "displayOutcome": "Sing 20 seconds without wobble or fade"
   },
   {
     "id": 4,
@@ -275,7 +281,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Make Every Note Start Clean",
+    "displayOutcome": "No breathy whispers, no hard clicks"
   },
   {
     "id": 5,
@@ -341,7 +349,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Sing Through Your Passaggio",
+    "displayOutcome": "Move between registers without yanking"
   },
   {
     "id": 6,
@@ -410,7 +420,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Drop Your Jaw, Not Your Tone",
+    "displayOutcome": "Open vowels without sounding hollow"
   },
   {
     "id": 7,
@@ -483,7 +495,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Warm Up In 5 Minutes",
+    "displayOutcome": "A repeatable routine that sounds like you"
   },
   {
     "id": 8,
@@ -1321,7 +1335,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Find Your Mix",
+    "displayOutcome": "Blend chest and head voice on purpose"
   },
   {
     "id": 20,
@@ -1394,7 +1410,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Stop Breaking On B4/C5",
+    "displayOutcome": "Hit tenor high notes without flipping"
   },
   {
     "id": 21,
@@ -2743,7 +2761,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Sing A Melody After One Listen",
+    "displayOutcome": "Hear it, then repeat it perfectly"
   },
   {
     "id": 41,
@@ -2806,7 +2826,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Name Notes By Ear",
+    "displayOutcome": "Call out any pitch without guessing"
   },
   {
     "id": 42,
@@ -5558,7 +5580,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Write A Song From A Feeling",
+    "displayOutcome": "Turn emotion into lyrics and melody"
   },
   {
     "id": 83,
@@ -5626,7 +5650,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Record Vocals That Sound Released",
+    "displayOutcome": "Capture your best take with phone or laptop"
   },
   {
     "id": 84,
@@ -6411,7 +6437,9 @@
       "easeFactor": 2.5,
       "reps": 0,
       "lapses": 0
-    }
+    },
+    "displayTitle": "Show Up Even On Hard Days",
+    "displayOutcome": "Build a vocal routine that sticks"
   },
   {
     "id": 96,
