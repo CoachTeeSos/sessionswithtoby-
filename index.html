@@ -4,16 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SessionswithToby — Artist Operating System</title>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-J9V395RPDH');
-</script>
 <meta name="description" content="Personalized digital music conservatory, artist incubator, and AI vocal mentor.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..900&family=Clash+Display:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..900&family=Clash+Display:wght@400;500;600;700&family=Geist+Mono:wght@400,500,600,700&display=swap" rel="stylesheet">
 <style>
 #pageLoader{position:fixed;inset:0;background:#0D0E12;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .4s ease}
 #pageLoader.fade-out{opacity:0;pointer-events:none}
@@ -34,7 +28,7 @@
     <h1 style="margin-top:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.6rem">Enter your email to continue</h1>
     <div class="email-gate" style="display:flex;flex-direction:column;gap:10px">
       <input type="email" id="gateEmail" placeholder="you@example.com" style="padding:12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;min-width:100%">
-      <button onclick="app.submitGateEmail()" style="padding:12px;background:#E4B34F;color:#0D0E12;border:none;border-radius:10px;font-weight:700;cursor:pointer">Continue</button>
+      <button id="gateContinue" style="padding:12px;background:#E4B34F;color:#0D0E12;border:none;border-radius:10px;font-weight:700;cursor:pointer">Continue</button>
     </div>
     <p class="funnel-note" style="color:#6b7280;font-size:0.75rem;margin-top:14px">We’ll track your progress privately in this browser.</p>
   </div>
@@ -61,13 +55,54 @@
 </div>
 
 <script src="services/store.js"></script>
+<script src="services/mentor.js"></script>
+<script src="services/progress-engine.js"></script>
+<script src="services/progress-persistence.js"></script>
+<script src="services/assessor.js"></script>
 <script src="lms/bootstrap.js"></script>
 <script src="lms/router.js"></script>
 <script src="lms/pages.js"></script>
 <script>
-if (window.Store) {
-  window.app && window.app.init && window.app.init();
-}
+(function(){
+  function show(page){
+    ['statsContent','learnContent','assessmentsContent','mentorMessages','practiceContent','communityContent','coachContent'].forEach(function(id,idx){
+      var el=document.getElementById(id); if(!el) return;
+      if(id===page) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+    });
+  }
+  function boot(){
+    if(!window.LMS) return;
+    LMS.show('dashboard');
+    if(window.app){ app.lmsNav=app.lmsNav || function(){}; }
+    try{ localStorage.getItem('swt_user') && enterLMS(); }catch(e){}
+  }
+  function enterLMS(){
+    var gate=document.getElementById('emailGate');
+    var main=document.getElementById('lmsMain');
+    if(gate) gate.style.display='none';
+    if(main) main.style.display='block';
+    setTimeout(boot,0);
+  }
+  window.app=window.app||{};
+  window.app.enterLMS=enterLMS;
+  try{
+    var btn=document.getElementById('gateContinue');
+    if(btn){
+      btn.addEventListener('click',function(){
+        var email=(document.getElementById('gateEmail').value||'').trim();
+        if(!email||!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return;
+        try{ localStorage.setItem('swt_user', JSON.stringify({email:email, submittedAt: Date.now()})); }catch(e){}
+        var payload={email:email, Plan:'LMS Access', Source:'entry_gate'};
+        Promise.resolve((window.Store||{}).submitEmail?Store.submitEmail(payload):Promise.resolve(false)).catch(function(){});
+        enterLMS();
+      });
+    }
+  }catch(e){}
+  window.addEventListener('load',function(){
+    try{ localStorage.getItem('swt_user') && enterLMS(); }catch(e){}
+  });
+})();
 </script>
 </body>
 </html>
