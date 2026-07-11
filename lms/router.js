@@ -9,15 +9,23 @@ const LMS = {
   },
   show(page) {
     this.current = page;
-    const container = document.getElementById('lmsMain');
-    if (!container) return;
-    if (page === 'learn') this.renderLearn(container);
-    if (page === 'dashboard') this.renderDashboard(container);
-    if (page === 'mentor') this.renderMentor(container);
-    if (page === 'practice') this.renderPractice(container);
-    if (page === 'assessments') this.renderAssessments(container);
-    if (page === 'community') this.renderCommunity(container);
-    if (page === 'coach') this.renderCoach(container);
+    const pages = ['dashboard','learn','assessments','mentor','practice','community','coach'];
+    const ids = ['statsContent','learnContent','assessmentsContent','mentorMessages','practiceContent','communityContent','coachContent'];
+    pages.forEach((p, i) => {
+      const el = document.getElementById(ids[i]);
+      if (!el) return;
+      const isActive = p === page;
+      el.classList.toggle('hidden', !isActive);
+      if (isActive) {
+        if (p === 'dashboard') this.renderDashboard(el);
+        if (p === 'learn') this.renderLearn(el);
+        if (p === 'assessments') this.renderAssessments(el);
+        if (p === 'mentor') this.renderMentor(el);
+        if (p === 'practice') this.renderPractice(el);
+        if (p === 'community') this.renderCommunity(el);
+        if (p === 'coach') this.renderCoach(el);
+      }
+    });
   },
   renderLearn(container) {
     const lessons = Store.lessons;
@@ -25,8 +33,11 @@ const LMS = {
     container.innerHTML = lessons.map(l => {
       const state = progress[l.id];
       const locked = !Progress.canAccess(l.id);
-      return '<div class="lesson-item ' + (locked ? 'locked' : '') + '">' +
-        '<div><div style="font-weight:700">' + l.title + '</div>' +
+      const displayTitle = l.displayTitle || l.title;
+      const displayOutcome = l.displayOutcome || (l.outcomes && l.outcomes[0]) || 'Sing with intention.';
+      const outcome = displayOutcome ? (' — ' + displayOutcome) : '';
+      return '<div class="lesson-item ' + (locked ? 'locked' : '') + '" data-practice-title="' + displayTitle + '" data-practice-body="' + displayOutcome + '">' +
+        '<div><div style="font-weight:700">' + displayTitle + outcome + '</div>' +
         '<div style="font-size:0.8rem;color:#6B7280">' + l.level + ' · ' + l.durationMin + ' min</div></div>' +
         '<div style="font-size:0.75rem">' + (locked ? 'Locked' : state?.status || 'Start') + '</div>' +
         '</div>';
@@ -48,7 +59,10 @@ const LMS = {
     this.wireMentor(container);
   },
   renderPractice(container) {
-    container.innerHTML = '<div style="padding:12px;border-radius:8px;background:#F3F4F6"><div style="font-weight:700">Sustained Note</div><div style="font-size:0.85rem">Sing a comfortable note for 20 seconds while keeping ribs expanded.</div></div>';
+    const currentLesson = document.querySelector('.lesson-item.active, .lesson-item[data-current="true"]');
+    const title = currentLesson ? (currentLesson.querySelector('[data-practice-title]')?.textContent || 'Focused Practice') : 'Focused Practice';
+    const body = currentLesson ? (currentLesson.querySelector('[data-practice-body]')?.textContent || 'Sing with intention. Focus on one action: breath, vowel, or transition.') : 'Sing with intention. Focus on one action: breath, vowel, or transition.';
+    container.innerHTML = '<div style="padding:14px;border-radius:12px;background:#11141f;border:1px solid #252a3a"><div style="font-weight:800;font-size:1.05rem;margin-bottom:6px">' + title + '</div><div style="font-size:0.85rem;color:#9CA3AF;line-height:1.55">' + body + '</div><div style="margin-top:12px;font-size:0.75rem;color:#6B7280">Focus timer: 60s · Breathe first.</div></div>';
   },
   renderAssessments(container) {
     container.innerHTML = '<div><div style="font-weight:700">Lesson Quiz</div><div style="font-size:0.85rem">Passing score: 80%. Retries: immediate.</div></div>';
