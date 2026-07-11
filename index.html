@@ -2662,14 +2662,21 @@ var app = {
   // ─── EMAIL GATE ───
   submitGateEmail() {
     const email = document.getElementById('gateEmail').value.trim();
-    if (!email || !email.includes('@')) { toast('Please enter your email to continue'); return; }
+    if (!email || this.invalidEmail(email)) { toast('Please enter a valid email to continue'); return; }
     S.user = { email, name: email.split('@')[0], joined: new Date().toISOString() };
     localStorage.setItem('swt_user', JSON.stringify(S.user));
     localStorage.setItem('swt_email_captured', 'true');
     CRM.capture({ event:'email_captured', email, trigger:'gate' });
     CRM.pushToSheet({ email, name: S.user.name, type:'lead', trigger:'gate', ts: Date.now() });
+    Analytics.track('gate_submit', { email });
     document.getElementById('emailGate').style.display = 'none';
     this.showLMS();
+  },
+  invalidEmail(email) {
+    // Basic JS-level validation + loosely filter disposable-like domains
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return true;
+    const disposable = ['mailinator.com','trashmail.com','guerrillamail.com','tempmail.com','yopmail.com'];
+    return disposable.includes(email.split('@')[1]?.toLowerCase());
   },
 
   // ─── LMS LOGIN ───
@@ -4072,14 +4079,21 @@ var app = {
       document.getElementById('pitchBtn').textContent = 'Listening...';
       document.getElementById('pitchBtn').disabled = true;
       const buf = new Float32Array(this.analyser.fftSize);
+      window._pitch = { last: -1, stable: 0 };
       const detect = () => {
         this.analyser.getFloatTimeDomainData(buf);
         const pitch = this.autocorrelate(buf, this.audioCtx.sampleRate);
-        if (pitch > 50 && pitch < 2000) {
+        if (pitch > 50 && pitch < 2000 && this.trimmedRMS(buf) > 0.0) {
+          const prev = window._pitch.last;
+          window._pitch.last = pitch;
           const note = this.hzToNote(pitch);
-          document.getElementById('pitchHz').textContent = Math.round(pitch);
-          document.getElementById('pitchNote').textContent = note.name;
-          document.getElementById('pitchCents').textContent = note.cents > 0 ? `+${Math.round(note.cents)}¢` : `${Math.round(note.cents)}¢`;
+          if (prev > 0 && Math.abs(1200 * Math.log2(pitch / prev)) < 60) window._pitch.stable = Math.min(window._pitch.stable + 1, 30);
+          else window._pitch.stable = 0;
+          if (window._pitch.stable > 3) {
+            document.getElementById('pitchHz').textContent = Math.round(pitch);
+            document.getElementById('pitchNote').textContent = note.name;
+            document.getElementById('pitchCents').textContent = note.cents > 0 ? `+${Math.round(note.cents)}¢` : `${Math.round(note.cents)}¢`;
+          }
         }
         if (document.getElementById('pitchBtn').disabled) requestAnimationFrame(detect);
       };
@@ -4099,6 +4113,14 @@ var app = {
       if (correlation > bestCorrelation) { bestCorrelation = correlation; bestOffset = offset; }
     }
     return bestCorrelation > 0.3 ? sr / bestOffset : -1;
+  },
+  trimmedRMS(buf) {
+    let s = 0, n = 0;
+    for (let i = 0; i < buf.length; i++) {
+      if (Math.abs(buf[i]) < 0.0012) continue;
+      s += buf[i] * buf[i]; n++;
+    }
+    return n ? Math.sqrt(s / n) : 0;
   },
 
   hzToNote(hz) {
