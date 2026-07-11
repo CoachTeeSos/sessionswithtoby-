@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script><meta charset="UTF-8">
+<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script><meta charset="UTF-8"><script async src="https://www.googletagmanager.com/gtag/js?id=G-J9V395RPDH"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-J9V395RPDH');</script>
 <script>
 // Flutterwave Backend Proxy
 const FLUTTERWAVE_PUBLIC_KEY = "FLWPUBK_TEST-5c0c8b1234567890abcdef123456789-X"; // Placeholder
@@ -957,7 +957,7 @@ textarea.form-input { min-height: 100px; resize: vertical; }
     <h1 style="color:#fff;font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;line-height:1.15;margin-bottom:12px;">Unlock Your <span style="color:#D4AF37;">God-Given Voice</span></h1>
     <p style="color:rgba(255,255,255,0.6);font-size:clamp(0.9rem,2.5vw,1.05rem);line-height:1.7;margin-bottom:32px;">100+ lessons. AI vocal mentor. Personalized curriculum. Used by 2,400+ singers across 15 countries.</p>
     <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;backdrop-filter:blur(10px);">
-      <input type="email" id="gateEmail" placeholder="Enter your email address" style="width:100%;padding:14px 18px;border:2px solid rgba(212,175,55,0.3);border-radius:10px;font-size:1rem;background:rgba(255,255,255,0.07);color:#fff;outline:none;margin-bottom:12px;box-sizing:border-box;" onkeypress="if(event.key==='Enter')app.submitGateEmail()">
+      <input type="email" id="gateEmail" placeholder="Enter your email address" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a valid email" style="width:100%;padding:14px 18px;border:2px solid rgba(212,175,55,0.3);border-radius:10px;font-size:1rem;background:rgba(255,255,255,0.07);color:#fff;outline:none;margin-bottom:12px;box-sizing:border-box;" onkeypress="if(event.key==='Enter')app.submitGateEmail()">
       <button onclick="app.submitGateEmail()" style="width:100%;padding:14px;background:linear-gradient(135deg,#D4AF37,#F5D76E);color:#000;border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;">Start Learning Free →</button>
     </div>
     <p style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-top:16px;">Free forever plan · No credit card · Join 2,400+ singers</p>
@@ -2415,26 +2415,15 @@ var CRM = {
     const leads = JSON.parse(localStorage.getItem('swt_leads') || '[]');
     leads.push({ ...data, ts: Date.now() });
     localStorage.setItem('swt_leads', JSON.stringify(leads));
-    // Sync to Airtable (write-only, 24/7, no server needed)
-    fetch('https://api.airtable.com/v0/app3N2MFPvfDSuYxk/Students', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer patmLD03CfCJta2sb.d8de1e7e9b2edd49cefa524b166504e856b0248c9ebf8d57f2a574e602e88d92',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        fields: {
-          Name: data.name || data.email?.split('@')[0] || '',
-          Source: 'Website',
-          Status: 'Active',
-          Email: data.email,
-          Phone: '',
-          'Weekly Check-in': `Registered via LMS on ${new Date().toLocaleDateString()}`
-        }
-      })
-    })
-    .then(r => { if (!r.ok) console.warn('Airtable sync failed:', r.status); })
-    .catch(e => console.warn('Airtable sync error:', e));
+    // Submit via FormSubmit to configured email
+    if (data.email) {
+      try {
+        const fd = new FormData();
+        Object.entries(data).forEach(([k, v]) => { if (v !== undefined && v !== null) fd.append(k, String(v)); });
+        fd.append('_subject', data.type === 'lead' ? 'New Lead: ' + data.email : 'New submission from LMS');
+        fetch('https://formsubmit.co/prosperolumotobi@gmail.com', { method: 'POST', body: fd, mode: 'no-cors' });
+      } catch (e) { /* non-blocking */ }
+    }
     return true;
   }
 };
