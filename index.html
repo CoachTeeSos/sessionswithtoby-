@@ -4082,8 +4082,8 @@ var app = {
       window._pitch = { last: -1, stable: 0 };
       const detect = () => {
         this.analyser.getFloatTimeDomainData(buf);
-        const pitch = this.autocorrelate(buf, this.audioCtx.sampleRate);
-        if (pitch > 50 && pitch < 2000 && this.trimmedRMS(buf) > 0.0) {
+        const pitch = this.yinPitch(buf, this.audioCtx.sampleRate);
+        if (pitch > 0 && pitch < 2000 && this.trimmedRMS(buf) > 0.0) {
           const prev = window._pitch.last;
           window._pitch.last = pitch;
           const note = this.hzToNote(pitch);
@@ -4106,10 +4106,12 @@ var app = {
     for (let i = 0; i < buf.length; i++) rms += buf[i] * buf[i];
     rms = Math.sqrt(rms / buf.length);
     if (rms < 0.01) return -1;
-    for (let offset = 20; i < 1000; i++) {
+    const maxOffset = Math.min(1000, buf.length - 1000);
+    for (let offset = 20; offset < maxOffset; offset++) {
       let correlation = 0;
-      for (let j = 0; j < 1000; j++) correlation += Math.abs(buf[j] - buf[j + offset]);
-      correlation = 1 - correlation / 1000;
+      const compareLen = 1000;
+      for (let j = 0; j < compareLen; j++) correlation += Math.abs(buf[j] - buf[j + offset]);
+      correlation = 1 - correlation / compareLen;
       if (correlation > bestCorrelation) { bestCorrelation = correlation; bestOffset = offset; }
     }
     return bestCorrelation > 0.3 ? sr / bestOffset : -1;
@@ -4294,7 +4296,7 @@ var app = {
       const buf = new Float32Array(this.analyser.fftSize);
       const detect = () => {
         this.analyser.getFloatTimeDomainData(buf);
-        const pitch = this.autocorrelate(buf, this.audioCtx.sampleRate);
+        const pitch = this.yinPitch(buf, this.audioCtx.sampleRate);
         if (pitch > 50 && pitch < 2000) {
           this.rangeBuf.push(pitch);
           if (pitch < this.rangeMin) this.rangeMin = pitch;
