@@ -24,7 +24,7 @@ const LMS = {
     const progress = Progress.load();
     container.innerHTML = lessons.map(l => {
       const state = progress[l.id];
-      const locked = !Progress.canAccess(l.id);
+      var locked = false; try { locked = !(Progress.meetsPrereqs ? Progress.meetsPrereqs([]) : true); } catch(e) { locked = false; }
       return '<div class="lesson-item ' + (locked ? 'locked' : '') + '">' +
         '<div><div style="font-weight:700">' + l.title + '</div>' +
         '<div style="font-size:0.8rem;color:#6B7280">' + l.level + ' · ' + l.durationMin + ' min</div></div>' +
@@ -34,7 +34,7 @@ const LMS = {
   },
   renderDashboard(container) {
     const progress = Progress.load();
-    const xp = Progress.xpFor(progress);
+    var xp = (typeof Progress.xp === "function" ? Progress.xp() : 0);
     const completed = Object.values(progress).filter(s => s.status === 'passed' || s.status === 'mastered').length;
     container.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">' +
       '<div><div style="font-size:1.5rem;font-weight:800">' + xp + '</div><div style="font-size:0.8rem;color:#6B7280">XP</div></div>' +
