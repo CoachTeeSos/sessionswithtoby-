@@ -3,109 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SessionswithToby — Artist Operating System</title>
-<meta name="description" content="Personalized digital music conservatory, artist incubator, and AI vocal mentor.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..900&family=Clash+Display:wght@400;500;600;700&family=Geist+Mono:wght@400,500,600,700&display=swap" rel="stylesheet">
-<style>
-#pageLoader{position:fixed;inset:0;background:#0D0E12;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .4s ease}
-#pageLoader.fade-out{opacity:0;pointer-events:none}
-.loader-text{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.25rem;color:#F4F5F7;letter-spacing:-0.02em}
-.loader-bar{width:180px;height:3px;background:#242838;border-radius:3px;margin-top:16px;overflow:hidden}
-.loader-bar-fill{height:100%;background:#E4B34F;width:0;transition:width .3s ease}
-.lms-panel{display:none}
-.lms-panel.active{display:block}
-.hidden{display:none!important}
-</style>
+<title>Sessions with Toby — Artist Operating System</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J9V395RPDH"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J9V395RPDH');</script>
 </head>
-<body style="background:#0D0E12;color:#F4F5F7;font-family:'Inter',sans-serif;margin:0">
-
-<div id="pageLoader"><div class="text-center"><div class="loader-text" id="loaderText"></div><div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div></div></div>
-
-<div id="emailGate" class="lms-panel active" style="min-height:100vh;display:flex;align-items:center;justify-content:center">
-  <div style="max-width:420px;width:90%;text-align:center">
-    <h1 style="margin-top:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.6rem">Enter your email to continue</h1>
-    <div class="email-gate" style="display:flex;flex-direction:column;gap:10px">
-      <input type="email" id="gateEmail" placeholder="you@example.com" style="padding:12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;min-width:100%">
-      <button id="gateContinue" style="padding:12px;background:#E4B34F;color:#0D0E12;border:none;border-radius:10px;font-weight:700;cursor:pointer">Continue</button>
+<body>
+<div id="emailGate" class="lms-panel active">
+    <h1 style="margin-top:0">Enter your email to continue</h1>
+    <div class="email-gate">
+      <input type="email" id="gateEmail" placeholder="you@example.com" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;min-width:260px">
+      <button onclick="app.submitGateEmail()" class="funnel-cta" style="border:none;padding:10px 14px">Continue</button>
     </div>
-    <p class="funnel-note" style="color:#6b7280;font-size:0.75rem;margin-top:14px">We’ll track your progress privately in this browser.</p>
+    <p class="funnel-note" style="margin-top:18px">We’ll track your progress privately in this browser.</p>
   </div>
-</div>
 
-<div id="lmsMain" class="lms-panel" style="display:none">
-  <div class="lms-nav" style="display:flex;gap:8px;flex-wrap:wrap;padding:12px">
-    <button onclick="app.lmsNav('dashboard')" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;cursor:pointer">Dashboard</button>
-    <button onclick="app.lmsNav('learn')" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;cursor:pointer">Learn</button>
-    <button onclick="app.lmsNav('practice')" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;cursor:pointer">Practice</button>
-    <button onclick="app.lmsNav('assessments')" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;cursor:pointer">Assessments</button>
-    <button onclick="app.lmsNav('mentor')" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;cursor:pointer">Mentor</button>
-    <button onclick="app.lmsNav('community')" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;cursor:pointer">Community</button>
-    <button onclick="app.lmsNav('coach')" style="padding:10px 12px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px;cursor:pointer">Coach</button>
+  <script src="services/store.js"></script>
+  <script src="lms/bootstrap.js"></script>
+  <script src="lms/router.js"></script>
+  <script src="lms/pages.js"></script>
+  <script>
+    if (window.Store) {
+      Store.formsubmitUrl = location.hostname ? 'https://formsubmit.co/prosperolumotobi@gmail.com' : '';
+      window.app && window.app.init && window.app.init();
+    }
+  </script>
+
+  <div id="lmsMain" class="lms-panel" style="display:none">
+    <div class="lms-nav" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="app.lmsNav('dashboard')" class="funnel-cta-outline">Dashboard</button>
+      <button onclick="app.lmsNav('learn')" class="funnel-cta-outline">Learn</button>
+      <button onclick="app.lmsNav('practice')" class="funnel-cta-outline">Practice</button>
+      <button onclick="app.lmsNav('assessments')" class="funnel-cta-outline">Assessments</button>
+      <button onclick="app.lmsNav('mentor')" class="funnel-cta-outline">Mentor</button>
+      <button onclick="app.lmsNav('community')" class="funnel-cta-outline">Community</button>
+      <button onclick="app.lmsNav('coach')" class="funnel-cta-outline">Coach</button>
+    </div>
+    <div id="statsContent" data-page="dashboard" class="hidden" style="margin-top:14px"></div>
+    <div id="learnContent" data-page="learn" class="hidden" style="margin-top:14px"></div>
+    <div id="practiceContent" data-page="practice" class="hidden" style="margin-top:14px"></div>
+    <div id="assessmentsContent" data-page="assessments" class="hidden" style="margin-top:14px"></div>
+    <div id="mentorMessages" data-page="mentor" class="hidden" style="margin-top:14px;min-height:140px"></div>
+    <div id="communityContent" data-page="community" class="hidden" style="margin-top:14px"></div>
+    <div id="coachContent" data-page="coach" class="hidden" style="margin-top:14px"></div>
+    <input id="mentorInput" style="width:100%;margin-top:10px;padding:10px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px" placeholder="Ask Mentor...">
   </div>
-  <div id="statsContent" data-page="dashboard" class="hidden" style="margin-top:14px"></div>
-  <div id="learnContent" data-page="learn" class="hidden" style="margin-top:14px"></div>
-  <div id="assessmentsContent" data-page="assessments" class="hidden" style="margin-top:14px"></div>
-  <div id="mentorMessages" data-page="mentor" class="hidden" style="margin-top:14px;min-height:140px"></div>
-  <div id="practiceContent" data-page="practice" class="hidden" style="margin-top:14px"></div>
-  <div id="communityContent" data-page="community" class="hidden" style="margin-top:14px"></div>
-  <div id="coachContent" data-page="coach" class="hidden" style="margin-top:14px"></div>
-  <input id="mentorInput" style="width:calc(100% - 28px);margin:0 14px 14px;padding:10px;background:#161820;color:#F4F5F7;border:1px solid #242838;border-radius:10px" placeholder="Ask Mentor...">
-</div>
-
-<script src="services/store.js"></script>
-<script src="services/mentor.js"></script>
-<script src="services/progress-engine.js"></script>
-<script src="services/progress-persistence.js"></script>
-<script src="services/assessor.js"></script>
-<script src="lms/bootstrap.js"></script>
-<script src="lms/router.js"></script>
-<script src="lms/pages.js"></script>
-<script>
-(function(){
-  function renderPage(name, container){
-    if(!window.LMS || !container) return;
-    LMS.current = name;
-    ['statsContent','learnContent','assessmentsContent','mentorMessages','practiceContent','communityContent','coachContent'].forEach(function(id){
-      var el=document.getElementById(id); if(!el) return;
-      el.classList.toggle('hidden', id!==name);
-    });
-    if(name==='learn' && window.Store){
-      var lessons=Store.lessons; if(lessons && lessons.length){
-        var map=lessons.map(function(l){
-          var status=document.getElementById('progress-'+l.id)?.textContent||'Start';
-          return '<div class="lesson-item"><div><div style="font-weight:700">'+l.title+'</div><div style="font-size:0.8rem;color:#6B7280">'+l.level+' · '+l.durationMin+' min</div></div><div style="font-size:0.75rem">'+status+'</div></div>';
-        }).join('');
-        var el=document.getElementById('learnContent'); if(el) el.innerHTML=map;
-      }
-    }
-    if(name==='dashboard' && window.Store){
-      var xp=Math.floor((Store.lessons||[]).length*12);
-      var done=document.querySelectorAll('.lesson-finished').length||0;
-      var el=document.getElementById('statsContent'); if(el) el.innerHTML='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"><div><div style="font-size:1.5rem;font-weight:800">'+xp+'</div><div style="font-size:0.8rem;color:#6B7280">XP</div></div><div><div style="font-size:1.5rem;font-weight:800">'+done+'</div><div style="font-size:0.8rem;color:#6B7280">Lessons done</div></div><div><div style="font-size:1.5rem;font-weight:800">'+(Store.lessons||[]).length+'</div><div style="font-size:0.8rem;color:#6B7280">Lessons total</div></div></div>';
-    }
-  }
-  function boot(){
-    if(window.LMS){
-      LMS.show('dashboard');
-    }else{
-      renderPage('dashboard', document.getElementById('statsContent'));
-    }
-  }
-  function enterLMS(){
-    document.getElementById('emailGate').style.display='none';
-    document.getElementById('lmsMain').style.display='block';
-    setTimeout(boot,0);
-  }
-  document.getElementById('gateContinue').addEventListener('click',function(){
-    var email=(document.getElementById('gateEmail').value||'').trim();
-    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
-    try{ localStorage.setItem('swt_user', JSON.stringify({email:email, submittedAt:Date.now()})); }catch(e){}
-    enterLMS();
-  });
-  if(localStorage.getItem('swt_user')) enterLMS();
-})();
-</script>
 </body>
 </html>
