@@ -64,44 +64,47 @@
 <script src="lms/pages.js"></script>
 <script>
 (function(){
-  function show(page){
-    ['statsContent','learnContent','assessmentsContent','mentorMessages','practiceContent','communityContent','coachContent'].forEach(function(id,idx){
+  function renderPage(name, container){
+    if(!window.LMS || !container) return;
+    LMS.current = name;
+    ['statsContent','learnContent','assessmentsContent','mentorMessages','practiceContent','communityContent','coachContent'].forEach(function(id){
       var el=document.getElementById(id); if(!el) return;
-      if(id===page) el.classList.remove('hidden');
-      else el.classList.add('hidden');
+      el.classList.toggle('hidden', id!==name);
     });
+    if(name==='learn' && window.Store){
+      var lessons=Store.lessons; if(lessons && lessons.length){
+        var map=lessons.map(function(l){
+          var status=document.getElementById('progress-'+l.id)?.textContent||'Start';
+          return '<div class="lesson-item"><div><div style="font-weight:700">'+l.title+'</div><div style="font-size:0.8rem;color:#6B7280">'+l.level+' · '+l.durationMin+' min</div></div><div style="font-size:0.75rem">'+status+'</div></div>';
+        }).join('');
+        var el=document.getElementById('learnContent'); if(el) el.innerHTML=map;
+      }
+    }
+    if(name==='dashboard' && window.Store){
+      var xp=Math.floor((Store.lessons||[]).length*12);
+      var done=document.querySelectorAll('.lesson-finished').length||0;
+      var el=document.getElementById('statsContent'); if(el) el.innerHTML='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"><div><div style="font-size:1.5rem;font-weight:800">'+xp+'</div><div style="font-size:0.8rem;color:#6B7280">XP</div></div><div><div style="font-size:1.5rem;font-weight:800">'+done+'</div><div style="font-size:0.8rem;color:#6B7280">Lessons done</div></div><div><div style="font-size:1.5rem;font-weight:800">'+(Store.lessons||[]).length+'</div><div style="font-size:0.8rem;color:#6B7280">Lessons total</div></div></div>';
+    }
   }
   function boot(){
-    if(!window.LMS) return;
-    LMS.show('dashboard');
-    if(window.app){ app.lmsNav=app.lmsNav || function(){}; }
-    try{ localStorage.getItem('swt_user') && enterLMS(); }catch(e){}
+    if(window.LMS){
+      LMS.show('dashboard');
+    }else{
+      renderPage('dashboard', document.getElementById('statsContent'));
+    }
   }
   function enterLMS(){
-    var gate=document.getElementById('emailGate');
-    var main=document.getElementById('lmsMain');
-    if(gate) gate.style.display='none';
-    if(main) main.style.display='block';
+    document.getElementById('emailGate').style.display='none';
+    document.getElementById('lmsMain').style.display='block';
     setTimeout(boot,0);
   }
-  window.app=window.app||{};
-  window.app.enterLMS=enterLMS;
-  try{
-    var btn=document.getElementById('gateContinue');
-    if(btn){
-      btn.addEventListener('click',function(){
-        var email=(document.getElementById('gateEmail').value||'').trim();
-        if(!email||!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return;
-        try{ localStorage.setItem('swt_user', JSON.stringify({email:email, submittedAt: Date.now()})); }catch(e){}
-        var payload={email:email, Plan:'LMS Access', Source:'entry_gate'};
-        Promise.resolve((window.Store||{}).submitEmail?Store.submitEmail(payload):Promise.resolve(false)).catch(function(){});
-        enterLMS();
-      });
-    }
-  }catch(e){}
-  window.addEventListener('load',function(){
-    try{ localStorage.getItem('swt_user') && enterLMS(); }catch(e){}
+  document.getElementById('gateContinue').addEventListener('click',function(){
+    var email=(document.getElementById('gateEmail').value||'').trim();
+    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+    try{ localStorage.setItem('swt_user', JSON.stringify({email:email, submittedAt:Date.now()})); }catch(e){}
+    enterLMS();
   });
+  if(localStorage.getItem('swt_user')) enterLMS();
 })();
 </script>
 </body>
