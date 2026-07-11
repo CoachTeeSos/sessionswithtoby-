@@ -1,0 +1,50 @@
+model:
+  default: openrouter/owl-alpha
+  provider: openrouter
+  base_url: https://openrouter.ai/api/v1
+  api_mode: chat_completions
+providers: {}
+fallback_providers:
+  - nvidia/nemotron-3-super-120b-a12b:free
+  - openai/gpt-oss-120b:free
+  - meta-llama/llama-3.3-70b-instruct:free
+toolsets:
+  - hermes-cli
+max_concurrent_sessions: null
+max_live_sessions: 16
+agent:
+  max_turns: 100
+  gateway_timeout: 1800
+  restart_drain_timeout: 180
+  api_max_retries: 3
+  service_tier: ''
+  tool_use_enforcement: auto
+  task_completion_guidance: true
+  environment_probe: true
+  coding_context: auto
+  verify_on_stop: true
+  gateway_timeout_warning: 900
+  clarify_timeout: 600
+  gateway_notify_interval: 180
+  gateway_auto_continue_freshness: 3600
+  image_input_mode: auto
+  disabled_toolsets: []
+  verbose: false
+  reasoning_effort: low
+gateway:
+  scale_to_zero:
+    idle_timeout_minutes: 0
+  message_timestamps:
+    enabled: true
+  max_inbound_media_bytes: 134217728
+platforms:
+  webhook:
+    enabled: false
+  telegram:
+    enabled: true
+  whatsapp:
+    enabled: true
+cron:
+  dispatch_in_gateway: true
+  dispatch_interval_seconds: 60
+  failure_limit: 2
